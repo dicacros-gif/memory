@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "41789429391",
-  "generatedAt": "2026-11-04T07:15:05.147Z",
-  "expiresAt": "2026-11-05T09:15:03.506Z",
+  "runId": "41832161282",
+  "generatedAt": "2026-11-04T13:00:16.498Z",
+  "expiresAt": "2026-11-05T15:00:14.831Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-04T07:13:40.337Z",
-    "runId": "41789429391",
+    "generatedAt": "2026-11-04T12:58:51.991Z",
+    "runId": "41832161282",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,6 +122,45 @@
     ],
     "eventTriggers": [
       {
+        "id": "f3669a237b3decd506a0",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "3b909b259d482440e762",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "30b0eba943f30b7f9079",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
         "id": "6383f62bd061391103db",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
@@ -132,7 +171,7 @@
         "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
         "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
         "publishedAt": "2026-10-26",
-        "changed": true
+        "changed": false
       },
       {
         "id": "44943e9a9b7b4d9c139c",
@@ -237,56 +276,17 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "d68f89e9a3676800c266",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-04T07:13:40.337Z",
+      "generatedAt": "2026-11-04T12:58:51.991Z",
       "stats": {
         "eligibleDocuments": 42,
         "structuredEvents": 40,
         "verifiedEvents": 34,
         "currentStages": 34,
-        "newEvents": 1,
+        "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
@@ -856,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1067,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1300,7 +1300,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1311,8 +1311,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-04T07:13:36.968Z",
-            "lastUsefulObservationAt": "2026-11-04T07:13:36.968Z",
+            "lastSuccessAt": "2026-11-04T12:58:48.617Z",
+            "lastUsefulObservationAt": "2026-11-04T12:58:48.617Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1327,7 +1327,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-04T07:13:40.337Z",
+          "updatedAt": "2026-11-04T12:58:51.991Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1457,7 +1457,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-04T07:13:40.337Z",
+          "updatedAt": "2026-11-04T12:58:51.991Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1587,7 +1587,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-04T07:13:40.337Z",
+          "updatedAt": "2026-11-04T12:58:51.991Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1714,7 +1714,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-04T07:13:40.337Z",
+          "updatedAt": "2026-11-04T12:58:51.991Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1841,7 +1841,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 10,
-        "fresh": 5,
+        "fresh": 6,
         "observationRatePct": 6.8,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -2488,8 +2488,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-11-03T13:49:05.472Z",
-              "sourceChangeDetectedAt": "2026-11-03T13:49:00.826Z",
+              "indexedAt": "2026-11-04T12:58:51.991Z",
+              "sourceChangeDetectedAt": "2026-11-04T12:58:48.617Z",
               "stale": false
             }
           ]
@@ -2498,7 +2498,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.9,
+      "score": 92.3,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2516,25 +2516,25 @@
         "contentAge": 97.1,
         "embeddingLag": 100,
         "staleRetrievalRate": 73.1,
-        "coverageDrift": 98.3
+        "coverageDrift": 100
       },
       "diagnostics": {
         "staleRetrievalRatePct": 26.9,
         "feedCoveragePct": 90.2,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0.9,
+        "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
         "currentPct": 96.7,
-        "previousPct": 97.6
+        "previousPct": 96.7
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-03T19:39:31.706Z",
-        "indexedAt": "2026-11-03T19:39:37.676Z"
+        "sourceChangeDetectedAt": "2026-11-04T12:58:48.617Z",
+        "indexedAt": "2026-11-04T12:58:51.991Z"
       },
-      "generatedAt": "2026-11-04T07:13:40.337Z"
+      "generatedAt": "2026-11-04T12:58:51.991Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2553,7 +2553,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-04T07:15:05.147Z",
+    "generatedAt": "2026-11-04T13:00:16.498Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4926,8 +4926,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 2,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4960,69 +4960,10 @@
               },
               {
                 "week": "2026-11-02",
-                "count": 3
+                "count": 1
               }
             ],
             "painAxes": [
-              {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 1
-                  }
-                ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "86b7f9a6a37b7dd6c7ee",
-                  "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-                  "summary": "Apple의 첫 번째 폴더블 iPhone인 iPhone Duo는 성숙한 iPhone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, App Store 비즈니스 모델에 대한 규제 압력, AI 붐으로 인한 메모리 비용 상승 또한 Apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 CEO인 John Ternus에게 주요 성장 과제를 제시하고 있음",
-                  "text": "digitimes.com aidemand iphone duo opens new growth path as ai, services, costs test ternus apple's first foldable iphone, the iphone duo, could reignite upgrade demand in the mature iphone market, but supply constraints and reported display-quality issues highlight the challenge of turning product excitement into profits. slowing services growth, regulatory pressure on the app store business model, and rising memory costs from the ai boom are also testing apple's hardware ecosystem and supply-chain efficiency, placing a major growth challenge before ceo john ternus. iphone duo, ai, 서비스, 비용 테스트로 새로운 성장 경로 개척 ternus apple의 첫 번째 폴더블 iphone인 iphone duo는 성숙한 iphone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, app store 비즈니스 모델에 대한 규제 압력, ai 붐으로 인한 메모리 비용 상승 또한 apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 ceo인 john ternus에게 주요 성장 과제를 제시하고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-                  "date": "2026-11-04"
-                }
-              },
               {
                 "id": "bandwidth",
                 "index": "1",
@@ -5080,6 +5021,54 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5417,20 +5406,6 @@
             },
             "evidenceStream": [
               {
-                "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
-                "date": "2026-11-04"
-              },
-              {
-                "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-                "date": "2026-11-04"
-              },
-              {
                 "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
                 "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
@@ -5520,8 +5495,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 3,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5554,7 +5529,7 @@
               },
               {
                 "week": "2026-11-02",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -5567,8 +5542,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 3,
-                "sourceCount": 3,
+                "mentions": 2,
+                "sourceCount": 2,
                 "weekly": [
                   {
                     "week": "2026-09-14",
@@ -5600,22 +5575,22 @@
                   },
                   {
                     "week": "2026-11-02",
-                    "count": 1
+                    "count": 0
                   }
                 ],
                 "trend": "down",
-                "delta": -1,
+                "delta": -2,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "7dd4388b6b751ecfdc78",
-                  "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                  "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                  "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
+                  "id": "8498b2ba65d39819b1c9",
+                  "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+                  "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                  "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
+                  "source": "trendforce.com",
+                  "sourceClass": "research",
                   "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                  "date": "2026-11-04"
+                  "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                  "date": "2026-10-26"
                 }
               },
               {
@@ -5669,7 +5644,8 @@
                 "latest": {
                   "id": "8498b2ba65d39819b1c9",
                   "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
-                  "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ...",
+                  "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                  "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
                   "source": "trendforce.com",
                   "sourceClass": "research",
                   "origin": "live-crawl",
@@ -5678,15 +5654,15 @@
                 }
               },
               {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
                 "productIds": [
-                  "custom-hbm"
+                  "ai-d-o"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-09-14",
@@ -5718,31 +5694,20 @@
                   },
                   {
                     "week": "2026-11-02",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "7dd4388b6b751ecfdc78",
-                  "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                  "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                  "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                  "date": "2026-11-04"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
                 "productIds": [
-                  "ai-d-o"
+                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -6020,13 +5985,6 @@
               "generations": []
             },
             "evidenceStream": [
-              {
-                "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                "date": "2026-11-04"
-              },
               {
                 "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
                 "source": "trendforce.com",
@@ -9352,7 +9310,7 @@
             },
             "evidenceStream": [
               {
-                "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+                "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
                 "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -11137,8 +11095,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11171,7 +11129,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -11184,8 +11142,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 3,
-              "sourceCount": 3,
+              "mentions": 2,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -11217,22 +11175,22 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
               "trend": "down",
-              "delta": -1,
+              "delta": -2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "7dd4388b6b751ecfdc78",
-                "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "8498b2ba65d39819b1c9",
+                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
+                "source": "trendforce.com",
+                "sourceClass": "research",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                "date": "2026-11-04"
+                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                "date": "2026-10-26"
               }
             },
             {
@@ -11286,7 +11244,8 @@
               "latest": {
                 "id": "8498b2ba65d39819b1c9",
                 "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
-                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ...",
+                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
                 "source": "trendforce.com",
                 "sourceClass": "research",
                 "origin": "live-crawl",
@@ -11295,15 +11254,15 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm"
+                "ai-d-o"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -11335,31 +11294,20 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "7dd4388b6b751ecfdc78",
-                "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                "date": "2026-11-04"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
               "productIds": [
-                "ai-d-o"
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11637,13 +11585,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-              "date": "2026-11-04"
-            },
             {
               "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
               "source": "trendforce.com",
@@ -16576,8 +16517,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -16610,69 +16551,10 @@
             },
             {
               "week": "2026-11-02",
-              "count": 3
+              "count": 1
             }
           ],
           "painAxes": [
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "86b7f9a6a37b7dd6c7ee",
-                "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-                "summary": "Apple의 첫 번째 폴더블 iPhone인 iPhone Duo는 성숙한 iPhone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, App Store 비즈니스 모델에 대한 규제 압력, AI 붐으로 인한 메모리 비용 상승 또한 Apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 CEO인 John Ternus에게 주요 성장 과제를 제시하고 있음",
-                "text": "digitimes.com aidemand iphone duo opens new growth path as ai, services, costs test ternus apple's first foldable iphone, the iphone duo, could reignite upgrade demand in the mature iphone market, but supply constraints and reported display-quality issues highlight the challenge of turning product excitement into profits. slowing services growth, regulatory pressure on the app store business model, and rising memory costs from the ai boom are also testing apple's hardware ecosystem and supply-chain efficiency, placing a major growth challenge before ceo john ternus. iphone duo, ai, 서비스, 비용 테스트로 새로운 성장 경로 개척 ternus apple의 첫 번째 폴더블 iphone인 iphone duo는 성숙한 iphone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, app store 비즈니스 모델에 대한 규제 압력, ai 붐으로 인한 메모리 비용 상승 또한 apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 ceo인 john ternus에게 주요 성장 과제를 제시하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-                "date": "2026-11-04"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -16730,6 +16612,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -17066,20 +16996,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
-              "date": "2026-11-04"
-            },
-            {
-              "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-              "date": "2026-11-04"
-            },
             {
               "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
               "source": "tomshardware.com",
@@ -17716,8 +17632,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17750,7 +17666,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -18194,6 +18110,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "GCS Holdings는 Marvell의 Lumentum 거래를 환영하고 2027년 InP 공급을 중단",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261104pd243/marvell-communications-inp-2027-laser.html",
+              "date": "2026-11-04"
+            },
             {
               "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
               "source": "blocksandfiles.com",
@@ -18845,7 +18768,7 @@
           },
           "evidenceStream": [
             {
-              "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+              "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -20520,8 +20443,8 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20554,7 +20477,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -20987,15 +20910,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "TSMC의 AUO 공장 인수로 패널 공급망 재편성",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd212/auo-tsmc-taiwan-plant-lcd-tv-panel.html",
-              "date": "2026-11-04"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22577,7 +22492,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-04T07:15:05.147Z",
+        "updatedAt": "2026-11-04T13:00:16.498Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23540,13 +23455,13 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
-                  "source": "digitimes.com",
+                  "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+                  "source": "tomshardware.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
-                  "date": "2026-11-04"
+                  "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+                  "date": "2026-11-03"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 1,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
                 "source": {
@@ -23582,7 +23497,7 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+                  "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
                   "source": "tomshardware.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -23727,13 +23642,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                  "date": "2026-11-04"
+                  "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+                  "source": "trendforce.com",
+                  "sourceClass": "research",
+                  "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                  "date": "2026-10-26"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 2,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23883,13 +23798,13 @@
                   "Amazon AWS"
                 ],
                 "latestSignal": {
-                  "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                  "source": "blocksandfiles.com",
+                  "title": "GCS Holdings는 Marvell의 Lumentum 거래를 환영하고 2027년 InP 공급을 중단",
+                  "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                  "date": "2026-10-13"
+                  "url": "https://www.digitimes.com/news/a20261104pd243/marvell-communications-inp-2027-laser.html",
+                  "date": "2026-11-04"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 2,
                 "accent": "#876527",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
@@ -24012,14 +23927,7 @@
                   "Broadcom",
                   "Marvell"
                 ],
-                "latestSignal": {
-                  "title": "TSMC의 AUO 공장 인수로 패널 공급망 재편성",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261104pd212/auo-tsmc-taiwan-plant-lcd-tv-panel.html",
-                  "date": "2026-11-04"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24623,13 +24531,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-              "date": "2026-11-04"
+              "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+              "source": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+              "date": "2026-10-26"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 2,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -25033,13 +24941,13 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
-              "source": "digitimes.com",
+              "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+              "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
-              "date": "2026-11-04"
+              "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+              "date": "2026-11-03"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 1,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
             "source": {
@@ -25139,13 +25047,13 @@
               "Amazon AWS"
             ],
             "latestSignal": {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
+              "title": "GCS Holdings는 Marvell의 Lumentum 거래를 환영하고 2027년 InP 공급을 중단",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
+              "url": "https://www.digitimes.com/news/a20261104pd243/marvell-communications-inp-2027-laser.html",
+              "date": "2026-11-04"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 2,
             "accent": "#876527",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
@@ -25181,7 +25089,7 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+              "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -25355,14 +25263,7 @@
               "Broadcom",
               "Marvell"
             ],
-            "latestSignal": {
-              "title": "TSMC의 AUO 공장 인수로 패널 공급망 재편성",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd212/auo-tsmc-taiwan-plant-lcd-tv-panel.html",
-              "date": "2026-11-04"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -27335,7 +27236,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-08-05",
-            "ageMonths": 2,
+            "ageMonths": 3,
             "freshnessBand": "current",
             "status": "공식 공동개발",
             "source": {
@@ -27897,8 +27798,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 3,
-              "sourceCount": 3,
+              "mentions": 2,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -27930,22 +27831,22 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
               "trend": "down",
-              "delta": -1,
+              "delta": -2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "7dd4388b6b751ecfdc78",
-                "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "8498b2ba65d39819b1c9",
+                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
+                "source": "trendforce.com",
+                "sourceClass": "research",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                "date": "2026-11-04"
+                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                "date": "2026-10-26"
               }
             },
             {
@@ -27999,71 +27900,13 @@
               "latest": {
                 "id": "8498b2ba65d39819b1c9",
                 "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
-                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ...",
+                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
                 "source": "trendforce.com",
                 "sourceClass": "research",
                 "origin": "live-crawl",
                 "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
                 "date": "2026-10-26"
-              }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "7dd4388b6b751ecfdc78",
-                "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                "date": "2026-11-04"
               }
             }
           ],
@@ -28082,13 +27925,6 @@
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
-            {
-              "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-              "date": "2026-11-04"
-            },
             {
               "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
               "source": "trendforce.com",
@@ -28273,67 +28109,7 @@
           "headline": "Apple · Apple Silicon · AFM 3 · Private Cloud Compute",
           "layer": "end-customer",
           "decisionQuestion": "Workload Placement · Energy/Task · Privacy · On-device 용량",
-          "topPainAxes": [
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "86b7f9a6a37b7dd6c7ee",
-                "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-                "summary": "Apple의 첫 번째 폴더블 iPhone인 iPhone Duo는 성숙한 iPhone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, App Store 비즈니스 모델에 대한 규제 압력, AI 붐으로 인한 메모리 비용 상승 또한 Apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 CEO인 John Ternus에게 주요 성장 과제를 제시하고 있음",
-                "text": "digitimes.com aidemand iphone duo opens new growth path as ai, services, costs test ternus apple's first foldable iphone, the iphone duo, could reignite upgrade demand in the mature iphone market, but supply constraints and reported display-quality issues highlight the challenge of turning product excitement into profits. slowing services growth, regulatory pressure on the app store business model, and rising memory costs from the ai boom are also testing apple's hardware ecosystem and supply-chain efficiency, placing a major growth challenge before ceo john ternus. iphone duo, ai, 서비스, 비용 테스트로 새로운 성장 경로 개척 ternus apple의 첫 번째 폴더블 iphone인 iphone duo는 성숙한 iphone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, app store 비즈니스 모델에 대한 규제 압력, ai 붐으로 인한 메모리 비용 상승 또한 apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 ceo인 john ternus에게 주요 성장 과제를 제시하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-                "date": "2026-11-04"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [
             {
               "id": "pricing",
@@ -28396,27 +28172,11 @@
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "ai-d-o"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
-            {
-              "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
-              "date": "2026-11-04"
-            },
-            {
-              "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-              "date": "2026-11-04"
-            },
             {
               "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
               "source": "tomshardware.com",
@@ -28506,6 +28266,13 @@
           "whatChanged": [],
           "evidence": [
             {
+              "title": "GCS Holdings는 Marvell의 Lumentum 거래를 환영하고 2027년 InP 공급을 중단",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261104pd243/marvell-communications-inp-2027-laser.html",
+              "date": "2026-11-04"
+            },
+            {
               "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
@@ -28531,7 +28298,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+              "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -28653,8 +28420,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28687,7 +28454,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -28700,8 +28467,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 3,
-              "sourceCount": 3,
+              "mentions": 2,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -28733,22 +28500,22 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
               "trend": "down",
-              "delta": -1,
+              "delta": -2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "7dd4388b6b751ecfdc78",
-                "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "8498b2ba65d39819b1c9",
+                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
+                "source": "trendforce.com",
+                "sourceClass": "research",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                "date": "2026-11-04"
+                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                "date": "2026-10-26"
               }
             },
             {
@@ -28802,7 +28569,8 @@
               "latest": {
                 "id": "8498b2ba65d39819b1c9",
                 "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
-                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ...",
+                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
+                "text": "trendforce.com aidemand nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
                 "source": "trendforce.com",
                 "sourceClass": "research",
                 "origin": "live-crawl",
@@ -28811,15 +28579,15 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm"
+                "ai-d-o"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -28851,31 +28619,20 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "7dd4388b6b751ecfdc78",
-                "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-                "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "text": "digitimes.com hbm samsung to reportedly make amd, nvidia hbm base dies at second texas fab samsung electronics plans to produce high-bandwidth memory (hbm) base dies for amd at its second foundry plant in taylor, texas, with the us chipmaker accounting for most of the facility's planned output, south korea's reported on november 3, citing industry sources. the report said the plant would also supply nvidia, although samsung has not confirmed either customer's orders. 삼성, amd 생산 예정, 엔비디아 hbm 기지가 텍사스 두 번째 팹에서 사망 삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 amd용 고대역폭 메모리(hbm) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-                "date": "2026-11-04"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
               "productIds": [
-                "ai-d-o"
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -29153,13 +28910,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104vl220/samsung-hbm-amd-texas-fab.html",
-              "date": "2026-11-04"
-            },
             {
               "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
               "source": "trendforce.com",
@@ -34092,8 +33842,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34126,69 +33876,10 @@
             },
             {
               "week": "2026-11-02",
-              "count": 3
+              "count": 1
             }
           ],
           "painAxes": [
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "86b7f9a6a37b7dd6c7ee",
-                "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-                "summary": "Apple의 첫 번째 폴더블 iPhone인 iPhone Duo는 성숙한 iPhone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, App Store 비즈니스 모델에 대한 규제 압력, AI 붐으로 인한 메모리 비용 상승 또한 Apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 CEO인 John Ternus에게 주요 성장 과제를 제시하고 있음",
-                "text": "digitimes.com aidemand iphone duo opens new growth path as ai, services, costs test ternus apple's first foldable iphone, the iphone duo, could reignite upgrade demand in the mature iphone market, but supply constraints and reported display-quality issues highlight the challenge of turning product excitement into profits. slowing services growth, regulatory pressure on the app store business model, and rising memory costs from the ai boom are also testing apple's hardware ecosystem and supply-chain efficiency, placing a major growth challenge before ceo john ternus. iphone duo, ai, 서비스, 비용 테스트로 새로운 성장 경로 개척 ternus apple의 첫 번째 폴더블 iphone인 iphone duo는 성숙한 iphone 시장에서 업그레이드 수요를 다시 불러일으킬 수 있지만, 공급 제약과 보고된 디스플레이 품질 문제로 인해 제품에 대한 기대가 수익으로 전환되는 과제가 부각되고 있음 · 서비스 성장 둔화, app store 비즈니스 모델에 대한 규제 압력, ai 붐으로 인한 메모리 비용 상승 또한 apple의 하드웨어 생태계와 공급망 효율성을 시험하고 있으며 ceo인 john ternus에게 주요 성장 과제를 제시하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-                "date": "2026-11-04"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -34246,6 +33937,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -34583,20 +34322,6 @@
           },
           "evidenceStream": [
             {
-              "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
-              "date": "2026-11-04"
-            },
-            {
-              "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-              "date": "2026-11-04"
-            },
-            {
               "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
@@ -34703,8 +34428,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34737,7 +34462,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -35181,6 +34906,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "GCS Holdings는 Marvell의 Lumentum 거래를 환영하고 2027년 InP 공급을 중단",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261104pd243/marvell-communications-inp-2027-laser.html",
+              "date": "2026-11-04"
+            },
             {
               "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
               "source": "blocksandfiles.com",
@@ -35832,7 +35564,7 @@
           },
           "evidenceStream": [
             {
-              "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+              "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -38878,8 +38610,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38911,23 +38643,23 @@
             },
             {
               "week": "2026-11-02",
-              "count": 3
+              "count": 1
             }
           ],
           "latest": {
-            "id": "092a6f262e8beba1c032",
-            "title": "HBF는 AI 메모리 비용을 절감하지만 NAND 공급을 축소가능",
-            "summary": "High Bandwidth Flash (HBF) could give AI accelerators more memory at roughly one-tenth the manufacturing cost per gigabyte of HBM4. But producing it could consume far more wafer capacity than conventional NAND, potentially tightening supply for SSD makers",
-            "text": "digitimes.com nand hbf could cut ai memory costs but squeeze nand supply high bandwidth flash (hbf) could give ai accelerators more memory at roughly one-tenth the manufacturing cost per gigabyte of hbm4. but producing it could consume far more wafer capacity than conventional nand, potentially tightening supply for ssd makers. hbf는 ai 메모리 비용을 절감하지만 nand 공급을 축소가능 · high bandwidth flash (hbf) could give ai accelerators more memory at roughly one-tenth the manufacturing cost per gigabyte of hbm4. but producing it could consume far more wafer capacity than conventional nand, potentially tightening supply for ssd makers",
-            "source": "digitimes.com",
+            "id": "71c6c146bfd88a3b9643",
+            "title": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
+            "summary": "NAND 팹 합작 투자(JV) 파트너인 Kioxia와 Sandisk는 SKHY가 주도하는 고대역폭 플래시(HBF) 이니셔티브에 대해 서로 다른 견해를 가지고 있음 · Sandisk는 이를 지원하고 Kioxia는 지금까지 중립적이고 대체 아키텍처 입장을 고수하고 있음",
+            "text": "blocksandfiles.com nand same fab, different paths: kioxia and sandisk diverge on hbf nand fab joint-venture (jv) partners kioxia and sandisk have differing views on the sk hynix-led high-bandwidth flash (hbf) initiative, with sandisk supporting it and kioxia so far neutral and staking out an alternative architectural position. 동일한 팹, 다른 경로: kioxia와 sandisk가 hbf에서 갈라짐 nand 팹 합작 투자(jv) 파트너인 kioxia와 sandisk는 skhy가 주도하는 고대역폭 플래시(hbf) 이니셔티브에 대해 서로 다른 견해를 가지고 있음 · sandisk는 이를 지원하고 kioxia는 지금까지 중립적이고 대체 아키텍처 입장을 고수하고 있음",
+            "source": "blocksandfiles.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261104vl218/nand-flash-manufacturing-capacity-wafer-sandisk.html",
-            "date": "2026-11-04"
+            "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
+            "date": "2026-11-03"
           },
-          "status": "opportunity-candidate",
-          "evidenceStatus": "cross-checked",
-          "evidenceLabel": "3-SOURCE SIGNAL",
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
           "translation": {
             "ruleId": "HBF",
             "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
@@ -38936,12 +38668,6 @@
             "stage": "POC",
             "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
             "status": "approved-rule"
-          },
-          "source": {
-            "name": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261104vl218/nand-flash-manufacturing-capacity-wafer-sandisk.html",
-            "asOf": "2026-11-04",
-            "sourceClass": "authoritative-media"
           }
         },
         {
@@ -38972,8 +38698,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38993,7 +38719,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-19",
@@ -39008,6 +38734,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "2026-10-12:62",
+            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
+            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
+            "source": "TrendForce",
+            "sourceClass": "news",
+            "origin": "live-crawl",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
+            "date": "2026-10-12"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39963,99 +39699,7 @@
         },
         {
           "horizon": "H2",
-          "items": [
-            {
-              "id": "hbf-hbs",
-              "label": "HBF · HBS",
-              "horizon": "H2",
-              "aliases": [
-                "HBF",
-                "HBS",
-                "high bandwidth flash",
-                "high bandwidth storage"
-              ],
-              "memoryMapKeys": [
-                "HBF"
-              ],
-              "painAxisIds": [
-                "capacity",
-                "bandwidth"
-              ],
-              "productIds": [
-                "ai-n-b",
-                "ai-n-d"
-              ],
-              "promotionRule": {
-                "minMentions": 2,
-                "minSources": 2
-              },
-              "mentions": 3,
-              "sourceCount": 3,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 3
-                }
-              ],
-              "latest": {
-                "id": "092a6f262e8beba1c032",
-                "title": "HBF는 AI 메모리 비용을 절감하지만 NAND 공급을 축소가능",
-                "summary": "High Bandwidth Flash (HBF) could give AI accelerators more memory at roughly one-tenth the manufacturing cost per gigabyte of HBM4. But producing it could consume far more wafer capacity than conventional NAND, potentially tightening supply for SSD makers",
-                "text": "digitimes.com nand hbf could cut ai memory costs but squeeze nand supply high bandwidth flash (hbf) could give ai accelerators more memory at roughly one-tenth the manufacturing cost per gigabyte of hbm4. but producing it could consume far more wafer capacity than conventional nand, potentially tightening supply for ssd makers. hbf는 ai 메모리 비용을 절감하지만 nand 공급을 축소가능 · high bandwidth flash (hbf) could give ai accelerators more memory at roughly one-tenth the manufacturing cost per gigabyte of hbm4. but producing it could consume far more wafer capacity than conventional nand, potentially tightening supply for ssd makers",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261104vl218/nand-flash-manufacturing-capacity-wafer-sandisk.html",
-                "date": "2026-11-04"
-              },
-              "status": "opportunity-candidate",
-              "evidenceStatus": "cross-checked",
-              "evidenceLabel": "3-SOURCE SIGNAL",
-              "translation": {
-                "ruleId": "HBF",
-                "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
-                "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-                "productAxis": "AI-NAND",
-                "stage": "POC",
-                "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-                "status": "approved-rule"
-              },
-              "source": {
-                "name": "digitimes.com",
-                "url": "https://www.digitimes.com/news/a20261104vl218/nand-flash-manufacturing-capacity-wafer-sandisk.html",
-                "asOf": "2026-11-04",
-                "sourceClass": "authoritative-media"
-              }
-            }
-          ]
+          "items": []
         },
         {
           "horizon": "H3",
@@ -40064,36 +39708,12 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-04T07:13:40.640Z",
-        "items": [
-          {
-            "id": "opportunity:hbf-hbs:2026-11-04:https-www-digitimes-com-news-a20261104vl218-nand-flash-manufacturing-capacity-wafer-sandisk-html",
-            "kind": "opportunity-candidate",
-            "headline": "HBF · HBS · H2 기회 후보",
-            "asOf": "2026-11-04",
-            "source": "digitimes.com",
-            "sourceUrl": "https://www.digitimes.com/news/a20261104vl218/nand-flash-manufacturing-capacity-wafer-sandisk.html",
-            "isNew": true
-          }
-        ],
-        "newItems": [
-          {
-            "id": "opportunity:hbf-hbs:2026-11-04:https-www-digitimes-com-news-a20261104vl218-nand-flash-manufacturing-capacity-wafer-sandisk-html",
-            "kind": "opportunity-candidate",
-            "headline": "HBF · HBS · H2 기회 후보",
-            "asOf": "2026-11-04",
-            "source": "digitimes.com",
-            "sourceUrl": "https://www.digitimes.com/news/a20261104vl218/nand-flash-manufacturing-capacity-wafer-sandisk.html",
-            "isNew": true
-          }
-        ],
-        "newCount": 1,
-        "recentIds": [
-          "opportunity:hbf-hbs:2026-11-04:https-www-digitimes-com-news-a20261104vl218-nand-flash-manufacturing-capacity-wafer-sandisk-html"
-        ],
-        "counts": {
-          "opportunity-candidate": 1
-        }
+        "generatedAt": "2026-11-04T12:58:52.296Z",
+        "items": [],
+        "newItems": [],
+        "newCount": 0,
+        "recentIds": [],
+        "counts": {}
       },
       "roadmap90d": [
         {
@@ -40206,6 +39826,65 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
+        "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+        "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4…",
+        "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13/",
+        "source": "trendforce.com",
+        "publishedAt": "2026-10-26",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 10
+      },
+      {
+        "title": "Innodisk, eSSD, DDR5 제품으로 AI 데이터센터 발전 추진",
+        "summary": "산업용 메모리 모듈 제조업체인 Innodisk는 기업용 SSD(Solid-State Drive) 및 AI 서버 메모리 모듈을 포함하여 AI 인프라에 중요한 구성 요소를 공급함으로써 AI 데이터 센터 전략을 심화하고 있음 · 데이터 센터 SSD 시리즈는 현재 전체 고객 샘플링을 진행하고 있으며, DDR5 및 RDIMM 제…",
+        "url": "https://www.digitimes.com/news/a20261104PD249/innodisk-data-center-ddr5-ssd-memory-module.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-04",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "Qualcomm, 2027년 Dragonfly AI250 샘플링을 앞두고 HBC 스택 메모리 검증",
+        "summary": "Qualcomm은 오늘 고대역폭 컴퓨팅 기술에 대한 초기 검증을 완료했다고 발표 · 컴퓨팅에 DRAM을 적층한 아키텍처는 상용화에 돌입하며 Dragonfly AI250은 2027년 상반기에 샘플링될 예정",
+        "url": "https://www.servethehome.com/qualcomm-validates-hbc-stacked-memory-ahead-of-2027-dragonfly-ai250-sampling/",
+        "source": "servethehome.com",
+        "publishedAt": "2026-11-02",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
+      },
+      {
         "title": "DapuStor's KV Cache NVMe SSD offload explainer",
         "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
         "source": "blocksandfiles.com",
@@ -40223,7 +39902,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 9
+        "ageDays": 10
       },
       {
         "title": "Breaking the KV cache memory wall using Dynamo and Liqid CXL shared memory",
@@ -40243,13 +39922,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 9
+        "ageDays": 10
       },
       {
-        "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-        "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-        "url": "https://www.digitimes.com/news/a20261104VL220/samsung-hbm-amd-texas-fab.html",
-        "source": "digitimes.com",
+        "title": "Mozilla는 고위험 취약점 CVE-2026-120572를 패치하는 Firefox 159.0.1을 출시",
+        "summary": "취약점은 레이아웃의 블록 및 인라인 구성 요소에서 발생 · 잘못된 경계 조건 확인으로 인해 메모리에 대한 범위를 벗어난 액세스가 발생가능",
+        "url": "https://www.ithome.com.tw/news/180223",
+        "source": "ithome.com.tw",
         "publishedAt": "2026-11-04",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -40260,58 +39939,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "HBF는 AI 메모리 비용을 절감하지만 NAND 공급을 축소가능",
-        "summary": "High Bandwidth Flash (HBF) could give AI accelerators more memory at roughly one-tenth the manufacturing cost per gigabyte of HBM4. But producing it could consume far more wafer c…",
-        "url": "https://www.digitimes.com/news/a20261104VL218/nand-flash-manufacturing-capacity-wafer-sandisk.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-04",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "웨이퍼 소모량 6.5배 증가! HBF, NAND 용량 밀집 효과 발발, SSD 가격 개정에 난기류 직면",
-        "summary": "번스타인의 최근 분석에서는 차세대 스토리지 솔루션으로 꼽히는 '고대역폭 플래시 메모리'(HBF)가 상용화에 성공할 경우 HBM4보다 훨씬 저렴한 비용으로 대용량 스토리지를 제공할 수 있지만, 막대한 웨이퍼 소모로 인해 기존 NAND 공급이 더욱 타이트해지며 향후 소비자급 솔리드 스테이트 드라이브(SSD)의 가격 절감 공…",
-        "url": "https://technews.tw/2026/11/04/hbf-memory-raise-ssd-prices/",
-        "source": "technews.tw",
-        "publishedAt": "2026-11-04",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "GigaDevice, 틈새 DRAM 공급 부족, 가격 상승 둔화 예상",
-        "summary": "AI 수요는 계속해서 뜨거워지고 있으며, 주요 글로벌 메모리 제조사들은 고부가가치 제품으로 생산 능력을 전환하고 있으며 단기적으로 틈새 메모리 공급을 타이트하게 유지하고 있음 · 중국에 본사를 둔 IC 설계 회사인 GigaDevice Semiconductor Inc.는 틈새 DRAM 가격이 급격히 상승하여 일부 가전 제…",
-        "url": "https://www.digitimes.com/news/a20261104PD233/demand-gigadevice-dram-niche-price.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-04",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       }
     ],
     "reportPolicy": {
@@ -40456,11 +40084,11 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261104VL220/samsung-hbm-amd-texas-fab.html",
-          "publishedAt": "2026-11-04",
+          "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
+          "publishedAt": "2026-11-02",
           "evidenceLevel": "Watch"
         }
       },
@@ -40503,12 +40131,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "GigaDevice, 틈새 DRAM 공급 부족, 가격 상승 둔화 예상",
-          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261104PD233/demand-gigadevice-dram-niche-price.html",
-          "publishedAt": "2026-11-04",
-          "evidenceLevel": "Reported"
+          "title": "Corsair는 MP700 SE Gen 5 SSD에서 180달러를 인하",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/corsair-has-slashed-usd180-off-its-blistering-mp700-se-gen-5-ssd-now-14-cents-per-gb-get-4tb-of-ssd-storage-for-usd579-the-cheapest-drive-on-the-market",
+          "publishedAt": "2026-11-03",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -40551,12 +40179,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
-          "publishedAt": "2026-11-02",
-          "evidenceLevel": "Watch"
+          "title": "Broadcom × Meta MTIA · 공식 Baseline",
+          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
+          "source": "Broadcom × Meta MTIA",
+          "url": "https://investors.broadcom.com/node/64236/pdf",
+          "publishedAt": "2026-11-04T13:00:16.498Z",
+          "evidenceLevel": "Official baseline"
         }
       }
     ],
@@ -40598,8 +40226,8 @@
       },
       "enabled": true
     },
-    "runId": "41789429391",
-    "generatedAt": "2026-11-04T07:15:05.147Z",
+    "runId": "41832161282",
+    "generatedAt": "2026-11-04T13:00:16.498Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40937,8 +40565,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "41789429391",
-    "generatedAt": "2026-11-04T07:15:05.147Z",
+    "runId": "41832161282",
+    "generatedAt": "2026-11-04T13:00:16.498Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41710,8 +41338,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-04T07:15:05.147Z",
-    "runId": "41789429391"
+    "generatedAt": "2026-11-04T13:00:16.498Z",
+    "runId": "41832161282"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41952,12 +41580,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.9,
+        "freshnessScore": 92.3,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-03T19:39:37.676Z"
+        "indexedAt": "2026-11-04T12:58:51.991Z"
       }
     },
     "sources": [
@@ -42094,8 +41722,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-04T07:15:05.147Z",
-    "runId": "41789429391"
+    "generatedAt": "2026-11-04T13:00:16.498Z",
+    "runId": "41832161282"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -42109,7 +41737,6 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
-        "subtitle": "digitimes.com · 2026-11-04",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -42121,22 +41748,15 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "pending": false,
-          "title": "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-          "summary": "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261104VL220/samsung-hbm-amd-texas-fab.html",
-          "publishedAt": "2026-11-04",
+          "pending": true,
+          "title": "HBM·AI 서버",
+          "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
+          "publishedAt": "2026-11-04T13:00:16.498Z",
           "evidenceLevel": "Watch",
-          "sourceClass": "authoritative-media"
+          "sourceClass": "unclassified"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 5,
         "signals": [
-          [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "삼성, AMD 생산 예정, 엔비디아 HBM 기지가 텍사스 두 번째 팹에서 사망",
-            "삼성전자가 텍사스주 테일러에 있는 두 번째 파운드리 공장에서 AMD용 고대역폭 메모리(HBM) 베이스 다이를 생산할 계획이라고 3일 업계 소식통을 인용해 한국이 보도 · 보고서는 이 공장이 Nvidia에도 공급할 것이라고 밝혔지만 삼성은 두 고객의 주문을 확인하지 않았음"
-          ],
           [
             "EXECUTIVE DECISION",
             "검증된 Ramp와 Custom Co-Design을 분리 운영",
@@ -42222,11 +41842,6 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
-            "Watch",
-            "digitimes.com · 2026-11-04",
-            "https://www.digitimes.com/news/a20261104VL220/samsung-hbm-amd-texas-fab.html"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42261,9 +41876,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-04T07:15:05.147Z"
+          "publishedAt": "2026-11-04T13:00:16.498Z"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 10,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42383,9 +41998,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-04T07:15:05.147Z"
+          "publishedAt": "2026-11-04T13:00:16.498Z"
         },
-        "evidenceCount": 15,
+        "evidenceCount": 13,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42492,7 +42107,6 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
-        "subtitle": "digitimes.com · 2026-11-04",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -42504,22 +42118,15 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": false,
-          "title": "GigaDevice, 틈새 DRAM 공급 부족, 가격 상승 둔화 예상",
-          "summary": "AI 수요는 계속해서 뜨거워지고 있으며, 주요 글로벌 메모리 제조사들은 고부가가치 제품으로 생산 능력을 전환하고 있으며 단기적으로 틈새 메모리 공급을 타이트하게 유지하고 있음 · 중국에 본사를 둔 IC 설계 회사인 GigaDevice Semiconductor Inc.는 틈새 DRAM 가격이 급격히 상승하여 일부 가전 제품 수요가 억제되고 공급 압력이 약간 완화되었지만 제한된 공급으로 인해 한동안 가격 상승이 지속될 것이라고 말했음",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261104PD233/demand-gigadevice-dram-niche-price.html",
-          "publishedAt": "2026-11-04",
-          "evidenceLevel": "Reported",
-          "sourceClass": "authoritative-media"
+          "pending": true,
+          "title": "DRAM·범용 가격",
+          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-11-04T13:00:16.498Z",
+          "evidenceLevel": "Watch",
+          "sourceClass": "unclassified"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 12,
         "signals": [
-          [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "GigaDevice, 틈새 DRAM 공급 부족, 가격 상승 둔화 예상",
-            "AI 수요는 계속해서 뜨거워지고 있으며, 주요 글로벌 메모리 제조사들은 고부가가치 제품으로 생산 능력을 전환하고 있으며 단기적으로 틈새 메모리 공급을 타이트하게 유지하고 있음 · 중국에 본사를 둔 IC 설계 회사인 GigaDevice Semiconductor Inc.는 틈새 DRAM 가격이 급격히 상승하여 일부 가전 제품 수요가 억제되고 공급 압력이 약간 완화되었지만 제한된 공급으로 인해 한동안 가격 상승이 지속될 것이라고 말했음"
-          ],
           [
             "EXECUTIVE DECISION",
             "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
@@ -42603,11 +42210,6 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-11-04",
-            "https://www.digitimes.com/news/a20261104PD233/demand-gigadevice-dram-niche-price.html"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42641,7 +42243,7 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+          "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
           "summary": "OpenAI는 대중의 반대가 커지는 가운데 데이터 센터의 브랜드 변경을 준비하면서 커뮤니티 합의 및 인프라 약속을 계획",
           "source": "tomshardware.com",
           "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -42649,11 +42251,11 @@
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 10,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
-            "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
+            "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
             "OpenAI는 대중의 반대가 커지는 가운데 데이터 센터의 브랜드 변경을 준비하면서 커뮤니티 합의 및 인프라 약속을 계획"
           ],
           [
@@ -42781,9 +42383,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-04T07:15:05.147Z"
+          "publishedAt": "2026-11-04T13:00:16.498Z"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 10,
         "signals": [
           [
             "EXECUTIVE DECISION",
