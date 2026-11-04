@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41832161282",
-  "generatedAt": "2026-11-04T13:00:16.498Z",
+  "runId": "41888079996",
+  "generatedAt": "2026-11-04T18:47:11.976Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1796,18 +1796,7 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1871,14 +1860,9 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2389,13 +2373,6 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261104pd243/marvell-communications-inp-2027-laser.html",
           "date": "2026-11-04"
-        },
-        {
-          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-          "date": "2026-10-13"
         }
       ],
       "sources": [
@@ -4439,7 +4416,17 @@
             "sourceId": "apple-pcc-expanding-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -4498,11 +4485,15 @@
       },
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
-        "painSignals": [],
+        "painSignals": [
+          "전력·열"
+        ],
         "riskSignals": [
           "가격 정책"
         ],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-o"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4664,6 +4655,20 @@
         }
       ],
       "evidence": [
+        {
+          "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
+          "date": "2026-11-04"
+        },
+        {
+          "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
+          "date": "2026-11-04"
+        },
         {
           "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
           "source": "tomshardware.com",
@@ -6597,7 +6602,20 @@
             "seenCount": 2
           }
         ],
-        "stances": []
+        "stances": [
+          {
+            "key": "stance:윈도우 11 성능 업그레이드! microsoft는 8gb 메모리를 탑재한 컴퓨터가 20% 더 빠를 수 있다고 밝혔습니다.",
+            "statement": "윈도우 11 성능 업그레이드! Microsoft는 8GB 메모리를 탑재한 컴퓨터가 20% 더 빠를 수 있다고 밝혔습니다.",
+            "verb": "밝혔",
+            "headline": "윈도우 11 성능 업그레이드! Microsoft는 8GB 메모리를 탑재한 컴퓨터가 20% 더 빠를 수 있다고 밝혔습니다.",
+            "url": "https://technews.tw/2026/11/04/microsoft-improves-windows-11-performance-on-pcs-with-just-8gb-of-ram/",
+            "source": "technews.tw",
+            "asOf": "2026-11-04",
+            "firstSeen": "2026-11-04",
+            "lastSeen": "2026-11-04",
+            "seenCount": 1
+          }
+        ]
       },
       "derivedDemand": [
         {
@@ -6720,6 +6738,20 @@
           }
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:microsoft는 8gb 메모리를 탑재한 컴퓨터가 20% 더 빠를 수 있다고 밝혔습니다.",
+            "text": "Microsoft는 8GB 메모리를 탑재한 컴퓨터가 20% 더 빠를 수 있다고 밝혔습니다.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-04",
+            "url": "https://technews.tw/2026/11/04/microsoft-improves-windows-11-performance-on-pcs-with-just-8gb-of-ram/",
+            "source": "technews.tw"
+          }
+        ]
+      },
       "baseline": {
         "chipStrategy": "Maia 200 · 추론·합성데이터 전용 · TSMC 3nm · 트랜지스터 1,400억 개 · TDP 750W · HBM3E 6스택·7TB/s · FP4 10 PFLOPS · SDLA 데이터플로우 아키텍처 (Hot Chips 2026, 2026-08-25) · 차세대 Maia 300 공개 준비 · Maia 램프가 상용 GPU 의존도를 구조적으로 낮출 수 있는지가 2026~2028년의 관건",
         "constraint": "FY26 Q4(2026-07-30 공식) 기준 수요가 공급을 지속 초과 — 공급 정상화 시점 미제시 · 분기 중 데이터센터 31곳·전력 1GW 추가, 2년 만에 전체 용량 2배 · FY2026 연간 CapEx 1,159.5억$(전년 645.5억$ 대비 약 80%↑) · FY27 1분기 CapEx 500억$+ 가이던스 · Azure 매출 +43%, 연 매출 1,000억$ 첫 돌파",
@@ -6916,21 +6948,11 @@
           {
             "id": "bandwidth",
             "label": "대역폭",
-            "mentions": 2,
+            "mentions": 1,
             "trend": "down",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
-            ]
-          },
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
             ]
           }
         ],
@@ -7034,15 +7056,12 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
-          "용량"
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b",
-          "ai-d-b",
-          "ai-n-d"
+          "ai-n-b"
         ],
         "actions": [
           {
@@ -8365,13 +8384,6 @@
           "date": "2026-07-25"
         },
         {
-          "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
-          "source": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-          "date": "2026-10-26"
-        },
-        {
           "title": "Nvidia sidesteps JEDEC HBM standard",
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
@@ -9128,7 +9140,7 @@
       },
       "evidence": [
         {
-          "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
+          "title": "OpenAI considers rebranding data centers to 'AI compute campuses\" as data center backlash intensifies",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
@@ -11305,7 +11317,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "TSMC의 AUO 공장 인수로 패널 공급망 재편성",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261104pd212/auo-tsmc-taiwan-plant-lcd-tv-panel.html",
+          "date": "2026-11-04"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -14722,6 +14742,15 @@
       "org": {
         "people": [],
         "statements": [
+          {
+            "key": "s:us chip curbs on china complicate sk hynix's us$45 billion nand plan",
+            "text": "US chip curbs on China complicate SK Hynix's US$45 billion NAND plan",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-04",
+            "url": "https://www.digitimes.com/news/a20261104VL214/sk-hynix-nand-investment-equipment-dalian.html",
+            "source": "digitimes.com"
+          },
           {
             "key": "s:sk hynix just posted a record quarter and warned that the ai memory cr",
             "text": "SK Hynix just posted a record quarter and warned that the AI memory crunch could outlast the decade, lifting chipmakers across the board.",
