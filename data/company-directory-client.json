@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41978048562",
-  "generatedAt": "2026-11-05T06:21:18.058Z",
+  "runId": "42022497133",
+  "generatedAt": "2026-11-05T12:11:43.397Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2540,7 +2540,17 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2570,7 +2580,9 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2831,7 +2843,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "MediaTek, 전 Intel 임원 Navid Shahriari를 초대하여 TSMC와 같은 중요한 공급망 파트너와의 협력을 심화",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/05/mediatek-invites-former-intel-executive-navid-shahriari-to-join-the-company",
+          "date": "2026-11-04"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -4636,7 +4656,14 @@
       ],
       "evidence": [
         {
-          "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+          "title": "Memory surge leaves 8GB iPad Pro behind on AI",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261105pd202/apple-ipad-pro-apple-intelligence-on-device-ai-siri.html",
+          "date": "2026-11-05"
+        },
+        {
+          "title": "Apple faces unprecedented memory cost increases as RAM prices continue to surge, manufacturing bill climbs by $33 billion",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
@@ -6912,16 +6939,6 @@
         ],
         "painAxes": [
           {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
             "id": "power-thermal",
             "label": "전력·열",
             "mentions": 1,
@@ -7031,13 +7048,10 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
           "전력·열"
         ],
         "riskSignals": [],
         "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b",
           "ai-d-o"
         ],
         "actions": [
@@ -8363,18 +8377,11 @@
           "date": "2026-07-25"
         },
         {
-          "title": "oToBrite와 Yuan, Nvidia 플랫폼용 로봇 비전 체인 구축",
+          "title": "oToBrite and Yuan build robot vision chain for Nvidia platform",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261104pd252/otobrite-vehicle-3d-camera-module-transmission.html",
           "date": "2026-11-04"
-        },
-        {
-          "title": "Nvidia sidesteps JEDEC HBM standard",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-          "date": "2026-10-26"
         }
       ],
       "sources": [
