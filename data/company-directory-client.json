@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41888079996",
-  "generatedAt": "2026-11-04T18:47:11.976Z",
+  "runId": "41940380100",
+  "generatedAt": "2026-11-05T00:33:20.140Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -445,7 +445,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 96
+        "ageDays": 97
       }
     },
     {
@@ -695,7 +695,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -1393,7 +1393,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 63
+        "ageDays": 64
       }
     },
     {
@@ -1677,7 +1677,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -2440,7 +2440,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -2548,7 +2548,17 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2578,7 +2588,9 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2839,7 +2851,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "MediaTek, 전 Intel 임원 Navid Shahriari를 초대하여 TSMC와 같은 중요한 공급망 파트너와의 협력을 심화",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/05/mediatek-invites-former-intel-executive-navid-shahriari-to-join-the-company",
+          "date": "2026-11-04"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -2860,7 +2880,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -2996,7 +3016,35 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3100,9 +3148,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계",
+          "전력·열"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-d-o"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3470,10 +3525,10 @@
             "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
             "source": "troy-technical.com",
-            "asOf": "2026-10-31",
+            "asOf": "2026-11-04",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-10-31",
-            "seenCount": 3
+            "lastSeen": "2026-11-04",
+            "seenCount": 4
           },
           {
             "key": "tech:3nm",
@@ -3484,7 +3539,7 @@
             "asOf": "2026-10-21",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-21",
-            "seenCount": 3
+            "seenCount": 4
           },
           {
             "key": "tech:Custom HBM",
@@ -3523,12 +3578,13 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "반복",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-10-31",
-          "evidenceCount": 3,
+          "lastSeen": "2026-11-04",
+          "evidenceCount": 4,
           "evidenceIds": [
             "06l7v1e",
             "07f6o4b",
-            "1tnrry0"
+            "1tnrry0",
+            "1xylrhd"
           ],
           "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
           "source": "troy-technical.com",
@@ -3544,11 +3600,12 @@
           "hold": "반복",
           "firstSeen": "2026-10-19",
           "lastSeen": "2026-10-21",
-          "evidenceCount": 3,
+          "evidenceCount": 4,
           "evidenceIds": [
             "1x2je9l",
             "106hb70",
-            "1ar8pkx"
+            "1ar8pkx",
+            "01jl2rz"
           ],
           "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
           "source": "digitimes.com",
@@ -3663,6 +3720,20 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-04"
+        },
+        {
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -3738,7 +3809,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -4287,7 +4358,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -4416,17 +4487,7 @@
             "sourceId": "apple-pcc-expanding-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -4485,15 +4546,11 @@
       },
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
-        "painSignals": [
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [
           "가격 정책"
         ],
-        "recommendedProducts": [
-          "ai-d-o"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4656,20 +4713,6 @@
       ],
       "evidence": [
         {
-          "title": "메모리 비용이 성장을 시험하면서 Apple 중국 매출이 사상 최고치를 기록",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261104pd203/apple-revenue-growth-iphone-greater-china.html",
-          "date": "2026-11-04"
-        },
-        {
-          "title": "iPhone Duo, AI, 서비스, 비용 테스트로 새로운 성장 경로 개척 Ternus",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261104pd201/apple-iphone-duo-growth-iphone-market.html",
-          "date": "2026-11-04"
-        },
-        {
           "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
@@ -4721,7 +4764,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 119
+        "ageDays": 120
       }
     },
     {
@@ -4957,7 +5000,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -5834,7 +5877,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -6288,7 +6331,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -6825,7 +6868,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -6948,11 +6991,38 @@
           {
             "id": "bandwidth",
             "label": "대역폭",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "down",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -7056,12 +7126,15 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "전력·열",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -7683,6 +7756,17 @@
             "seenCount": 12
           },
           {
+            "key": "tech:HBM4E",
+            "label": "HBM4E",
+            "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
+            "source": "troy-technical.com",
+            "asOf": "2026-11-04",
+            "firstSeen": "2026-08-24",
+            "lastSeen": "2026-11-04",
+            "seenCount": 7
+          },
+          {
             "key": "tech:HBM4",
             "label": "HBM4",
             "headline": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
@@ -7694,17 +7778,6 @@
             "seenCount": 7
           },
           {
-            "key": "tech:HBM4E",
-            "label": "HBM4E",
-            "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
-            "source": "troy-technical.com",
-            "asOf": "2026-10-31",
-            "firstSeen": "2026-08-24",
-            "lastSeen": "2026-10-31",
-            "seenCount": 6
-          },
-          {
             "key": "tech:3nm",
             "label": "3nm",
             "headline": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
@@ -7713,7 +7786,7 @@
             "asOf": "2026-10-26",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-26",
-            "seenCount": 5
+            "seenCount": 6
           },
           {
             "key": "tech:Custom HBM",
@@ -7847,6 +7920,30 @@
       },
       "derivedDemand": [
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-11-04",
+          "evidenceCount": 7,
+          "evidenceIds": [
+            "105urmn",
+            "06l7v1e",
+            "0fyqwvp",
+            "07f6o4b",
+            "0ykarzn",
+            "1tnrry0",
+            "1xylrhd"
+          ],
+          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -7874,29 +7971,6 @@
           "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "지속",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-31",
-          "evidenceCount": 6,
-          "evidenceIds": [
-            "105urmn",
-            "06l7v1e",
-            "0fyqwvp",
-            "07f6o4b",
-            "0ykarzn",
-            "1tnrry0"
-          ],
-          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-          "source": "troy-technical.com",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
         {
           "technology": "HBM4",
@@ -7932,13 +8006,14 @@
           "hold": "지속",
           "firstSeen": "2026-10-19",
           "lastSeen": "2026-10-26",
-          "evidenceCount": 5,
+          "evidenceCount": 6,
           "evidenceIds": [
             "0d63qpl",
             "1x2je9l",
             "106hb70",
             "1ar8pkx",
-            "0roiupr"
+            "0roiupr",
+            "01jl2rz"
           ],
           "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
           "source": "digitimes.com",
@@ -8153,6 +8228,37 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:hbm4e:training-bandwidth",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "HBM4E · 지속",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "painPoint": "NVIDIA · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "memoryRequirement": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "economics": "Bandwidth/$ · 스텝당 시간",
+          "executionGate": "Thermal · Yield · Qualification Schedule",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+            "source": "troy-technical.com",
+            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
+            "asOf": "2026-11-04",
+            "count": 7
+          }
+        },
+        {
           "id": "nvidia:vera-rubin:inference-kv-cache",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -8180,37 +8286,6 @@
             "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
             "asOf": "2026-11-02",
             "count": 12
-          }
-        },
-        {
-          "id": "nvidia:hbm4e:training-bandwidth",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "HBM4E · 지속",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "painPoint": "NVIDIA · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
-          "memoryRequirement": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
-          "products": [
-            "HBM4",
-            "HBM4E",
-            "iHBM 열관리",
-            "Hybrid Bonding · R&D"
-          ],
-          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
-          "economics": "Bandwidth/$ · 스텝당 시간",
-          "executionGate": "Thermal · Yield · Qualification Schedule",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-            "source": "troy-technical.com",
-            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
-            "asOf": "2026-10-31",
-            "count": 6
           }
         },
         {
@@ -8270,7 +8345,7 @@
             "source": "digitimes.com",
             "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html",
             "asOf": "2026-10-26",
-            "count": 5
+            "count": 6
           }
         }
       ],
@@ -8382,6 +8457,27 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "oToBrite와 Yuan, Nvidia 플랫폼용 로봇 비전 체인 구축",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261104pd252/otobrite-vehicle-3d-camera-module-transmission.html",
+          "date": "2026-11-04"
+        },
+        {
+          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-04"
+        },
+        {
+          "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+          "date": "2026-10-26"
         },
         {
           "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -8543,7 +8639,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 22
+        "ageDays": 23
       }
     },
     {
@@ -9222,7 +9318,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -9500,7 +9596,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -9861,7 +9957,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -10161,7 +10257,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -10499,7 +10595,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -10620,7 +10716,26 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10659,7 +10774,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10854,17 +10972,6 @@
         "quotes": [],
         "tech": [
           {
-            "key": "tech:CoWoS",
-            "label": "CoWoS",
-            "headline": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었습니다.",
-            "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/",
-            "source": "technews.tw",
-            "asOf": "2026-11-02",
-            "firstSeen": "2026-10-15",
-            "lastSeen": "2026-11-02",
-            "seenCount": 8
-          },
-          {
             "key": "tech:3nm",
             "label": "3nm",
             "headline": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
@@ -10873,6 +10980,17 @@
             "asOf": "2026-10-26",
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-10-26",
+            "seenCount": 9
+          },
+          {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었습니다.",
+            "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/",
+            "source": "technews.tw",
+            "asOf": "2026-11-02",
+            "firstSeen": "2026-10-15",
+            "lastSeen": "2026-11-02",
             "seenCount": 8
           },
           {
@@ -10887,17 +11005,6 @@
             "seenCount": 5
           },
           {
-            "key": "tech:LPDDR",
-            "label": "LPDDR",
-            "headline": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
-            "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-28",
-            "firstSeen": "2026-08-25",
-            "lastSeen": "2026-10-28",
-            "seenCount": 2
-          },
-          {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
             "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
@@ -10906,6 +11013,17 @@
             "asOf": "2026-10-19",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-19",
+            "seenCount": 3
+          },
+          {
+            "key": "tech:LPDDR",
+            "label": "LPDDR",
+            "headline": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
+            "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-28",
+            "firstSeen": "2026-08-25",
+            "lastSeen": "2026-10-28",
             "seenCount": 2
           },
           {
@@ -11007,7 +11125,7 @@
           "hold": "지속",
           "firstSeen": "2026-08-25",
           "lastSeen": "2026-10-26",
-          "evidenceCount": 8,
+          "evidenceCount": 9,
           "evidenceIds": [
             "0wd2d4f",
             "0o0ayvo",
@@ -11016,7 +11134,8 @@
             "1x2je9l",
             "106hb70",
             "1ar8pkx",
-            "0roiupr"
+            "0roiupr",
+            "01jl2rz"
           ],
           "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
           "source": "digitimes.com",
@@ -11073,10 +11192,11 @@
           "hold": "반복",
           "firstSeen": "2026-10-19",
           "lastSeen": "2026-10-19",
-          "evidenceCount": 2,
+          "evidenceCount": 3,
           "evidenceIds": [
             "0d63qpl",
-            "106hb70"
+            "106hb70",
+            "01jl2rz"
           ],
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
@@ -11218,7 +11338,7 @@
             "source": "digitimes.com",
             "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html",
             "asOf": "2026-10-26",
-            "count": 8
+            "count": 9
           }
         }
       ],
@@ -11319,11 +11439,11 @@
       },
       "evidence": [
         {
-          "title": "TSMC의 AUO 공장 인수로 패널 공급망 재편성",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261104pd212/auo-tsmc-taiwan-plant-lcd-tv-panel.html",
-          "date": "2026-11-04"
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -11362,7 +11482,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 22
+        "ageDays": 23
       }
     },
     {
@@ -11901,7 +12021,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -12342,6 +12462,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:HBM4E",
+            "label": "HBM4E",
+            "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
+            "source": "troy-technical.com",
+            "asOf": "2026-11-04",
+            "firstSeen": "2026-10-31",
+            "lastSeen": "2026-11-04",
+            "seenCount": 2
+          },
+          {
             "key": "tech:CXL",
             "label": "CXL",
             "headline": "Dynamo 및 Liqid CXL 공유 메모리를 사용하여 KV 캐시 메모리 벽 깨기",
@@ -12353,15 +12484,15 @@
             "seenCount": 2
           },
           {
-            "key": "tech:HBM4E",
-            "label": "HBM4E",
-            "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
-            "source": "troy-technical.com",
-            "asOf": "2026-10-31",
-            "firstSeen": "2026-10-31",
-            "lastSeen": "2026-10-31",
-            "seenCount": 1
+            "key": "tech:3nm",
+            "label": "3nm",
+            "headline": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
+            "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/",
+            "source": "electronicsweekly.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 2
           },
           {
             "key": "tech:KV Cache",
@@ -12388,17 +12519,6 @@
           {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
-            "headline": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
-            "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/",
-            "source": "electronicsweekly.com",
-            "asOf": "2026-10-19",
-            "firstSeen": "2026-10-19",
-            "lastSeen": "2026-10-19",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:3nm",
-            "label": "3nm",
             "headline": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
             "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/",
             "source": "electronicsweekly.com",
@@ -12447,6 +12567,25 @@
       },
       "derivedDemand": [
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "반복",
+          "firstSeen": "2026-10-31",
+          "lastSeen": "2026-11-04",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1tnrry0",
+            "1xylrhd"
+          ],
+          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "CXL",
           "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
           "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -12464,6 +12603,25 @@
           "evidence": "Dynamo 및 Liqid CXL 공유 메모리를 사용하여 KV 캐시 메모리 벽 깨기",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/architecture/2026/10/26/breaking-the-kv-cache-memory-wall-using-dynamo-and-liqid-cxl-shared-memory/5305130"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "106hb70",
+            "01jl2rz"
+          ],
+          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
+          "source": "electronicsweekly.com",
+          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
         },
         {
           "technology": "HBM4",
@@ -12484,24 +12642,6 @@
           "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
           "source": "sector-signals.net",
           "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "관측",
-          "firstSeen": "2026-10-31",
-          "lastSeen": "2026-10-31",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1tnrry0"
-          ],
-          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-          "source": "troy-technical.com",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
         {
           "technology": "KV Cache",
@@ -12546,24 +12686,6 @@
           "productAxis": "Custom HBM",
           "stage": "QUALIFY",
           "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "관측",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "106hb70"
-          ],
-          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
-          "source": "electronicsweekly.com",
-          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
           "hold": "관측",
           "firstSeen": "2026-10-19",
           "lastSeen": "2026-10-19",
@@ -12740,7 +12862,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 22
+        "ageDays": 23
       }
     },
     {
@@ -13187,7 +13309,7 @@
             "asOf": "2026-10-26",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-26",
-            "seenCount": 5
+            "seenCount": 6
           },
           {
             "key": "tech:2nm",
@@ -13201,17 +13323,6 @@
             "seenCount": 5
           },
           {
-            "key": "tech:HBM4E",
-            "label": "HBM4E",
-            "headline": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-            "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13/",
-            "source": "trendforce.com",
-            "asOf": "2026-10-26",
-            "firstSeen": "2026-08-24",
-            "lastSeen": "2026-10-26",
-            "seenCount": 3
-          },
-          {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
             "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
@@ -13220,6 +13331,17 @@
             "asOf": "2026-10-19",
             "firstSeen": "2026-08-24",
             "lastSeen": "2026-10-19",
+            "seenCount": 4
+          },
+          {
+            "key": "tech:HBM4E",
+            "label": "HBM4E",
+            "headline": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
+            "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13/",
+            "source": "trendforce.com",
+            "asOf": "2026-10-26",
+            "firstSeen": "2026-08-24",
+            "lastSeen": "2026-10-26",
             "seenCount": 3
           },
           {
@@ -13352,13 +13474,14 @@
           "hold": "지속",
           "firstSeen": "2026-10-19",
           "lastSeen": "2026-10-26",
-          "evidenceCount": 5,
+          "evidenceCount": 6,
           "evidenceIds": [
             "0d63qpl",
             "1x2je9l",
             "106hb70",
             "1ar8pkx",
-            "0roiupr"
+            "0roiupr",
+            "01jl2rz"
           ],
           "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
           "source": "digitimes.com",
@@ -13416,11 +13539,12 @@
           "hold": "반복",
           "firstSeen": "2026-08-24",
           "lastSeen": "2026-10-19",
-          "evidenceCount": 3,
+          "evidenceCount": 4,
           "evidenceIds": [
             "0m4djqm",
             "0d63qpl",
-            "106hb70"
+            "106hb70",
+            "01jl2rz"
           ],
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
@@ -13676,7 +13800,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 27
+        "ageDays": 28
       }
     },
     {
@@ -14435,6 +14559,17 @@
             "seenCount": 1
           },
           {
+            "key": "tech:3nm",
+            "label": "3nm",
+            "headline": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+            "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up/",
+            "source": "trendforce.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
             "key": "tech:Hybrid Bonding",
             "label": "Hybrid Bonding",
             "headline": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
@@ -14676,6 +14811,24 @@
           "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "01jl2rz"
+          ],
+          "evidence": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up/"
         },
         {
           "technology": "Hybrid Bonding",
@@ -14939,7 +15092,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 22
+        "ageDays": 23
       }
     },
     {
@@ -15374,7 +15527,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -15605,7 +15758,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 63
+        "ageDays": 64
       }
     },
     {
@@ -15849,7 +16002,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -16168,7 +16321,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -16415,7 +16568,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -16643,7 +16796,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 162
+        "ageDays": 163
       }
     },
     {
@@ -16853,7 +17006,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 233
+        "ageDays": 234
       }
     },
     {
@@ -17078,7 +17231,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -17357,7 +17510,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 156
+        "ageDays": 157
       }
     },
     {
@@ -17580,7 +17733,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 96
+        "ageDays": 97
       }
     },
     {
@@ -17882,7 +18035,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 22
+        "ageDays": 23
       }
     },
     {
@@ -18106,7 +18259,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 96
+        "ageDays": 97
       }
     },
     {
@@ -18315,7 +18468,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 96
+        "ageDays": 97
       }
     },
     {
@@ -18524,7 +18677,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 96
+        "ageDays": 97
       }
     }
   ],
