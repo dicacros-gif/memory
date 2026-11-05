@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41940380100",
-  "generatedAt": "2026-11-05T00:33:20.140Z",
+  "runId": "41978048562",
+  "generatedAt": "2026-11-05T06:21:18.058Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2366,15 +2366,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "GCS Holdings는 Marvell의 Lumentum 거래를 환영하고 2027년 InP 공급을 중단",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261104pd243/marvell-communications-inp-2027-laser.html",
-          "date": "2026-11-04"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2548,17 +2540,7 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2588,9 +2570,7 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2851,15 +2831,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "MediaTek, 전 Intel 임원 Navid Shahriari를 초대하여 TSMC와 같은 중요한 공급망 파트너와의 협력을 심화",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/11/05/mediatek-invites-former-intel-executive-navid-shahriari-to-join-the-company",
-          "date": "2026-11-04"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -3016,35 +2988,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3148,16 +3092,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "패키징·파운드리",
-          "로직 경계",
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-d-o"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3720,20 +3657,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
-        },
-        {
-          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-          "source": "troy-technical.com",
-          "sourceClass": "general-media",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
-          "date": "2026-11-04"
-        },
-        {
-          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-          "source": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -6991,7 +6914,7 @@
           {
             "id": "bandwidth",
             "label": "대역폭",
-            "mentions": 2,
+            "mentions": 1,
             "trend": "down",
             "productIds": [
               "custom-hbm",
@@ -7001,28 +6924,10 @@
           {
             "id": "power-thermal",
             "label": "전력·열",
-            "mentions": 2,
+            "mentions": 1,
             "trend": "up",
             "productIds": [
               "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           }
         ],
@@ -7127,8 +7032,7 @@
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
           "대역폭",
-          "전력·열",
-          "패키징·파운드리"
+          "전력·열"
         ],
         "riskSignals": [],
         "recommendedProducts": [
@@ -8464,20 +8368,6 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261104pd252/otobrite-vehicle-3d-camera-module-transmission.html",
           "date": "2026-11-04"
-        },
-        {
-          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-          "source": "troy-technical.com",
-          "sourceClass": "general-media",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
-          "date": "2026-11-04"
-        },
-        {
-          "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi ...",
-          "source": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-          "date": "2026-10-26"
         },
         {
           "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -10716,26 +10606,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10774,10 +10645,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "패키징·파운드리",
-          "로직 경계"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11437,15 +11305,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-          "source": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-          "date": "2026-10-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
