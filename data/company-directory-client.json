@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42255375468",
-  "generatedAt": "2026-11-06T16:59:29.076Z",
+  "runId": "42305329214",
+  "generatedAt": "2026-11-06T22:46:23.007Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2988,7 +2988,35 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 3,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 3,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3092,9 +3120,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계",
+          "전력·열"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-d-o"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3658,6 +3693,27 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-05"
+        },
+        {
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "NVIDIA’s NVHBM Reshapes Base Die Strategies: How Micron, Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/09/news-nvidias-nvhbm-reshapes-memory-makers-base-die-strategies-as-micron-samsung-turn-to-external-foundries",
+          "date": "2026-10-09"
         }
       ],
       "sources": [
@@ -6893,7 +6949,45 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 3,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 3,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6993,9 +7087,16 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계",
+          "대역폭"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8325,6 +8426,27 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261106vl209/beijing-nvidia-silicon-market-shipments.html",
           "date": "2026-11-06"
+        },
+        {
+          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-05"
+        },
+        {
+          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "date": "2026-10-26"
+        },
+        {
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -10204,12 +10326,12 @@
         ],
         "painAxes": [
           {
-            "id": "power-thermal",
-            "label": "전력·열",
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
             "mentions": 1,
             "trend": "up",
             "productIds": [
-              "ai-d-o"
+              "custom-hbm"
             ]
           }
         ],
@@ -10237,7 +10359,7 @@
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
         "painSignals": [
-          "전력·열"
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -10340,7 +10462,7 @@
             "asOf": "2026-11-06",
             "firstSeen": "2026-10-17",
             "lastSeen": "2026-11-06",
-            "seenCount": 3
+            "seenCount": 4
           }
         ],
         "stances": []
@@ -10356,11 +10478,12 @@
           "hold": "반복",
           "firstSeen": "2026-10-17",
           "lastSeen": "2026-11-06",
-          "evidenceCount": 3,
+          "evidenceCount": 4,
           "evidenceIds": [
             "0x8jxps",
             "0pap1z3",
-            "11f60il"
+            "11f60il",
+            "15uluy8"
           ],
           "evidence": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있습니다.",
           "source": "digitimes.com",
@@ -10400,7 +10523,7 @@
             "source": "digitimes.com",
             "url": "https://www.digitimes.com/news/a20261106VL204/photonics-silicon-expansion-revenue-demand.html",
             "asOf": "2026-11-06",
-            "count": 3
+            "count": 4
           }
         }
       ],
@@ -10414,6 +10537,15 @@
             "attributionVersion": 1,
             "date": "2026-11-06",
             "url": "https://www.digitimes.com/news/a20261106PD202/production-communications-data-packaging-development.html",
+            "source": "digitimes.com"
+          },
+          {
+            "key": "s:national silicon industry group (nsig) expects to complete its expansi",
+            "text": "National Silicon Industry Group (NSIG) expects to complete its expansion to 1.2 million 300mm silicon wafers per month by the end of 2026, positioning the Chinese semiconductor materials supplier to benefit from recovering wafer prices and growing demand for silicon-on-insulator (SOI) substrates used in silicon photonics (SiPh).",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-06",
+            "url": "https://www.digitimes.com/news/a20261106VL208/nsig-silicon-wafer-300mm-expansion.html",
             "source": "digitimes.com"
           }
         ]
@@ -10442,17 +10574,10 @@
           "date": "2026-03-02"
         },
         {
-          "title": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있음",
+          "title": "중국 NSIG, 실리콘 웨이퍼 가격 반등했지만 수익성은 여전히 어렵다",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261106vl204/photonics-silicon-expansion-revenue-demand.html",
-          "date": "2026-11-06"
-        },
-        {
-          "title": "Innolight, AI 광 인터커넥트용 Tower로 미국 NPO 시범 생산 시작",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261106pd202/production-communications-data-packaging-development.html",
+          "url": "https://www.digitimes.com/news/a20261106vl208/nsig-silicon-wafer-300mm-expansion.html",
           "date": "2026-11-06"
         }
       ],
@@ -10590,7 +10715,26 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10629,7 +10773,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11289,7 +11436,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
