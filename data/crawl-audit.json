@@ -1,52 +1,52 @@
 {
   "schemaVersion": "1.0",
-  "runId": "42167353164",
-  "generatedAt": "2026-11-06T05:29:38.773Z",
+  "runId": "42207043854",
+  "generatedAt": "2026-11-06T11:14:38.120Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
-    "news": 44,
+    "news": 33,
     "priceRows": 41,
     "communitySignals": 6,
     "benchmarkSignals": 4,
-    "intelligenceBriefs": 7,
+    "intelligenceBriefs": 5,
     "factEvents": 0,
     "sourceChannels": 9
   },
   "referenceOnly": {
-    "news": 1661,
+    "news": 1671,
     "communitySignals": 62,
     "benchmarkSignals": 8,
     "benchmarkDiscoveries": 3
   },
   "quarantined": {
-    "news": 21,
+    "news": 29,
     "reasonCounts": {
-      "source_summary_missing": 19,
-      "source_not_observed_this_run": 16,
+      "source_summary_missing": 27,
+      "source_not_observed_this_run": 24,
       "non_article_page": 1,
       "retail_deal": 1
     }
   },
   "sourceClasses": {
-    "authoritative-media": 40,
+    "authoritative-media": 29,
     "general-media": 4
   },
   "origins": {
-    "live-crawl": 44
+    "live-crawl": 33
   },
   "translation": {
-    "verified": 44,
-    "unverified": 18,
-    "attempted": 62,
-    "sourceOriginal": 18,
+    "verified": 36,
+    "unverified": 24,
+    "attempted": 60,
+    "sourceOriginal": 24,
     "selfHealing": {
       "retryPolicy": "unverified rows are not cached and are retried first on the next run",
       "requests": 18,
       "retries": 0,
-      "cacheHits": 47,
-      "translated": 13,
-      "qualityRejected": 84,
+      "cacheHits": 49,
+      "translated": 3,
+      "qualityRejected": 90,
       "markerFallbacks": 0,
       "batches": 18,
       "singleFallbackRequests": 0,
@@ -55,9 +55,9 @@
       "networkErrors": 0,
       "nonRetryableFailures": 0,
       "deadlineSkipped": 0,
-      "pending": 84
+      "pending": 90
     },
-    "averageTokenMatchPct": 79
+    "averageTokenMatchPct": 65
   },
   "priceVerification": {
     "sourceCount": 0,
@@ -73,17 +73,14 @@
     "discoveryQueries": 117,
     "healthChecks": 94,
     "connectedHealthChecks": 80,
-    "observedSources": 7,
-    "freshObservedSources": 2,
-    "staleObservedSources": 5,
+    "observedSources": 6,
+    "freshObservedSources": 4,
+    "staleObservedSources": 2,
     "staleSourceIds": [
       "blocksandfiles-feed",
-      "eetimes-japan-feed",
-      "servethehome-feed",
-      "solidot-feed",
-      "tomshardware-feed"
+      "eetimes-japan-feed"
     ],
-    "observationCoveragePct": 4.8,
+    "observationCoveragePct": 4.1,
     "officialConfigured": 123,
     "officialObserved": 0,
     "officialFreshObserved": 0,
@@ -91,14 +88,15 @@
       "blocksandfiles-feed",
       "digitimes-en-feed",
       "eetimes-japan-feed",
-      "servethehome-feed",
       "solidot-feed",
       "technews-tw-finance-feed",
       "tomshardware-feed"
     ],
     "freshSourceIds": [
       "digitimes-en-feed",
-      "technews-tw-finance-feed"
+      "solidot-feed",
+      "technews-tw-finance-feed",
+      "tomshardware-feed"
     ],
     "byTier": {
       "primary-company": 61,
@@ -110,7 +108,7 @@
       "industry-research": 11
     },
     "observedByTier": {
-      "authoritative-media": 7
+      "authoritative-media": 6
     },
     "roleCoverage": {
       "technology": 108,
@@ -437,11 +435,11 @@
     }
   },
   "channelAsOf": {
-    "prices": "2026-11-06T05:21:12.159Z",
-    "news": "2026-11-06T05:29:38.773Z",
-    "community": "2026-11-06T05:21:25.052Z",
-    "brokerResearch": "2026-11-06T05:26:44.617Z",
-    "markets": "2026-11-06T05:25:45.307Z"
+    "prices": "2026-11-06T11:06:23.122Z",
+    "news": "2026-11-06T11:14:38.120Z",
+    "community": "2026-11-06T11:06:35.541Z",
+    "brokerResearch": "2026-11-06T11:11:55.681Z",
+    "markets": "2026-11-06T11:10:57.827Z"
   },
   "checks": [
     {
@@ -455,21 +453,21 @@
       "id": "news_total",
       "critical": true,
       "passed": true,
-      "observed": 44,
+      "observed": 33,
       "threshold": 24
     },
     {
       "id": "news_english",
       "critical": true,
       "passed": true,
-      "observed": 27,
+      "observed": 19,
       "threshold": 6
     },
     {
       "id": "news_chinese",
       "critical": false,
       "passed": true,
-      "observed": 11,
+      "observed": 9,
       "threshold": 4
     },
     {
@@ -497,35 +495,35 @@
       "id": "news_live_only",
       "critical": true,
       "passed": true,
-      "observed": 44,
-      "threshold": 44
+      "observed": 33,
+      "threshold": 33
     },
     {
       "id": "news_current",
       "critical": true,
       "passed": true,
-      "observed": 44,
+      "observed": 33,
       "threshold": 12
     },
     {
       "id": "news_observed_this_run",
       "critical": true,
       "passed": true,
-      "observed": 44,
+      "observed": 33,
       "threshold": 12
     },
     {
       "id": "news_observed_english",
       "critical": true,
       "passed": true,
-      "observed": 27,
+      "observed": 19,
       "threshold": 6
     },
     {
       "id": "news_observed_chinese",
       "critical": false,
       "passed": true,
-      "observed": 11,
+      "observed": 9,
       "threshold": 2
     },
     {
@@ -560,7 +558,7 @@
       "id": "decision_briefs",
       "critical": true,
       "passed": true,
-      "observed": 7,
+      "observed": 5,
       "threshold": 3
     },
     {
@@ -595,7 +593,7 @@
       "id": "source_catalog_observed",
       "critical": false,
       "passed": true,
-      "observed": 7,
+      "observed": 6,
       "threshold": 4
     },
     {

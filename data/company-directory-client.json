@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42167353164",
-  "generatedAt": "2026-11-06T05:29:38.773Z",
+  "runId": "42207043854",
+  "generatedAt": "2026-11-06T11:14:38.120Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2540,17 +2540,7 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2580,9 +2570,7 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2843,15 +2831,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "MediaTek, 전 Intel 임원 Navid Shahriari를 초대하여 TSMC와 같은 중요한 공급망 파트너와의 협력을 심화",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/11/05/mediatek-invites-former-intel-executive-navid-shahriari-to-join-the-company",
-          "date": "2026-11-04"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -4699,7 +4679,7 @@
       ],
       "evidence": [
         {
-          "title": "Apple faces unprecedented memory cost increases as RAM prices continue to surge, manufacturing bill climbs by $33 billion",
+          "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
@@ -6967,16 +6947,6 @@
         ],
         "painAxes": [
           {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
             "id": "power-thermal",
             "label": "전력·열",
             "mentions": 1,
@@ -7104,15 +7074,14 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
           "전력·열",
-          "패키징·파운드리"
+          "패키징·파운드리",
+          "로직 경계"
         ],
         "riskSignals": [],
         "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b",
-          "ai-d-o"
+          "ai-d-o",
+          "custom-hbm"
         ],
         "actions": [
           {
@@ -8443,13 +8412,6 @@
           "sourceClass": "general-media",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
           "date": "2026-11-05"
-        },
-        {
-          "title": "Nvidia sidesteps JEDEC HBM standard",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-          "date": "2026-10-26"
         }
       ],
       "sources": [
@@ -10327,17 +10289,7 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10361,9 +10313,7 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10565,13 +10515,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
-        },
-        {
-          "title": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261106vl204/photonics-silicon-expansion-revenue-demand.html",
-          "date": "2026-11-06"
         },
         {
           "title": "Innolight, AI 광 인터커넥트용 Tower로 미국 NPO 시범 생산 시작",
