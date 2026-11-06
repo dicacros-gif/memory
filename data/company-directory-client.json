@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42129667299",
-  "generatedAt": "2026-11-05T23:44:24.874Z",
+  "runId": "42167353164",
+  "generatedAt": "2026-11-06T05:29:38.773Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -445,7 +445,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 97
+        "ageDays": 98
       }
     },
     {
@@ -695,7 +695,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -1393,7 +1393,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 64
+        "ageDays": 65
       }
     },
     {
@@ -1677,7 +1677,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -1796,18 +1796,7 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1871,14 +1860,9 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2382,15 +2366,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-          "date": "2026-10-13"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2456,7 +2432,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -2896,7 +2872,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -3032,7 +3008,35 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3136,9 +3140,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "전력·열",
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-o",
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3506,10 +3517,10 @@
             "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
             "source": "troy-technical.com",
-            "asOf": "2026-11-04",
+            "asOf": "2026-11-05",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-11-04",
-            "seenCount": 4
+            "lastSeen": "2026-11-05",
+            "seenCount": 5
           },
           {
             "key": "tech:3nm",
@@ -3557,15 +3568,16 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "반복",
+          "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-04",
-          "evidenceCount": 4,
+          "lastSeen": "2026-11-05",
+          "evidenceCount": 5,
           "evidenceIds": [
             "06l7v1e",
             "07f6o4b",
             "1tnrry0",
-            "1xylrhd"
+            "1xylrhd",
+            "1xom5se"
           ],
           "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
           "source": "troy-technical.com",
@@ -3701,6 +3713,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-05"
         }
       ],
       "sources": [
@@ -3776,7 +3795,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -4325,7 +4344,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -4680,7 +4699,7 @@
       ],
       "evidence": [
         {
-          "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+          "title": "Apple faces unprecedented memory cost increases as RAM prices continue to surge, manufacturing bill climbs by $33 billion",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
@@ -4731,7 +4750,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 120
+        "ageDays": 121
       }
     },
     {
@@ -4967,7 +4986,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -5757,15 +5776,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "공개 근거",
-          "source": "Google Cloud TPU",
-          "sourceClass": "public",
-          "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-          "date": "2025-11-06"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -5844,7 +5855,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -6298,7 +6309,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -6835,7 +6846,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -6964,6 +6975,33 @@
               "custom-hbm",
               "ai-n-b"
             ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
           }
         ],
         "supplierRelations": [
@@ -7066,12 +7104,15 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "전력·열",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -7698,10 +7739,10 @@
             "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
             "source": "troy-technical.com",
-            "asOf": "2026-11-04",
+            "asOf": "2026-11-05",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-11-04",
-            "seenCount": 7
+            "lastSeen": "2026-11-05",
+            "seenCount": 8
           },
           {
             "key": "tech:HBM4",
@@ -7865,8 +7906,8 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "지속",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-11-04",
-          "evidenceCount": 7,
+          "lastSeen": "2026-11-05",
+          "evidenceCount": 8,
           "evidenceIds": [
             "105urmn",
             "06l7v1e",
@@ -7874,7 +7915,8 @@
             "07f6o4b",
             "0ykarzn",
             "1tnrry0",
-            "1xylrhd"
+            "1xylrhd",
+            "1xom5se"
           ],
           "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
           "source": "troy-technical.com",
@@ -8191,8 +8233,8 @@
             "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
             "source": "troy-technical.com",
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
-            "asOf": "2026-11-04",
-            "count": 7
+            "asOf": "2026-11-05",
+            "count": 8
           }
         },
         {
@@ -8396,6 +8438,13 @@
           "date": "2026-07-25"
         },
         {
+          "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-05"
+        },
+        {
           "title": "Nvidia sidesteps JEDEC HBM standard",
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
@@ -8555,7 +8604,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 23
+        "ageDays": 24
       }
     },
     {
@@ -9226,7 +9275,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -9504,7 +9553,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -9865,7 +9914,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -10165,7 +10214,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -10278,7 +10327,17 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10302,7 +10361,9 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [],
+        "painSignals": [
+          "전력·열"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10398,13 +10459,13 @@
           {
             "key": "tech:Silicon Photonics",
             "label": "Silicon Photonics",
-            "headline": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝합니다.",
-            "url": "https://www.digitimes.com/news/a20261012PD215/manufacturing-equipment-packaging-testing-silicon.html",
+            "headline": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있습니다.",
+            "url": "https://www.digitimes.com/news/a20261106VL204/photonics-silicon-expansion-revenue-demand.html",
             "source": "digitimes.com",
-            "asOf": "2026-10-17",
+            "asOf": "2026-11-06",
             "firstSeen": "2026-10-17",
-            "lastSeen": "2026-10-17",
-            "seenCount": 1
+            "lastSeen": "2026-11-06",
+            "seenCount": 3
           }
         ],
         "stances": []
@@ -10417,16 +10478,18 @@
           "productAxis": "System",
           "stage": "EXPLORE",
           "gate": "Energy/Task · 상호운용성",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-10-17",
-          "lastSeen": "2026-10-17",
-          "evidenceCount": 1,
+          "lastSeen": "2026-11-06",
+          "evidenceCount": 3,
           "evidenceIds": [
-            "0x8jxps"
+            "0x8jxps",
+            "0pap1z3",
+            "11f60il"
           ],
-          "evidence": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝합니다.",
+          "evidence": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있습니다.",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261012PD215/manufacturing-equipment-packaging-testing-silicon.html"
+          "url": "https://www.digitimes.com/news/a20261106VL204/photonics-silicon-expansion-revenue-demand.html"
         }
       ],
       "painPoints": [
@@ -10444,7 +10507,7 @@
           "layer": "foundry-package",
           "status": "watch",
           "statusLabel": "추가 검증",
-          "signal": "Silicon Photonics · 관측",
+          "signal": "Silicon Photonics · 반복",
           "systemShift": "데이터 이동 방식이 전기에서 광으로 이동",
           "painPoint": "데이터 이동 방식이 전기에서 광으로 이동가 Package Yield·Capacity 일정과 동시에 걸림",
           "memoryRequirement": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
@@ -10458,14 +10521,28 @@
           "executionGate": "Energy/Task · 상호운용성",
           "stage": "EXPLORE",
           "evidence": {
-            "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝합니다.",
+            "title": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있습니다.",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261012PD215/manufacturing-equipment-packaging-testing-silicon.html",
-            "asOf": "2026-10-17",
-            "count": 1
+            "url": "https://www.digitimes.com/news/a20261106VL204/photonics-silicon-expansion-revenue-demand.html",
+            "asOf": "2026-11-06",
+            "count": 3
           }
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:tower semiconductor and innolight said their first jointly developed n",
+            "text": "Tower Semiconductor and Innolight said their first jointly developed near-package optics (NPO) product, built using Tower's PH18M silicon photonics process, has entered early production at Tower's California facility in the US.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-06",
+            "url": "https://www.digitimes.com/news/a20261106PD202/production-communications-data-packaging-development.html",
+            "source": "digitimes.com"
+          }
+        ]
+      },
       "baseline": {
         "chipStrategy": "Silicon Photonics · Optical Interconnect · Optics · Transceiver · US Manufacturing",
         "constraint": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
@@ -10488,6 +10565,20 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
+        },
+        {
+          "title": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261106vl204/photonics-silicon-expansion-revenue-demand.html",
+          "date": "2026-11-06"
+        },
+        {
+          "title": "Innolight, AI 광 인터커넥트용 Tower로 미국 NPO 시범 생산 시작",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261106pd202/production-communications-data-packaging-development.html",
+          "date": "2026-11-06"
         }
       ],
       "sources": [
@@ -10503,7 +10594,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -11360,7 +11451,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 23
+        "ageDays": 24
       }
     },
     {
@@ -11899,7 +11990,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -12329,6 +12420,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:HBM4E",
+            "label": "HBM4E",
+            "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
+            "source": "troy-technical.com",
+            "asOf": "2026-11-05",
+            "firstSeen": "2026-10-31",
+            "lastSeen": "2026-11-05",
+            "seenCount": 3
+          },
+          {
             "key": "tech:HBM4",
             "label": "HBM4",
             "headline": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
@@ -12338,17 +12440,6 @@
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-10-11",
             "seenCount": 3
-          },
-          {
-            "key": "tech:HBM4E",
-            "label": "HBM4E",
-            "headline": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
-            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
-            "source": "troy-technical.com",
-            "asOf": "2026-11-04",
-            "firstSeen": "2026-10-31",
-            "lastSeen": "2026-11-04",
-            "seenCount": 2
           },
           {
             "key": "tech:CXL",
@@ -12453,11 +12544,12 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "반복",
           "firstSeen": "2026-10-31",
-          "lastSeen": "2026-11-04",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-05",
+          "evidenceCount": 3,
           "evidenceIds": [
             "1tnrry0",
-            "1xylrhd"
+            "1xylrhd",
+            "1xom5se"
           ],
           "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
           "source": "troy-technical.com",
@@ -12740,7 +12832,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 23
+        "ageDays": 24
       }
     },
     {
@@ -13223,6 +13315,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:eSSD",
+            "label": "eSSD",
+            "headline": "한국 SSD 수출이 584% 급증하면서 삼성·SKHY, AI 추론 붐 주목",
+            "url": "https://www.digitimes.com/news/a20261106PD219/sk-hynix-samsung-ssd-exports-demand.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-06",
+            "firstSeen": "2026-10-13",
+            "lastSeen": "2026-11-06",
+            "seenCount": 2
+          },
+          {
             "key": "tech:PIM",
             "label": "PIM",
             "headline": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
@@ -13242,17 +13345,6 @@
             "asOf": "2026-10-16",
             "firstSeen": "2026-10-16",
             "lastSeen": "2026-10-16",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:eSSD",
-            "label": "eSSD",
-            "headline": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
-            "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-13",
-            "firstSeen": "2026-10-13",
-            "lastSeen": "2026-10-13",
             "seenCount": 1
           },
           {
@@ -13388,6 +13480,25 @@
           "url": "https://www.digitimes.com/news/a20261023VL219/samsung-texas-2nm-fab.html"
         },
         {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "반복",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-11-06",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "12i0vdu",
+            "0q4l5cu"
+          ],
+          "evidence": "한국 SSD 수출이 584% 급증하면서 삼성·SKHY, AI 추론 붐 주목",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261106PD219/sk-hynix-samsung-ssd-exports-demand.html"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -13464,24 +13575,6 @@
           "evidence": "삼성·SKHY, zHBM·HBF로 AI 메모리 병목현상 완화 목표",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html"
-        },
-        {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "관측",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-10-13",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "12i0vdu"
-          ],
-          "evidence": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html"
         },
         {
           "technology": "CXL",
@@ -13678,7 +13771,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 28
+        "ageDays": 29
       }
     },
     {
@@ -14371,6 +14464,17 @@
             "seenCount": 10
           },
           {
+            "key": "tech:eSSD",
+            "label": "eSSD",
+            "headline": "한국 SSD 수출이 584% 급증하면서 삼성·SKHY, AI 추론 붐 주목",
+            "url": "https://www.digitimes.com/news/a20261106PD219/sk-hynix-samsung-ssd-exports-demand.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-06",
+            "firstSeen": "2026-10-13",
+            "lastSeen": "2026-11-06",
+            "seenCount": 4
+          },
+          {
             "key": "tech:HBM4",
             "label": "HBM4",
             "headline": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
@@ -14391,17 +14495,6 @@
             "firstSeen": "2026-08-24",
             "lastSeen": "2026-10-26",
             "seenCount": 4
-          },
-          {
-            "key": "tech:eSSD",
-            "label": "eSSD",
-            "headline": "솔리다임, 미국에 팹 설립 계획 확정, IPO 계획 포기…",
-            "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given",
-            "source": "tomshardware.com",
-            "asOf": "2026-10-25",
-            "firstSeen": "2026-10-13",
-            "lastSeen": "2026-10-25",
-            "seenCount": 3
           },
           {
             "key": "tech:Vera Rubin",
@@ -14573,6 +14666,27 @@
           "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
         },
         {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "반복",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-11-06",
+          "evidenceCount": 4,
+          "evidenceIds": [
+            "12i0vdu",
+            "1r313b9",
+            "1pf3h5f",
+            "0q4l5cu"
+          ],
+          "evidence": "한국 SSD 수출이 584% 급증하면서 삼성·SKHY, AI 추론 붐 주목",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261106PD219/sk-hynix-samsung-ssd-exports-demand.html"
+        },
+        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -14632,26 +14746,6 @@
           "evidence": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
           "source": "trendforce.com",
           "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13/"
-        },
-        {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "반복",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-10-25",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "12i0vdu",
-            "1r313b9",
-            "1pf3h5f"
-          ],
-          "evidence": "솔리다임, 미국에 팹 설립 계획 확정, IPO 계획 포기…",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given"
         },
         {
           "technology": "HBM5",
@@ -14970,7 +15064,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 23
+        "ageDays": 24
       }
     },
     {
@@ -15405,7 +15499,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 57
+        "ageDays": 58
       }
     },
     {
@@ -15636,7 +15730,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 64
+        "ageDays": 65
       }
     },
     {
@@ -15880,7 +15974,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -16199,7 +16293,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -16446,7 +16540,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -16674,7 +16768,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 163
+        "ageDays": 164
       }
     },
     {
@@ -16884,7 +16978,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 234
+        "ageDays": 235
       }
     },
     {
@@ -17109,7 +17203,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -17388,7 +17482,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 157
+        "ageDays": 158
       }
     },
     {
@@ -17611,7 +17705,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 97
+        "ageDays": 98
       }
     },
     {
@@ -17913,7 +18007,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 23
+        "ageDays": 24
       }
     },
     {
@@ -18137,7 +18231,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 97
+        "ageDays": 98
       }
     },
     {
@@ -18346,7 +18440,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 97
+        "ageDays": 98
       }
     },
     {
@@ -18555,7 +18649,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 97
+        "ageDays": 98
       }
     }
   ],
