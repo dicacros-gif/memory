@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "42389734045",
-  "generatedAt": "2026-11-07T16:22:51.322Z",
-  "expiresAt": "2026-11-08T18:22:49.082Z",
+  "runId": "42418071281",
+  "generatedAt": "2026-11-07T22:09:43.846Z",
+  "expiresAt": "2026-11-09T00:09:41.882Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-07T16:21:23.308Z",
-    "runId": "42389734045",
+    "generatedAt": "2026-11-07T22:08:16.117Z",
+    "runId": "42418071281",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,17 +122,28 @@
     ],
     "eventTriggers": [
       {
-        "id": "300a8cc24c1bb1b3ce28",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "sandisk-newsroom",
-        "source": "sandisk.com",
-        "sourceClass": "official",
-        "title": "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
-        "url": "https://www.sandisk.com/topics/ssd/what-is-qlc",
-        "publishedAt": "2026-11-06",
-        "changed": false
+        "id": "d64fbf603ababbadf9db",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
+      {
+        "id": "f2244202b7970aae5354",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
       },
       {
         "id": "2ca22da55ddec53525f0",
@@ -263,30 +274,17 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-07T16:21:23.308Z",
+      "generatedAt": "2026-11-07T22:08:16.117Z",
       "stats": {
-        "eligibleDocuments": 42,
-        "structuredEvents": 39,
-        "verifiedEvents": 34,
-        "currentStages": 33,
-        "newEvents": 0,
+        "eligibleDocuments": 43,
+        "structuredEvents": 40,
+        "verifiedEvents": 35,
+        "currentStages": 34,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -827,17 +825,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 149,
-        "structuredEvents": 39,
-        "verifiedEvents": 34,
+        "structuredEvents": 40,
+        "verifiedEvents": 35,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 37,
-        "useful": 29,
-        "observationRatePct": 90.2,
-        "usefulYieldPct": 78.4,
+        "observed": 38,
+        "useful": 30,
+        "observationRatePct": 92.7,
+        "usefulYieldPct": 78.9,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -856,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,10 +1053,12 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "usefulObservation": false,
-            "eventYield": 0
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
+            "usefulObservation": true,
+            "eventYield": 1
           },
           {
             "id": "llm-serving-systems-research",
@@ -1067,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1300,7 +1300,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1311,8 +1311,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-07T16:21:16.018Z",
-            "lastUsefulObservationAt": "2026-11-07T16:21:16.018Z",
+            "lastSuccessAt": "2026-11-07T22:08:11.858Z",
+            "lastUsefulObservationAt": "2026-11-07T22:08:11.858Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1327,7 +1327,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-07T16:21:23.308Z",
+          "updatedAt": "2026-11-07T22:08:16.117Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1457,7 +1457,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-07T16:21:23.308Z",
+          "updatedAt": "2026-11-07T22:08:16.117Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1587,7 +1587,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-07T16:21:23.308Z",
+          "updatedAt": "2026-11-07T22:08:16.117Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1714,7 +1714,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-07T16:21:23.308Z",
+          "updatedAt": "2026-11-07T22:08:16.117Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1844,8 +1844,8 @@
         "fresh": 4,
         "observationRatePct": 5.4,
         "officialConfigured": 123,
-        "officialObserved": 1,
-        "officialFresh": 1,
+        "officialObserved": 0,
+        "officialFresh": 0,
         "targetPct": 90
       }
     },
@@ -1962,7 +1962,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2103,10 +2103,10 @@
         "documents": 149,
         "chunks": 594,
         "added": 0,
-        "changed": 0,
+        "changed": 1,
         "unchanged": 42,
-        "retained": 107,
-        "reindexed": 0
+        "retained": 106,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -2292,8 +2292,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-07T10:35:24.955Z",
-              "sourceChangeDetectedAt": "2026-11-07T10:35:20.143Z",
+              "indexedAt": "2026-11-07T22:08:16.117Z",
+              "sourceChangeDetectedAt": "2026-11-07T22:08:11.858Z",
               "stale": false
             }
           ]
@@ -2477,7 +2477,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 90.9,
+      "score": 91.3,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2495,25 +2495,25 @@
         "contentAge": 97.1,
         "embeddingLag": 100,
         "staleRetrievalRate": 69.2,
-        "coverageDrift": 98.3
+        "coverageDrift": 100
       },
       "diagnostics": {
         "staleRetrievalRatePct": 30.8,
-        "feedCoveragePct": 90.2,
+        "feedCoveragePct": 92.7,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0.9,
+        "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 96.7,
-        "previousPct": 97.6
+        "currentPct": 97.6,
+        "previousPct": 96.7
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-07T10:35:20.143Z",
-        "indexedAt": "2026-11-07T10:35:24.955Z"
+        "sourceChangeDetectedAt": "2026-11-07T22:08:11.858Z",
+        "indexedAt": "2026-11-07T22:08:16.117Z"
       },
-      "generatedAt": "2026-11-07T16:21:23.308Z"
+      "generatedAt": "2026-11-07T22:08:16.117Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2532,7 +2532,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-07T16:22:51.322Z",
+    "generatedAt": "2026-11-07T22:09:43.846Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -22398,7 +22398,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-07T16:22:51.322Z",
+        "updatedAt": "2026-11-07T22:09:43.846Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -38297,8 +38297,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38314,7 +38314,7 @@
             },
             {
               "week": "2026-10-05",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-12",
@@ -38333,6 +38333,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "5330d7c141816bb7bc51",
+            "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+            "text": "trendforce.com dram cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ...",
+            "source": "trendforce.com",
+            "sourceClass": "research",
+            "origin": "live-crawl",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
+            "date": "2026-10-11"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38770,8 +38780,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 2,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38803,9 +38813,20 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 2
             }
           ],
+          "latest": {
+            "id": "6189bfbd1429fed90995",
+            "title": "DIGITIMES Insight: 클라우드 LLM은 KV 캐시 수요의 급격한 증가를 주도 · SSD 개발을 위한 세 가지 주요 방향 설정",
+            "summary": "DIGITIMES는 LLM(대형 언어 모델) 및 에이전트 AI 개발이 점점 더 널리 보급됨에 따라 데이터 센터 CPU 수요가 크게 증가할 뿐만 아니라 KV 캐시(Key-Value Cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · DRAM과 HBM 용량이 심각한 공급 부족에 직면하면서 데이터센터용 SSD 수요가 급증하고 있음",
+            "text": "digitimes.com aidemand digitimes insight: cloud llms drive sharp increase in kv cache demand; establishes three key directions for ssd development digitimes observes that as large language models (llms) and agentic ai development become increasingly widespread, it is driving not only significant growth in data center cpu demand but also a sharp surge in key-value cache (kv cache) storage requirements. as dram and hbm capacity face severe supply shortages, demand for data center ssds is rising rapidly. digitimes insight: 클라우드 llm은 kv 캐시 수요의 급격한 증가를 주도 · ssd 개발을 위한 세 가지 주요 방향 설정 digitimes는 llm(대형 언어 모델) 및 에이전트 ai 개발이 점점 더 널리 보급됨에 따라 데이터 센터 cpu 수요가 크게 증가할 뿐만 아니라 kv 캐시(key-value cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · dram과 hbm 용량이 심각한 공급 부족에 직면하면서 데이터센터용 ssd 수요가 급증하고 있음",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261104pd239/ssd-demand-development-llm-data-center.html",
+            "date": "2026-11-06"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38925,8 +38946,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 1,
+          "mentions": 3,
+          "sourceCount": 2,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38958,22 +38979,23 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             }
           ],
           "latest": {
-            "id": "6ae2322489bbfd9d7d4d",
-            "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
-            "source": "blocksandfiles.com",
+            "id": "6189bfbd1429fed90995",
+            "title": "DIGITIMES Insight: 클라우드 LLM은 KV 캐시 수요의 급격한 증가를 주도 · SSD 개발을 위한 세 가지 주요 방향 설정",
+            "summary": "DIGITIMES는 LLM(대형 언어 모델) 및 에이전트 AI 개발이 점점 더 널리 보급됨에 따라 데이터 센터 CPU 수요가 크게 증가할 뿐만 아니라 KV 캐시(Key-Value Cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · DRAM과 HBM 용량이 심각한 공급 부족에 직면하면서 데이터센터용 SSD 수요가 급증하고 있음",
+            "text": "digitimes.com aidemand digitimes insight: cloud llms drive sharp increase in kv cache demand; establishes three key directions for ssd development digitimes observes that as large language models (llms) and agentic ai development become increasingly widespread, it is driving not only significant growth in data center cpu demand but also a sharp surge in key-value cache (kv cache) storage requirements. as dram and hbm capacity face severe supply shortages, demand for data center ssds is rising rapidly. digitimes insight: 클라우드 llm은 kv 캐시 수요의 급격한 증가를 주도 · ssd 개발을 위한 세 가지 주요 방향 설정 digitimes는 llm(대형 언어 모델) 및 에이전트 ai 개발이 점점 더 널리 보급됨에 따라 데이터 센터 cpu 수요가 크게 증가할 뿐만 아니라 kv 캐시(key-value cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · dram과 hbm 용량이 심각한 공급 부족에 직면하면서 데이터센터용 ssd 수요가 급증하고 있음",
+            "source": "digitimes.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-            "date": "2026-10-26"
+            "url": "https://www.digitimes.com/news/a20261104pd239/ssd-demand-development-llm-data-center.html",
+            "date": "2026-11-06"
           },
-          "status": "monitoring",
-          "evidenceStatus": "insufficient",
-          "evidenceLabel": "MONITORING",
+          "status": "opportunity-candidate",
+          "evidenceStatus": "cross-checked",
+          "evidenceLabel": "2-SOURCE SIGNAL",
           "translation": {
             "ruleId": "Long Context",
             "systemShift": "컨텍스트 길이 증가가 용량 요구를 선형 이상으로 밀어올림",
@@ -38982,6 +39004,12 @@
             "stage": "POC",
             "gate": "Capacity/$ · TTFT",
             "status": "approved-rule"
+          },
+          "source": {
+            "name": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261104pd239/ssd-demand-development-llm-data-center.html",
+            "asOf": "2026-11-06",
+            "sourceClass": "authoritative-media"
           }
         },
         {
@@ -39295,7 +39323,104 @@
       "horizonPortfolio": [
         {
           "horizon": "H1",
-          "items": []
+          "items": [
+            {
+              "id": "long-context-kv",
+              "label": "LONG CONTEXT · KV CACHE",
+              "horizon": "H1",
+              "aliases": [
+                "long context",
+                "long-context",
+                "KV cache",
+                "context caching",
+                "prefix cache",
+                "롱 컨텍스트"
+              ],
+              "memoryMapKeys": [
+                "Long Context",
+                "KV Cache",
+                "Context Caching"
+              ],
+              "painAxisIds": [
+                "capacity",
+                "bandwidth"
+              ],
+              "productIds": [
+                "custom-hbm",
+                "ai-d-b",
+                "ai-d-e"
+              ],
+              "promotionRule": {
+                "minMentions": 2,
+                "minSources": 2
+              },
+              "mentions": 3,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 2
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                }
+              ],
+              "latest": {
+                "id": "6189bfbd1429fed90995",
+                "title": "DIGITIMES Insight: 클라우드 LLM은 KV 캐시 수요의 급격한 증가를 주도 · SSD 개발을 위한 세 가지 주요 방향 설정",
+                "summary": "DIGITIMES는 LLM(대형 언어 모델) 및 에이전트 AI 개발이 점점 더 널리 보급됨에 따라 데이터 센터 CPU 수요가 크게 증가할 뿐만 아니라 KV 캐시(Key-Value Cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · DRAM과 HBM 용량이 심각한 공급 부족에 직면하면서 데이터센터용 SSD 수요가 급증하고 있음",
+                "text": "digitimes.com aidemand digitimes insight: cloud llms drive sharp increase in kv cache demand; establishes three key directions for ssd development digitimes observes that as large language models (llms) and agentic ai development become increasingly widespread, it is driving not only significant growth in data center cpu demand but also a sharp surge in key-value cache (kv cache) storage requirements. as dram and hbm capacity face severe supply shortages, demand for data center ssds is rising rapidly. digitimes insight: 클라우드 llm은 kv 캐시 수요의 급격한 증가를 주도 · ssd 개발을 위한 세 가지 주요 방향 설정 digitimes는 llm(대형 언어 모델) 및 에이전트 ai 개발이 점점 더 널리 보급됨에 따라 데이터 센터 cpu 수요가 크게 증가할 뿐만 아니라 kv 캐시(key-value cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · dram과 hbm 용량이 심각한 공급 부족에 직면하면서 데이터센터용 ssd 수요가 급증하고 있음",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261104pd239/ssd-demand-development-llm-data-center.html",
+                "date": "2026-11-06"
+              },
+              "status": "opportunity-candidate",
+              "evidenceStatus": "cross-checked",
+              "evidenceLabel": "2-SOURCE SIGNAL",
+              "translation": {
+                "ruleId": "Long Context",
+                "systemShift": "컨텍스트 길이 증가가 용량 요구를 선형 이상으로 밀어올림",
+                "memoryNeed": "CPU DRAM 또는 새로운 Memory Tier",
+                "productAxis": "AI-DRAM · CXL · AI-NAND",
+                "stage": "POC",
+                "gate": "Capacity/$ · TTFT",
+                "status": "approved-rule"
+              },
+              "source": {
+                "name": "digitimes.com",
+                "url": "https://www.digitimes.com/news/a20261104pd239/ssd-demand-development-llm-data-center.html",
+                "asOf": "2026-11-06",
+                "sourceClass": "authoritative-media"
+              }
+            }
+          ]
         },
         {
           "horizon": "H2",
@@ -39308,12 +39433,36 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-07T16:21:23.684Z",
-        "items": [],
-        "newItems": [],
-        "newCount": 0,
-        "recentIds": [],
-        "counts": {}
+        "generatedAt": "2026-11-07T22:08:16.552Z",
+        "items": [
+          {
+            "id": "opportunity:long-context-kv:2026-11-06:https-www-digitimes-com-news-a20261104pd239-ssd-demand-development-llm-data-center-html",
+            "kind": "opportunity-candidate",
+            "headline": "LONG CONTEXT · KV CACHE · H1 기회 후보",
+            "asOf": "2026-11-06",
+            "source": "digitimes.com",
+            "sourceUrl": "https://www.digitimes.com/news/a20261104pd239/ssd-demand-development-llm-data-center.html",
+            "isNew": true
+          }
+        ],
+        "newItems": [
+          {
+            "id": "opportunity:long-context-kv:2026-11-06:https-www-digitimes-com-news-a20261104pd239-ssd-demand-development-llm-data-center-html",
+            "kind": "opportunity-candidate",
+            "headline": "LONG CONTEXT · KV CACHE · H1 기회 후보",
+            "asOf": "2026-11-06",
+            "source": "digitimes.com",
+            "sourceUrl": "https://www.digitimes.com/news/a20261104pd239/ssd-demand-development-llm-data-center.html",
+            "isNew": true
+          }
+        ],
+        "newCount": 1,
+        "recentIds": [
+          "opportunity:long-context-kv:2026-11-06:https-www-digitimes-com-news-a20261104pd239-ssd-demand-development-llm-data-center-html"
+        ],
+        "counts": {
+          "opportunity-candidate": 1
+        }
       },
       "roadmap90d": [
         {
@@ -39426,23 +39575,6 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
-        "summary": "신뢰성 저하 없이 고용량, 강력한 성능, 향상된 효율성을 제공하는 8세대 BiCS NAND로 구동되는 Sandisk QLC SSD를 만나보세요",
-        "url": "https://www.sandisk.com/topics/ssd/what-is-qlc",
-        "source": "sandisk.com",
-        "publishedAt": "2026-11-06",
-        "sourceClass": "official",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 2
-      },
-      {
         "title": "Qualcomm validates HBC memory architecture, targets AI250 samples in 1H27",
         "summary": "Qualcomm has completed initial hardware validation of its high-bandwidth compute (HBC) memory architecture, which will form a key part of its next-generation Dragonfly data-center…",
         "url": "https://www.digitimes.com/news/a20261106PD216/qualcomm-hardware-ai-inference-technology-hbm4.html",
@@ -39466,6 +39598,43 @@
         ],
         "freshness": "fresh",
         "ageDays": 2
+      },
+      {
+        "title": "DIGITIMES Insight: 클라우드 LLM은 KV 캐시 수요의 급격한 증가를 주도 · SSD 개발을 위한 세 가지 주요 방향 설정",
+        "summary": "DIGITIMES는 LLM(대형 언어 모델) 및 에이전트 AI 개발이 점점 더 널리 보급됨에 따라 데이터 센터 CPU 수요가 크게 증가할 뿐만 아니라 KV 캐시(Key-Value Cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · DRAM과 HBM 용량이 심각한 공급 부족에 직면하면서 데이터센터용 SSD…",
+        "url": "https://www.digitimes.com/news/a20261104PD239/ssd-demand-development-llm-data-center.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-06",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
+        "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+        "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
+        "source": "trendforce.com",
+        "publishedAt": "2026-10-11",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 28
       },
       {
         "title": "DapuStor's KV Cache NVMe SSD offload explainer",
@@ -39508,10 +39677,10 @@
         "ageDays": 13
       },
       {
-        "title": "2026년 Winbond의 성과는 눈부시며, 직원 보너스는 평균 약 30개월에 이를 것으로 예상",
-        "summary": "메모리 시장의 급증하는 수요와 회사의 탁월한 운영으로 인해 메모리 대기업인 Winbond는 2026년에 큰 이익을 얻을 것 · Jiao Youjun 회장은 회사의 Family Day 행사에 참석하여 기존 직원 배당 제도를 기준으로 2026년 평균 직원 보너스가 약 30개월(연봉 14개월 제외)에 이를 것으로 예상됨을 확…",
-        "url": "https://finance.technews.tw/2026/11/07/winbond-electronics-employees-are-expected-to-receive-an-average-bonus-of-approximately-30-months-salary/",
-        "source": "finance.technews.tw",
+        "title": "Solidigm은 자금 조달 문제가 남아 있는 가운데 미국 NAND 팹을 주목하고 있음",
+        "summary": "SKHY 자회사 솔리다임이 미국에 낸드플래시 웨이퍼공장 건립을 검토 중이다 · 자금 조달 및 투자 일정은 아직 확정되지 않았지만 DIGITIMES Intelligence는 AI 기반 스토리지 수요와 미국 정부 지원 전망을 고려할 때 프로젝트가 진행될 가능성이 높다고 믿고 있음",
+        "url": "https://www.digitimes.com/news/a20261106PD229/solidigm-fab-nand-flash-nand-funding.html",
+        "source": "digitimes.com",
         "publishedAt": "2026-11-07",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -39667,12 +39836,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Nintendo ROM chip supplier Macronix quits to focus on chips for AI data centers, reports indicate",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/video-games/nintendo/nintendo-rom-chip-supplier-macronix-quits-to-focus-on-chips-for-ai-data-centers-game-key-cards-may-be-more-available-as-large-game-storage-chips-become-more-expensive",
-          "publishedAt": "2026-11-04",
-          "evidenceLevel": "Watch"
+          "title": "DIGITIMES Insight: 클라우드 LLM은 KV 캐시 수요의 급격한 증가를 주도 · SSD 개발을 위한 세 가지 주요 방향 설정",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261104PD239/ssd-demand-development-llm-data-center.html",
+          "publishedAt": "2026-11-06",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -39766,7 +39935,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-07T16:22:51.322Z",
+          "publishedAt": "2026-11-07T22:09:43.846Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -39809,8 +39978,8 @@
       },
       "enabled": true
     },
-    "runId": "42389734045",
-    "generatedAt": "2026-11-07T16:22:51.322Z",
+    "runId": "42418071281",
+    "generatedAt": "2026-11-07T22:09:43.846Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40148,8 +40317,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "42389734045",
-    "generatedAt": "2026-11-07T16:22:51.322Z",
+    "runId": "42418071281",
+    "generatedAt": "2026-11-07T22:09:43.846Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40848,7 +41017,7 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
     "signals": [],
@@ -40873,9 +41042,9 @@
         "id": "data",
         "label": "DATA / STORAGE",
         "configured": 6,
-        "observed": 1,
-        "fresh": 1,
-        "status": "fresh"
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
       },
       {
         "id": "orchestration",
@@ -40912,7 +41081,7 @@
     ],
     "automation": {
       "status": "SOURCE-CONNECTED",
-      "activePillars": 1,
+      "activePillars": 0,
       "totalPillars": 7,
       "activeWorkloads": 6,
       "promotedWorkloads": 0,
@@ -40921,8 +41090,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-07T16:22:51.322Z",
-    "runId": "42389734045"
+    "generatedAt": "2026-11-07T22:09:43.846Z",
+    "runId": "42418071281"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41163,12 +41332,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 90.9,
+        "freshnessScore": 91.3,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-07T10:35:24.955Z"
+        "indexedAt": "2026-11-07T22:08:16.117Z"
       }
     },
     "sources": [
@@ -41301,12 +41470,12 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-07T16:22:51.322Z",
-    "runId": "42389734045"
+    "generatedAt": "2026-11-07T22:09:43.846Z",
+    "runId": "42418071281"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41320,6 +41489,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
+        "subtitle": "digitimes.com · 2026-11-06",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41331,15 +41501,22 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "pending": true,
-          "title": "HBM·AI 서버",
-          "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-07T16:22:51.322Z",
-          "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "pending": false,
+          "title": "DIGITIMES Insight: 클라우드 LLM은 KV 캐시 수요의 급격한 증가를 주도 · SSD 개발을 위한 세 가지 주요 방향 설정",
+          "summary": "DIGITIMES는 LLM(대형 언어 모델) 및 에이전트 AI 개발이 점점 더 널리 보급됨에 따라 데이터 센터 CPU 수요가 크게 증가할 뿐만 아니라 KV 캐시(Key-Value Cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · DRAM과 HBM 용량이 심각한 공급 부족에 직면하면서 데이터센터용 SSD 수요가 급증하고 있음",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261104PD239/ssd-demand-development-llm-data-center.html",
+          "publishedAt": "2026-11-06",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 5,
         "signals": [
+          [
+            "Reported · AUTHORITATIVE-MEDIA",
+            "DIGITIMES Insight: 클라우드 LLM은 KV 캐시 수요의 급격한 증가를 주도 · SSD 개발을 위한 세 가지 주요 방향 설정",
+            "DIGITIMES는 LLM(대형 언어 모델) 및 에이전트 AI 개발이 점점 더 널리 보급됨에 따라 데이터 센터 CPU 수요가 크게 증가할 뿐만 아니라 KV 캐시(Key-Value Cache) 스토리지 요구 사항도 급격히 증가하고 있다고 밝혔음 · DRAM과 HBM 용량이 심각한 공급 부족에 직면하면서 데이터센터용 SSD 수요가 급증하고 있음"
+          ],
           [
             "EXECUTIVE DECISION",
             "검증된 Ramp와 Custom Co-Design을 분리 운영",
@@ -41425,6 +41602,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
+            "Reported",
+            "digitimes.com · 2026-11-06",
+            "https://www.digitimes.com/news/a20261104PD239/ssd-demand-development-llm-data-center.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41459,7 +41641,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-07T16:22:51.322Z"
+          "publishedAt": "2026-11-07T22:09:43.846Z"
         },
         "evidenceCount": 8,
         "signals": [
@@ -41581,7 +41763,7 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-07T16:22:51.322Z"
+          "publishedAt": "2026-11-07T22:09:43.846Z"
         },
         "evidenceCount": 13,
         "signals": [
@@ -41711,7 +41893,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 11,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
@@ -41826,7 +42008,6 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "tomshardware.com · 2026-11-04",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -41838,22 +42019,15 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": false,
-          "title": "Nintendo ROM chip supplier Macronix quits to focus on chips for AI data centers, reports indicate",
-          "summary": "실제 게임 시장의 마지막 업체 중 하나인 Nintendo는 주요 ROM 칩 공급업체 중 하나를 AI 데이터 센터로 잃고 있음",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/video-games/nintendo/nintendo-rom-chip-supplier-macronix-quits-to-focus-on-chips-for-ai-data-centers-game-key-cards-may-be-more-available-as-large-game-storage-chips-become-more-expensive",
-          "publishedAt": "2026-11-04",
+          "pending": true,
+          "title": "수요·고객",
+          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-11-07T22:09:43.846Z",
           "evidenceLevel": "Watch",
-          "sourceClass": "authoritative-media"
+          "sourceClass": "unclassified"
         },
         "evidenceCount": 8,
         "signals": [
-          [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "Nintendo ROM chip supplier Macronix quits to focus on chips for AI data centers, reports indicate",
-            "실제 게임 시장의 마지막 업체 중 하나인 Nintendo는 주요 ROM 칩 공급업체 중 하나를 AI 데이터 센터로 잃고 있음"
-          ],
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
@@ -41940,11 +42114,6 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
-            "Watch",
-            "tomshardware.com · 2026-11-04",
-            "https://www.tomshardware.com/video-games/nintendo/nintendo-rom-chip-supplier-macronix-quits-to-focus-on-chips-for-ai-data-centers-game-key-cards-may-be-more-available-as-large-game-storage-chips-become-more-expensive"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41979,7 +42148,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-07T16:22:51.322Z"
+          "publishedAt": "2026-11-07T22:09:43.846Z"
         },
         "evidenceCount": 8,
         "signals": [
