@@ -32,6 +32,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = ROOT / "data" / "tenbagger" / "tv-cache.json"
 OUT = ROOT / "data" / "tenbagger" / "cohort.json"
+FX = ROOT / "data" / "tenbagger" / "fx.json"
+SUBUNIT = {"GBX": ("GBP", 100), "ILA": ("ILS", 100)}
+
+
+def usd(value, currency, rates):
+    """TradingView per-market caps are in the listing currency; convert with the FRED table."""
+    if value is None:
+        return None
+    if not currency or currency == "USD":
+        return value
+    base, scale = SUBUNIT.get(currency, (currency, 1))
+    rate = (rates.get(base) or {}).get("rate")
+    return value / (rate * scale) if rate else None
 MAX_STOCKS = {"america": 3200, "korea": 1400}
 BATCH = 80
 BUDGET_SECONDS = 18 * 60
@@ -70,7 +83,7 @@ def main() -> int:
     try:
         previous = json.loads(OUT.read_text())
         age = datetime.now(timezone.utc) - datetime.fromisoformat(previous["generatedAt"])
-        if not force and age < timedelta(days=6, hours=12):
+        if not force and previous.get("capsInUsd") and age < timedelta(days=6, hours=12):
             print(json.dumps({"tenbaggerCohort": "fresh", "ageHours": round(age.total_seconds() / 3600, 1)}))
             return 0
     except Exception:  # noqa: BLE001 - first run
@@ -82,11 +95,21 @@ def main() -> int:
         print(f"::warning::cohort skipped: {error}")
         return 1
 
+    try:
+        rates = json.loads(FX.read_text()).get("rates") or {}
+    except Exception:  # noqa: BLE001
+        rates = {}
     started = time.time()
     rows = {}
     for market, limit in MAX_STOCKS.items():
-        part = [r for r in cache.get("rows", []) if r.get("market") == market and (r.get("market_cap_basic") or 0) > 0]
-        part.sort(key=lambda r: r.get("market_cap_basic") or 0, reverse=True)
+        part = []
+        for r in cache.get("rows", []):
+            if r.get("market") != market:
+                continue
+            cap = usd(r.get("market_cap_basic"), r.get("currency"), rates)
+            if cap and cap > 0:
+                part.append({**r, "capUsd": cap})
+        part.sort(key=lambda r: r["capUsd"], reverse=True)
         for r in part[:limit]:
             rows[r["ticker"]] = r
 
@@ -132,7 +155,7 @@ def main() -> int:
     examples, graduates = [], []
     for ticker, points in series.items():
         r = rows[ticker]
-        cap_now = r.get("market_cap_basic") or 0
+        cap_now = r.get("capUsd") or 0
         last = points[-1][1]
         market = "US" if r.get("market") == "america" else "KR"
         industry = r.get("industry") or "기타"
@@ -192,6 +215,7 @@ def main() -> int:
     graduates.sort(key=lambda g: -g["multiple"])
     OUT.write_text(json.dumps({
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "capsInUsd": True,
         "source": "Yahoo Finance monthly adjusted closes (yfinance); population and today's market caps from the TradingView scan",
         "method": {
             "starts": "매년 1월, 이후 60개월이 모두 있는 시점",

@@ -6,6 +6,7 @@ import { load } from "./data.js";
 import { esc, isNum, money, pct, years, multiple, statusChip, marketLabel, NO_DATA, UNDISCLOSED, srcBtn, day } from "./format.js";
 import { mountChart } from "./chart.js";
 import { companyUrl } from "./state.js";
+import { stockPositionKv } from "./positioning.js";
 
 const CHAIN = { infrastructure: "인프라", components: "부품·소재", platforms: "플랫폼", applications: "응용", customers: "고객·수요처", unassigned: "미분류" };
 
@@ -73,7 +74,7 @@ function failureChecks(c) {
   return items.length ? `<ul class="checks">${items.map((t) => `<li><span class="neg">✗</span> ${esc(t)}</li>`).join("")}</ul>` : `<p class="muted">규칙 기반 경고 없음(런웨이 1.5년 미만, 희석 10% 초과, P/S 20배 이상, 매출 감소, 기준일 후 증자를 점검).</p>`;
 }
 
-export function renderCompany(c, ctx) {
+export function renderCompany(c, pos = null) {
   const cur = c.statementCurrency || c.currency || "USD";
   const fy = c.revenueBasis === "ttm" ? "최근 12개월" : c.revenueBasis ? "회계연도" : "";
   const industries = c.industries.map((i) => `<li><b>${esc(i.name)}</b> · ${esc(i.layer === "candidate" ? "후보층" : i.layer === "leader" ? "선도층" : "")} · 가치사슬 ${esc(CHAIN[i.chainLayer] || "미분류")}${i.subsector ? ` · ${esc(i.subsector)}` : ""}${i.thesis ? `<p>${esc(i.thesis)} ${srcBtn(i.sourceUrl, "근거")}</p>` : ""}</li>`).join("");
@@ -89,6 +90,7 @@ export function renderCompany(c, ctx) {
       <div class="co-src">${srcBtn(c.data.sourceUrl, c.data.source || "재무 출처")}</div>
     </header>
     <section class="co-sec"><h2>일간 차트</h2><div class="chart-host" data-chart-host></div></section>
+    ${pos ? `<section class="co-sec"><h2>추세·변동성·수급</h2>${stockPositionKv(pos)}<p class="sub">모멘텀 z = 21·63·126·252일 변동성 조정 수익률 z값 평균. 공매도 비율은 미국 상장만, 거래소 집계 기준일 ${esc(c.shortInterest?.date || "자료 없음")}${isNum(c.shortInterest?.changePct) ? ` · 전월 대비 ${c.shortInterest.changePct > 0 ? "+" : ""}${c.shortInterest.changePct}%` : ""}.</p></section>` : ""}
     <section class="co-sec"><h2>사업과 산업 노출</h2>${industries ? `<ul class="co-ind">${industries}</ul>` : `<p class="muted">${c.coverage === "holder" ? "비상장 스타트업 지분 보유사로 편입된 기업입니다." : c.screen ? `스크리너 업종: ${esc(c.screen.industryKo || c.screen.industry)}` : "산업 분류 자료 없음"}</p>`}</section>
     <section class="co-sec"><h2>매출 성장과 이익률</h2>${kv([
       ["매출", money(c.revenueTtm, cur), `${fy} · ${esc(c.revenueEnd || "기간 없음")}`],
@@ -127,7 +129,8 @@ export async function mountCompany(host, id, { list = [], panel = false, zoom = 
   const c = doc.companies.find((x) => x.id === id);
   if (!c) { host.innerHTML = `<p class="error-banner">이 기업(${esc(id)})은 현재 데이터에 없습니다.</p>`; return null; }
   document.title = `${c.name} · 미래 성장 산업`;
-  host.innerHTML = renderCompany(c);
+  const pos = await load("positioning").then((p) => p.stocks?.[c.id] || null).catch(() => null);
+  host.innerHTML = renderCompany(c, pos ? { ...pos, shortPctFloat: c.shortInterest?.pctFloat ?? pos.shortPctFloat } : null);
   const markers = [];
   if (c.tenBagger?.achieved) markers.push({ date: c.tenBagger.fromDate, label: "10배 구간 시작", kind: "tenx" }, { date: c.tenBagger.toDate, label: "10배 도달", kind: "tenx" });
   for (const f of c.filings || []) if (f.capitalRaise) markers.push({ date: f.date, label: f.form, kind: "raise" });

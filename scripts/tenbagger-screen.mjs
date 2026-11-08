@@ -1,6 +1,13 @@
 import { readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { toUsd } from "./tenbagger-fx.mjs";
+
+// TradingView per-market scans report market cap in the listing currency;
+// every dollar figure goes through the FRED table (scripts/tenbagger-fx.mjs).
+let FX = null;
+export function setFx(table) { FX = table; }
+const capUsd = (r) => (!isNum(r.market_cap_basic) ? null : !r.currency || r.currency === "USD" ? r.market_cap_basic : toUsd(r.market_cap_basic, r.currency, FX));
 
 /**
  * Ten-bagger market screen.
@@ -113,7 +120,7 @@ export function rowFacts(r) {
     industry: r.industry || null,
     industryKo: r.industry ? INDUSTRY_KO[r.industry] || null : null,
     sector: SECTOR_OF[r.industry] || null,
-    marketCapUsd: isNum(r.market_cap_basic) ? Math.round(r.market_cap_basic) : null,
+    marketCapUsd: isNum(capUsd(r)) ? Math.round(capUsd(r)) : null,
     revenueGrowthPct: round(r.total_revenue_yoy_growth_ttm),
     fcfMarginPct: isNum(revenue) && revenue > 0 && isNum(fcf) ? round((fcf / revenue) * 100) : null,
     runwayYears: isNum(fcf) && fcf < 0 && isNum(cash) && cash >= 0 ? round(cash / -fcf) : null,
@@ -368,6 +375,7 @@ const readJson = async (path) => { try { return JSON.parse(await readFile(path, 
 const writeJson = async (path, value) => { await writeFile(`${path}.tmp`, `${JSON.stringify(value, null, 2)}\n`); await rename(`${path}.tmp`, path); };
 
 async function main() {
+  setFx(await readJson(resolve(root, "data/tenbagger/fx.json")));
   const universe = JSON.parse(await readFile(UNIVERSE, "utf8"));
   const cache = await readJson(CACHE);
   let screen = await readJson(OUT);

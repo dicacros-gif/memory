@@ -280,3 +280,37 @@ const land = build.buildLanding({ industries: [{ id: "x", name: "X", observed: {
 assert.equal(land.schemaVersion, "2.0");
 assert.equal(land.presets.find((p) => p.key === "cash-growers").entered[0].id, "a");
 console.log(JSON.stringify({ tenbaggerDigest: "pass" }));
+
+// Positioning monitor: momentum z, percentiles, equal-weight index, regimes.
+const posMod = await import("./tenbagger-positioning.mjs");
+const up = Array.from({ length: 400 }, (_, i) => 100 * 1.002 ** i * (1 + 0.01 * Math.sin(i)));
+const down = up.map((_, i) => up[up.length - 1 - i]);
+assert.ok(posMod.momentumAt(up, 399) > 1, "steady uptrend has a positive momentum z");
+assert.ok(posMod.momentumAt(down, 399) < -1);
+assert.equal(posMod.momentumAt(up, 100), null, "needs the longest lookback");
+assert.equal(posMod.percentileOfLast([...Array(30).keys()]), 100);
+assert.equal(posMod.percentileOfLast([5, ...Array(29).fill(10), 0]), 0);
+const t = Array.from({ length: 300 }, (_, i) => `d${String(i).padStart(3, "0")}`);
+const ew = posMod.equalWeightIndex([{ t, c: t.map((_, i) => 100 + i) }, { t, c: t.map(() => 50) }]);
+assert.ok(ew.at(-1).value > 100 && ew.at(-1).value < 300 * 100 / 100, "equal weight averages member returns");
+const crash = [...up.slice(0, 340), ...Array.from({ length: 60 }, (_, i) => up[339] * (1 - 0.006 * i) * (1 + (i % 2 ? 1 : -1) * 0.002 * i))]; // falling, with swings that widen
+const ind = posMod.industryPositioning("x", [{ t: crash.map((_, i) => `d${String(i).padStart(3, "0")}`), c: crash }, { t: crash.map((_, i) => `d${String(i).padStart(3, "0")}`), c: crash }, { t: crash.map((_, i) => `d${String(i).padStart(3, "0")}`), c: crash }]);
+assert.equal(ind.regime, "de-risking", "a sharp, volatile fall from the 3-month high");
+assert.equal(posMod.industryPositioning("y", []).insufficient, true);
+const hm = posMod.healthMap({ momentumPct: 80, breadth200: 70, volPct1y: 30, observedGrowth: 20, shortMedian: 2 }, [{ observedGrowth: 5, shortMedian: 5 }, { observedGrowth: 10, shortMedian: 3 }, { observedGrowth: 20, shortMedian: 2 }], { fcfPositiveShare: 60 });
+assert.deepEqual(hm.map((a) => a.value), [80, 70, 70, 100, 60, 100]);
+console.log(JSON.stringify({ tenbaggerPositioning: "pass" }));
+
+// FX: TradingView per-market market caps are in the listing currency.
+const fxMod = await import("./tenbagger-fx.mjs");
+const table = { rates: { KRW: { rate: 1400 }, JPY: { rate: 150 }, GBP: { rate: 0.8 } } };
+assert.equal(fxMod.toUsd(1.4e12, "KRW", table), 1e9);
+assert.equal(fxMod.toUsd(100, "GBX", table), 1.25, "pence are 1/100 of a pound");
+assert.equal(fxMod.toUsd(5, "XYZ", table), null, "unknown currency: no dollar value");
+assert.deepEqual(fxMod.parseFred("DATE,DEXUSEU\n2026-11-05,1.10\n2026-11-06,.\n", true), { rate: 1 / 1.1, date: "2026-11-05" });
+screenMod.setFx(table);
+assert.equal(rowFacts(tv({ market_cap_basic: 3.35e12, currency: "KRW" })).marketCapUsd, Math.round(3.35e12 / 1400));
+screenMod.setFx(null);
+assert.equal(rowFacts(tv({ market_cap_basic: 3.35e12, currency: "KRW" })).marketCapUsd, null, "never read won as dollars");
+assert.equal(usdMarketCap({ currency: "KRW", marketCap: 2.8e12 }, null, table), 2e9, "own market cap converted first");
+console.log(JSON.stringify({ tenbaggerFx: "pass" }));

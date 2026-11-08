@@ -149,6 +149,27 @@ def screen_tickers() -> list[str]:
     return list(dict.fromkeys(out))
 
 
+def short_interest(t) -> dict | None:
+    """Exchange-reported short interest as Yahoo shows it (US listings, twice monthly)."""
+    try:
+        info = t.info or {}
+    except Exception:  # noqa: BLE001
+        return None
+    pct = num(info.get("shortPercentOfFloat"))
+    shares = num(info.get("sharesShort"))
+    if pct is None and shares is None:
+        return None
+    prior = num(info.get("sharesShortPriorMonth"))
+    stamp = info.get("dateShortInterest")
+    return {
+        "pctFloat": round(pct * 100, 2) if pct is not None else None,
+        "shares": shares, "priorMonthShares": prior,
+        "changePct": round((shares / prior - 1) * 100, 1) if shares and prior else None,
+        "date": datetime.fromtimestamp(stamp, timezone.utc).date().isoformat() if isinstance(stamp, (int, float)) else None,
+        "source": "Yahoo Finance (exchange short interest)",
+    }
+
+
 def quarters(t) -> list[dict]:
     """Last eight quarters of revenue and free cash flow as Yahoo reports them."""
     out = {}
@@ -190,6 +211,7 @@ def collect(ticker: str) -> dict | None:
             "marketCap": num(getattr(fast, "market_cap", None)),
             # Average daily traded value over 20 sessions, in the listing currency.
             "avgTradedValue20d": (liquidity or {}).get("avgTradedValue20d"),
+            "shortInterest": short_interest(t) if symbol.isalpha() or "-" in symbol else None,
         }
         try:
             revenue, revenue_prior, revenue_end = row(t.income_stmt, "Total Revenue", "Operating Revenue")

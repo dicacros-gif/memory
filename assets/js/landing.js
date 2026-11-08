@@ -5,7 +5,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
   const BUSINESS_TITLE = "Global Memory Equity Intelligence · 반도체 투자 리서치";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-f97db1c4d861";
+  const CONSOLE_REVISION = "infra-84f1af89b67f";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
