@@ -410,3 +410,12 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   assert.equal(rs.rs3mPts, 10); assert.equal(rs.rs1yPts, null);
   console.log(JSON.stringify({ tenbaggerRanksAndRs: "pass" }));
 }
+
+// Current-only STI concepts seen in filings (NVIDIA files DebtSecuritiesCurrent).
+{
+  const { stiAtDate } = await import("./tenbagger-collect.mjs");
+  const f = { facts: { "us-gaap": { DebtSecuritiesCurrent: { units: { USD: [{ end: "2026-07-26", val: 34143000000 }] } }, AvailableForSaleSecuritiesDebtSecurities: { units: { USD: [{ end: "2026-07-26", val: 46900000000 }] } } } } };
+  const r = stiAtDate(f, "2026-07-26", 22443000000);
+  assert.equal(r.value, 34143000000); assert.equal(r.concept, "us-gaap:DebtSecuritiesCurrent");
+  console.log(JSON.stringify({ tenbaggerStiConcepts: "pass" }));
+}
