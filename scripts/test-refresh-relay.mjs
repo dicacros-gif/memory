@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { ACTIVE_POLL_MINUTES, DUE_MINUTES, LOOP_MINUTES, MIN_DISPATCH_GAP_MINUTES, nextRelayStep } from "./refresh-relay.mjs";
+import { ACTIVE_POLL_MINUTES, DUE_MINUTES, LOOP_MINUTES, MIN_DISPATCH_GAP_MINUTES, TENBAGGER_DUE_HOURS, nextRelayStep, tenbaggerDue } from "./refresh-relay.mjs";
 
 const MINUTE = 60_000;
 const now = Date.parse("2026-10-27T06:00:00Z");
@@ -42,3 +42,12 @@ assert.match(relayScript, /dispatch\("pages\.yml", \{ refresh_scope: "full" \}\)
 assert.match(pagesWorkflow, /workflow_dispatch:\s*\n\s*inputs:\s*\n\s*refresh_scope:/, "the crawl accepts the relay's dispatch");
 
 console.log(JSON.stringify({ refreshRelay: "pass", dueMinutes: DUE_MINUTES, loopMinutes: LOOP_MINUTES, timeoutMinutes: timeout }));
+
+// Ten-bagger data: due after a day, never doubled, retries spaced.
+const hoursAgo = (h) => new Date(now - h * 60 * MINUTE).toISOString();
+assert.equal(tenbaggerDue({ now, generatedAt: hoursAgo(TENBAGGER_DUE_HOURS + 1) }), true);
+assert.equal(tenbaggerDue({ now, generatedAt: hoursAgo(3) }), false);
+assert.equal(tenbaggerDue({ now, generatedAt: null }), true);
+assert.equal(tenbaggerDue({ now, generatedAt: null, activeRuns: 1 }), false);
+assert.equal(tenbaggerDue({ now, generatedAt: null, lastDispatchAt: now - 60 * MINUTE }), false);
+console.log(JSON.stringify({ tenbaggerRelay: "pass" }));

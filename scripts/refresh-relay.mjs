@@ -25,6 +25,17 @@ export const LOOP_MINUTES = 335;
 
 const MINUTE = 60_000;
 
+// The ten-bagger data (.github/workflows/tenbagger.yml) refreshes daily; the
+// relay re-dispatches it when the schedule slot was dropped.
+export const TENBAGGER_DUE_HOURS = 26;
+export const TENBAGGER_RETRY_HOURS = 6;
+export function tenbaggerDue({ now, generatedAt, activeRuns = 0, lastDispatchAt = null }) {
+  if (activeRuns > 0) return false;
+  if (lastDispatchAt !== null && now - lastDispatchAt < TENBAGGER_RETRY_HOURS * 60 * MINUTE) return false;
+  const at = Date.parse(generatedAt || "");
+  return !Number.isFinite(at) || now - at >= TENBAGGER_DUE_HOURS * 60 * MINUTE;
+}
+
 /**
  * Decide the relay's next step. Pure, so the schedule can be tested without a
  * clock or the GitHub API.
@@ -68,10 +79,15 @@ async function readLastCheckedAt() {
   return status?.lastCheckedAt || null;
 }
 
-async function countActiveCrawls() {
+async function readTenbaggerAt() {
+  const status = await github("/contents/data/tenbagger/status.json?ref=main", { accept: "application/vnd.github.raw+json" }).catch(() => null);
+  return status?.generatedAt || null;
+}
+
+async function countActiveCrawls(workflow = "pages.yml") {
   let total = 0;
   for (const status of ["queued", "in_progress", "pending", "waiting", "requested"]) {
-    const page = await github(`/actions/workflows/pages.yml/runs?branch=main&status=${status}&per_page=1`);
+    const page = await github(`/actions/workflows/${workflow}/runs?branch=main&status=${status}&per_page=1`);
     total += Number(page?.total_count || 0);
   }
   return total;
@@ -87,8 +103,19 @@ const sleep = (minutes) => new Promise((resolve) => setTimeout(resolve, minutes 
 async function main() {
   const deadline = Date.now() + LOOP_MINUTES * MINUTE;
   let lastDispatchAt = null;
+  let tenbaggerDispatchAt = null;
   for (;;) {
     let step;
+    try {
+      const [tbAt, tbActive] = [await readTenbaggerAt(), await countActiveCrawls("tenbagger.yml")];
+      if (tenbaggerDue({ now: Date.now(), generatedAt: tbAt, activeRuns: tbActive, lastDispatchAt: tenbaggerDispatchAt })) {
+        await dispatch("tenbagger.yml");
+        tenbaggerDispatchAt = Date.now();
+        console.log(`::notice::ten-bagger data was due (last ${tbAt || "never"}); dispatched its refresh`);
+      }
+    } catch (error) {
+      console.log(`::warning::ten-bagger check failed: ${error.message}`);
+    }
     try {
       const [lastCheckedAt, activeRuns] = [await readLastCheckedAt(), await countActiveCrawls()];
       step = nextRelayStep({ now: Date.now(), lastCheckedAt, activeRuns, lastDispatchAt, deadline });

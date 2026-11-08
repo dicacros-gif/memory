@@ -1,57 +1,27 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <title>Ten-Bagger Research · Memory Equity Intelligence</title>
-  <meta name="description" content="미래 성장 산업 텐배거 리서치 · 산업별 성장률, 상장사 매출·FCF·런웨이, 스타트업과 상장 지분 보유사, 과거 텐배거 패턴 · 출처 링크가 있는 수치만 표시" />
+  <meta name="color-scheme" content="dark light" />
+  <title>텐배거 리서치 · Memory Equity Intelligence</title>
+  <meta name="description" content="성장 산업 텐배거 리서치 · 산업 전망과 관측 성장, 미국·한국 상장사 스크리너, 스타트업과 상장 투자자, 과거 텐배거 검증 · 공개 출처와 기준일이 있는 수치만" />
   <link rel="icon" href="data:," />
   <link rel="stylesheet" href="./tenbagger.css" />
 </head>
 <body>
+  <a class="skip" href="#view">본문으로</a>
   <header class="tb-top">
     <a class="tb-brand" href="../"><b>MI</b><span>TEN-BAGGER RESEARCH</span></a>
-    <nav class="tb-nav" aria-label="섹션">
-      <a href="#industries">성장 업종</a>
-      <a href="#sectors">산업 지도</a>
-      <a href="#screen">후보 스크린</a>
-      <a href="#factors">연구 요인</a>
-      <a href="#discovery">신규 발견</a>
-      <a href="#history">과거 텐배거</a>
-      <a href="#method">기준</a>
-      <a href="../terminal/">터미널</a>
-    </nav>
-    <div class="tb-run" id="tbRun">데이터 연결 중</div>
+    <nav class="tb-nav" aria-label="주요 화면"></nav>
+    <span class="spacer"></span>
+    <a class="tb-secondary" href="#sources">출처와 방법</a>
+    <a class="tb-secondary" href="../terminal/">반도체 터미널</a>
+    <button type="button" class="btn sm" id="themeBtn" aria-label="밝은/어두운 테마 전환">테마</button>
   </header>
-  <main id="tbMain">
-    <section class="tb-intro">
-      <h1>텐배거 산업·종목 리서치</h1>
-      <p>산업별 성장 전망, 상장사의 매출·잉여현금흐름(FCF)·현금 런웨이, 비상장 유망 기업과 그 지분을 가진 상장사를 한 화면에 묶었습니다. 모든 수치는 출처 링크와 기준일이 있는 값만 표시하며, 수집하지 못한 값은 비워 둡니다. 투자 권유가 아닙니다.</p>
-      <div class="tb-kpis" id="tbKpis"></div>
-    </section>
-    <section id="industries"><h2>지금 매출이 빠르게 늘어나는 업종</h2><p class="tb-note" id="tbIndustryNote"></p><div class="tb-scroll" id="tbIndustries"></div></section>
-    <section id="sectors"><h2>산업 지도</h2><div class="tb-tabs" id="tbTabs" role="tablist"></div><div id="tbSector"></div></section>
-    <section id="screen"><h2>후보 스크린</h2><p class="tb-note" id="tbScreenRule"></p><div class="tb-scroll" id="tbScreen"></div></section>
-    <section id="factors"><h2>연구 기반 요인 점수 상위</h2><p class="tb-note" id="tbFactorNote"></p><div class="tb-scroll" id="tbFactors"></div></section>
-    <section id="discovery"><h2>추적 목록 밖 고성장 종목</h2><p class="tb-note" id="tbDiscoveryNote"></p><div class="tb-scroll" id="tbDiscovery"></div></section>
-    <section id="history"><h2>과거 텐배거 패턴</h2><div id="tbPatterns"></div><div class="tb-scroll" id="tbHistory"></div>
-      <h3>최근 5년 10배 상승 종목</h3><p class="tb-note" id="tbTenXNote"></p><div id="tbTenXIndustries"></div><div class="tb-scroll" id="tbTenX"></div></section>
-    <section id="method"><h2>기준</h2>
-      <ul class="tb-method">
-        <li>매출·FCF: 미국 SEC 제출사는 EDGAR XBRL 기준 최근 12개월(TTM) 또는 직전 회계연도. FCF = 영업현금흐름 − 유형자산 취득. 그 외 상장사는 Yahoo Finance 연간 재무.</li>
-        <li>런웨이: FCF가 음수일 때만 (현금 + 단기투자) ÷ 연간 현금 소진액. 증자·차입 가능성은 반영하지 않습니다.</li>
-        <li>텐배거 이력: 월간 수정주가에서 직전 7년 최저점 대비 처음 10배에 도달한 달. 10배 역산: 현재 시가총액 × 10이 산업 전망 규모 안에서 설명 가능한지 함께 봅니다.</li>
-        <li>지분율: 공시·회사 발표·보도에 명시된 값만 표시하고 근거 유형(공시/회사/보도)과 기준일을 붙입니다. 투자 금액만 알려진 경우 지분율은 비워 둡니다.</li>
-        <li>업종 성장률·신규 발견·최근 10배: 반도체 터미널과 같은 TradingView 공개 스크리너(지연 시세, 로그인 없음)에서 16개 시장, 시가총액 5천만 달러 이상 상장사의 최근 12개월 매출 성장률·FCF·현금·5년 수익률을 받아 계산합니다. 비율은 같은 종목의 같은 통화 값끼리만 나누고, 시가총액은 스크리너의 달러 환산값을 씁니다.</li>
-        <li>종목·스타트업 이름을 누르면 상세가 열립니다: 일간 차트(Yahoo Finance 일간 수정종가 2년, 월간 장기 차트), 매출·FCF·런웨이·시가총액·수익률을 수집값으로만 엮은 설명, 보유한 비상장 지분. 스타트업은 지분을 가진 상장사와 지분율·근거·기준일을 보여 줍니다.</li>
-        <li>연구 요인 점수: Yartseva(2025, 버밍엄시티대 CAFE 워킹페이퍼 33)의 10배 상승 종목 464개 연구에서 제시된 요인(규모·가치·수익성, 2차 요약 기준 FCF 수익률·52주 고점 거리)을 같은 크기 종목 안에서 백분위로 환산해 평균합니다. 예측이 아닌 순위 비교용입니다.</li>
-        <li>교차검증: SEC·Yahoo로 계산한 매출 성장률과 TradingView 값의 차이가 10%p 이내이고 FCF 부호가 같으면 '일치'로 표시합니다. 회계연도 기준과 최근 4분기 기준이 섞이면 차이가 날 수 있습니다.</li>
-        <li>산업 전망치는 기관마다 시장 정의가 달라 서로 합산·비교하지 않습니다.</li>
-      </ul>
-    </section>
-  </main>
-  <dialog class="tb-detail" id="tbDetail" aria-label="종목 상세"><div data-body></div></dialog>
-  <script type="module" src="./tenbagger.js"></script>
+  <div class="global-bar" id="globalBar"></div>
+  <main id="view" tabindex="-1"></main>
+  <footer class="tb-foot"><a href="#sources">출처와 방법</a> · 공개 정보 기반 리서치 도구이며 투자 권유가 아닙니다.</footer>
+  <script type="module" src="./js/app.js"></script>
 </body>
 </html>

@@ -176,3 +176,88 @@ assert.equal(rowFacts(tv({ price_free_cash_flow_ttm: 25 })).fcfYieldPct, 4);
 const oneY = recentTenBaggers([tv({ ticker: "KRX:1", description: "One", "Perf.Y": 1000, market_cap_basic: 5e8 })]);
 assert.equal(oneY.oneYear.length, 1);
 console.log(JSON.stringify({ tenbaggerFactors: "pass" }));
+
+// ── Company data layer ──────────────────────────────────────────────────────
+const build = await import("./tenbagger-build.mjs");
+assert.equal(build.companyId("NASDAQ:NVDA"), "us-nasdaq-nvda");
+assert.equal(build.companyId("KOSDAQ:196170"), "kr-kosdaq-196170");
+assert.equal(build.companyId("TSE:6324"), "jp-tse-6324");
+assert.deepEqual(build.splitVehicle("Intel (Intel Capital)"), { parent: "Intel", vehicle: "Intel Capital" });
+assert.deepEqual(build.splitVehicle("Alphabet (via GV)"), { parent: "Alphabet", vehicle: "GV" });
+const rel = build.relationship({ holder: "Hyundai Motor", pctOwned: 28, asOf: "2026-07-16", basis: "reported", url: "https://x", note: "look-through via HMG Global" }, { valuationDate: "2026-08-01" });
+assert.equal(rel.holding, "indirect");
+assert.equal(rel.basis, "economic (look-through)");
+assert.equal(rel.predatesLatestRound, true);
+assert.equal(rel.source.type, "press");
+assert.equal(build.relationship({ holder: "X", note: "talks terminated" }, {}).status, "pending");
+assert.equal(build.maxDrawdownPct([{ close: 10 }, { close: 20 }, { close: 5 }, { close: 30 }]), -75);
+const q8 = Array.from({ length: 8 }, (_, i) => ({ end: new Date(Date.UTC(2024, 2 + i * 3, 30)).toISOString().slice(0, 10), revenue: i < 4 ? 100 : 150 }));
+assert.equal(build.ttmGrowthFromQuarters(q8), 50);
+assert.equal(build.ttmGrowthFromQuarters(q8.slice(1)), null, "needs eight quarters");
+assert.equal(build.periodAlignedCheck({ revenueGrowthTtmPct: 50, revenueEnd: "2026-09-30" }, { revenueGrowthPct: 52 }, "2026-11-08").state, "aligned");
+assert.equal(build.periodAlignedCheck({ revenueGrowthTtmPct: 50, revenueEnd: "2025-12-31" }, { revenueGrowthPct: 52 }, "2026-11-08").state, "not-comparable");
+assert.equal(build.periodAlignedCheck({ revenueGrowthPct: 50, revenueEnd: "2026-09-30" }, { revenueGrowthPct: 52 }, "2026-11-08").state, "not-comparable", "fiscal-year growth is never compared with TTM");
+const cl1 = build.updateChangelog(null, [{ id: "a", coverage: "universe" }], "2026-11-01");
+const cl2 = build.updateChangelog(cl1, [{ id: "a", coverage: "universe" }, { id: "b", coverage: "holder" }, { id: "s", coverage: "screen" }], "2026-11-08");
+assert.deepEqual(cl2.entries[0], { date: "2026-11-08", added: ["b"], removed: [] });
+const st1 = build.sourceStatus(null, "2026-11-08T00:00:00Z", { sec: { ok: true }, fred: { ok: false, error: "HTTP 500" }, dart: { ok: null } });
+assert.equal(st1.sources.sec.ok, true);
+assert.equal(st1.sources.fred.staleSince, "2026-11-08T00:00:00Z");
+assert.equal(st1.sources.dart, undefined, "not attempted is not a failure");
+const st2 = build.sourceStatus(st1, "2026-11-09T00:00:00Z", { fred: { ok: false, error: "HTTP 500" } });
+assert.equal(st2.sources.fred.staleSince, "2026-11-08T00:00:00Z", "stale since the first failure");
+
+// SEC quarters, filings and post-period raises.
+const { quarterlyValues, secFilings, postPeriodRaises, runwayStatus } = await import("./tenbagger-collect.mjs");
+const ytd = [
+  { start: "2026-01-01", end: "2026-03-31", val: 10, filed: "2026-05-01" },
+  { start: "2026-01-01", end: "2026-06-30", val: 25, filed: "2026-08-01" },
+  { start: "2026-01-01", end: "2026-09-30", val: 45, filed: "2026-11-01" },
+];
+assert.deepEqual(quarterlyValues(ytd).map((q) => q.value), [10, 15, 20]);
+const subs = { filings: { recent: { form: ["424B5", "10-Q", "4"], filingDate: ["2026-10-20", "2026-11-05", "2026-11-06"], accessionNumber: ["0001-26-1", "0001-26-2", "0001-26-3"], primaryDocument: ["a.htm", "b.htm", "c.xml"], reportDate: ["", "2026-09-30", ""] } } };
+const fil = secFilings(subs, "1824920");
+assert.equal(fil.length, 2, "form 4 filtered out");
+assert.equal(fil[0].capitalRaise, true);
+assert.match(fil[0].url, /edgar\/data\/1824920\/0001261\/a\.htm$/);
+assert.deepEqual(postPeriodRaises({ cashEnd: "2026-09-30", filings: fil }).map((x) => x.form), ["424B5"]);
+assert.equal(runwayStatus({ status: "filed", cashEnd: "2026-09-30", fcfEnd: "2026-09-30" }), "filed");
+assert.equal(runwayStatus({ status: "provider snapshot", cashEnd: "2026-09-30", fcfEnd: "2026-09-30" }), "estimate");
+
+// DART statement parsing (quarterly report: income YTD, cash flow YTD).
+const { dartFundamentals, dartFilings } = await import("./tenbagger-dart.mjs");
+const q3 = [
+  { sj_div: "IS", account_id: "ifrs-full_Revenue", account_nm: "매출액", thstrm_amount: "40", thstrm_add_amount: "120", frmtrm_add_amount: "100" },
+  { sj_div: "CF", account_id: "ifrs-full_CashFlowsFromUsedInOperatingActivities", account_nm: "영업활동현금흐름", thstrm_amount: "30", frmtrm_amount: "20" },
+  { sj_div: "CF", account_id: "ifrs-full_PurchaseOfPropertyPlantAndEquipment", account_nm: "유형자산의 취득", thstrm_amount: "-10", frmtrm_amount: "-5" },
+  { sj_div: "BS", account_id: "ifrs-full_CashAndCashEquivalents", account_nm: "현금및현금성자산", thstrm_amount: "500" },
+  { sj_div: "BS", account_id: "-표준계정코드 미사용-", account_nm: "단기금융상품", thstrm_amount: "50" },
+];
+const fy = [
+  { sj_div: "IS", account_id: "ifrs-full_Revenue", account_nm: "매출액", thstrm_amount: "140" },
+  { sj_div: "CF", account_id: "ifrs-full_CashFlowsFromUsedInOperatingActivities", account_nm: "영업활동현금흐름", thstrm_amount: "28" },
+  { sj_div: "CF", account_id: "ifrs-full_PurchaseOfPropertyPlantAndEquipment", account_nm: "유형자산의 취득", thstrm_amount: "-8" },
+];
+const df = dartFundamentals({ latest: q3, latestCode: "11014", year: 2026, annualPrior: fy });
+assert.equal(df.revenueTtm, 160, "120 YTD + 140 FY − 100 prior YTD");
+assert.equal(df.revenueGrowthPct, 20);
+assert.equal(df.fcfTtm, (30 + 28 - 20) - (10 + 8 - 5));
+assert.equal(df.cashAndShortTermInvestments, 550);
+assert.equal(df.cashOnly, 500);
+assert.equal(df.revenueEnd, "2026-09-30");
+assert.equal(dartFilings([{ report_nm: "주요사항보고서(유상증자결정)", rcept_dt: "20261020", rcept_no: "1" }])[0].capitalRaise, true);
+
+// Audit rules.
+const { auditUniverse, nonFinite } = await import("./tenbagger-audit.mjs");
+assert.deepEqual(auditUniverse({ sectors: [{ id: "x", publicCompanies: [{ ticker: "A:B" }, { ticker: "A:B" }], startups: [{ name: "S", ticker: "NASDAQ:S", holders: [{ holder: "H", url: "", asOf: "2099-01-01", pctOwned: 5 }] }] }] }, "2026-11-08").length, 4);
+assert.deepEqual(nonFinite({ a: [1, Infinity], b: { c: NaN } }), ["$.a[1]", "$.b.c"]);
+console.log(JSON.stringify({ tenbaggerDataLayer: "pass" }));
+
+// Research additions are published only after their listing is confirmed.
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT, Inc." }, { description: "AXT Inc" }, "0001051627", true), true);
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT, Inc." }, { description: "AXT Inc" }, null, true), false, "US ticker must be in SEC's map");
+assert.equal(build.verifyListing({ ticker: "NASDAQ:XYZ", name: "Foo Robotics" }, { description: "Bar Biotech" }, "1", true), false, "name must match");
+assert.equal(build.verifyListing({ ticker: "KOSDAQ:123456", name: "에스피지" }, { description: "SPG Co Ltd" }, null, true), true, "KR six-digit code is unambiguous");
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT" }, null, "1", true), false);
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT" }, null, "1", false), null, "no scan this run: undecided");
+console.log(JSON.stringify({ tenbaggerVerification: "pass" }));
