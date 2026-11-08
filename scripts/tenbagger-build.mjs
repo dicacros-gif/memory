@@ -352,7 +352,11 @@ export function industryTenX(cohort, tvIndustries) {
 export function buildIndustries({ universe, companies, startups, screen, metricsAt, cohort = null }) {
   const sectorIndustries = { ...(screen?.sectorIndustries || {}),
     cybersecurity: ["Packaged Software", "Information Technology Services", "Internet Software/Services"],
-    "energy-storage": ["Electrical Products", "Industrial Specialties", "Chemicals: Specialty"] };
+    "energy-storage": ["Electrical Products", "Industrial Specialties", "Chemicals: Specialty"],
+    "obesity-metabolic": ["Pharmaceuticals: Major", "Pharmaceuticals: Other", "Biotechnology"],
+    "fintech-digital-assets": ["Investment Banks/Brokers", "Finance/Rental/Leasing", "Data Processing Services", "Miscellaneous Commercial Services"],
+    "autonomy-mobility": ["Motor Vehicles", "Auto Parts: OEM", "Electronic Equipment/Instruments", "Aerospace & Defense"],
+    "medtech-ai-diagnostics": ["Medical Specialties", "Medical/Nursing Services", "Services to the Health Industry"] };
   return (universe.sectors || []).map((s) => {
     const members = companies.filter((c) => c.industries.some((i) => i.id === s.id));
     const withFin = members.filter((c) => c.data.financials !== "no data" && c.data.financials !== "provider snapshot" || isNum(c.revenueTtm));
