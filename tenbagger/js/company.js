@@ -81,7 +81,11 @@ function quantSection(c) {
   const tone = (v, good, bad) => (!isNum(v) ? "q-nd" : v >= good ? "q-good" : v <= bad ? "q-bad" : "q-mid");
   const toneLow = (v, good, bad) => (!isNum(v) ? "q-nd" : v <= good ? "q-good" : v >= bad ? "q-bad" : "q-mid");
   const f = (v, d = 1, s = "") => (isNum(v) ? `${v.toFixed(d)}${s}` : "자료 없음");
+  const bc = q.balanceCheck;
   return `<section class="co-sec"><h2>퀀트 지표</h2><div class="qgrid">
+    ${cell("매출 3년 CAGR", f(q.revenueCagr3yPct, 1, "%"), tone(q.revenueCagr3yPct, 25, 0), `공시 연간 매출 기준 연평균 성장률 ${q.revenueCagr3yPeriod || ""} · 초록 ≥ 25%`)}
+    ${cell("FCF 수익률", f(q.fcfYieldPct, 1, "%"), tone(q.fcfYieldPct, 4, 0), "최근 12개월 FCF ÷ 시가총액 · 초록 ≥ 4%, 빨강 ≤ 0")}
+    ${cell("FCF 흑자 연수(최근 3년)", isNum(q.fcfPositiveYears) ? `${q.fcfPositiveYears}/3` : "자료 없음", tone(q.fcfPositiveYears, 3, 0), "최근 3개 회계연도 중 FCF가 플러스인 해")}
     ${cell("Rule of 40", f(q.ruleOf40, 0), tone(q.ruleOf40, 40, 0), "매출 성장률 + FCF 마진 · 초록 ≥ 40, 빨강 ≤ 0")}
     ${cell("ROE", f(q.roePct, 1, "%"), tone(q.roePct, 15, 0), "자기자본이익률 · 초록 ≥ 15%, 빨강 ≤ 0")}
     ${cell("순이익률", f(q.profitMarginPct, 1, "%"), tone(q.profitMarginPct, 10, 0), "최근 12개월 순이익 ÷ 매출")}
@@ -95,7 +99,7 @@ function quantSection(c) {
     ${cell("기관 지분", f(q.institutionPct, 1, "%"), "q-nd", "기관 보유 비율")}
     ${cell("애널리스트 의견", isNum(q.recommendationMean) ? `${q.recommendationMean.toFixed(1)} ${esc(q.recommendationKey || "")}` : "자료 없음", toneLow(q.recommendationMean, 2, 3.5), "1 강력 매수 ~ 5 매도, Yahoo 평균")}
     ${cell("목표가 괴리", isNum(q.targetUpsidePct) ? `${q.targetUpsidePct > 0 ? "+" : ""}${q.targetUpsidePct.toFixed(1)}%` : "자료 없음", tone(q.targetUpsidePct, 20, 0), `평균 목표가 대비 · 애널리스트 ${q.analysts ?? "—"}명`)}
-  </div><p class="sub">초록·노랑·빨강은 각 칸의 설명(마우스 오버)에 적힌 고정 기준이며 매수·매도 신호가 아닙니다. 수익성·부채·지분·컨센서스는 Yahoo Finance, Rule of 40과 순현금은 이 사이트가 같은 기간 재무로 계산합니다.${Object.keys(c.filledFrom || {}).length ? ` 보충 출처: ${Object.entries(c.filledFrom).map(([k, v]) => `${esc(k)}←${esc(v)}`).join(", ")}.` : ""}</p></section>`;
+  </div>${bc?.disagree ? `<p class="chip chip-warn" title="공시 순현금과 Yahoo 최근 분기 순현금(리스 포함 부채)의 부호가 다르고 차이가 시가총액의 5% 초과">순현금 확인 필요: 공시 ${money(bc.filedNetCash, c.statementCurrency)} · Yahoo ${money(bc.yahooNetCash, c.statementCurrency)}</p>` : ""}<p class="sub">초록·노랑·빨강은 각 칸의 설명(마우스 오버)에 적힌 고정 기준이며 매수·매도 신호가 아닙니다. 수익성·부채·지분·컨센서스는 Yahoo Finance, Rule of 40과 순현금은 이 사이트가 같은 기간 재무로 계산합니다.${Object.keys(c.filledFrom || {}).length ? ` 보충 출처: ${Object.entries(c.filledFrom).map(([k, v]) => `${esc(k)}←${esc(v)}`).join(", ")}.` : ""}</p></section>`;
 }
 
 export function renderCompany(c, pos = null) {
@@ -130,7 +134,7 @@ export function renderCompany(c, pos = null) {
     <section class="co-sec"><h2>현금 · 단기투자 · 차입금</h2>${kv([
       ["현금및현금성자산", money(c.cashOnly, cur), esc(c.balanceSheetEnd || "")], ["단기투자", money(c.shortTermInvestments, cur)],
       ["현금+단기투자", money(c.cashPlusSti, cur)], ["차입금", money(c.debt, cur), "같은 재무상태표 날짜의 항목만"],
-    ])}</section>
+    ])}${c.balanceSheetConcepts ? `<p class="sub">XBRL 항목: 현금 ${esc(c.balanceSheetConcepts.cash || "—")} · 단기투자 ${esc(c.balanceSheetConcepts.sti || "해당 항목 없음")} · 차입금 ${esc((c.balanceSheetConcepts.debt || []).join(" + ") || "해당 항목 없음")}</p>` : ""}</section>
     <section class="co-sec"><h2>런웨이와 희석</h2>${c.fcfPositive ? '<p class="pos">FCF 플러스 — 현재 소진이 없어 런웨이를 계산하지 않습니다.</p>' : kv([
       ["런웨이 · 현금만", years(c.runwayCashOnlyYears)], ["런웨이 · 현금+단기투자", years(c.runwayCashPlusStiYears)],
       ["근거", c.runwayStatus === "filed" ? statusChip("filed", "같은 기간 공시 재무") : statusChip("estimate", "데이터 제공사 수치 — 기간 정렬 미확인")],

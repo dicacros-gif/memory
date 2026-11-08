@@ -150,11 +150,42 @@ export function verifyListing(company, tvRow, secCik, scanAvailable) {
  * investments − debt, same balance-sheet date) and its share of market cap,
  * analyst target upside, plus the Yahoo quality/ownership/analyst fields.
  */
+/** Revenue CAGR over three fiscal years: latest annual revenue vs the one ~3 years earlier. */
+export function revenueCagr3y(annual = []) {
+  const a = annual.filter((x) => isNum(x.revenue) && x.revenue > 0).sort((x, y) => String(x.end).localeCompare(String(y.end)));
+  if (a.length < 4) return null;
+  const last = a.at(-1);
+  const base = a.find((x) => { const yrs = (Date.parse(last.end) - Date.parse(x.end)) / (365.25 * DAY); return yrs > 2.75 && yrs < 3.25; });
+  if (!base) return null;
+  return { pct: round((Math.pow(last.revenue / base.revenue, 1 / 3) - 1) * 100), from: base.end, to: last.end };
+}
+
+/**
+ * Filed net cash against Yahoo's most-recent-quarter totals (same currency only).
+ * Flags only a sign disagreement with a gap above 5% of market cap; Yahoo's debt
+ * includes leases, so smaller gaps are expected and not shown.
+ */
+export function balanceCheck(c, netCash) {
+  const v = c.valuation || {};
+  if (!isNum(netCash) || !isNum(v.totalCash) || !isNum(v.totalDebt)) return null;
+  if (!v.financialCurrency || v.financialCurrency !== c.statementCurrency) return null;
+  const yahoo = v.totalCash - v.totalDebt;
+  const gap = Math.abs(yahoo - netCash);
+  const material = isNum(c.marketCap) && c.marketCap > 0 && c.currency === c.statementCurrency ? gap / c.marketCap > 0.05 : gap > Math.abs(netCash) * 0.5;
+  return { yahooNetCash: yahoo, filedNetCash: netCash, disagree: Math.sign(yahoo) !== Math.sign(netCash) && material };
+}
+
 export function quantBlock(c) {
   const v = c.valuation || {};
   const sameCur = c.currency && c.statementCurrency && c.currency === c.statementCurrency;
-  const netCash = isNum(c.cashPlusSti) && isNum(c.debt) ? c.cashPlusSti - c.debt : isNum(c.cashPlusSti) && c.debt === null ? null : null;
+  const netCash = isNum(c.cashPlusSti) && isNum(c.debt) ? c.cashPlusSti - c.debt : null;
+  const cagr = revenueCagr3y(c.annual);
+  const lastAnnual = (c.annual || []).filter((x) => isNum(x.fcf)).slice(-3);
   return {
+    revenueCagr3yPct: cagr?.pct ?? null, revenueCagr3yPeriod: cagr ? `${cagr.from}→${cagr.to}` : null,
+    fcfYieldPct: isNum(c.fcfTtm) && isNum(c.marketCap) && c.marketCap > 0 && sameCur ? round((c.fcfTtm / c.marketCap) * 100) : null,
+    fcfPositiveYears: lastAnnual.length === 3 ? lastAnnual.filter((x) => x.fcf > 0).length : null,
+    balanceCheck: balanceCheck(c, netCash),
     ruleOf40: isNum(c.revenueGrowthPct) && isNum(c.fcfMarginPct) ? round(c.revenueGrowthPct + c.fcfMarginPct) : null,
     netCash, netCashToMcapPct: isNum(netCash) && isNum(c.marketCap) && c.marketCap > 0 && sameCur ? round((netCash / c.marketCap) * 100) : null,
     targetUpsidePct: isNum(v.targetMean) && isNum(c.price) && c.price > 0 ? round((v.targetMean / c.price - 1) * 100) : null,
@@ -259,10 +290,11 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     if (rec.fcfPositive === null && tvFacts?.fcfPositive !== null && tvFacts?.fcfPositive !== undefined) { rec.fcfPositive = tvFacts.fcfPositive; rec.filledFrom.fcfPositive = "TradingView"; }
     if (!isNum(rec.runwayCashPlusStiYears) && isNum(tvFacts?.runwayYears)) { rec.runwayCashPlusStiYears = tvFacts.runwayYears; rec.filledFrom.runway = "TradingView"; rec.runwayStatus = rec.runwayStatus || "estimate"; }
     for (const key of ["grossMarginPct", "operatingMarginPct"]) if (!isNum(rec[key]) && isNum(rec.valuation?.[key])) { rec[key] = rec.valuation[key]; rec.filledFrom[key] = "Yahoo"; }
+    rec.annual = f?.annual || [];
+    rec.balanceSheetConcepts = f?.balanceSheetConcepts || null;
     rec.quant = quantBlock(rec);
     rec.tenBagger = m?.tenBagger ?? null;
     rec.quarters = f?.quarters || [];
-    rec.annual = f?.annual || [];
     rec.filings = (f?.filings || []).slice(0, 12);
     rec.postPeriodRaises = m?.postPeriodRaises || [];
     rec.tvCheck = periodAlignedCheck(rec, tvFacts0, screen?.fetchedAt);
@@ -349,6 +381,19 @@ export function industryTenX(cohort, tvIndustries) {
     basePct: base ? round(base * 100, 2) : null, industries: tvIndustries };
 }
 
+/** Median of each quant indicator across an industry's tracked listed companies, with the count used. */
+export function industryMedians(members) {
+  const pick = {
+    forwardPE: (c) => c.valuation?.forwardPE, priceToSales: (c) => c.priceToSales, revenueGrowthPct: (c) => c.revenueGrowthPct,
+    revenueCagr3yPct: (c) => c.quant?.revenueCagr3yPct, grossMarginPct: (c) => c.grossMarginPct, ruleOf40: (c) => c.quant?.ruleOf40,
+    fcfYieldPct: (c) => c.quant?.fcfYieldPct, netCashToMcapPct: (c) => c.quant?.netCashToMcapPct, roePct: (c) => c.quant?.roePct,
+    targetUpsidePct: (c) => c.quant?.targetUpsidePct,
+  };
+  const out = {};
+  for (const [k, f] of Object.entries(pick)) { const vals = members.map(f).filter(isNum); out[k] = { median: median(vals), n: vals.length }; }
+  return out;
+}
+
 export function buildIndustries({ universe, companies, startups, screen, metricsAt, cohort = null }) {
   const sectorIndustries = { ...(screen?.sectorIndustries || {}),
     cybersecurity: ["Packaged Software", "Information Technology Services", "Internet Software/Services"],
@@ -386,6 +431,7 @@ export function buildIndustries({ universe, companies, startups, screen, metrics
       },
       counts: { us: members.filter((c) => c.market === "US").length, kr: members.filter((c) => c.market === "KR").length, other: members.filter((c) => c.market === "OTHER").length, startups: startups.filter((x) => x.industry === s.id).length },
       historicalTenX: industryTenX(cohort, sectorIndustries[s.id] || []),
+      medians: industryMedians(members),
       fcfPositiveShare: members.filter((c) => c.fcfPositive !== null).length ? round(members.filter((c) => c.fcfPositive === true).length / members.filter((c) => c.fcfPositive !== null).length * 100) : null,
       coverage: { withFinancials: withFin.length, total: members.length },
       researchDate: s.asOf || universe.asOf || null,

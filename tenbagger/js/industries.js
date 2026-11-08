@@ -88,6 +88,21 @@ function potentialMatrix(industries, positioning) {
     <p class="sub">과거 발생률은 TradingView 업종 분류로 묶은 과거 표본의 빈도이며 미래 확률이 아닙니다. 사이버보안·에너지저장은 다른 산업과 업종이 겹칩니다. 생존 편향(상장폐지 제외)이 있습니다.</p></section>`;
 }
 
+const MEDIANS = [
+  ["forwardPE", "선행 P/E", (v) => v.toFixed(1)], ["priceToSales", "P/S", (v) => v.toFixed(1)],
+  ["revenueCagr3yPct", "매출 3년 CAGR", (v) => `${v.toFixed(0)}%`], ["grossMarginPct", "매출총이익률", (v) => `${v.toFixed(0)}%`],
+  ["ruleOf40", "Rule of 40", (v) => v.toFixed(0)], ["fcfYieldPct", "FCF 수익률", (v) => `${v.toFixed(1)}%`],
+  ["netCashToMcapPct", "순현금/시총", (v) => `${v.toFixed(0)}%`], ["roePct", "ROE", (v) => `${v.toFixed(0)}%`],
+];
+
+/** Industry medians of the per-stock quant indicators (n = companies with a value). */
+export function medianStrip(m) {
+  if (!m) return "";
+  const cells = MEDIANS.filter(([k]) => isNum(m[k]?.median));
+  if (!cells.length) return "";
+  return `<dl class="ind-medians" title="추적 상장사 지표의 중앙값 · n = 값이 있는 기업 수">${cells.map(([k, l, f]) => `<div><dt>${esc(l)}</dt><dd>${esc(f(m[k].median))}<span class="sub"> n${m[k].n}</span></dd></div>`).join("")}</dl>`;
+}
+
 export function renderIndustries(root, { industries, params, digest, companies, positioning }) {
   const sortKey = SORTS[params.sort] ? params.sort : "forecast";
   const value = SORTS[sortKey][1];
@@ -99,6 +114,7 @@ export function renderIndustries(root, { industries, params, digest, companies, 
       <p class="sub">${i.forecastPeriods.length ? `전망 기간 ${i.forecastPeriods.map(esc).join(" · ")}` : "전망 기간 자료 없음"}</p>
       <div class="obs"><span>관측</span> ${pct(i.observed.medianRevenueGrowthPct)} <span class="sub">추적 상장사 ${i.observed.companies}곳의 최근 매출 성장률 중앙값(실적)</span></div>
       <div class="obs tenx"><span>과거</span> ${isNum(i.historicalTenX?.ratePct) ? `10배 발생률 ${i.historicalTenX.ratePct.toFixed(2)}% <b class="${i.historicalTenX.lift >= 1.5 ? "pos" : i.historicalTenX.lift < 0.8 ? "neg" : ""}">(기본률의 ${i.historicalTenX.lift.toFixed(2)}배)</b>` : '<span class="nd">자료 없음</span>'}</div>
+      ${medianStrip(i.medians)}
       <dl class="ind-counts"><div><dt>미국</dt><dd>${i.counts.us}</dd></div><div><dt>한국</dt><dd>${i.counts.kr}</dd></div><div><dt>기타</dt><dd>${i.counts.other}</dd></div><div><dt>스타트업</dt><dd>${i.counts.startups}</dd></div></dl>
       <p class="sub">재무 수집 ${i.coverage.withFinancials}/${i.coverage.total} · FCF 플러스 ${isNum(i.fcfPositiveShare) ? `${i.fcfPositiveShare}%` : "자료 없음"} · 리서치 ${esc(day(i.researchDate) || "—")} · 수치 ${esc(day(i.dataDate) || "—")}</p>
     </article>`;

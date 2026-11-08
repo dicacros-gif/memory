@@ -93,6 +93,11 @@ export function instantAt(facts, concepts, end) {
  * total long-term debt, plus short-term borrowings.
  */
 export function debtAt(facts, end) {
+  return debtBreakdown(facts, end)?.value ?? null;
+}
+
+/** debtAt plus the concepts that made it up (shown on the company page as provenance). */
+export function debtBreakdown(facts, end) {
   const nonCur = instantAt(facts, ["us-gaap:LongTermDebtNoncurrent"], end);
   const cur = instantAt(facts, ["us-gaap:LongTermDebtCurrent"], end);
   const total = instantAt(facts, ["us-gaap:LongTermDebt"], end);
@@ -100,11 +105,25 @@ export function debtAt(facts, end) {
   const ifrs = instantAt(facts, ["ifrs-full:NoncurrentPortionOfNoncurrentBorrowings"], end);
   const ifrsCur = instantAt(facts, ["ifrs-full:CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings"], end);
   let longTerm = null;
-  if (nonCur) longTerm = nonCur.value + (cur?.value || 0);
-  else if (total) longTerm = total.value;
-  else if (ifrs) longTerm = ifrs.value + (ifrsCur?.value || 0);
+  const parts = [];
+  if (nonCur) { longTerm = nonCur.value + (cur?.value || 0); parts.push(nonCur.concept, ...(cur ? [cur.concept] : [])); }
+  else if (total) { longTerm = total.value; parts.push(total.concept); }
+  else if (ifrs) { longTerm = ifrs.value + (ifrsCur?.value || 0); parts.push(ifrs.concept, ...(ifrsCur ? [ifrsCur.concept] : [])); }
   if (longTerm === null && !shortB) return null;
-  return (longTerm || 0) + (shortB?.value || 0);
+  if (shortB) parts.push(shortB.concept);
+  return { value: (longTerm || 0) + (shortB?.value || 0), parts };
+}
+
+/**
+ * Short-term investments on the cash date: a dedicated concept first; else the
+ * filer's combined "cash, equivalents and short-term investments" minus cash.
+ */
+export function stiAtDate(facts, end, cashValue) {
+  const direct = instantAt(facts, ["us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent", "us-gaap:HeldToMaturitySecuritiesCurrent", "us-gaap:OtherShortTermInvestments", "ifrs-full:CurrentFinancialAssetsAtFairValueThroughProfitOrLoss", "ifrs-full:OtherCurrentFinancialAssets"], end);
+  if (direct) return direct;
+  const combined = instantAt(facts, ["us-gaap:CashCashEquivalentsAndShortTermInvestments"], end);
+  if (combined && Number.isFinite(cashValue) && combined.value > cashValue) return { value: combined.value - cashValue, concept: `${combined.concept} − cash` };
+  return null;
 }
 
 /** Latest instant value (balance-sheet items). */
@@ -288,10 +307,11 @@ export function secFundamentals(facts) {
   const oi = opInc && trailingTwelveMonths(opInc.rows);
   const cashNow = cash && latestInstant(cash.rows);
   // Short-term investments and debt on the cash date only, whichever concept the filer used.
-  const stiAt = instantAt(facts, ["us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent", "us-gaap:HeldToMaturitySecuritiesCurrent", "ifrs-full:CurrentFinancialAssetsAtFairValueThroughProfitOrLoss"], cashNow?.end);
+  const stiAt = stiAtDate(facts, cashNow?.end, cashNow?.value);
   const stiNow = stiAt ? { value: stiAt.value, end: cashNow.end } : null;
   const stiSameDate = stiNow ? stiNow.value : 0;
-  const debtValue = debtAt(facts, cashNow?.end);
+  const debtB = debtBreakdown(facts, cashNow?.end);
+  const debtValue = debtB?.value ?? null;
   const sharesNow = shares && latestInstant(shares);
   const fcf = op && cx && op.end === cx.end ? op.value - cx.value : op && !capex ? op.value : null;
   const sameEnd = (x) => x && rev && x.end === rev.end;
@@ -317,6 +337,7 @@ export function secFundamentals(facts) {
     shortTermInvestments: stiNow ? stiNow.value : null,
     cashAndShortTermInvestments: cashNow ? cashNow.value + stiSameDate : null,
     debt: debtValue,
+    balanceSheetConcepts: { cash: cash?.concept || null, sti: stiAt?.concept || null, debt: debtB?.parts || [] },
     cashEnd: cashNow?.end ?? null,
     sharesOutstanding: sharesNow?.value ?? null,
     dilutionPct: shares ? dilutionPct(shares) : null,
