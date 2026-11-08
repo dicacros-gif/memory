@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths-ignore:
+      - "data/tenbagger/**"
       - "data/research-archive.json"
       - "data/live.json"
       - "data/price-history.json"
@@ -38,11 +39,6 @@ on:
       - "data/translation-cache.json"
       - "data/refresh-events.json"
       - "data/refresh-status.json"
-      - "data/tenbagger/metrics.json"
-      - "data/tenbagger/source-checks.json"
-      - "data/tenbagger/screen.json"
-      - "data/tenbagger/landing-client.json"
-      - "data/tenbagger/daily/**"
   schedule:
     # GitHub's scheduler fires late or drops runs under load: on this repo
     # scheduled runs start 2-5 hours late and some slots never fire, so a
@@ -278,19 +274,6 @@ jobs:
           git diff --check
           test ! -n "$(find data -maxdepth 1 -name '*.tmp' -print -quit)"
 
-      - name: Refresh ten-bagger research metrics
-        # Prices and SEC/Yahoo fundamentals for the curated ten-bagger universe.
-        # Fail-soft: the collector carries previous numbers on a failed fetch
-        # and a failure here never blocks the intelligence publication.
-        continue-on-error: true
-        timeout-minutes: 32
-        run: |
-          python scripts/tenbagger/collect_yf.py || echo "::warning::ten-bagger yfinance step failed; previous prices kept"
-          python scripts/tenbagger/collect_tv.py || echo "::warning::ten-bagger TradingView scan failed; previous screen kept"
-          node scripts/tenbagger-collect.mjs || echo "::warning::ten-bagger metrics refresh failed; previous numbers kept"
-          node scripts/tenbagger-screen.mjs || echo "::warning::ten-bagger market screen failed; previous screen kept"
-          node scripts/tenbagger-verify-sources.mjs || echo "::warning::ten-bagger source re-check failed; previous results kept"
-
       - name: Commit refreshed intelligence data
         if: github.ref == 'refs/heads/main'
         shell: bash
@@ -304,10 +287,6 @@ jobs:
             exit 0
           fi
           git add index.html assets/js/landing.js assets/js/landing.min.js data/research-archive.json data/mbb-frames.json data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/decision-history-client.json data/landing-decision-client.json data/site-content-client.json data/site-content-extended-client.json data/company-directory-client.json data/console-capital-plans.json data/console-chip-roadmap.json data/insight-ledger.json data/company-signals.json data/memory-demand.json data/silicon-map.json data/pain-points.json data/org-signals.json data/investment-memo-client.json data/terminal-client.json data/terminal-source.json data/terminal-ohlcv data/executive-latest.json console/index.html data/translation-cache.json data/refresh-events.json data/refresh-status.json
-          # Ten-bagger artifacts are fail-soft: add only what this run produced.
-          for path in data/tenbagger/metrics.json data/tenbagger/source-checks.json data/tenbagger/screen.json data/tenbagger/landing-client.json data/tenbagger/daily; do
-            if [ -e "$path" ]; then git add "$path"; fi
-          done
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else

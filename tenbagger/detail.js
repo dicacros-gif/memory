@@ -102,14 +102,16 @@ async function loadDaily(ticker) {
     const [exchange, code] = t.split(":");
     const venues = US.has(exchange) ? [exchange, "NASDAQ", "NYSE", "NYSEAMERICAN"] : exchange === "KRX" || exchange === "KOSDAQ" ? [exchange, "KRX", "KOSDAQ"] : [exchange];
     const keys = [...new Set(venues.map((v) => slug(`${v}:${code}`)))];
-    const get = (k) => fetch(`../data/tenbagger/daily/${k}.json`, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    // data/tenbagger/bars/<ticker>.json: columnar daily OHLCV (t, o, h, l, c, v).
+    const get = (k) => fetch(`../data/tenbagger/bars/${k}.json`, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null))
+      .then((b) => (b?.t?.length ? { ...b, points: b.t.map((d, i) => [d, b.c[i]]).filter((p) => p[1] > 0) } : null)).catch(() => null);
     dailyCache.set(key, keys.reduce((p, k) => p.then((d) => d || get(k)), Promise.resolve(null)));
   }
   return dailyCache.get(key);
 }
 
 // ── Chart ───────────────────────────────────────────────────────────────────
-const RANGES = [["1M", 22], ["3M", 66], ["6M", 130], ["1Y", 252], ["2Y", 9999], ["10Y", "m120"], ["전체", "mall"]];
+const RANGES = [["1M", 22], ["3M", 66], ["6M", 130], ["1Y", 252], ["5Y", 9999], ["10Y", "m120"], ["전체", "mall"]];
 
 function chartSvg(points, currency) {
   if (!points || points.length < 2) return '<p class="muted">이 구간의 가격 데이터가 없습니다.</p>';

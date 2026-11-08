@@ -149,39 +149,143 @@ const usd = (facts, ...concepts) => {
   return best;
 };
 
+/**
+ * Discrete quarters from XBRL duration facts. 10-Q facts are year-to-date for
+ * cash flows (and often for revenue), so each quarter is the difference
+ * between consecutive cumulative facts that share a fiscal-year start; a
+ * standalone ~90-day fact is used as is. Returns [{end, value}] oldest first.
+ */
+export function quarterlyValues(facts = []) {
+  const latest = new Map();
+  for (const f of facts) {
+    if (!f.start || !f.end || !Number.isFinite(Number(f.val))) continue;
+    const key = `${f.start}|${f.end}`;
+    const prev = latest.get(key);
+    if (!prev || String(f.filed || "") > String(prev.filed || "")) latest.set(key, f);
+  }
+  const rows = [...latest.values()].map((f) => ({ start: f.start, end: f.end, val: Number(f.val), len: days(f.start, f.end) }));
+  const out = new Map();
+  for (const r of rows) if (r.len >= 80 && r.len <= 100) out.set(r.end, r.val);
+  const byStart = new Map();
+  for (const r of rows) if (r.len > 100 && r.len < 380) { if (!byStart.has(r.start)) byStart.set(r.start, []); byStart.get(r.start).push(r); }
+  for (const group of byStart.values()) {
+    const cumulative = [...group, ...rows.filter((r) => r.len >= 80 && r.len <= 100 && r.start === group[0].start)].sort((a, b) => (a.end < b.end ? -1 : 1));
+    for (let i = 1; i < cumulative.length; i += 1) {
+      const gap = days(cumulative[i - 1].end, cumulative[i].end);
+      if (gap >= 80 && gap <= 100 && !out.has(cumulative[i].end)) out.set(cumulative[i].end, cumulative[i].val - cumulative[i - 1].val);
+    }
+  }
+  return [...out.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1)).map(([end, value]) => ({ end, value }));
+}
+
+/** Last eight quarters of revenue and FCF (OCF − capex on the same quarter end). */
+export function secQuarters(revenueRows, ocfRows, capexRows) {
+  const rev = new Map(quarterlyValues(revenueRows || []).map((q) => [q.end, q.value]));
+  const ocf = new Map(quarterlyValues(ocfRows || []).map((q) => [q.end, q.value]));
+  const cx = new Map(quarterlyValues(capexRows || []).map((q) => [q.end, q.value]));
+  const ends = [...new Set([...rev.keys(), ...ocf.keys()])].sort().slice(-8);
+  return ends.map((end) => ({ end, revenue: rev.get(end) ?? null, fcf: ocf.has(end) && (cx.has(end) || !capexRows) ? ocf.get(end) - (cx.get(end) || 0) : null }));
+}
+
+const RAISE_FORMS = /^(S-1|S-3|F-1|F-3|424B[1-5])(\/A)?$/;
+/** Recent SEC filings, newest first, with offering filings flagged. */
+export function secFilings(submissions, cik, limit = 15) {
+  const r = submissions?.filings?.recent;
+  if (!r?.form) return [];
+  const out = [];
+  for (let i = 0; i < r.form.length && out.length < limit; i += 1) {
+    const form = r.form[i];
+    if (!/^(10-K|10-Q|8-K|20-F|40-F|6-K|S-1|S-3|F-1|F-3|424B\d|DEF 14A)/.test(form)) continue;
+    const acc = String(r.accessionNumber[i] || "").replace(/-/g, "");
+    out.push({
+      form, date: r.filingDate[i], reportDate: r.reportDate?.[i] || null, description: r.primaryDocDescription?.[i] || null,
+      url: `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${acc}/${r.primaryDocument[i]}`,
+      capitalRaise: RAISE_FORMS.test(form),
+    });
+  }
+  return out;
+}
+
+/** Annual values by fiscal-year end (latest filing wins), oldest first. */
+export function annualValues(facts = []) {
+  const out = new Map();
+  for (const f of facts) {
+    if (!f.start || !f.end || !Number.isFinite(Number(f.val))) continue;
+    const len = days(f.start, f.end);
+    if (len < 350 || len > 380) continue;
+    const prev = out.get(f.end);
+    if (!prev || String(f.filed || "") > String(prev.filed || "")) out.set(f.end, f);
+  }
+  return [...out.values()].sort((a, b) => (a.end < b.end ? -1 : 1)).map((f) => ({ end: f.end, value: Number(f.val) }));
+}
+
+/** Share count change over roughly one year, in % (positive = dilution). */
+export function dilutionPct(shareFacts = []) {
+  const rows = shareFacts.filter((f) => f.end && Number.isFinite(Number(f.val)) && Number(f.val) > 0).sort((a, b) => (a.end < b.end ? -1 : 1));
+  if (rows.length < 2) return null;
+  const last = rows.at(-1);
+  const prior = [...rows].reverse().find((r) => days(r.end, last.end) >= 330 && days(r.end, last.end) <= 400);
+  return prior ? Number(((Number(last.val) / Number(prior.val) - 1) * 100).toFixed(1)) : null;
+}
+
 export function secFundamentals(facts) {
   const revenue = usd(facts, "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax", "us-gaap:Revenues", "us-gaap:SalesRevenueNet", "us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax", "ifrs-full:Revenue");
   const ocf = usd(facts, "us-gaap:NetCashProvidedByUsedInOperatingActivities", "ifrs-full:CashFlowsFromUsedInOperatingActivities");
   const capex = usd(facts, "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment", "us-gaap:PaymentsToAcquireProductiveAssets", "us-gaap:PaymentsToAcquirePropertyPlantAndEquipmentAndIntangibleAssets", "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "ifrs-full:PurchaseOfPropertyPlantAndEquipment");
   const cash = usd(facts, "us-gaap:CashAndCashEquivalentsAtCarryingValue", "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "ifrs-full:CashAndCashEquivalents");
   const sti = usd(facts, "us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent");
+  const gross = usd(facts, "us-gaap:GrossProfit", "ifrs-full:GrossProfit");
+  const opInc = usd(facts, "us-gaap:OperatingIncomeLoss", "ifrs-full:ProfitLossFromOperatingActivities");
+  const debtLong = usd(facts, "us-gaap:LongTermDebtNoncurrent", "us-gaap:LongTermDebt", "ifrs-full:NoncurrentPortionOfNoncurrentBorrowings");
+  const debtShort = usd(facts, "us-gaap:LongTermDebtCurrent", "us-gaap:DebtCurrent", "us-gaap:ShortTermBorrowings", "ifrs-full:CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings");
   const shares = facts?.facts?.dei?.EntityCommonStockSharesOutstanding?.units?.shares;
   const rev = revenue && trailingTwelveMonths(revenue.rows);
   const op = ocf && trailingTwelveMonths(ocf.rows);
   const cx = capex && trailingTwelveMonths(capex.rows);
+  const gp = gross && trailingTwelveMonths(gross.rows);
+  const oi = opInc && trailingTwelveMonths(opInc.rows);
   const cashNow = cash && latestInstant(cash.rows);
   const stiNow = sti && latestInstant(sti.rows);
   const stiSameDate = stiNow && cashNow && stiNow.end === cashNow.end ? stiNow.value : 0;
+  const dl = debtLong && latestInstant(debtLong.rows);
+  const ds = debtShort && latestInstant(debtShort.rows);
+  const debtDate = cashNow?.end;
+  const debt = [dl, ds].filter((d) => d && d.end === debtDate).reduce((sum, d) => sum + d.value, 0);
   const sharesNow = shares && latestInstant(shares);
   const fcf = op && cx && op.end === cx.end ? op.value - cx.value : op && !capex ? op.value : null;
+  const sameEnd = (x) => x && rev && x.end === rev.end;
+  const annualRev = new Map(annualValues(revenue?.rows).map((a) => [a.end, a.value]));
+  const annualOcf = new Map(annualValues(ocf?.rows).map((a) => [a.end, a.value]));
+  const annualCapex = new Map(annualValues(capex?.rows).map((a) => [a.end, a.value]));
   return {
     currency: revenue?.unit || ocf?.unit || "USD",
+    quarters: secQuarters(revenue?.rows, ocf?.rows, capex?.rows),
+    annual: [...annualRev.keys()].slice(-15).map((end) => ({ end, revenue: annualRev.get(end), fcf: annualOcf.has(end) ? annualOcf.get(end) - (annualCapex.get(end) || 0) : null })),
     revenueTtm: rev?.value ?? null,
     revenueBasis: rev?.basis ?? null,
     revenueEnd: rev?.end ?? null,
     revenueGrowthPct: revenue ? annualGrowthPct(revenue.rows) : null,
+    grossMarginPct: sameEnd(gp) && rev.value > 0 ? Number((gp.value / rev.value * 100).toFixed(1)) : null,
+    operatingMarginPct: sameEnd(oi) && rev.value > 0 ? Number((oi.value / rev.value * 100).toFixed(1)) : null,
     operatingCashFlowTtm: op?.value ?? null,
     capexTtm: cx?.value ?? null,
     fcfTtm: Number.isFinite(fcf) ? fcf : null,
+    fcfEnd: op?.end ?? null,
+    cashOnly: cashNow?.value ?? null,
+    shortTermInvestments: stiNow && cashNow && stiNow.end === cashNow.end ? stiNow.value : null,
     cashAndShortTermInvestments: cashNow ? cashNow.value + stiSameDate : null,
+    debt: dl || ds ? debt : null,
     cashEnd: cashNow?.end ?? null,
     sharesOutstanding: sharesNow?.value ?? null,
+    dilutionPct: shares ? dilutionPct(shares) : null,
   };
 }
 
 async function fetchSec(cik) {
-  const facts = await getJson(`https://data.sec.gov/api/xbrl/companyfacts/CIK${String(cik).padStart(10, "0")}.json`, { "User-Agent": SEC_UA });
-  return { ...secFundamentals(facts), source: "SEC EDGAR companyfacts", sourceUrl: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}` };
+  const padded = String(cik).padStart(10, "0");
+  const facts = await getJson(`https://data.sec.gov/api/xbrl/companyfacts/CIK${padded}.json`, { "User-Agent": SEC_UA });
+  const submissions = await getJson(`https://data.sec.gov/submissions/CIK${padded}.json`, { "User-Agent": SEC_UA }).catch(() => null);
+  return { ...secFundamentals(facts), filings: secFilings(submissions, cik), status: "filed", source: "SEC EDGAR companyfacts", sourceUrl: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}` };
 }
 
 /** Korean listings move between KOSPI (.KS) and KOSDAQ (.KQ); try the other suffix too. */
@@ -271,6 +375,23 @@ async function mapLimit(items, limit, fn) {
 
 // ── build ───────────────────────────────────────────────────────────────────
 
+/**
+ * "filed" when cash and FCF come from the same filed period (SEC or DART);
+ * "estimate" for provider snapshots whose period alignment is not verified.
+ */
+export function runwayStatus(f) {
+  if (!f) return null;
+  if (f.status === "filed" && f.cashEnd && (f.fcfEnd || f.revenueEnd) === f.cashEnd) return "filed";
+  return "estimate";
+}
+
+/** Offering filings after the statements' period end: shown separately, never added to cash. */
+export function postPeriodRaises(f) {
+  const end = f?.cashEnd || f?.revenueEnd;
+  if (!end) return [];
+  return (f.filings || []).filter((x) => x.capitalRaise && x.date > end).map(({ form, date, url }) => ({ form, date, url }));
+}
+
 /** US-dollar market cap: our own figure for USD listings, TradingView's conversion otherwise. */
 export function usdMarketCap(row, tv) {
   if (row?.currency === "USD" && Number.isFinite(row.marketCap)) return Math.round(row.marketCap);
@@ -293,6 +414,8 @@ export function companyMetrics({ company, prices, fundamentals, previous }) {
     marketCapNeededFor10x: Number.isFinite(marketCap) ? marketCap * 10 : null,
     fundamentals: fx,
     runwayYears: fx ? runwayYears(fx.cashAndShortTermInvestments, fx.fcfTtm) : null,
+    // Constant-burn scenarios, both on the same balance-sheet date.
+    runwayCashOnlyYears: fx ? runwayYears(fx.cashOnly, fx.fcfTtm) : null,
     fcfMarginPct: fx && fx.revenueTtm > 0 && Number.isFinite(fx.fcfTtm) ? Number((fx.fcfTtm / fx.revenueTtm * 100).toFixed(1)) : null,
     returns: { m12: trailingReturn(series, 12), m36: trailingReturn(series, 36), m60: trailingReturn(series, 60) },
     tenBagger: tenBaggerEpisode(series),
@@ -309,7 +432,16 @@ async function main() {
   const companies = new Map();
   for (const sector of universe.sectors || []) for (const c of sector.publicCompanies || []) companies.set(c.ticker, c);
   for (const c of universe.history?.cases || []) if (!companies.has(c.ticker)) companies.set(c.ticker, { ...c, historyOnly: true });
+  // Listed holders of startup stakes: the second path into each industry.
+  for (const sector of universe.sectors || []) for (const st of sector.startups || []) for (const h of st.holders || []) {
+    for (const t of String(h.holderTicker || "").split("/").map((x) => x.trim()).filter((x) => /^[A-Z]+:[A-Z0-9.\-]+$/.test(x))) {
+      if (!companies.has(t)) companies.set(t, { ticker: t, name: h.holder, holderOnly: true });
+    }
+  }
   const errors = [];
+  // Korean statements filed with DART (scripts/tenbagger-dart.mjs; needs the DART_API_KEY secret).
+  let dartCache = {};
+  try { dartCache = JSON.parse(await readFile(resolve(root, "data/tenbagger/dart-cache.json"), "utf8")).tickers || {}; } catch { /* no key or step skipped */ }
   // Prices and non-SEC statements come from the yfinance step (scripts/tenbagger/collect_yf.py).
   let yfCache = {};
   try { yfCache = JSON.parse(await readFile(resolve(root, "data/tenbagger/yf-cache.json"), "utf8")).tickers || {}; } catch { /* step skipped */ }
@@ -322,15 +454,19 @@ async function main() {
     const cik = secCikFor(company, tickerMap);
     const cached = yfCache[company.ticker];
     const prices = cached?.series?.length
-      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap }
+      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null }
       : await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
+    const dart = dartCache[company.ticker] || dartCache[company.ticker.replace(/^KOSDAQ:/, "KRX:")] || dartCache[company.ticker.replace(/^KRX:/, "KOSDAQ:")];
+    const snapshot = cached?.fundamentals ? { ...cached.fundamentals, status: "provider snapshot" } : null;
     const [fundamentals] = await Promise.all([
-      company.historyOnly ? null : (cik ? fetchSec(cik) : cached?.fundamentals ? Promise.resolve(cached.fundamentals) : fetchYahooFundamentals(prices?.symbol || symbol))
+      company.historyOnly ? null : (cik ? fetchSec(cik) : dart ? Promise.resolve({ ...dart, quarters: snapshot?.quarters || [] }) : snapshot ? Promise.resolve(snapshot)
+        : fetchYahooFundamentals(prices?.symbol || symbol).then((f) => ({ ...f, status: "provider snapshot" })))
         .catch((e) => { errors.push(`${company.ticker} fundamentals: ${e.message}`); return null; }),
     ]);
     const row = companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] });
     const tv = crossCheck(row, tvRows.get(tvTicker(company.ticker))) || previous[company.ticker]?.tv || null;
-    return { ...row, marketCapUsd: usdMarketCap(row, tv), tv, secCik: cik, yahooSymbol: prices?.symbol || symbol };
+    return { ...row, avgTradedValue20d: prices?.avgTradedValue20d ?? previous[company.ticker]?.avgTradedValue20d ?? null, name: company.name || null, holderOnly: Boolean(company.holderOnly), runwayStatus: runwayStatus(row.fundamentals),
+      postPeriodRaises: postPeriodRaises(row.fundamentals), marketCapUsd: usdMarketCap(row, tv), tv, secCik: cik, yahooSymbol: prices?.symbol || symbol };
   });
   const fresh = rows.filter((r) => !r.stale.prices).length;
   const out = {

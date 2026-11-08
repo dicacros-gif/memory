@@ -79,7 +79,17 @@ async function main() {
       }
     }
   }));
-  const out = { checkedAt: new Date().toISOString(), urls: entries.length, reachable: Object.values(results).filter((r) => r.ok).length, results };
+  // A figure that was on its source page and no longer is: the source text
+  // changed, so the number needs evidence review. It is flagged, never rewritten.
+  const today = new Date().toISOString().slice(0, 10);
+  for (const [url, r] of Object.entries(results)) {
+    const prev = previous?.results?.[url];
+    if (r.figureFound === false && (prev?.figureFound === true || prev?.reviewRequired)) r.reviewRequired = prev?.reviewRequired || today;
+    if (!r.ok && prev?.ok) r.failingSince = prev.failingSince || today;
+    else if (!r.ok && prev?.failingSince) r.failingSince = prev.failingSince;
+  }
+  const out = { checkedAt: new Date().toISOString(), urls: entries.length, reachable: Object.values(results).filter((r) => r.ok).length,
+    reviewRequired: Object.values(results).filter((r) => r.reviewRequired).length, results };
   await writeFile(`${OUT}.tmp`, `${JSON.stringify(out, null, 2)}\n`);
   await rename(`${OUT}.tmp`, OUT);
   console.log(JSON.stringify({ tenbaggerSources: "written", urls: out.urls, reachable: out.reachable }));
