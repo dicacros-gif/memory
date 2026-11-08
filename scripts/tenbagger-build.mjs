@@ -124,7 +124,26 @@ function trend(series = []) {
   return { ret3mPct: round((last / pts.at(-4).close - 1) * 100), offHigh12mPct: round((last / high12 - 1) * 100) };
 }
 
-export function buildCompanies({ universe, metrics, screen, previousCompanies = null, changelog = null, now = new Date() }) {
+const STOP = new Set(["inc", "corp", "corporation", "co", "ltd", "limited", "plc", "the", "holdings", "holding", "group", "company", "technologies", "technology", "class", "ord", "shares"]);
+const tokens = (s) => new Set(String(s || "").toLowerCase().normalize("NFKD").replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter((t) => t.length >= 3 && !STOP.has(t)));
+
+/**
+ * A company added by research ("verification": "pending") is published only
+ * after its listing is confirmed: the ticker exists in this run's TradingView
+ * scan with a matching name (Korean six-digit codes match on code alone), and
+ * a US ticker is also in SEC's ticker map. Returns true / false / null (no scan).
+ */
+export function verifyListing(company, tvRow, secCik, scanAvailable) {
+  if (!scanAvailable) return null;
+  if (!tvRow) return false;
+  const market = marketOf(company.ticker);
+  if (market === "US" && !secCik) return false;
+  if (market === "KR") return true;
+  const a = tokens(company.name), b = tokens(tvRow.description || tvRow.name);
+  return [...a].some((t) => b.has(t));
+}
+
+export function buildCompanies({ universe, metrics, screen, previousCompanies = null, changelog = null, now = new Date(), verified = null }) {
   const byTicker = new Map((metrics?.companies || []).map((m) => [m.ticker, m]));
   const out = new Map();
   const ensure = (ticker, base) => {
@@ -135,6 +154,7 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
   // Path 1: curated listed companies per industry.
   for (const s of universe.sectors || []) {
     for (const c of s.publicCompanies || []) {
+      if (c.verification === "pending" && !(verified && verified.has(c.ticker))) continue;
       const rec = ensure(c.ticker, { name: c.name, country: c.country || null, coverage: "universe" });
       rec.industries.push({ id: s.id, name: s.name, layer: c.layer, subsector: c.subsector || null, chainLayer: c.chainLayer || null, chainNote: c.chainNote || null, thesis: c.thesis || null, sourceUrl: c.sourceUrl || null });
     }
@@ -375,8 +395,19 @@ async function main() {
   const [universe, metrics, screen, cohort, prevCompanies, prevChangelog, prevStatus, prevFx, yf, tv, dart] = await Promise.all(
     ["universe.json", "metrics.json", "screen.json", "cohort.json", "companies.json", "changelog.json", "status.json", "fx.json", "yf-cache.json", "tv-cache.json", "dart-cache.json"].map(readJson));
   if (!universe) throw new Error("universe.json missing");
-  const changelog = updateChangelog(prevChangelog, buildCompanies({ universe, metrics, screen }), iso.slice(0, 10));
-  const companies = buildCompanies({ universe, metrics, screen, previousCompanies: prevCompanies, changelog, now });
+  // Research additions: confirm each listing before it is published.
+  const tvByTicker = new Map((tv?.rows || []).map((r) => [r.ticker, r]));
+  const metricsByTicker = new Map((metrics?.companies || []).map((m) => [m.ticker, m]));
+  const scanAvailable = (tv?.rows || []).length > 500;
+  const verification = {};
+  for (const s of universe.sectors || []) for (const c of s.publicCompanies || []) {
+    if (c.verification !== "pending") continue;
+    const result = verifyListing(c, tvByTicker.get(tvTicker(c.ticker)), metricsByTicker.get(c.ticker)?.secCik, scanAvailable);
+    verification[c.ticker] = result === null ? prevStatus?.verification?.[c.ticker] ?? null : { ok: result, checkedAt: iso.slice(0, 10), sector: s.id, name: c.name };
+  }
+  const verified = new Set(Object.entries(verification).filter(([, v]) => v?.ok).map(([t]) => t));
+  const changelog = updateChangelog(prevChangelog, buildCompanies({ universe, metrics, screen, verified }), iso.slice(0, 10));
+  const companies = buildCompanies({ universe, metrics, screen, previousCompanies: prevCompanies, changelog, now, verified });
   const startups = buildStartups({ universe, companies });
   const industries = buildIndustries({ universe, companies, startups, screen, metricsAt: metrics?.generatedAt });
   const history = buildHistory({ universe, metrics, cohort });
@@ -389,6 +420,7 @@ async function main() {
     fred: { ok: fx.ok, error: fx.error },
     cohort: { ok: cohort ? true : null, at: cohort?.generatedAt },
   });
+  status.verification = verification;
   if (fx.fx) await writeJson("fx.json", fx.fx);
   await writeJson("companies.json", { schemaVersion: "1.0", generatedAt: iso, metricsAt: metrics?.generatedAt || null, screenAt: screen?.fetchedAt || null, fx: fx.fx || null, companies });
   await writeJson("industries.json", { schemaVersion: "1.0", generatedAt: iso, industries });

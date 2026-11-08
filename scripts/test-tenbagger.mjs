@@ -252,3 +252,12 @@ const { auditUniverse, nonFinite } = await import("./tenbagger-audit.mjs");
 assert.deepEqual(auditUniverse({ sectors: [{ id: "x", publicCompanies: [{ ticker: "A:B" }, { ticker: "A:B" }], startups: [{ name: "S", ticker: "NASDAQ:S", holders: [{ holder: "H", url: "", asOf: "2099-01-01", pctOwned: 5 }] }] }] }, "2026-11-08").length, 4);
 assert.deepEqual(nonFinite({ a: [1, Infinity], b: { c: NaN } }), ["$.a[1]", "$.b.c"]);
 console.log(JSON.stringify({ tenbaggerDataLayer: "pass" }));
+
+// Research additions are published only after their listing is confirmed.
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT, Inc." }, { description: "AXT Inc" }, "0001051627", true), true);
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT, Inc." }, { description: "AXT Inc" }, null, true), false, "US ticker must be in SEC's map");
+assert.equal(build.verifyListing({ ticker: "NASDAQ:XYZ", name: "Foo Robotics" }, { description: "Bar Biotech" }, "1", true), false, "name must match");
+assert.equal(build.verifyListing({ ticker: "KOSDAQ:123456", name: "에스피지" }, { description: "SPG Co Ltd" }, null, true), true, "KR six-digit code is unambiguous");
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT" }, null, "1", true), false);
+assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT" }, null, "1", false), null, "no scan this run: undecided");
+console.log(JSON.stringify({ tenbaggerVerification: "pass" }));

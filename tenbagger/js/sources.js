@@ -28,5 +28,8 @@ export function renderSources(root, { status, sources, changelog, companies }) {
     </ul></section>
     <section><h2>검토 필요 (${review.length})</h2>${review.length ? `<ul>${review.map(([url, r]) => `<li>${esc(r.reviewRequired)}부터 · 출처에서 수치가 더 이상 확인되지 않음 ${srcBtn(url, new URL(url).hostname)}</li>`).join("")}</ul>` : '<p class="muted">없음</p>'}
       <p class="sub">출처 재확인 ${esc(day(sources?.checkedAt) || "—")} · 링크 ${sources?.urls ?? "—"}개 중 열림 ${sources?.reachable ?? "—"}개 · 접근 실패 ${failing.length}개</p></section>
+    <section><h2>상장 확인 대기 (${Object.values(status?.verification || {}).filter((v) => !v?.ok).length})</h2>
+      <p class="muted">리서치로 추가한 기업은 이번 실행의 TradingView 스캔에 같은 티커·이름으로 있고(한국은 종목코드), 미국 종목은 SEC 티커 목록에도 있을 때만 게시합니다.</p>
+      ${Object.entries(status?.verification || {}).filter(([, v]) => !v?.ok).length ? `<ul>${Object.entries(status.verification).filter(([, v]) => !v?.ok).map(([t, v]) => `<li>${esc(v?.name || "")} <span class="sub">${esc(t)} · ${v ? `${esc(v.checkedAt)} 확인 실패` : "아직 확인 전"}</span></li>`).join("")}</ul>` : '<p class="muted">없음</p>'}</section>
     <section><h2>추적 대상 변경 기록</h2>${(changelog?.entries || []).length ? `<ul class="changelog">${changelog.entries.map((e) => `<li><b>${esc(e.date)}</b> ${e.added.length ? `추가 ${e.added.map((id) => `<a href="${companyUrl(id)}">${esc(byId.get(id)?.name || id)}</a>`).join(", ")}` : ""} ${e.removed.length ? `제외 ${e.removed.map(esc).join(", ")}` : ""}</li>`).join("")}</ul>` : '<p class="muted">기록된 변경이 아직 없습니다.</p>'}</section>`;
 }
