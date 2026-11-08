@@ -150,6 +150,24 @@ export function verifyListing(company, tvRow, secCik, scanAvailable) {
  * investments − debt, same balance-sheet date) and its share of market cap,
  * analyst target upside, plus the Yahoo quality/ownership/analyst fields.
  */
+/**
+ * Revenue acceleration: latest quarter's YoY growth minus the previous
+ * quarter's YoY growth (percentage points). Needs six consecutive quarters
+ * whose year-ago partners are 330–400 days earlier.
+ */
+export function revenueAcceleration(quarters = []) {
+  const q = quarters.filter((x) => isNum(x.revenue)).sort((a, b) => String(a.end).localeCompare(String(b.end)));
+  if (q.length < 6) return null;
+  const yoy = (i) => {
+    const cur = q[i], base = q[i - 4];
+    const days = (Date.parse(cur.end) - Date.parse(base.end)) / DAY;
+    return days > 330 && days < 400 && base.revenue > 0 ? (cur.revenue / base.revenue - 1) * 100 : null;
+  };
+  const latest = yoy(q.length - 1), prior = yoy(q.length - 2);
+  if (!isNum(latest) || !isNum(prior)) return null;
+  return { latestYoyPct: round(latest), priorYoyPct: round(prior), accelPts: round(latest - prior), quarter: q.at(-1).end };
+}
+
 /** Revenue CAGR over three fiscal years: latest annual revenue vs the one ~3 years earlier. */
 export function revenueCagr3y(annual = []) {
   const a = annual.filter((x) => isNum(x.revenue) && x.revenue > 0).sort((x, y) => String(x.end).localeCompare(String(y.end)));
@@ -181,7 +199,9 @@ export function quantBlock(c) {
   const netCash = isNum(c.cashPlusSti) && isNum(c.debt) ? c.cashPlusSti - c.debt : null;
   const cagr = revenueCagr3y(c.annual);
   const lastAnnual = (c.annual || []).filter((x) => isNum(x.fcf)).slice(-3);
+  const accel = revenueAcceleration(c.quarters);
   return {
+    revenueAccelPts: accel?.accelPts ?? null, revenueYoyLatestPct: accel?.latestYoyPct ?? null, revenueAccelQuarter: accel?.quarter ?? null,
     revenueCagr3yPct: cagr?.pct ?? null, revenueCagr3yPeriod: cagr ? `${cagr.from}→${cagr.to}` : null,
     fcfYieldPct: isNum(c.fcfTtm) && isNum(c.marketCap) && c.marketCap > 0 && sameCur ? round((c.fcfTtm / c.marketCap) * 100) : null,
     fcfPositiveYears: lastAnnual.length === 3 ? lastAnnual.filter((x) => x.fcf > 0).length : null,
@@ -292,9 +312,18 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     for (const key of ["grossMarginPct", "operatingMarginPct"]) if (!isNum(rec[key]) && isNum(rec.valuation?.[key])) { rec[key] = rec.valuation[key]; rec.filledFrom[key] = "Yahoo"; }
     rec.annual = f?.annual || [];
     rec.balanceSheetConcepts = f?.balanceSheetConcepts || null;
-    rec.quant = quantBlock(rec);
-    rec.tenBagger = m?.tenBagger ?? null;
     rec.quarters = f?.quarters || [];
+    if (!isNum(rec.priceToSales) && isNum(tvFacts?.psRatio)) { rec.priceToSales = tvFacts.psRatio; rec.filledFrom.priceToSales = "TradingView"; }
+    if (!isNum(rec.psToGrowth) && isNum(rec.priceToSales) && isNum(rec.revenueGrowthPct) && rec.revenueGrowthPct > 0) rec.psToGrowth = round(rec.priceToSales / rec.revenueGrowthPct, 2);
+    if (!rec.nextEarnings && tvFacts?.nextEarnings && Date.parse(tvFacts.nextEarnings) >= now.getTime() - DAY) {
+      rec.nextEarnings = tvFacts.nextEarnings; rec.daysToEarnings = Math.round((Date.parse(rec.nextEarnings) - now.getTime()) / DAY); rec.filledFrom.nextEarnings = "TradingView";
+    }
+    rec.quant = quantBlock(rec);
+    if (tvFacts) for (const [key, tvKey] of [["roePct", "roePct"], ["debtToEquity", "debtToEquityPct"], ["currentRatio", "currentRatio"], ["beta", "beta"]]) {
+      if (!isNum(rec.quant[key]) && isNum(tvFacts[tvKey])) { rec.quant[key] = tvFacts[tvKey]; rec.filledFrom[key] = "TradingView"; }
+    }
+    if (tvFacts && !isNum(rec.valuation?.trailingPE) && isNum(tvFacts.peTtm)) { rec.valuation = { ...(rec.valuation || {}), trailingPE: tvFacts.peTtm }; rec.filledFrom.trailingPE = "TradingView"; }
+    rec.tenBagger = m?.tenBagger ?? null;
     rec.filings = (f?.filings || []).slice(0, 12);
     rec.postPeriodRaises = m?.postPeriodRaises || [];
     rec.tvCheck = periodAlignedCheck(rec, tvFacts0, screen?.fetchedAt);

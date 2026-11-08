@@ -379,3 +379,19 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   assert.deepEqual(debtBreakdown(bs3, "2026-07-26"), { value: 8500, parts: ["us-gaap:LongTermDebt"] });
   console.log(JSON.stringify({ tenbaggerLongHorizonQuant: "pass" }));
 }
+
+// Revenue acceleration from quarters; TradingView ratio fields.
+{
+  const { revenueAcceleration } = await import("./tenbagger-build.mjs");
+  const { rowFacts } = await import("./tenbagger-screen.mjs");
+  const qs = [["2025-01-31", 100], ["2025-04-30", 110], ["2025-07-31", 120], ["2025-10-31", 130], ["2026-01-31", 120], ["2026-04-30", 143]].map(([end, revenue]) => ({ end, revenue }));
+  const a = revenueAcceleration(qs);
+  assert.equal(a.latestYoyPct, 30); assert.equal(a.priorYoyPct, 20); assert.equal(a.accelPts, 10); assert.equal(a.quarter, "2026-04-30");
+  assert.equal(revenueAcceleration(qs.slice(1)), null, "needs six quarters");
+  const gap = qs.map((x, i) => (i === 1 ? { ...x, end: "2025-02-15" } : x));
+  assert.equal(revenueAcceleration(gap), null, "year-ago partner must be ~a year earlier");
+  const f = rowFacts({ ticker: "KRX:000001", price_revenue_ttm: 3.456, price_earnings_ttm: -5, debt_to_equity: 0.42, earnings_release_next_date: 1795000000, RSI: 71.4 });
+  assert.equal(f.psRatio, 3.46); assert.equal(f.peTtm, null); assert.equal(f.debtToEquityPct, 42); assert.equal(f.rsi14, 71.4);
+  assert.match(f.nextEarnings, /^\d{4}-\d{2}-\d{2}$/);
+  console.log(JSON.stringify({ tenbaggerAccelAndTvRatios: "pass" }));
+}

@@ -65,6 +65,8 @@ function columns(fx) {
     { key: "debt", label: "차입금", num: true, optional: true, value: (c) => toUsd(c.debt, c.statementCurrency, fx), render: (c) => money(c.debt, c.statementCurrency || "USD") },
     { key: "operatingMarginPct", label: "영업이익률", num: true, optional: true, value: (c) => c.operatingMarginPct, render: (c) => pct(c.operatingMarginPct) },
     { key: "dilutionPct", label: "주식 수 변화(1년)", num: true, optional: true, value: (c) => c.dilutionPct, render: (c) => pct(c.dilutionPct) },
+    { key: "revenueAccel", label: "매출 가속", num: true, optional: true, title: "최근 분기 매출 전년 동기 대비 성장률 − 직전 분기의 같은 성장률(%p). 플러스면 성장이 빨라지는 중", value: (c) => c.quant?.revenueAccelPts ?? null,
+      render: (c) => (isNum(c.quant?.revenueAccelPts) ? `<span class="num ${c.quant.revenueAccelPts > 0 ? "pos" : c.quant.revenueAccelPts < 0 ? "neg" : ""}">${c.quant.revenueAccelPts > 0 ? "▲ +" : c.quant.revenueAccelPts < 0 ? "▼ " : ""}${c.quant.revenueAccelPts.toFixed(1)}%p</span><div class="sub">최근 분기 ${pct(c.quant.revenueYoyLatestPct)}</div>` : NO_DATA) },
     { key: "revenueCagr3y", label: "매출 3년 CAGR", num: true, optional: true, title: "최근 회계연도 매출 ÷ 3년 전 회계연도 매출의 연평균 성장률(공시 연간 자료 4개년 이상일 때)", value: (c) => c.quant?.revenueCagr3yPct ?? null,
       render: (c) => (isNum(c.quant?.revenueCagr3yPct) ? `<span class="num ${c.quant.revenueCagr3yPct >= 25 ? "pos" : c.quant.revenueCagr3yPct < 0 ? "neg" : ""}">${pct(c.quant.revenueCagr3yPct)}</span><div class="sub">${esc(c.quant.revenueCagr3yPeriod || "")}</div>` : NO_DATA) },
     { key: "fcfYield", label: "FCF 수익률", num: true, optional: true, title: "최근 12개월 FCF ÷ 시가총액(같은 통화일 때만)", value: (c) => c.quant?.fcfYieldPct ?? null,
