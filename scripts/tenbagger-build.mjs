@@ -477,7 +477,10 @@ export function buildIndustries({ universe, companies, startups, screen, metrics
     "satcom-6g": ["Telecommunications Equipment", "Specialty Telecommunications", "Electronic Components"],
     "critical-minerals": ["Other Metals/Minerals", "Chemicals: Specialty", "Precious Metals"],
     "drones-counter-uas": ["Aerospace & Defense", "Electronic Equipment/Instruments"],
-    "datacenter-power-cooling": ["Industrial Machinery", "Electrical Products", "Building Products"] };
+    "datacenter-power-cooling": ["Industrial Machinery", "Electrical Products", "Building Products"],
+    "edge-ai-devices": ["Semiconductors", "Electronic Components", "Computer Peripherals"],
+    "advanced-packaging-materials": ["Electronic Production Equipment", "Semiconductors", "Chemicals: Specialty"],
+    "water-infrastructure": ["Water Utilities", "Industrial Machinery", "Environmental Services"] };
   return (universe.sectors || []).map((s) => {
     const members = companies.filter((c) => c.industries.some((i) => i.id === s.id));
     const withFin = members.filter((c) => c.data.financials !== "no data" && c.data.financials !== "provider snapshot" || isNum(c.revenueTtm));
