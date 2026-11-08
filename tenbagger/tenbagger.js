@@ -51,12 +51,25 @@ function companyTable(companies, metrics) {
   return `<div class="tb-scroll"><table><thead><tr><th>기업</th><th>층</th><th>시가총액</th><th>매출</th><th>매출 성장</th><th>FCF · 마진</th><th>현금+단기투자</th><th>런웨이</th><th>1년 수익률</th><th>텐배거 이력</th><th class="wrap">포지션</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+let SOURCES = {};
+// What we know about a figure: re-confirmed by the check agent, found on the
+// re-opened source page by the pipeline, or only cited.
+function checkBadge(item, url, value) {
+  if (item.check === "verified") return '<span class="tag ok">재검증</span>';
+  if (item.check === "corrected") return '<span class="tag ok">정정 반영</span>';
+  const r = SOURCES[url];
+  if (r?.figureFound) return '<span class="tag ok">원문 수치 확인</span>';
+  if (r?.ok) return `<span class="tag">${value == null ? "원문 열림" : "원문 열림·수치 미확인"}</span>`;
+  if (r) return '<span class="tag warn">원문 접근 실패</span>';
+  return '<span class="tag">출처 인용</span>';
+}
+
 function startupTable(startups) {
   const rows = startups.map((s) => {
     const holders = (s.holders || []).map((h) => {
       const share = Number.isFinite(h.pctOwned) ? `${h.pctOwned}%` : Number.isFinite(h.amountUsd) ? `${money(h.amountUsd)} 투자` : "보유(비율 미공개)";
       const basis = { filing: "공시", "company-disclosure": "회사", reported: "보도" }[h.basis] || h.basis;
-      return `${esc(h.holder)} <span class="muted">${esc(h.holderTicker)}</span> ${link(h.url, share)} <span class="tag">${esc(basis)} ${esc(day(h.asOf))}</span>`;
+      return `${esc(h.holder)} <span class="muted">${esc(h.holderTicker)}</span> ${link(h.url, share)} <span class="tag">${esc(basis)} ${esc(day(h.asOf))}</span> ${checkBadge(h, h.url, h.pctOwned ?? h.amountUsd)}`;
     }).join("<br>");
     return `<tr><td>${esc(s.name)}<br><span class="muted">${esc(s.country)}</span></td><td class="wrap">${esc(s.what)}</td>
       <td class="num">${s.valuationUsd ? link(s.valuationUrl, money(s.valuationUsd)) : ""}<br><span class="muted">${esc(day(s.valuationDate))}</span></td>
@@ -70,8 +83,8 @@ function growthTable(growth) {
     <td class="wrap">${esc(g.metric)}<br><span class="muted">${esc(g.definition)}</span></td>
     <td class="num">${esc(g.baseValue || "")}${g.baseYear ? ` (${g.baseYear})` : ""}</td>
     <td class="num">${esc(g.targetValue || "")}${g.targetYear ? ` (${g.targetYear})` : ""}</td>
-    <td class="num">${Number.isFinite(g.cagrPct) ? `${g.cagrPct}%` : ""}</td></tr>`).join("");
-  return `<div class="tb-scroll"><table><thead><tr><th>기관</th><th class="wrap">지표 · 정의</th><th>기준</th><th>전망</th><th>연평균</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    <td class="num">${Number.isFinite(g.cagrPct) ? `${g.cagrPct}%` : ""}</td><td>${checkBadge(g, g.url, g.targetValue)}</td></tr>`).join("");
+  return `<div class="tb-scroll"><table><thead><tr><th>기관</th><th class="wrap">지표 · 정의</th><th>기준</th><th>전망</th><th>연평균</th><th>확인</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function renderSector(sector, metrics) {
@@ -117,10 +130,12 @@ function history(universe, metrics) {
 }
 
 async function main() {
-  const [universe, metricsDoc] = await Promise.all([
+  const [universe, metricsDoc, sourceDoc] = await Promise.all([
     fetch("../data/tenbagger/universe.json", { cache: "no-cache" }).then((r) => r.json()),
     fetch("../data/tenbagger/metrics.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : { companies: [] })).catch(() => ({ companies: [] })),
+    fetch("../data/tenbagger/source-checks.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
   ]);
+  SOURCES = sourceDoc.results || {};
   const metrics = new Map((metricsDoc.companies || []).map((c) => [c.ticker, c]));
   const sectors = universe.sectors || [];
   const listed = sectors.reduce((n, s) => n + (s.publicCompanies || []).length, 0);

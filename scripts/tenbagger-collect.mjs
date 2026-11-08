@@ -178,6 +178,37 @@ async function fetchSec(cik) {
   return { ...secFundamentals(facts), source: "SEC EDGAR companyfacts", sourceUrl: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}` };
 }
 
+/** Korean listings move between KOSPI (.KS) and KOSDAQ (.KQ); try the other suffix too. */
+export function yahooCandidates(symbol) {
+  if (/\.KS$/.test(symbol)) return [symbol, symbol.replace(/\.KS$/, ".KQ")];
+  if (/\.KQ$/.test(symbol)) return [symbol, symbol.replace(/\.KQ$/, ".KS")];
+  return [symbol];
+}
+
+async function fetchYahooMonthlyAny(symbol) {
+  let lastError;
+  for (const candidate of yahooCandidates(symbol)) {
+    try { return { ...(await fetchYahooMonthly(candidate)), symbol: candidate }; } catch (error) { lastError = error; }
+  }
+  throw lastError;
+}
+
+/** SEC's own ticker → CIK map; the researcher's CIK is only a fallback. */
+async function fetchSecTickerMap() {
+  const json = await getJson("https://www.sec.gov/files/company_tickers.json", { "User-Agent": SEC_UA });
+  return new Map(Object.values(json || {}).map((row) => [String(row.ticker).toUpperCase(), String(row.cik_str).padStart(10, "0")]));
+}
+
+export function secCikFor(company, tickerMap) {
+  const [exchange, code] = String(company.ticker).split(":");
+  if (tickerMap && /^(NASDAQ|NYSE|NYSEAMERICAN)$/i.test(exchange || "")) {
+    const cik = tickerMap.get(String(code).toUpperCase().replace(".", "-"));
+    if (cik) return cik;
+    return null; // a US ticker SEC does not know: no fundamentals rather than another company's
+  }
+  return company.secCik || null;
+}
+
 async function fetchYahooMonthly(symbol) {
   let lastError;
   for (const host of ["query2.finance.yahoo.com", "query1.finance.yahoo.com"]) {
@@ -267,14 +298,16 @@ async function main() {
   for (const sector of universe.sectors || []) for (const c of sector.publicCompanies || []) companies.set(c.ticker, c);
   for (const c of universe.history?.cases || []) if (!companies.has(c.ticker)) companies.set(c.ticker, { ...c, historyOnly: true });
   const errors = [];
+  const tickerMap = await fetchSecTickerMap().catch((e) => { errors.push(`SEC ticker map: ${e.message}`); return null; });
   const rows = await mapLimit([...companies.values()], 4, async (company) => {
     const symbol = company.yahoo || yahooSymbol(company.ticker);
-    const [prices, fundamentals] = await Promise.all([
-      fetchYahooMonthly(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; }),
-      company.historyOnly ? null : (company.secCik ? fetchSec(company.secCik) : fetchYahooFundamentals(symbol))
+    const cik = secCikFor(company, tickerMap);
+    const prices = await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
+    const [fundamentals] = await Promise.all([
+      company.historyOnly ? null : (cik ? fetchSec(cik) : fetchYahooFundamentals(prices?.symbol || symbol))
         .catch((e) => { errors.push(`${company.ticker} fundamentals: ${e.message}`); return null; }),
     ]);
-    return companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] });
+    return { ...companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] }), secCik: cik, yahooSymbol: prices?.symbol || symbol };
   });
   const fresh = rows.filter((r) => !r.stale.prices).length;
   const out = {
