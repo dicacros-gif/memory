@@ -10,6 +10,8 @@
   const pct = (v) => (num(v) ? `${v > 0 ? "+" : ""}${v.toFixed(1)}%` : "");
   const usd = (v) => (!num(v) ? "" : v >= 1e12 ? `$${(v / 1e12).toFixed(2)}T` : v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : `$${Math.round(v / 1e6)}M`);
   const day = (v) => (v ? String(v).slice(0, 10) : "");
+  // Each name opens the ten-bagger page's detail (daily chart and explanation).
+  const stock = (c) => `<a href="tenbagger/#stock=${encodeURIComponent(c.ticker)}">${esc(c.name)}</a> <small>${esc(c.ticker)}</small>`;
   const funded = (c) => (c.fcfPositive ? "FCF 흑자" : num(c.runwayYears) ? `런웨이 ${c.runwayYears}년` : "");
 
   function card(title, note, rows) {
@@ -22,12 +24,14 @@
     .then((d) => {
       if (!d) return;
       const industries = (d.industries || []).map((i) => `<li><b>${esc(i.industryKo || i.industry)}</b><span>매출 성장 중앙값 ${esc(pct(i.medianGrowthPct))} · ${esc(i.companies)}곳 · +25% 이상 ${esc(i.shareGrowing25Pct)}%</span></li>`);
-      const candidates = (d.candidates || []).map((c) => `<li><b>${esc(c.name)} <small>${esc(c.ticker)}</small></b><span>${esc(c.sectorName)} · 매출 ${esc(pct(c.revenueGrowthPct))} · 시총 ${esc(usd(c.marketCapUsd))} · ${esc(funded(c))}${c.crossChecked === true ? " · 교차검증 일치" : ""}</span></li>`);
-      const discovery = (d.discovery || []).map((c) => `<li><b>${esc(c.name)} <small>${esc(c.ticker)}</small></b><span>${esc(c.industryKo || c.industry)} · 매출 ${esc(pct(c.revenueGrowthPct))} · 시총 ${esc(usd(c.marketCapUsd))} · ${esc(funded(c))}</span></li>`);
+      const candidates = (d.candidates || []).map((c) => `<li><b>${stock(c)}</b><span>${esc(c.sectorName)} · 매출 ${esc(pct(c.revenueGrowthPct))} · 시총 ${esc(usd(c.marketCapUsd))} · ${esc(funded(c))}${c.crossChecked === true ? " · 교차검증 일치" : ""}</span></li>`);
+      const discovery = (d.discovery || []).map((c) => `<li><b>${stock(c)}</b><span>${esc(c.industryKo || c.industry)} · 매출 ${esc(pct(c.revenueGrowthPct))} · 시총 ${esc(usd(c.marketCapUsd))} · ${esc(funded(c))}</span></li>`);
+      const factors = (d.factorLeaders || []).map((c) => `<li><b>${stock(c)}</b><span>요인 점수 ${esc(c.score)} · ${esc(c.industryKo || c.industry)} · 매출 ${esc(pct(c.revenueGrowthPct))} · FCF 수익률 ${num(c.fcfYieldPct) ? `${c.fcfYieldPct.toFixed(1)}%` : "-"}</span></li>`);
       const body = [
         card("성장 업종", `최근 12개월 매출 성장률 실측 · ${d.source?.companies ? `${d.source.companies.toLocaleString()}개 상장사` : "상장사"} 기준`, industries),
         card("후보 스크린 통과", `큐레이션 ${d.candidateCount}개 통과 · 시총 $10B 미만 · 매출 +20% 이상 · FCF 흑자 또는 런웨이 2년 이상`, candidates),
         card("목록 밖 신규 고성장", "시총 $0.3B~$10B · 매출 +30% 이상 · 자금 여력 충족", discovery),
+        card("연구 요인 점수 상위", "10배 상승 464개 종목 연구(Yartseva 2025)의 규모·가치·수익성·FCF 수익률 요인 백분위 · 예측 아님", factors),
       ].filter(Boolean);
       if (!body.length) return;
       const tenX = d.tenX?.total ? ` · 최근 5년 10배 상승 ${d.tenX.total}개 종목, 매출 성장 중앙값 ${pct(d.tenX.traits?.medianRevenueGrowthPct)}` : "";

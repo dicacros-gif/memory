@@ -123,7 +123,78 @@ export function rowFacts(r) {
     perf5yPct: round(r["Perf.5Y"]),
     offHighPct: isNum(r.close) && isNum(r.price_52_week_high) && r.price_52_week_high > 0
       ? round((r.close / r.price_52_week_high - 1) * 100) : null,
+    // Valuation ratios are currency-neutral scanner fields.
+    bookToMarket: isNum(r.price_book_fq) && r.price_book_fq > 0 ? round(1 / r.price_book_fq, 3) : null,
+    operatingMarginPct: round(r.operating_margin),
+    fcfYieldPct: isNum(r.price_free_cash_flow_ttm) && r.price_free_cash_flow_ttm > 0 ? round(100 / r.price_free_cash_flow_ttm, 2)
+      : isNum(fcf) && fcf < 0 ? 0 : null,
+    perfAllPct: round(r["Perf.All"]),
   };
+}
+
+/**
+ * Factors that published multibagger research associates with later tenfold
+ * returns. The score is a transparent percentile average inside the peer
+ * pool, not a forecast. Directions:
+ * - size (smaller), value (higher book-to-market), profitability (higher
+ *   operating margin, gross margin as fallback): stated in the abstract of
+ *   Yartseva, "The Alchemy of Multibagger Stocks", CAFE Working Paper 33,
+ *   Birmingham City University (2025), 464 US stocks that rose tenfold 2009-2024;
+ * - FCF yield (higher) and distance below the 52-week high (further): the
+ *   paper's results as summarised in secondary write-ups.
+ */
+export const FACTOR_RESEARCH = {
+  title: "The Alchemy of Multibagger Stocks (Yartseva, CAFE Working Paper 33, 2025)",
+  url: "https://www.open-access.bcu.ac.uk/16180/",
+  sample: "2009–2024 미국 상장 10배 상승 종목 464개",
+  factors: [
+    { key: "size", label: "작은 시가총액", basis: "논문 초록" },
+    { key: "value", label: "높은 장부가/시가(B/M)", basis: "논문 초록" },
+    { key: "profitability", label: "높은 수익성(영업이익률)", basis: "논문 초록" },
+    { key: "fcfYield", label: "높은 FCF 수익률", basis: "논문 결과 2차 요약" },
+    { key: "offHigh", label: "52주 고점에서 먼 주가", basis: "논문 결과 2차 요약" },
+  ],
+  caveat: "생존 편향(10배를 유지한 종목만 표본)과 다수 변수 검정의 과적합 위험이 지적됨. 점수는 순위 비교용이며 예측이 아님.",
+};
+
+function percentiles(values, higherIsBetter) {
+  const list = values.map((v, i) => [v, i]).filter(([v]) => isNum(v)).sort((a, b) => a[0] - b[0]);
+  const out = new Array(values.length).fill(null);
+  if (list.length < 2) return out;
+  list.forEach(([, i], rank) => {
+    const p = rank / (list.length - 1);
+    out[i] = Math.round((higherIsBetter ? p : 1 - p) * 100);
+  });
+  return out;
+}
+
+/** Adds `factor` {score, size, value, profitability, fcfYield, offHigh} to each fact row; needs 3+ factors. */
+export function scoreFactors(facts) {
+  const cols = {
+    size: percentiles(facts.map((f) => f.marketCapUsd), false),
+    value: percentiles(facts.map((f) => f.bookToMarket), true),
+    profitability: percentiles(facts.map((f) => f.operatingMarginPct ?? f.grossMarginPct), true),
+    fcfYield: percentiles(facts.map((f) => f.fcfYieldPct), true),
+    offHigh: percentiles(facts.map((f) => f.offHighPct), false),
+  };
+  return facts.map((f, i) => {
+    const parts = Object.fromEntries(Object.entries(cols).map(([k, v]) => [k, v[i]]));
+    const have = Object.values(parts).filter(isNum);
+    return { ...f, factor: { ...parts, score: have.length >= 3 ? Math.round(have.reduce((a, b) => a + b, 0) / have.length) : null, factors: have.length } };
+  });
+}
+
+export const FACTOR_RULES = { minCapUsd: 3e8, maxCapUsd: 10e9, minGrowthPct: 10, limit: 40 };
+/** Small/mid caps in tracked industries, ranked by the research factor score. FCF must be positive. */
+export function factorLeaders(rows, universeTickers, rules = FACTOR_RULES) {
+  const known = new Set(universeTickers);
+  const pool = rows.map(rowFacts)
+    .filter((f) => f.sector && isNum(f.marketCapUsd) && f.marketCapUsd >= rules.minCapUsd && f.marketCapUsd <= rules.maxCapUsd);
+  return scoreFactors(pool)
+    .filter((f) => f.fcfPositive === true && isNum(f.factor.score) && isNum(f.revenueGrowthPct) && f.revenueGrowthPct >= rules.minGrowthPct)
+    .map((f) => ({ ...f, inUniverse: known.has(f.ticker) }))
+    .sort((a, b) => b.factor.score - a.factor.score)
+    .slice(0, rules.limit);
 }
 
 export function industryGrowthMap(rows, { minCompanies = 8 } = {}) {
@@ -159,8 +230,8 @@ export function industryGrowthMap(rows, { minCompanies = 8 } = {}) {
 
 export function discoveryCandidates(rows, universeTickers, rules = DISCOVERY_RULES) {
   const known = new Set(universeTickers);
-  return rows
-    .map(rowFacts)
+  const pool = rows.map(rowFacts).filter((f) => f.sector && isNum(f.marketCapUsd) && f.marketCapUsd >= rules.minCapUsd && f.marketCapUsd <= rules.maxCapUsd);
+  return scoreFactors(pool)
     .filter((f) => isNum(f.revenueGrowthPct) && f.revenueGrowthPct >= rules.minGrowthPct && f.revenueGrowthPct <= rules.maxGrowthPct)
     .filter((f) => isNum(f.marketCapUsd) && f.marketCapUsd >= rules.minCapUsd && f.marketCapUsd <= rules.maxCapUsd)
     .filter((f) => f.fcfPositive === true || (isNum(f.runwayYears) && f.runwayYears >= rules.minRunwayYears))
@@ -171,6 +242,9 @@ export function discoveryCandidates(rows, universeTickers, rules = DISCOVERY_RUL
 }
 
 export function recentTenBaggers(rows, { minCapUsd = 1e9, limit = 80 } = {}) {
+  const oneYear = rows.map(rowFacts)
+    .filter((f) => isNum(f.perf1yPct) && f.perf1yPct >= TEN_X_PCT && isNum(f.marketCapUsd) && f.marketCapUsd >= 3e8)
+    .sort((a, b) => b.perf1yPct - a.perf1yPct).slice(0, 40);
   const list = rows.map(rowFacts)
     .filter((f) => isNum(f.perf5yPct) && f.perf5yPct >= TEN_X_PCT && isNum(f.marketCapUsd) && f.marketCapUsd >= minCapUsd)
     .sort((a, b) => b.perf5yPct - a.perf5yPct);
@@ -189,6 +263,7 @@ export function recentTenBaggers(rows, { minCapUsd = 1e9, limit = 80 } = {}) {
   const growth = list.map((f) => f.revenueGrowthPct).filter(isNum);
   return {
     total: list.length,
+    oneYear,
     traits: {
       medianRevenueGrowthPct: round(median(growth)),
       fcfPositiveSharePct: list.length ? round((list.filter((f) => f.fcfPositive).length / list.length) * 100) : null,
@@ -236,6 +311,9 @@ export function buildScreen(cache, universe) {
     sectorIndustries: SECTOR_INDUSTRIES,
     industryMap: industryGrowthMap(rows),
     discovery: discoveryCandidates(rows, universeTickers),
+    factorResearch: FACTOR_RESEARCH,
+    factorRules: FACTOR_RULES,
+    factorLeaders: factorLeaders(rows, universeTickers),
     recentTenBaggers: recentTenBaggers(rows),
   };
 }
@@ -268,7 +346,7 @@ export function buildLandingClient(screen, universe, metrics) {
   const industries = (screen?.industryMap || []).filter((i) => i.companies >= 15).slice(0, 6);
   const discovery = (screen?.discovery || []).filter((d) => !d.inUniverse).slice(0, 6);
   const tenX = screen?.recentTenBaggers || null;
-  if (!candidates.length && !industries.length && !discovery.length) return null;
+  if (!candidates.length && !industries.length && !discovery.length && !(screen?.factorLeaders || []).length) return null;
   return {
     schemaVersion: "1.0",
     generatedAt: new Date().toISOString(),
@@ -279,7 +357,10 @@ export function buildLandingClient(screen, universe, metrics) {
     candidates: candidates.slice(0, 6),
     candidateCount: candidates.length,
     discovery: discovery.map(({ ticker, name, industry, industryKo, sector, marketCapUsd, revenueGrowthPct, fcfPositive, runwayYears }) => ({ ticker, name, industry, industryKo, sector, marketCapUsd, revenueGrowthPct, fcfPositive, runwayYears })),
-    tenX: tenX ? { total: tenX.total, traits: tenX.traits, industries: tenX.industries.slice(0, 3) } : null,
+    tenX: tenX ? { total: tenX.total, oneYear: (tenX.oneYear || []).length, traits: tenX.traits, industries: tenX.industries.slice(0, 3) } : null,
+    factorLeaders: (screen?.factorLeaders || []).slice(0, 6).map(({ ticker, name, industry, industryKo, marketCapUsd, revenueGrowthPct, fcfYieldPct, bookToMarket, factor, inUniverse }) =>
+      ({ ticker, name, industry, industryKo, marketCapUsd, revenueGrowthPct, fcfYieldPct, bookToMarket, score: factor?.score ?? null, inUniverse })),
+    factorResearch: screen?.factorResearch ? { title: screen.factorResearch.title, url: screen.factorResearch.url } : null,
   };
 }
 

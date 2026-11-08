@@ -328,7 +328,7 @@ const html = normalizeConsoleTaxonomy(normalizeHtmlExecutiveCopy(`<!DOCTYPE html
   </script>
 </head>
 <body class="console-static-mode">
-  <header class="top"><div class="wrap"><div class="brand">MEMORY EQUITY INTELLIGENCE</div><nav><a href="../">투자 리서치 홈</a><a href="../#console/investor-overview">투자 대시보드</a></nav></div></header>
+  <header class="top"><div class="wrap"><div class="brand">MEMORY EQUITY INTELLIGENCE</div><nav><a href="../">투자 리서치 홈</a><a href="../#console/investor-overview">투자 대시보드</a><a href="../terminal/">반도체 터미널</a><a href="../tenbagger/">텐배거 리서치</a></nav></div></header>
   <main>
     <section class="hero"><div class="wrap"><span class="eyebrow">GLOBAL MEMORY EQUITY · PUBLIC-EVIDENCE SNAPSHOT</span><h1>AI·메모리 사이클 → 밸류체인 → 종목 판단</h1><p>AI CapEx와 메모리 가격·공급·기술 전환이 미국·한국·중국·일본 상장사의 출하·매출·마진·밸류에이션으로 이어지는 경로를 공개 근거로 점검</p><ol class="consulting-flow"><li><small>01 · DEMAND</small><strong>최종 수요</strong><span>AI CapEx · 서버 · 디바이스</span></li><li><small>02 · SUPPLY</small><strong>공급과 병목</strong><span>Wafer · Yield · Package · Power</span></li><li><small>03 · PRICE / MIX</small><strong>가격과 제품 믹스</strong><span>Spot · Contract · HBM · DRAM · NAND</span></li><li><small>04 · EARNINGS</small><strong>실적 전이</strong><span>출하 · ASP · Margin · Cash Flow</span></li><li><small>05 · THESIS</small><strong>가치와 위험</strong><span>Valuation · Catalyst · Invalidation</span></li></ol><div class="hero-projects">${projectStrip}</div></div></section>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">INVESTMENT RESEARCH LENSES</span><h2>산업 성장과 종목 수익률 사이의 전이 경로를 분리</h2></div><p>수요·공급·가격·제품 단계·실적·밸류에이션을 한 번에 비교하되, 사실과 해석 및 위험 조건을 섞지 않습니다.</p></div><div class="workstreams">${workstreamCards}</div></div></section>
