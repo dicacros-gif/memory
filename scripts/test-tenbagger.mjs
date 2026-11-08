@@ -50,6 +50,13 @@ assert.equal(m.marketCap, 500);
 assert.equal(m.runwayYears, 2);
 assert.equal(m.fcfMarginPct, -40);
 
+// The concept with the most recent period wins: NVIDIA's old revenue concept ends in FY2023.
+const switched = secFundamentals({ facts: { "us-gaap": {
+  RevenueFromContractWithCustomerExcludingAssessedTax: { units: { USD: [{ start: "2022-01-31", end: "2023-01-29", val: 26974 }] } },
+  Revenues: { units: { USD: [{ start: "2025-01-27", end: "2026-01-25", val: 200000 }] } },
+} } });
+assert.equal(switched.revenueTtm, 200000);
+
 // Failed fetches carry the previous numbers and say so.
 const carried = companyMetrics({ company: { ticker: "NASDAQ:TEST" }, prices: null, fundamentals: null, previous: m });
 assert.equal(carried.price, 10);

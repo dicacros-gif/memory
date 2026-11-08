@@ -133,20 +133,25 @@ async function getJson(url, headers = {}, attempts = 3) {
   throw lastError;
 }
 
+// Filers switch concepts over time (NVIDIA's revenue concept stopped in
+// FY2023), so the candidate with the most recent period wins, not the first.
 const usd = (facts, ...concepts) => {
+  let best = null;
   for (const concept of concepts) {
     const [taxonomy, name] = concept.split(":");
     const units = facts?.facts?.[taxonomy]?.[name]?.units;
     const rows = units?.USD || (units && Object.values(units)[0]);
-    if (rows?.length) return { rows, concept, unit: units?.USD ? "USD" : Object.keys(units)[0] };
+    if (!rows?.length) continue;
+    const latest = rows.reduce((max, r) => (r.end > max ? r.end : max), "");
+    if (!best || latest > best.latest) best = { rows, concept, unit: units?.USD ? "USD" : Object.keys(units)[0], latest };
   }
-  return null;
+  return best;
 };
 
 export function secFundamentals(facts) {
-  const revenue = usd(facts, "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax", "us-gaap:Revenues", "us-gaap:SalesRevenueNet", "ifrs-full:Revenue");
+  const revenue = usd(facts, "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax", "us-gaap:Revenues", "us-gaap:SalesRevenueNet", "us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax", "ifrs-full:Revenue");
   const ocf = usd(facts, "us-gaap:NetCashProvidedByUsedInOperatingActivities", "ifrs-full:CashFlowsFromUsedInOperatingActivities");
-  const capex = usd(facts, "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment", "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "ifrs-full:PurchaseOfPropertyPlantAndEquipment");
+  const capex = usd(facts, "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment", "us-gaap:PaymentsToAcquireProductiveAssets", "us-gaap:PaymentsToAcquirePropertyPlantAndEquipmentAndIntangibleAssets", "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "ifrs-full:PurchaseOfPropertyPlantAndEquipment");
   const cash = usd(facts, "us-gaap:CashAndCashEquivalentsAtCarryingValue", "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "ifrs-full:CashAndCashEquivalents");
   const sti = usd(facts, "us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent");
   const shares = facts?.facts?.dei?.EntityCommonStockSharesOutstanding?.units?.shares;
@@ -271,7 +276,7 @@ export function companyMetrics({ company, prices, fundamentals, previous }) {
   const price = Number.isFinite(prices?.price) ? prices.price : previous?.price ?? null;
   const shares = fx?.sharesOutstanding;
   const marketCap = Number.isFinite(price) && Number.isFinite(shares) && fx?.currency === (prices?.currency || previous?.currency)
-    ? price * shares : fx?.marketCapReported ?? null;
+    ? price * shares : prices?.marketCap ?? fx?.marketCapReported ?? previous?.marketCap ?? null;
   return {
     ticker: company.ticker,
     price,
@@ -298,13 +303,19 @@ async function main() {
   for (const sector of universe.sectors || []) for (const c of sector.publicCompanies || []) companies.set(c.ticker, c);
   for (const c of universe.history?.cases || []) if (!companies.has(c.ticker)) companies.set(c.ticker, { ...c, historyOnly: true });
   const errors = [];
+  // Prices and non-SEC statements come from the yfinance step (scripts/tenbagger/collect_yf.py).
+  let yfCache = {};
+  try { yfCache = JSON.parse(await readFile(resolve(root, "data/tenbagger/yf-cache.json"), "utf8")).tickers || {}; } catch { /* step skipped */ }
   const tickerMap = await fetchSecTickerMap().catch((e) => { errors.push(`SEC ticker map: ${e.message}`); return null; });
   const rows = await mapLimit([...companies.values()], 4, async (company) => {
     const symbol = company.yahoo || yahooSymbol(company.ticker);
     const cik = secCikFor(company, tickerMap);
-    const prices = await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
+    const cached = yfCache[company.ticker];
+    const prices = cached?.series?.length
+      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap }
+      : await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
     const [fundamentals] = await Promise.all([
-      company.historyOnly ? null : (cik ? fetchSec(cik) : fetchYahooFundamentals(prices?.symbol || symbol))
+      company.historyOnly ? null : (cik ? fetchSec(cik) : cached?.fundamentals ? Promise.resolve(cached.fundamentals) : fetchYahooFundamentals(prices?.symbol || symbol))
         .catch((e) => { errors.push(`${company.ticker} fundamentals: ${e.message}`); return null; }),
     ]);
     return { ...companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] }), secCik: cik, yahooSymbol: prices?.symbol || symbol };

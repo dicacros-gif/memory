@@ -282,6 +282,7 @@ jobs:
         continue-on-error: true
         timeout-minutes: 15
         run: |
+          python scripts/tenbagger/collect_yf.py || echo "::warning::ten-bagger yfinance step failed; previous prices kept"
           node scripts/tenbagger-collect.mjs || echo "::warning::ten-bagger metrics refresh failed; previous numbers kept"
           node scripts/tenbagger-verify-sources.mjs || echo "::warning::ten-bagger source re-check failed; previous results kept"
 
