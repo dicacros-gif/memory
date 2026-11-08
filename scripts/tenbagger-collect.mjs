@@ -133,7 +133,7 @@ export function debtBreakdown(facts, end) {
  * filer's combined "cash, equivalents and short-term investments" minus cash.
  */
 export function stiAtDate(facts, end, cashValue) {
-  const direct = instantAt(facts, ["us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent", "us-gaap:HeldToMaturitySecuritiesCurrent", "us-gaap:OtherShortTermInvestments", "ifrs-full:CurrentFinancialAssetsAtFairValueThroughProfitOrLoss", "ifrs-full:OtherCurrentFinancialAssets"], end);
+  const direct = instantAt(facts, ["us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent", "us-gaap:HeldToMaturitySecuritiesCurrent", "us-gaap:OtherShortTermInvestments", "us-gaap:DebtSecuritiesAvailableForSaleExcludingAccruedInterestCurrent", "us-gaap:DebtSecuritiesCurrent", "ifrs-full:CurrentInvestments", "ifrs-full:CurrentFinancialAssetsAtFairValueThroughProfitOrLoss", "ifrs-full:OtherCurrentFinancialAssets"], end);
   if (direct) return direct;
   const combined = instantAt(facts, ["us-gaap:CashCashEquivalentsAndShortTermInvestments"], end);
   if (combined && Number.isFinite(cashValue) && combined.value > cashValue) return { value: combined.value - cashValue, concept: `${combined.concept} − cash` };
