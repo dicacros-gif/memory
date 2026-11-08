@@ -114,6 +114,14 @@ export function renderCompany(c, pos = null) {
       ${c.postPeriodRaises?.length ? `<div class="callout"><b>기준일(${esc(c.balanceSheetEnd || "")}) 이후 증자 관련 공시</b> — 위 현금에 합산하지 않았습니다.<ul>${c.postPeriodRaises.map((r) => `<li>${esc(r.date)} · ${esc(r.form)} ${srcBtn(r.url, "원문")}</li>`).join("")}</ul></div>` : ""}</section>
     <section class="co-sec"><h2>성장 촉매 · 밸류에이션 가정 · 실패 조건</h2>
       <h3>촉매(리서치 근거)</h3>${c.industries.some((i) => i.thesis) ? `<ul>${c.industries.filter((i) => i.thesis).map((i) => `<li>${esc(i.thesis)} ${srcBtn(i.sourceUrl, "근거")}</li>`).join("")}</ul>` : '<p class="muted">출처가 있는 촉매 기술 없음</p>'}
+      <h3>현재 밸류에이션</h3>${kv([
+        ["선행 P/E", multiple(c.valuation?.forwardPE, "배"), "애널리스트 다음 회계연도 EPS 기준"],
+        ["후행 P/E", multiple(c.valuation?.trailingPE, "배")],
+        ["PEG", isNum(c.valuation?.peg) ? `<span class="${c.valuation.peg < 1 ? "pos" : c.valuation.peg > 2 ? "neg" : ""}">${c.valuation.peg.toFixed(2)}</span>` : NO_DATA, "P/E ÷ 예상 EPS 성장률"],
+        ["P/S", multiple(c.priceToSales, "배")], ["P/S ÷ 매출성장", isNum(c.psToGrowth) ? String(c.psToGrowth) : NO_DATA, "적자 성장주 비교용"],
+        ["EV/매출", multiple(c.valuation?.evToRevenue, "배")],
+        ["다음 실적 발표", c.nextEarnings ? `${esc(c.nextEarnings)} (D-${Math.max(0, c.daysToEarnings)})` : NO_DATA, "발표 후 공시가 올라오면 다음 실행에서 재무 갱신"],
+      ])}<p class="sub">선행 P/E·PEG·EV 배수는 ${esc(c.valuation?.source || "Yahoo Finance")} 수치(애널리스트 ${esc(c.valuation?.analysts ?? "—")}명). 적자 기업은 P/E가 의미 없어 비워 둡니다.</p>
       <h3>10배 시나리오</h3>${valuation(c)}
       <h3>실패 조건 점검</h3>${failureChecks(c)}</section>
     ${holdings ? `<section class="co-sec"><h2>보유한 비상장 지분</h2><div class="tbl-wrap"><table class="grid"><thead><tr><th>스타트업</th><th>투자 주체</th><th class="r">지분율</th><th class="r">투자 금액</th><th>보유 형태·기준</th><th>측정일</th><th>상태</th><th>출처</th></tr></thead><tbody>${holdings}</tbody></table></div></section>` : ""}

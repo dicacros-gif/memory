@@ -459,7 +459,7 @@ async function main() {
     const cik = secCikFor(company, tickerMap);
     const cached = yfCache[company.ticker];
     const prices = cached?.series?.length
-      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null, shortInterest: cached.shortInterest ?? null }
+      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null, shortInterest: cached.shortInterest ?? null, valuation: cached.valuation ?? null, nextEarnings: cached.nextEarnings ?? null }
       : await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
     const dart = dartCache[company.ticker] || dartCache[company.ticker.replace(/^KOSDAQ:/, "KRX:")] || dartCache[company.ticker.replace(/^KRX:/, "KOSDAQ:")];
     const snapshot = cached?.fundamentals ? { ...cached.fundamentals, status: "provider snapshot" } : null;
@@ -470,7 +470,8 @@ async function main() {
     ]);
     const row = companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] });
     const tv = crossCheck(row, tvRows.get(tvTicker(company.ticker))) || previous[company.ticker]?.tv || null;
-    return { ...row, shortInterest: prices?.shortInterest ?? previous[company.ticker]?.shortInterest ?? null, avgTradedValue20d: prices?.avgTradedValue20d ?? previous[company.ticker]?.avgTradedValue20d ?? null, name: company.name || null, holderOnly: Boolean(company.holderOnly), runwayStatus: runwayStatus(row.fundamentals),
+    return { ...row, valuation: prices?.valuation ?? previous[company.ticker]?.valuation ?? null, nextEarnings: prices?.nextEarnings ?? previous[company.ticker]?.nextEarnings ?? null,
+      shortInterest: prices?.shortInterest ?? previous[company.ticker]?.shortInterest ?? null, avgTradedValue20d: prices?.avgTradedValue20d ?? previous[company.ticker]?.avgTradedValue20d ?? null, name: company.name || null, holderOnly: Boolean(company.holderOnly), runwayStatus: runwayStatus(row.fundamentals),
       postPeriodRaises: postPeriodRaises(row.fundamentals), marketCapUsd: usdMarketCap(row, tv), tv, secCik: cik, yahooSymbol: prices?.symbol || symbol };
   });
   const fresh = rows.filter((r) => !r.stale.prices).length;

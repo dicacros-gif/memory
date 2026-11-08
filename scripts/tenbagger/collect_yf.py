@@ -149,11 +149,42 @@ def screen_tickers() -> list[str]:
     return list(dict.fromkeys(out))
 
 
-def short_interest(t) -> dict | None:
-    """Exchange-reported short interest as Yahoo shows it (US listings, twice monthly)."""
+def info_of(t) -> dict:
     try:
-        info = t.info or {}
+        return t.info or {}
     except Exception:  # noqa: BLE001
+        return {}
+
+
+def valuation(info: dict) -> dict | None:
+    """Multiples as Yahoo reports them. Forward P/E uses analysts' next-fiscal-year EPS;
+    PEG is Yahoo's (P/E ÷ expected EPS growth). Kept apart from filed statements."""
+    out = {
+        "forwardPE": num(info.get("forwardPE")), "trailingPE": num(info.get("trailingPE")),
+        "peg": num(info.get("trailingPegRatio")) if num(info.get("trailingPegRatio")) is not None else num(info.get("pegRatio")),
+        "forwardEps": num(info.get("forwardEps")), "trailingEps": num(info.get("trailingEps")),
+        "evToRevenue": num(info.get("enterpriseToRevenue")), "evToEbitda": num(info.get("enterpriseToEbitda")),
+        "earningsGrowthPct": round(num(info.get("earningsGrowth")) * 100, 1) if num(info.get("earningsGrowth")) is not None else None,
+        "analysts": info.get("numberOfAnalystOpinions"),
+        "source": "Yahoo Finance (analyst consensus and reported multiples)",
+    }
+    # Negative or absurd multiples carry no information as a ratio.
+    for key in ("forwardPE", "trailingPE", "peg", "evToRevenue", "evToEbitda"):
+        if out[key] is not None and (out[key] <= 0 or out[key] > 2000):
+            out[key] = None
+    return out if any(out[k] is not None for k in ("forwardPE", "trailingPE", "peg", "evToRevenue")) else None
+
+
+def next_earnings(dates: list[str]) -> str | None:
+    today = datetime.now(timezone.utc).date().isoformat()
+    future = [d for d in dates if d >= today]
+    return min(future) if future else None
+
+
+def short_interest(t, info: dict | None = None) -> dict | None:
+    """Exchange-reported short interest as Yahoo shows it (US listings, twice monthly)."""
+    info = info if info is not None else info_of(t)
+    if not info:
         return None
     pct = num(info.get("shortPercentOfFloat"))
     shares = num(info.get("sharesShort"))
@@ -198,6 +229,7 @@ def collect(ticker: str) -> dict | None:
         series = [{"date": str(index)[:10], "close": round(float(close), 6)}
                   for index, close in history["Close"].dropna().items() if close > 0]
         fast = t.fast_info
+        info = info_of(t)
         liquidity = None
         try:
             liquidity = write_bars(ticker, symbol, getattr(fast, "currency", None), t)
@@ -211,7 +243,9 @@ def collect(ticker: str) -> dict | None:
             "marketCap": num(getattr(fast, "market_cap", None)),
             # Average daily traded value over 20 sessions, in the listing currency.
             "avgTradedValue20d": (liquidity or {}).get("avgTradedValue20d"),
-            "shortInterest": short_interest(t) if symbol.isalpha() or "-" in symbol else None,
+            "shortInterest": short_interest(t, info) if symbol.isalpha() or "-" in symbol else None,
+            "valuation": valuation(info),
+            "nextEarnings": next_earnings(earnings_dates(t)),
         }
         try:
             revenue, revenue_prior, revenue_end = row(t.income_stmt, "Total Revenue", "Operating Revenue")

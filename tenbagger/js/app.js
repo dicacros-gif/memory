@@ -6,6 +6,7 @@ import { esc, day } from "./format.js";
 import { parseHash, go, companyUrl } from "./state.js";
 import { renderIndustries, renderIndustry } from "./industries.js";
 import { renderScreener, renderCompare } from "./screener.js";
+import { renderRunway } from "./runway.js";
 import { renderStartups, renderStartup, renderHolder } from "./startups.js";
 import { renderHistory } from "./history.js";
 import { renderSources } from "./sources.js";
@@ -58,7 +59,7 @@ async function render() {
     const ind = route.sub && ctx.industries.find((i) => i.id === route.sub);
     if (ind) renderIndustry(main, { industry: ind, companies, positioning: ctx.positioning }); else renderIndustries(main, ctx);
   } else if (route.view === "companies") {
-    if (route.sub === "compare") renderCompare(main, ctx); else renderScreener(main, ctx);
+    if (route.sub === "compare") renderCompare(main, ctx); else if (route.sub === "runway") renderRunway(main, ctx); else renderScreener(main, ctx);
   } else if (route.view === "startups") {
     if (route.sub?.startsWith("holder/")) {
       const c = companies.find((x) => x.id === route.sub.slice(7));

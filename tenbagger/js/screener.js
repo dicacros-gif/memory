@@ -45,7 +45,14 @@ function columns(fx) {
       render: (c) => `${pct(c.fcfMarginPct)}<div class="sub">${c.fcfPositive === true ? "FCF 플러스" : c.fcfPositive === false ? "FCF 마이너스" : ""}</div>` },
     { key: "runway", label: "런웨이", num: true, title: "FCF 마이너스일 때 (현금+단기투자) ÷ 연간 소진액. 일정 소진 가정", value: (c) => (c.fcfPositive ? 999 : c.runwayCashPlusStiYears),
       render: (c) => (c.fcfPositive ? '<span class="pos">해당 없음 · FCF 플러스</span>' : `${years(c.runwayCashPlusStiYears)}<div class="sub">${c.runwayStatus === "filed" ? "공시 기준" : c.runwayStatus ? "추정" : ""}</div>`) },
-    { key: "priceToSales", label: "P/S", num: true, title: "시가총액 ÷ 최근 매출(같은 통화)", value: (c) => c.priceToSales, render: (c) => multiple(c.priceToSales, "배") },
+    { key: "priceToSales", label: "밸류에이션", num: true, title: "P/S = 시가총액 ÷ 최근 매출 · 선행 P/E와 PEG는 Yahoo 컨센서스", value: (c) => c.valuation?.forwardPE ?? c.priceToSales,
+      render: (c) => `${isNum(c.valuation?.forwardPE) ? `<span class="num">선행 P/E ${c.valuation.forwardPE.toFixed(1)}</span>` : `<span class="num">P/S ${isNum(c.priceToSales) ? c.priceToSales.toFixed(1) : "자료 없음"}</span>`}<div class="sub">${isNum(c.valuation?.peg) ? `PEG ${c.valuation.peg.toFixed(2)}` : isNum(c.psToGrowth) ? `P/S÷성장 ${c.psToGrowth}` : ""}</div>` },
+    { key: "forwardPE", label: "선행 P/E", num: true, optional: true, title: "주가 ÷ 애널리스트 다음 회계연도 EPS(Yahoo)", value: (c) => c.valuation?.forwardPE ?? null, render: (c) => multiple(c.valuation?.forwardPE, "배") },
+    { key: "peg", label: "PEG", num: true, optional: true, title: "P/E ÷ 예상 EPS 성장률(Yahoo). 1 미만이면 성장 대비 저평가로 읽히나 추정치 의존", value: (c) => c.valuation?.peg ?? null,
+      render: (c) => (isNum(c.valuation?.peg) ? `<span class="num ${c.valuation.peg < 1 ? "pos" : c.valuation.peg > 2 ? "neg" : ""}">${c.valuation.peg.toFixed(2)}</span>` : NO_DATA) },
+    { key: "ps", label: "P/S", num: true, optional: true, value: (c) => c.priceToSales, render: (c) => multiple(c.priceToSales, "배") },
+    { key: "psToGrowth", label: "P/S÷매출성장", num: true, optional: true, title: "적자 성장주용: P/S ÷ 매출 성장률(%). 낮을수록 성장 대비 매출 배수가 낮음", value: (c) => c.psToGrowth, render: (c) => (isNum(c.psToGrowth) ? `<span class="num">${c.psToGrowth}</span>` : NO_DATA) },
+    { key: "nextEarnings", label: "다음 실적", optional: true, value: (c) => c.nextEarnings || null, render: (c) => (c.nextEarnings ? `${esc(c.nextEarnings)}<div class="sub">D${c.daysToEarnings >= 0 ? "-" : "+"}${Math.abs(c.daysToEarnings)}</div>` : NO_DATA) },
     { key: "trend", label: "가격 추세", num: true, title: "1년 수익률 · 12개월 고점 대비", value: (c) => c.returns?.m12,
       render: (c) => `${pct(c.returns?.m12)}<div class="sub">고점 ${isNum(c.returns?.offHigh12mPct) ? pct(c.returns.offHigh12mPct, { plain: true }) : "자료 없음"}</div>` },
     { key: "dataStatus", label: "데이터 상태", value: (c) => c.data.financials, render: (c) => `${statusChip(c.data.financials, c.data.source || "")}${c.data.staleFundamentals || c.data.stalePrices ? statusChip("stale") : ""}${c.postPeriodRaises?.length ? '<span class="chip chip-warn" title="기준일 이후 증자 관련 공시 — 현금에 합산하지 않음">기준일 후 증자 공시</span>' : ""}`,
@@ -84,6 +91,7 @@ export function renderScreener(root, { companies, industries, startups, fx, para
   const filed = rows.filter((c) => c.data.financials === "filed").length;
   root.innerHTML = `
     <section class="view-head"><h1>상장 기업</h1><p class="lede">미국·한국 상장사의 매출 성장, FCF, 런웨이, 밸류에이션을 같은 기준으로 비교합니다. 정렬·필터는 주소에 저장돼 공유할 수 있습니다. 순위는 정렬일 뿐 추천이 아닙니다.</p></section>
+    <p><a class="btn" href="#companies/runway">현금·런웨이 모니터 →</a></p>
     <div class="presets" role="group" aria-label="프리셋">${Object.entries(PRESETS).map(([id, ps]) => `<button type="button" class="btn ${p.preset === id ? "on" : ""}" data-preset="${id}" title="${esc(ps.text)}">${esc(ps.label)}</button>`).join("")}</div>
     ${p.preset && PRESETS[p.preset] ? `<p class="preset-rule">조건: ${esc(PRESETS[p.preset].text)}</p>` : ""}
     <details class="filters" ${chips.length ? "open" : ""}><summary>필터 편집</summary>
