@@ -175,9 +175,19 @@ def valuation(info: dict) -> dict | None:
     return out if any(out[k] is not None for k in ("forwardPE", "trailingPE", "peg", "evToRevenue")) else None
 
 
-def next_earnings(dates: list[str]) -> str | None:
+def next_earnings(dates: list[str], t=None) -> str | None:
+    """Next scheduled report: the earnings-dates list first, then Yahoo's calendar."""
     today = datetime.now(timezone.utc).date().isoformat()
     future = [d for d in dates if d >= today]
+    if not future and t is not None:
+        try:
+            cal = t.calendar or {}
+            raw = cal.get("Earnings Date") if isinstance(cal, dict) else None
+            for d in (raw if isinstance(raw, (list, tuple)) else [raw]):
+                if d is not None and str(d)[:10] >= today:
+                    future.append(str(d)[:10])
+        except Exception:  # noqa: BLE001
+            pass
     return min(future) if future else None
 
 
@@ -245,7 +255,7 @@ def collect(ticker: str) -> dict | None:
             "avgTradedValue20d": (liquidity or {}).get("avgTradedValue20d"),
             "shortInterest": short_interest(t, info) if symbol.isalpha() or "-" in symbol else None,
             "valuation": valuation(info),
-            "nextEarnings": next_earnings(earnings_dates(t)),
+            "nextEarnings": next_earnings(earnings_dates(t), t),
         }
         try:
             revenue, revenue_prior, revenue_end = row(t.income_stmt, "Total Revenue", "Operating Revenue")
