@@ -397,7 +397,8 @@ const DIGEST_PRESETS = ["cash-growers", "pullback", "funding-risk"];
  */
 export function buildDigest({ previous, companies, prevStartups, startups, fx, now }) {
   const prevById = new Map((previous?.companies || []).map((c) => [c.id, c]));
-  const usd = (c) => ({ ...c, _liqUsd: c.currency === "USD" ? c.avgTradedValue20d : c.currency === "KRW" && fx?.rate ? (c.avgTradedValue20d ?? null) / fx.rate : null });
+  const conv = (v, cur) => (!isNum(v) ? null : cur === "USD" ? v : cur === "KRW" && fx?.rate ? v / fx.rate : null);
+  const usd = (c) => ({ ...c, _liqUsd: conv(c.avgTradedValue20d, c.currency), _revUsd: conv(c.revenueTtm, c.statementCurrency) });
   const ids = (list, key) => new Set(applyFilters(list.map(usd), PRESETS[key].params).map((c) => c.id));
   const presets = DIGEST_PRESETS.map((key) => {
     const nowSet = ids(companies, key);

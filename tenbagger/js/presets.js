@@ -32,6 +32,7 @@ export function applyFilters(companies, p, startups = []) {
     if (p.ps && !(isNum(c.priceToSales) && c.priceToSales <= Number(p.ps))) return false;
     if (p.off && !(isNum(c.returns?.offHigh12mPct) && c.returns.offHigh12mPct <= Number(p.off))) return false;
     if (p.liq && !(isNum(c._liqUsd) && c._liqUsd >= Number(p.liq) * 1e6)) return false;
+    if (p.rev && !(isNum(c._revUsd) && c._revUsd >= Number(p.rev) * 1e6)) return false;
     if (p.cov && c.coverage !== p.cov && !(p.cov === "holder" && c.holdings?.length)) return false;
     if (p.new && !c.newlyAdded) return false;
     if (p.status === "filed" && c.data.financials !== "filed") return false;

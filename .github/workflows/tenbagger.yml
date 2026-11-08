@@ -67,7 +67,7 @@ jobs:
 
       - name: Historical cohort (weekly, batched)
         continue-on-error: true
-        timeout-minutes: 12
+        timeout-minutes: 22
         run: python scripts/tenbagger/collect_cohort.py ${{ inputs.force_cohort && '--force' || '' }} || echo "::warning::cohort step failed; previous base rates kept"
 
       - name: Korean statements (DART, when the DART_API_KEY secret exists)

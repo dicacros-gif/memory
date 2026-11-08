@@ -34,7 +34,7 @@ CACHE = ROOT / "data" / "tenbagger" / "tv-cache.json"
 OUT = ROOT / "data" / "tenbagger" / "cohort.json"
 MAX_STOCKS = {"america": 3200, "korea": 1400}
 BATCH = 80
-BUDGET_SECONDS = 9 * 60
+BUDGET_SECONDS = 18 * 60
 
 SIZE_EDGES = [(3e8, "<$0.3B"), (1e9, "$0.3–1B"), (3e9, "$1–3B"), (1e10, "$3–10B"), (float("inf"), ">$10B")]
 OFF_EDGES = [(-60, "고점 대비 -60% 이하"), (-30, "-60~-30%"), (-10, "-30~-10%"), (float("inf"), "고점 -10% 이내")]

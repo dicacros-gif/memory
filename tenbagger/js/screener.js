@@ -25,6 +25,7 @@ export function filterChips(p, industries, startups) {
   if (p.ps) chips.push(["ps", `P/S ≤ ${p.ps}배`]);
   if (p.off) chips.push(["off", `12개월 고점 대비 ≤ ${p.off}%`]);
   if (p.liq) chips.push(["liq", `일평균 거래대금 ≥ $${p.liq}M`]);
+  if (p.rev) chips.push(["rev", `매출 ≥ $${p.rev}M`]);
   if (p.cov) chips.push(["cov", { universe: "큐레이션 산업 기업", holder: "스타트업 지분 보유사", screen: "스크리너 발굴" }[p.cov]]);
   if (p.new) chips.push(["new", "신규 편입"]);
   if (p.status) chips.push(["status", p.status === "filed" ? "공시 재무" : "데이터 제공사 재무"]);
@@ -39,7 +40,7 @@ function columns(fx) {
     { key: "name", label: "기업 · 시장", fixed: true, value: (c) => c.name,
       render: (c) => `<a class="co-link" href="${companyUrl(c.id)}" data-open="${esc(c.id)}">${esc(c.name)}</a><div class="sub">${esc(c.ticker)} · ${esc(marketLabel(c.market))}${c.newlyAdded ? ' · <span class="chip chip-new">신규</span>' : ""}</div>`, csv: (c) => `${c.name} (${c.ticker})` },
     { key: "revenueGrowthPct", label: "매출 성장", num: true, title: "직전 회계연도 또는 누적 기간 전년 대비. 기준은 상세에서 확인", value: (c) => c.revenueGrowthPct,
-      render: (c) => `${pct(c.revenueGrowthPct)}<div class="sub">${esc(c.revenueEnd || "")}</div>` },
+      render: (c) => `${pct(c.revenueGrowthPct)}<div class="sub">${esc(c.revenueEnd || "")}${isNum(c._revUsd) && c._revUsd < 50e6 ? ' · <span class="warn-text" title="매출 5천만 달러 미만 — 작은 기준에서의 성장률">소규모 매출</span>' : ""}</div>` },
     { key: "fcfMarginPct", label: "FCF 마진", num: true, title: "FCF ÷ 매출(같은 기간). FCF = 영업현금흐름 − 설비투자", value: (c) => c.fcfMarginPct,
       render: (c) => `${pct(c.fcfMarginPct)}<div class="sub">${c.fcfPositive === true ? "FCF 플러스" : c.fcfPositive === false ? "FCF 마이너스" : ""}</div>` },
     { key: "runway", label: "런웨이", num: true, title: "FCF 마이너스일 때 (현금+단기투자) ÷ 연간 소진액. 일정 소진 가정", value: (c) => (c.fcfPositive ? 999 : c.runwayCashPlusStiYears),
@@ -68,8 +69,10 @@ const CARD = (c) => `<div class="card-head"><a class="co-link" href="${companyUr
   <details><summary>자세히</summary><p>P/S ${multiple(c.priceToSales, "배")} · 1년 ${pct(c.returns?.m12)} · ${statusChip(c.data.financials)}</p></details>`;
 
 export function renderScreener(root, { companies, industries, startups, fx, params }) {
-  const p = { ...params };
-  const rows0 = companies.map((c) => ({ ...c, _liqUsd: toUsd(c.avgTradedValue20d, c.currency, fx) }));
+  // A preset link (#companies?preset=cash-growers) applies its conditions;
+  // explicit parameters in the same link still win.
+  const p = { ...(PRESETS[params.preset]?.params || {}), ...params };
+  const rows0 = companies.map((c) => ({ ...c, _liqUsd: toUsd(c.avgTradedValue20d, c.currency, fx), _revUsd: toUsd(c.revenueTtm, c.statementCurrency, fx) }));
   const rows = applyFilters(rows0, p, startups);
   const sort = sortFromParam(p.sort) || DEFAULT_SORT;
   const visible = p.cols ? p.cols.split(",") : DEFAULT_COLS;
@@ -92,6 +95,7 @@ export function renderScreener(root, { companies, industries, startups, fx, para
         <label>최대 P/S <input name="ps" value="${esc(p.ps || "")}" size="4"></label>
         <label>고점 대비 ≤ % <input name="off" placeholder="-30" value="${esc(p.off || "")}" size="5"></label>
         <label>최소 거래대금 $M/일 <input name="liq" value="${esc(p.liq || "")}" size="5"></label>
+        <label>최소 매출 $M <input name="rev" placeholder="예: 50" value="${esc(p.rev || "")}" size="5"></label>
         <label>재무 출처 <select name="status"><option value="">전체</option><option value="filed" ${p.status === "filed" ? "selected" : ""}>공시(SEC·DART)</option><option value="snapshot" ${p.status === "snapshot" ? "selected" : ""}>데이터 제공사</option></select></label>
         <label>층 <select name="layer"><option value="">전체</option><option value="candidate" ${p.layer === "candidate" ? "selected" : ""}>후보층</option><option value="leader" ${p.layer === "leader" ? "selected" : ""}>선도층</option></select></label>
         <label><input type="checkbox" name="new" value="1" ${p.new ? "checked" : ""}> 신규 편입만</label>
@@ -103,7 +107,7 @@ export function renderScreener(root, { companies, industries, startups, fx, para
   root.querySelector(".filter-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
-    set({ ind: f.get("ind"), mkt: f.get("mkt") === "US,KR" ? null : f.get("mkt"), cap: f.get("cap"), g: f.get("g"), fcf: f.get("fcf"), rw: f.get("rw"), ps: f.get("ps"), off: f.get("off"), liq: f.get("liq"), status: f.get("status"), layer: f.get("layer"), new: f.get("new"), preset: null }, false);
+    set({ ind: f.get("ind"), mkt: f.get("mkt") === "US,KR" ? null : f.get("mkt"), cap: f.get("cap"), g: f.get("g"), fcf: f.get("fcf"), rw: f.get("rw"), ps: f.get("ps"), off: f.get("off"), liq: f.get("liq"), rev: f.get("rev"), status: f.get("status"), layer: f.get("layer"), new: f.get("new"), preset: null }, false);
   });
   root.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
     const keep = { ind: p.ind, mkt: p.mkt, sort: p.sort, cols: p.cols };

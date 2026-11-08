@@ -1,16 +1,21 @@
 /* Ten-bagger research — one colour language: green = pass/positive, red =
    fail/negative, grey = no data; always paired with a sign or a word. */
 :root, [data-theme="dark"] {
-  --bg: #0b0e12; --panel: #11161c; --panel2: #161c24; --line: #232c37; --text: #e6eaef; --muted: #98a3b1;
-  --accent: #f0a429; --link: #7cc4ff; --pos: #3ccf8e; --neg: #ff6b6b; --nd: #7d8794; --warn: #f0a429; --focus: #7cc4ff;
+  /* Same palette as the semiconductor terminal (assets/css/terminal.css). */
+  --bg: #050607; --panel: #0b0e11; --panel2: #10151a; --row: #161d24; --line: #1f2830; --line2: #2b3640;
+  --text: #e6e3dc; --muted: #8d918c; --label: #d1973f; --accent: #d1973f; --yellow: #ccb052; --link: #7db7d4;
+  --pos: #2fb86a; --neg: #d9706a; --nd: #6f7470; --warn: #ccb052; --focus: #ccb052; --fkey: #1d3f66; --fkey2: #24527f; --select: #16283d;
+  color-scheme: dark;
 }
 [data-theme="light"] {
-  --bg: #f6f7f9; --panel: #ffffff; --panel2: #f0f2f5; --line: #d9dee5; --text: #18202a; --muted: #5b6673;
-  --accent: #b86e00; --link: #0b5cad; --pos: #15803d; --neg: #c62828; --nd: #6b7480; --warn: #9a5b00; --focus: #0b5cad;
+  --bg: #f4f2ed; --panel: #ffffff; --panel2: #eeebe4; --row: #f7f5f0; --line: #d8d3c8; --line2: #c3bdb0;
+  --text: #1a1c1e; --muted: #5d6166; --label: #8a5a14; --accent: #b0731f; --yellow: #8a6d12; --link: #1f5f86;
+  --pos: #1c7a45; --neg: #b3443c; --nd: #6b6f73; --warn: #8a6d12; --focus: #8a6d12; --fkey: #1d3f66; --fkey2: #24527f; --select: #e3ecf5;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 html { background: var(--bg); }
-body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "Pretendard", "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 13px/1.45 Roboto, "Noto Sans KR", Helvetica, sans-serif; font-variant-numeric: tabular-nums; font-synthesis: none; }
 a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .skip { position: absolute; left: -999px; } .skip:focus { left: 8px; top: 8px; z-index: 50; background: var(--panel); padding: 6px 10px; }
@@ -192,3 +197,57 @@ details.method summary { cursor: pointer; color: var(--link); }
 .preset-count:hover { border-color: var(--accent); text-decoration: none; }
 .preset-count b { font-size: 22px; font-variant-numeric: tabular-nums; } .preset-count small { color: var(--muted); font-size: 11px; }
 .digest-list { list-style: none; padding: 0; columns: 2 320px; } .digest-list li { break-inside: avoid; margin: 3px 0; }
+
+/* ── Terminal look ─────────────────────────────────────────────────────────
+   Amber labels, white values, square dense surfaces, F-key section buttons,
+   a command-line search. Overrides the base rules above. */
+.tb-top { background: var(--panel); border-bottom: 1px solid var(--line2); padding: 6px 12px; gap: 6px 14px; }
+.tb-brand b { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; background: var(--accent); color: var(--bg); font-size: 12px; }
+.tb-brand span { color: var(--label); font-size: 13px; letter-spacing: .06em; }
+.tb-nav { gap: 1px; background: var(--line); }
+.tb-nav a { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; background: var(--fkey); color: var(--text); font-weight: 700; letter-spacing: .03em; border: 0; }
+.tb-nav a:hover { background: var(--fkey2); text-decoration: none; }
+.tb-nav a[aria-current="page"] { background: var(--accent); color: var(--bg); }
+.tb-nav kbd, .tb-secondary kbd { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; border: 1px solid var(--line2); background: var(--panel2); color: var(--yellow); font: 700 11px Roboto, sans-serif; }
+.tb-nav a[aria-current="page"] kbd { background: var(--bg); border-color: var(--bg); }
+.tb-secondary { color: var(--link); }
+.global-bar { background: var(--panel2); border-bottom: 1px solid var(--line2); padding: 5px 12px; top: 45px; }
+.gb-search input { background: var(--bg); border: 1px solid var(--line2); color: var(--yellow); font-weight: 700; letter-spacing: .03em; padding: 5px 8px; width: 260px; }
+.gb-search input::placeholder { color: var(--muted); font-weight: 400; }
+.gb-search::after { content: "<GO>"; margin-left: 4px; padding: 4px 6px; background: var(--fkey); color: var(--text); font-weight: 800; font-size: 11px; }
+.gb-search { display: inline-flex; align-items: center; }
+.gb-date { color: var(--label); font-weight: 700; letter-spacing: .03em; }
+.chip-ind { background: var(--bg); border-color: var(--line2); color: var(--text); }
+.chip-ind.on, .btn.on, .btn[aria-pressed="true"], .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn { background: var(--panel2); border-color: var(--line2); }
+.btn:hover { background: var(--row); }
+.view-head h1 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--label); margin: 4px 0 6px; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .07em; color: var(--label); border-bottom: 1px solid var(--line2); padding-bottom: 4px; }
+h3 { font-size: 12px; color: var(--yellow); letter-spacing: .04em; }
+.lede { color: var(--muted); font-size: 12.5px; }
+.tbl-wrap { background: var(--panel); border-color: var(--line2); }
+.grid th, .grid td { background: var(--panel); border-bottom-color: var(--line); padding: 4px 8px; }
+.grid tbody tr:nth-child(even) td { background: var(--row); }
+.grid thead th { background: var(--panel2); color: var(--label); text-transform: uppercase; font-size: 11px; letter-spacing: .05em; border-bottom: 1px solid var(--line2); }
+.grid tbody tr:hover td, .grid tbody tr:focus-visible td { background: var(--select); }
+.grid td { color: var(--text); }
+.tbl-summary { color: var(--yellow); font-size: 12px; letter-spacing: .03em; }
+.sort-arrow.on { color: var(--yellow); }
+.co-link { color: var(--text); } .co-link:hover { color: var(--link); }
+.ind-card, .st-card, .kv div, .chain-col, .card, .digest, .preset-count, .filter-form, .val-out, .callout, .compare-bar { border-radius: 0; background: var(--panel); border-color: var(--line2); }
+.ind-card h2, .st-card h2 { border: 0; padding: 0; font-size: 13px; }
+.ind-card:hover, .st-card:hover { border-color: var(--accent); background: var(--panel2); }
+.kv dt, .ind-counts dt, .card-grid dt { color: var(--label); text-transform: uppercase; letter-spacing: .04em; font-size: 10.5px; }
+.kv dd { font-size: 14px; }
+.cagr-bar .fill { background: var(--accent); }
+.digest { border-left-color: var(--accent); }
+.preset-count b { color: var(--yellow); }
+.panel-bar { background: var(--panel2); border-bottom-color: var(--line2); }
+.co-panel { background: var(--bg); border-left-color: var(--line2); }
+.co-head h1 { font-size: 20px; text-transform: none; color: var(--text); letter-spacing: 0; }
+.eyebrow { color: var(--label); letter-spacing: .05em; text-transform: uppercase; }
+.chart-box { background: var(--panel); border-color: var(--line2); }
+.tb-foot { color: var(--muted); border-top-color: var(--line2); }
+.src-btn { border-color: var(--line2); }
+.error-banner.info { border-color: var(--link); }
+.warn-text { color: var(--warn); }
