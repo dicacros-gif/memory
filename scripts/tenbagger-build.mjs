@@ -401,7 +401,10 @@ export function buildIndustries({ universe, companies, startups, screen, metrics
     "obesity-metabolic": ["Pharmaceuticals: Major", "Pharmaceuticals: Other", "Biotechnology"],
     "fintech-digital-assets": ["Investment Banks/Brokers", "Finance/Rental/Leasing", "Data Processing Services", "Miscellaneous Commercial Services"],
     "autonomy-mobility": ["Motor Vehicles", "Auto Parts: OEM", "Electronic Equipment/Instruments", "Aerospace & Defense"],
-    "medtech-ai-diagnostics": ["Medical Specialties", "Medical/Nursing Services", "Services to the Health Industry"] };
+    "medtech-ai-diagnostics": ["Medical Specialties", "Medical/Nursing Services", "Services to the Health Industry"],
+    "power-grid": ["Electrical Products", "Engineering & Construction", "Industrial Machinery"],
+    "gene-cell-therapy": ["Biotechnology", "Pharmaceuticals: Other"],
+    "satcom-6g": ["Telecommunications Equipment", "Specialty Telecommunications", "Electronic Components"] };
   return (universe.sectors || []).map((s) => {
     const members = companies.filter((c) => c.industries.some((i) => i.id === s.id));
     const withFin = members.filter((c) => c.data.financials !== "no data" && c.data.financials !== "provider snapshot" || isNum(c.revenueTtm));
