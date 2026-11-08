@@ -45,11 +45,22 @@ function companyTable(companies, metrics) {
       <td class="num">${runway}</td>
       <td class="num">${pct(m.returns?.m12)}</td>
       <td>${tenX(m.tenBagger)}</td>
+      <td>${crossBadge(m.tv)}</td>
       <td class="wrap">${esc(c.thesis)}</td>
     </tr>`;
   }).join("");
-  return `<div class="tb-scroll"><table><thead><tr><th>기업</th><th>층</th><th>시가총액</th><th>매출</th><th>매출 성장</th><th>FCF · 마진</th><th>현금+단기투자</th><th>런웨이</th><th>1년 수익률</th><th>텐배거 이력</th><th class="wrap">포지션</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  return `<div class="tb-scroll"><table><thead><tr><th>기업</th><th>층</th><th>시가총액</th><th>매출</th><th>매출 성장</th><th>FCF · 마진</th><th>현금+단기투자</th><th>런웨이</th><th>1년 수익률</th><th>텐배거 이력</th><th>교차검증</th><th class="wrap">포지션</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+
+// TradingView's independent read of the same company (scripts/tenbagger-screen.mjs crossCheck).
+function crossBadge(tv) {
+  if (!tv) return "";
+  const g = Number.isFinite(tv.revenueGrowthPct) ? `TV 성장 ${tv.revenueGrowthPct > 0 ? "+" : ""}${tv.revenueGrowthPct.toFixed(1)}%` : "TV";
+  if (tv.agrees === true) return `<span class="tag ok">일치</span><br><span class="muted">${esc(g)}</span>`;
+  if (tv.agrees === false) return `<span class="tag warn">차이 ${Number.isFinite(tv.growthDiffPp) ? `${tv.growthDiffPp}%p` : "FCF 부호"}</span><br><span class="muted">${esc(g)}</span>`;
+  return `<span class="muted">${esc(g)}</span>`;
+}
+const usd = (v) => money(v, "USD");
 
 let SOURCES = {};
 // What we know about a figure: re-confirmed by the check agent, found on the
@@ -99,7 +110,8 @@ function renderSector(sector, metrics) {
 // growing, and either self-funding or with at least two years of cash.
 const SCREEN_RULE = "후보층 · 시가총액 $10B(약 14조원) 미만 · 매출 성장 +20% 이상 · FCF 흑자이거나 런웨이 2년 이상";
 function screen(universe, metrics) {
-  const usdCap = (m) => (m.currency === "KRW" ? m.marketCap / 1400 : m.marketCap);
+  // Dollar market cap: ours for USD listings, TradingView's conversion otherwise.
+  const usdCap = (m) => m.marketCapUsd ?? (m.currency === "USD" ? m.marketCap : null);
   const picks = [];
   for (const sector of universe.sectors || []) for (const c of sector.publicCompanies || []) {
     const m = metrics.get(c.ticker); const f = m?.fundamentals;
@@ -110,11 +122,45 @@ function screen(universe, metrics) {
   }
   picks.sort((a, b) => (b.m.fundamentals.revenueGrowthPct || 0) - (a.m.fundamentals.revenueGrowthPct || 0));
   $("tbScreenRule").textContent = `조건: ${SCREEN_RULE}. 통과 ${picks.length}개. 매출 성장 순 정렬이며 매수 의견이 아닙니다.`;
-  $("tbScreen").innerHTML = `<table><thead><tr><th>기업</th><th>산업</th><th>시가총액</th><th>10배 시 시가총액</th><th>매출 성장</th><th>FCF</th><th>런웨이</th><th>텐배거 이력</th></tr></thead><tbody>${picks.map(({ c, m, sector }) => `<tr>
+  $("tbScreen").innerHTML = `<table><thead><tr><th>기업</th><th>산업</th><th>시가총액</th><th>10배 시 시가총액</th><th>매출 성장</th><th>FCF</th><th>런웨이</th><th>텐배거 이력</th><th>교차검증</th></tr></thead><tbody>${picks.map(({ c, m, sector }) => `<tr>
     <td>${esc(c.name)}<br><span class="muted">${esc(c.ticker)}</span></td><td>${esc(sector.name)}</td>
     <td class="num">${money(m.marketCap, m.currency)}</td><td class="num">${money(m.marketCapNeededFor10x, m.currency)}</td>
     <td class="num">${pct(m.fundamentals.revenueGrowthPct)}</td><td class="num">${money(m.fundamentals.fcfTtm, m.fundamentals.currency)}</td>
-    <td class="num">${Number.isFinite(m.runwayYears) ? `${m.runwayYears}년` : "흑자"}</td><td>${tenX(m.tenBagger)}</td></tr>`).join("")}</tbody></table>`;
+    <td class="num">${Number.isFinite(m.runwayYears) ? `${m.runwayYears}년` : "흑자"}</td><td>${tenX(m.tenBagger)}</td><td>${crossBadge(m.tv)}</td></tr>`).join("")}</tbody></table>`;
+}
+
+const SECTOR_NAME = {};
+function marketScreen(doc) {
+  if (!doc?.industryMap?.length) {
+    for (const id of ["industries", "discovery"]) $(id).hidden = true;
+    $("tbTenXNote").closest("section").querySelector("h3").hidden = true;
+    return;
+  }
+  const when = day(doc.fetchedAt);
+  const src = link(doc.sourceUrl, "TradingView 스크리너");
+  $("tbIndustryNote").innerHTML = `${src} ${esc(when)} 기준 · ${esc(doc.scope.markets.length)}개 시장 상장사 ${esc(doc.scope.companies.toLocaleString())}곳의 최근 12개월 매출 성장률을 업종별로 묶은 실측치입니다(전망 아님). 상장사 15곳 이상 업종만, 중앙값 순.`;
+  const rows = doc.industryMap.filter((i) => i.companies >= 15).slice(0, 25);
+  $("tbIndustries").innerHTML = `<table><thead><tr><th>업종</th><th>추적 산업</th><th>상장사</th><th>매출 성장 중앙값</th><th>시총 가중 성장</th><th>+25% 이상 비중</th><th>합산 시가총액</th><th class="wrap">대표 기업</th></tr></thead><tbody>${rows.map((i) => `<tr>
+    <td>${esc(i.industryKo || i.industry)}${i.industryKo ? `<br><span class="muted">${esc(i.industry)}</span>` : ""}</td><td>${i.sector ? `<span class="tag">${esc(SECTOR_NAME[i.sector] || i.sector)}</span>` : ""}</td>
+    <td class="num">${esc(i.companies)}</td><td class="num">${pct(i.medianGrowthPct)}</td><td class="num">${pct(i.capWeightedGrowthPct)}</td>
+    <td class="num">${esc(i.shareGrowing25Pct)}%</td><td class="num">${usd(i.marketCapUsd)}</td><td class="wrap muted">${esc(i.leaders.join(", "))}</td></tr>`).join("")}</tbody></table>`;
+
+  const r = doc.rules.discovery;
+  $("tbDiscoveryNote").innerHTML = `${src} ${esc(when)} 기준 · 추적 산업 관련 업종 · 시가총액 ${usd(r.minCapUsd)}~${usd(r.maxCapUsd)} · 최근 12개월 매출 +${r.minGrowthPct}% 이상 · FCF 흑자이거나 런웨이 ${r.minRunwayYears}년 이상. '신규'는 아직 큐레이션 목록에 없는 종목입니다. 매수 의견이 아닙니다.`;
+  $("tbDiscovery").innerHTML = `<table><thead><tr><th>기업</th><th>업종</th><th>시가총액</th><th>10배 시</th><th>매출 성장</th><th>FCF 마진</th><th>런웨이</th><th>총마진</th><th>1년 수익률</th><th>52주 고점 대비</th></tr></thead><tbody>${doc.discovery.map((d) => `<tr>
+    <td>${esc(d.name)} ${d.inUniverse ? "" : '<span class="tag ok">신규</span>'}<br><span class="muted">${esc(d.ticker)} · ${esc(d.country || "")}</span></td>
+    <td>${esc(d.industryKo || d.industry)}<br><span class="muted">${esc(SECTOR_NAME[d.sector] || "")}</span></td>
+    <td class="num">${usd(d.marketCapUsd)}</td><td class="num">${usd(d.upsideTo10xUsd)}</td><td class="num">${pct(d.revenueGrowthPct)}</td>
+    <td class="num">${pct(d.fcfMarginPct)}</td><td class="num">${d.fcfPositive ? '<span class="up">흑자</span>' : Number.isFinite(d.runwayYears) ? `${d.runwayYears}년` : ""}</td>
+    <td class="num">${Number.isFinite(d.grossMarginPct) ? `${d.grossMarginPct.toFixed(0)}%` : ""}</td><td class="num">${pct(d.perf1yPct)}</td><td class="num">${pct(d.offHighPct)}</td></tr>`).join("")}</tbody></table>`;
+
+  const t = doc.recentTenBaggers;
+  if (!t?.total) { $("tbTenXNote").textContent = `${when} 기준 5년 수익률을 받지 못했습니다.`; return; }
+  $("tbTenXNote").innerHTML = `${src} ${esc(when)} 기준 · ${esc(doc.rules.tenX)} · ${esc(t.total)}개. 현재 공통점: 매출 성장 중앙값 ${pct(t.traits.medianRevenueGrowthPct)}, FCF 흑자 비중 ${esc(t.traits.fcfPositiveSharePct ?? "")}%, 총마진 중앙값 ${esc(t.traits.medianGrossMarginPct ?? "")}%.`;
+  $("tbTenXIndustries").innerHTML = `<div class="tb-patterns">${t.industries.slice(0, 8).map((i) => `<div class="tb-pattern"><b>${esc(i.industryKo || i.industry)} · ${esc(i.count)}개</b><span>현재 매출 성장 중앙값 ${i.medianGrowthPct ?? "-"}% · FCF 흑자 ${i.fcfPositiveShare}%</span></div>`).join("")}</div>`;
+  $("tbTenX").innerHTML = `<table><thead><tr><th>기업</th><th>업종</th><th>5년 수익률</th><th>1년 수익률</th><th>시가총액</th><th>매출 성장</th><th>FCF 마진</th></tr></thead><tbody>${t.stocks.map((d) => `<tr>
+    <td>${esc(d.name)}<br><span class="muted">${esc(d.ticker)}</span></td><td>${esc(d.industryKo || d.industry)}</td><td class="num">${pct(d.perf5yPct)}</td><td class="num">${pct(d.perf1yPct)}</td>
+    <td class="num">${usd(d.marketCapUsd)}</td><td class="num">${pct(d.revenueGrowthPct)}</td><td class="num">${pct(d.fcfMarginPct)}</td></tr>`).join("")}</tbody></table>`;
 }
 
 function history(universe, metrics) {
@@ -130,11 +176,13 @@ function history(universe, metrics) {
 }
 
 async function main() {
-  const [universe, metricsDoc, sourceDoc] = await Promise.all([
+  const [universe, metricsDoc, sourceDoc, screenDoc] = await Promise.all([
     fetch("../data/tenbagger/universe.json", { cache: "no-cache" }).then((r) => r.json()),
     fetch("../data/tenbagger/metrics.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : { companies: [] })).catch(() => ({ companies: [] })),
     fetch("../data/tenbagger/source-checks.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
+    fetch("../data/tenbagger/screen.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]);
+  for (const s of universe.sectors || []) SECTOR_NAME[s.id] = s.name;
   SOURCES = sourceDoc.results || {};
   const metrics = new Map((metricsDoc.companies || []).map((c) => [c.ticker, c]));
   const sectors = universe.sectors || [];
@@ -155,5 +203,6 @@ async function main() {
   if (sectors[0]) renderSector(sectors[0], metrics);
   screen(universe, metrics);
   history(universe, metrics);
+  marketScreen(screenDoc);
 }
 main().catch((error) => { $("tbRun").textContent = `데이터를 불러오지 못했습니다: ${error.message}`; });

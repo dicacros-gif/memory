@@ -7713,3 +7713,22 @@ html.console-entry #investorLanding {
 .investor-chain-flow .investor-live-stage .is-down { color: #dcb0ac; }
 .investor-chain-flow .investor-live-stage .is-up { color: #9fd7d2; }
 .investor-method-grid .investor-live-method { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #d4e0e4; color: #176f70; font-size: 12px; font-weight: 800; line-height: 1.55; }
+
+/* Ten-bagger radar (assets/js/tenbagger-radar.js) */
+.investor-tenbagger-section { padding: clamp(56px, 7vw, 96px) clamp(24px, 5vw, 88px); background: #0b2536; color: #eaf2f4; }
+.investor-tenbagger-section[hidden] { display: none; }
+.investor-tenbagger-section .investor-section-head { border-bottom-color: #2c4a5a; }
+.investor-tenbagger-section .investor-section-head span { color: #42b9b0; }
+.investor-tenbagger-section .investor-section-head h2 { color: #fff; }
+.investor-tenbagger-section .investor-section-head p { color: #b7c9d1; font-size: 13px; }
+.investor-tenbagger-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.investor-tenbagger-card { padding: 22px; border: 1px solid #2c4a5a; background: #102f42; }
+.investor-tenbagger-card h3 { margin: 0 0 6px; color: #fff; font-size: 17px; }
+.investor-tenbagger-card p { margin: 0 0 14px; color: #9fb6c0; font-size: 12px; }
+.investor-tenbagger-card ol { margin: 0; padding-left: 20px; }
+.investor-tenbagger-card li { margin: 0 0 10px; }
+.investor-tenbagger-card li b { display: block; color: #fff; font-size: 14px; }
+.investor-tenbagger-card li small { color: #9fb6c0; font-weight: 600; }
+.investor-tenbagger-card li span { display: block; color: #c9d8de; font-size: 12px; }
+.investor-tenbagger-section .investor-call-actions a { border-color: #42b9b0; background: #176f70; }
+.investor-tenbagger-section .investor-call-actions a:is(:hover, :focus-visible) { background: #42b9b0; color: #0b2536; }
