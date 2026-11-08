@@ -1,4 +1,4 @@
-// Landing "TEN-BAGGER RADAR": today's changes for an investor, from
+// Landing "FUTURE GROWTH RADAR": today's changes for an investor, from
 // data/tenbagger/landing-client.json (scripts/tenbagger-build.mjs): growth
 // industries by observed revenue growth next to their forecast range, screener
 // presets with what newly entered, new offering filings and large price moves.

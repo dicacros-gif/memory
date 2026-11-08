@@ -19,7 +19,7 @@ export function renderHistory(root, { history }) {
       }).join("")}</tr>`).join("")}</tbody></table></div>` : "";
   const prof = (g) => co?.profiles?.[g];
   const profileRow = (label, key) => `<tr><th class="first" scope="row">${esc(label)}</th>${["winners", "others"].map((g) => `<td class="r">${isNum(prof(g)?.shares?.[key]) ? `${prof(g).shares[key]}%` : NO_DATA}</td>`).join("")}</tr>`;
-  root.innerHTML = `<section class="view-head"><h1>과거 텐배거</h1>
+  root.innerHTML = `<section class="view-head"><h1>과거 10배 성장 사례</h1>
       <p class="lede">사후에 고른 사례(후견)와, 같은 조건의 모든 종목을 시작 시점에 넣고 결과를 본 검증(실행 가능 테스트)을 나눕니다. 과거 빈도는 미래 확률이 아닙니다.</p></section>
     <section><h2>실행 가능 테스트 — 모든 시작점</h2>
       ${co ? `<p>${esc(co.population.stocks)}개 종목 · 시작점 ${esc(co.population.starts)}개 · 10배 ${base.hits}건(${rate(base)}) · 실패 ${base.n - base.hits}건 · 3년 안 반토막 ${((base.halved / base.n) * 100).toFixed(1)}% · ${esc(co.generatedAt.slice(0, 10))} 계산</p>

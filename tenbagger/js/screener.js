@@ -68,7 +68,9 @@ const CARD = (c) => `<div class="card-head"><a class="co-link" href="${companyUr
   <details><summary>자세히</summary><p>P/S ${multiple(c.priceToSales, "배")} · 1년 ${pct(c.returns?.m12)} · ${statusChip(c.data.financials)}</p></details>`;
 
 export function renderScreener(root, { companies, industries, startups, fx, params }) {
-  const p = { ...params };
+  // A preset link (#companies?preset=cash-growers) applies its conditions;
+  // explicit parameters in the same link still win.
+  const p = { ...(PRESETS[params.preset]?.params || {}), ...params };
   const rows0 = companies.map((c) => ({ ...c, _liqUsd: toUsd(c.avgTradedValue20d, c.currency, fx) }));
   const rows = applyFilters(rows0, p, startups);
   const sort = sortFromParam(p.sort) || DEFAULT_SORT;

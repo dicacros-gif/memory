@@ -126,7 +126,7 @@ export async function mountCompany(host, id, { list = [], panel = false, zoom = 
   const doc = await load("companies");
   const c = doc.companies.find((x) => x.id === id);
   if (!c) { host.innerHTML = `<p class="error-banner">이 기업(${esc(id)})은 현재 데이터에 없습니다.</p>`; return null; }
-  document.title = `${c.name} · 텐배거 리서치`;
+  document.title = `${c.name} · 미래 성장 산업`;
   host.innerHTML = renderCompany(c);
   const markers = [];
   if (c.tenBagger?.achieved) markers.push({ date: c.tenBagger.fromDate, label: "10배 구간 시작", kind: "tenx" }, { date: c.tenBagger.toDate, label: "10배 도달", kind: "tenx" });

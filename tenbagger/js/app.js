@@ -11,13 +11,14 @@ import { renderHistory } from "./history.js";
 import { renderSources } from "./sources.js";
 import { openPanel } from "./company.js";
 
-const NAV = [["industries", "성장 산업"], ["companies", "상장 기업"], ["startups", "스타트업·투자자"], ["history", "과거 텐배거"]];
+const NAV = [["industries", "성장 산업", "1"], ["companies", "상장 기업", "2"], ["startups", "스타트업·투자자", "3"], ["history", "과거 10배 성장 사례", "4"]];
 const main = document.getElementById("view");
 const bar = document.getElementById("globalBar");
 
 function theme() {
   const saved = (() => { try { return localStorage.getItem("tb-theme"); } catch { return null; } })();
-  document.documentElement.dataset.theme = saved || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  // Terminal style: dark unless the reader switched to light.
+  document.documentElement.dataset.theme = saved || "dark";
   document.getElementById("themeBtn").addEventListener("click", () => {
     const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = next;
@@ -75,10 +76,14 @@ async function render() {
 }
 
 theme();
-document.querySelector(".tb-nav").innerHTML = `${NAV.map(([v, l]) => `<a href="#${v}" data-view="${v}">${l}</a>`).join("")}`;
+document.querySelector(".tb-nav").innerHTML = `${NAV.map(([v, l, k]) => `<a href="#${v}" data-view="${v}"><kbd>${k}</kbd>${l}</a>`).join("")}`;
 window.addEventListener("hashchange", render);
 window.addEventListener("tb:route", render);
 document.addEventListener("keydown", (e) => {
-  if (e.key === "/" && !e.target.closest("input,textarea,select")) { e.preventDefault(); bar.querySelector("input[type=search]")?.focus(); }
+  if (e.target.closest("input,textarea,select") || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "/") { e.preventDefault(); bar.querySelector("input[type=search]")?.focus(); return; }
+  // Terminal-style section keys: 1–4 for the sections, 9 for sources and methods.
+  const hit = NAV.find(([, , k]) => k === e.key);
+  if (hit) go(hit[0]); else if (e.key === "9") go("sources");
 });
 render();
