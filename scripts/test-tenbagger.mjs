@@ -153,3 +153,26 @@ const lcl = buildLandingClient({ fetchedAt: "2026-11-08", source: "TV", sourceUr
 assert.equal(lcl.candidateCount, 1);
 assert.equal(lcl.industries.length, 1);
 console.log(JSON.stringify({ tenbaggerScreen: "pass" }));
+
+// ── Research factor score ───────────────────────────────────────────────────
+const { scoreFactors, factorLeaders, FACTOR_RESEARCH } = screenMod;
+const fx = scoreFactors([
+  { marketCapUsd: 1e9, bookToMarket: 0.5, operatingMarginPct: 20, fcfYieldPct: 8, offHighPct: -40 },
+  { marketCapUsd: 5e9, bookToMarket: 0.1, operatingMarginPct: 5, fcfYieldPct: 1, offHighPct: -2 },
+  { marketCapUsd: 3e9, bookToMarket: null, operatingMarginPct: null, grossMarginPct: 10, fcfYieldPct: null, offHighPct: null },
+]);
+assert.equal(fx[0].factor.score, 100, "small, cheap, profitable, high FCF yield, far from high");
+assert.equal(fx[1].factor.score, 0);
+assert.equal(fx[2].factor.score, null, "fewer than three factors → no score");
+assert.match(FACTOR_RESEARCH.url, /^https:\/\//);
+const lead = factorLeaders([
+  tv({ ticker: "NASDAQ:F1", description: "F1", price_book_fq: 1, operating_margin: 30, price_free_cash_flow_ttm: 10, free_cash_flow_ttm: 5, market_cap_basic: 1e9 }),
+  tv({ ticker: "NASDAQ:F2", description: "F2", price_book_fq: 8, operating_margin: 2, price_free_cash_flow_ttm: 80, free_cash_flow_ttm: 5, market_cap_basic: 8e9 }),
+  tv({ ticker: "NASDAQ:F3", description: "F3", free_cash_flow_ttm: -5 }), // burning cash → excluded
+], ["NASDAQ:F2"]);
+assert.deepEqual(lead.map((l) => l.ticker), ["NASDAQ:F1", "NASDAQ:F2"]);
+assert.equal(lead[1].inUniverse, true);
+assert.equal(rowFacts(tv({ price_free_cash_flow_ttm: 25 })).fcfYieldPct, 4);
+const oneY = recentTenBaggers([tv({ ticker: "KRX:1", description: "One", "Perf.Y": 1000, market_cap_basic: 5e8 })]);
+assert.equal(oneY.oneYear.length, 1);
+console.log(JSON.stringify({ tenbaggerFactors: "pass" }));
