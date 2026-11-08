@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42486584251",
-  "generatedAt": "2026-11-08T14:03:11.507Z",
+  "runId": "42515724333",
+  "generatedAt": "2026-11-08T19:49:27.208Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -10232,7 +10232,17 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10256,7 +10266,9 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10470,7 +10482,7 @@
           "date": "2026-03-02"
         },
         {
-          "title": "China's NSIG sees silicon wafer prices rebound, but profitability remains elusive",
+          "title": "중국 NSIG, 실리콘 웨이퍼 가격 반등했지만 수익성은 여전히 어렵다",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261106vl208/nsig-silicon-wafer-300mm-expansion.html",
