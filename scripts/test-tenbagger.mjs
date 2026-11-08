@@ -314,3 +314,18 @@ screenMod.setFx(null);
 assert.equal(rowFacts(tv({ market_cap_basic: 3.35e12, currency: "KRW" })).marketCapUsd, null, "never read won as dollars");
 assert.equal(usdMarketCap({ currency: "KRW", marketCap: 2.8e12 }, null, table), 2e9, "own market cap converted first");
 console.log(JSON.stringify({ tenbaggerFx: "pass" }));
+
+// Burn trend, industry historical 10x, digest names.
+assert.equal(build.burnTrend([{ fcf: -10 }, { fcf: -10 }, { fcf: -5 }, { fcf: -4 }]).state, "improving");
+assert.equal(build.burnTrend([{ fcf: -4 }, { fcf: -5 }, { fcf: -10 }, { fcf: -12 }]).state, "worsening");
+assert.equal(build.burnTrend([{ fcf: -4 }]), null);
+const cohortFx = { base: { n: 1000, hits: 20 }, cells: { "ind·size|Semiconductors|<$0.3B": { n: 100, hits: 6, halved: 20 }, "ind·size|Semiconductors|>$10B": { n: 100, hits: 0, halved: 5 }, "ind·size|Banks|<$0.3B": { n: 100, hits: 1, halved: 3 } } };
+const itx = build.industryTenX(cohortFx, ["Semiconductors"]);
+assert.equal(itx.ratePct, 3);
+assert.equal(itx.lift, 1.5);
+assert.equal(itx.small.ratePct, 6);
+assert.equal(build.industryTenX(cohortFx, ["Nothing"]), null);
+const dg2 = build.buildDigest({ previous: { generatedAt: "2026-11-07", companies: [mk("gone", { revenueGrowthPct: 50, fcfPositive: true, name: "Gone Inc" })] }, companies: [], prevStartups: null, startups: [], fx: null, now: "2026-11-08" });
+assert.equal(dg2.names.gone, "Gone Inc", "a company that left coverage keeps its name in the digest");
+assert.equal(dg2.presets[0].prevCount, 1);
+console.log(JSON.stringify({ tenbaggerValuation: "pass" }));

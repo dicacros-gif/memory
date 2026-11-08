@@ -269,3 +269,40 @@ h3 { font-size: 12px; color: var(--yellow); letter-spacing: .04em; }
 .health text { fill: var(--label); font-size: 10px; }
 .health ul { list-style: none; padding: 0; margin: 6px 0; font-size: 12px; }
 @media (max-width: 760px) { .pos-grid { grid-template-columns: 1fr; } }
+
+/* today's changes — visual */
+.d-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
+.d-tile { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: baseline; padding: 10px 12px; background: var(--panel2); border: 1px solid var(--line2); border-left: 4px solid var(--line2); color: var(--text); }
+.d-tile:hover { text-decoration: none; background: var(--row); }
+.d-tile.c-green { border-left-color: var(--pos); } .d-tile.c-amber { border-left-color: var(--yellow); } .d-tile.c-red { border-left-color: var(--neg); }
+.d-count { font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.c-green .d-count { color: var(--pos); } .c-amber .d-count { color: var(--yellow); } .c-red .d-count { color: var(--neg); }
+.d-delta { font-weight: 700; font-size: 13px; }
+.d-label { grid-column: 1 / -1; font-weight: 700; } .d-rule { grid-column: 1 / -1; color: var(--muted); font-size: 11px; }
+.d-bar { grid-column: 1 / -1; position: relative; height: 6px; background: var(--bg); border: 1px solid var(--line); margin-top: 4px; }
+.d-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: currentColor; opacity: .7; }
+.c-green .d-bar i { background: var(--pos); } .c-amber .d-bar i { background: var(--yellow); } .c-red .d-bar i { background: var(--neg); }
+.d-bar b { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text); }
+.d-flow { grid-column: 1 / -1; font-size: 12px; }
+.d-legend { font-size: 12px; color: var(--muted); }
+.mark { font-weight: 800; } .mark.pos { color: var(--pos); } .mark.neg { color: var(--neg); } .mark.nd { color: var(--nd); }
+.grid th.c, .grid td.c { text-align: center; }
+.d-matrix { max-height: 360px; margin: 8px 0; }
+.chip-added { border-color: var(--link); color: var(--link); }
+/* 10x potential heatmap */
+.heatmap td.h-top { background: color-mix(in srgb, var(--pos) 22%, var(--panel)) !important; }
+.heatmap td.h-mid { background: color-mix(in srgb, var(--yellow) 10%, var(--panel)) !important; }
+.heatmap td.h-low { background: color-mix(in srgb, var(--neg) 18%, var(--panel)) !important; }
+.potential { margin-bottom: 14px; }
+.obs.tenx > span:first-child { border-color: var(--yellow); color: var(--yellow); }
+/* runway monitor */
+.rw-summary { display: flex; gap: 2px; margin: 8px 0 4px; }
+.rw-seg { display: flex; flex-direction: column; padding: 6px 10px; color: var(--bg); min-width: 70px; }
+.rw-seg b { font-size: 20px; } .rw-seg span { font-size: 11px; font-weight: 700; }
+.z-red { background: var(--neg); } .z-amber { background: #c98a3a; } .z-yellow { background: var(--yellow); } .z-green { background: var(--pos); }
+.z-red-t { color: var(--neg); } .z-amber-t { color: #c98a3a; } .z-yellow-t { color: var(--yellow); } .z-green-t { color: var(--pos); }
+.rw-bar { position: relative; width: 220px; height: 16px; background: var(--bg); border: 1px solid var(--line2); }
+.rw-bar .tick { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line2); }
+.rw-bar .rw-sti { position: absolute; left: 0; top: 0; bottom: 0; opacity: .45; }
+.rw-bar .rw-cash { position: absolute; left: 0; top: 4px; bottom: 4px; background: var(--text); opacity: .8; }
+.rw-bar em { position: absolute; right: 4px; top: 0; font-style: normal; font-size: 11px; line-height: 14px; color: var(--text); }

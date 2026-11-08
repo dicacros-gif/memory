@@ -220,6 +220,12 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     if (!isNum(rec.returns.offHigh12mPct) && r) rec.returns.offHigh12mPct = r.offHighPct ?? null;
     rec.avgTradedValue20d = m?.avgTradedValue20d ?? null; // listing currency
     rec.shortInterest = m?.shortInterest ?? null;
+    rec.valuation = m?.valuation ?? null;
+    // Growth-adjusted P/S for companies without earnings: P/S ÷ revenue growth (%).
+    rec.psToGrowth = isNum(rec.priceToSales) && isNum(rec.revenueGrowthPct) && rec.revenueGrowthPct > 0 ? round(rec.priceToSales / rec.revenueGrowthPct, 2) : null;
+    rec.nextEarnings = m?.nextEarnings ?? null;
+    rec.daysToEarnings = rec.nextEarnings ? Math.round((Date.parse(rec.nextEarnings) - now.getTime()) / DAY) : null;
+    rec.burnTrend = burnTrend(f?.quarters);
     rec.tenBagger = m?.tenBagger ?? null;
     rec.quarters = f?.quarters || [];
     rec.annual = f?.annual || [];
@@ -281,8 +287,38 @@ function median(values) {
   return round(v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2);
 }
 
-export function buildIndustries({ universe, companies, startups, screen, metricsAt }) {
-  const sectorIndustries = screen?.sectorIndustries || {};
+/** Last two quarters' FCF vs the two before: is the burn shrinking or growing? */
+export function burnTrend(quarters = []) {
+  const q = quarters.filter((x) => isNum(x.fcf)).slice(-4);
+  if (q.length < 4) return null;
+  const recent = (q[2].fcf + q[3].fcf) / 2, prior = (q[0].fcf + q[1].fcf) / 2;
+  if (recent >= 0 && prior >= 0) return { state: "positive", recent, prior };
+  return { state: recent > prior ? "improving" : recent < prior ? "worsening" : "flat", recent, prior, quarters: q.map((x) => x.end) };
+}
+
+/** Historical 10x frequency for an industry: cohort cells of its TradingView industries, all start sizes and small caps. */
+export function industryTenX(cohort, tvIndustries) {
+  if (!cohort?.cells || !tvIndustries?.length) return null;
+  const sum = { n: 0, hits: 0, halved: 0 }, small = { n: 0, hits: 0, halved: 0 };
+  for (const [key, c] of Object.entries(cohort.cells)) {
+    if (!key.startsWith("ind·size|")) continue;
+    const [, ind, size] = key.split("|");
+    if (!tvIndustries.includes(ind)) continue;
+    for (const k of ["n", "hits", "halved"]) sum[k] += c[k];
+    if (size === "<$0.3B" || size === "$0.3–1B") for (const k of ["n", "hits", "halved"]) small[k] += c[k];
+  }
+  if (!sum.n) return null;
+  const base = cohort.base?.n ? cohort.base.hits / cohort.base.n : null;
+  const rate = (x) => (x.n ? round((x.hits / x.n) * 100, 2) : null);
+  return { ...sum, ratePct: rate(sum), halvedPct: round((sum.halved / sum.n) * 100, 1), lift: base ? round(sum.hits / sum.n / base, 2) : null,
+    small: { ...small, ratePct: rate(small), lift: base && small.n ? round(small.hits / small.n / base, 2) : null },
+    basePct: base ? round(base * 100, 2) : null, industries: tvIndustries };
+}
+
+export function buildIndustries({ universe, companies, startups, screen, metricsAt, cohort = null }) {
+  const sectorIndustries = { ...(screen?.sectorIndustries || {}),
+    cybersecurity: ["Packaged Software", "Information Technology Services", "Internet Software/Services"],
+    "energy-storage": ["Electrical Products", "Industrial Specialties", "Chemicals: Specialty"] };
   return (universe.sectors || []).map((s) => {
     const members = companies.filter((c) => c.industries.some((i) => i.id === s.id));
     const withFin = members.filter((c) => c.data.financials !== "no data" && c.data.financials !== "provider snapshot" || isNum(c.revenueTtm));
@@ -311,6 +347,7 @@ export function buildIndustries({ universe, companies, startups, screen, metrics
         tvIndustries: tvMap.map(({ industry, industryKo, companies, medianGrowthPct }) => ({ industry, industryKo, companies, medianGrowthPct })),
       },
       counts: { us: members.filter((c) => c.market === "US").length, kr: members.filter((c) => c.market === "KR").length, other: members.filter((c) => c.market === "OTHER").length, startups: startups.filter((x) => x.industry === s.id).length },
+      historicalTenX: industryTenX(cohort, sectorIndustries[s.id] || []),
       fcfPositiveShare: members.filter((c) => c.fcfPositive !== null).length ? round(members.filter((c) => c.fcfPositive === true).length / members.filter((c) => c.fcfPositive !== null).length * 100) : null,
       coverage: { withFinancials: withFin.length, total: members.length },
       researchDate: s.asOf || universe.asOf || null,
@@ -405,7 +442,7 @@ export function buildDigest({ previous, companies, prevStartups, startups, fx, n
     const nowSet = ids(companies, key);
     const before = previous ? ids(previous.companies || [], key) : null;
     return {
-      key, label: PRESETS[key].label, rule: PRESETS[key].text, count: nowSet.size,
+      key, label: PRESETS[key].label, rule: PRESETS[key].text, count: nowSet.size, prevCount: before ? before.size : null,
       entered: before ? [...nowSet].filter((id) => !before.has(id)) : [],
       left: before ? [...before].filter((id) => !nowSet.has(id)) : [],
     };
@@ -429,7 +466,10 @@ export function buildDigest({ previous, companies, prevStartups, startups, fx, n
   const startupChanges = prevStartups ? startups.filter((s) => prevSt.get(s.id) && prevSt.get(s.id).entityType !== s.entityType)
     .map((s) => ({ id: s.id, name: s.name, from: prevSt.get(s.id).entityType, to: s.entityType })) : [];
   const added = previous ? companies.filter((c) => !prevById.has(c.id) && c.coverage !== "screen").map((c) => ({ id: c.id, name: c.name })) : [];
-  return { generatedAt: now, since, presets, raises, moves, startupChanges, added,
+  // Names for every id the digest mentions, including companies no longer in coverage.
+  const names = {};
+  for (const p of presets) for (const id of [...p.entered, ...p.left]) names[id] = companies.find((c) => c.id === id)?.name || prevById.get(id)?.name || id;
+  return { generatedAt: now, since, presets, raises, moves, startupChanges, added, names,
     note: "직전 데이터 갱신 대비 변화. 프리셋 진입·이탈은 조건 충족 여부의 변화일 뿐 매수·매도 신호가 아닙니다." };
 }
 
@@ -471,7 +511,7 @@ async function main() {
   const changelog = updateChangelog(prevChangelog, buildCompanies({ universe, metrics, screen, verified }), iso.slice(0, 10));
   const companies = buildCompanies({ universe, metrics, screen, previousCompanies: prevCompanies, changelog, now, verified });
   const startups = buildStartups({ universe, companies });
-  const industries = buildIndustries({ universe, companies, startups, screen, metricsAt: metrics?.generatedAt });
+  const industries = buildIndustries({ universe, companies, startups, screen, metricsAt: metrics?.generatedAt, cohort });
   const history = buildHistory({ universe, metrics, cohort });
   // FX comes from scripts/tenbagger-fx.mjs (run earlier in the workflow).
   const fx = prevFx?.rate ? { ok: !(prevFx.failed || []).length, fx: prevFx, error: (prevFx.failed || [])[0] } : { ok: false, fx: null, error: "fx.json missing" };
