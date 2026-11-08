@@ -74,6 +74,30 @@ function failureChecks(c) {
   return items.length ? `<ul class="checks">${items.map((t) => `<li><span class="neg">✗</span> ${esc(t)}</li>`).join("")}</ul>` : `<p class="muted">규칙 기반 경고 없음(런웨이 1.5년 미만, 희석 10% 초과, P/S 20배 이상, 매출 감소, 기준일 후 증자를 점검).</p>`;
 }
 
+// Quant indicators, colour-coded against plain rules stated in each tooltip.
+function quantSection(c) {
+  const q = c.quant || {};
+  const cell = (label, value, cls, title) => `<div class="qcell ${cls}" title="${esc(title)}"><span>${esc(label)}</span><b>${value}</b></div>`;
+  const tone = (v, good, bad) => (!isNum(v) ? "q-nd" : v >= good ? "q-good" : v <= bad ? "q-bad" : "q-mid");
+  const toneLow = (v, good, bad) => (!isNum(v) ? "q-nd" : v <= good ? "q-good" : v >= bad ? "q-bad" : "q-mid");
+  const f = (v, d = 1, s = "") => (isNum(v) ? `${v.toFixed(d)}${s}` : "자료 없음");
+  return `<section class="co-sec"><h2>퀀트 지표</h2><div class="qgrid">
+    ${cell("Rule of 40", f(q.ruleOf40, 0), tone(q.ruleOf40, 40, 0), "매출 성장률 + FCF 마진 · 초록 ≥ 40, 빨강 ≤ 0")}
+    ${cell("ROE", f(q.roePct, 1, "%"), tone(q.roePct, 15, 0), "자기자본이익률 · 초록 ≥ 15%, 빨강 ≤ 0")}
+    ${cell("순이익률", f(q.profitMarginPct, 1, "%"), tone(q.profitMarginPct, 10, 0), "최근 12개월 순이익 ÷ 매출")}
+    ${cell("최근 분기 매출 YoY", f(q.revenueGrowthQoqYoyPct, 1, "%"), tone(q.revenueGrowthQoqYoyPct, 20, 0), "최근 분기 매출의 전년 동기 대비")}
+    ${cell("최근 분기 이익 YoY", f(q.earningsGrowthQoqYoyPct, 1, "%"), tone(q.earningsGrowthQoqYoyPct, 20, 0), "최근 분기 순이익의 전년 동기 대비")}
+    ${cell("순현금/시총", f(q.netCashToMcapPct, 1, "%"), tone(q.netCashToMcapPct, 10, -30), "(현금+단기투자 − 차입금) ÷ 시가총액")}
+    ${cell("부채/자본", f(q.debtToEquity, 0, "%"), toneLow(q.debtToEquity, 50, 150), "Yahoo debtToEquity · 초록 ≤ 50%, 빨강 ≥ 150%")}
+    ${cell("유동비율", f(q.currentRatio, 2), tone(q.currentRatio, 1.5, 1), "유동자산 ÷ 유동부채 · 빨강 ≤ 1")}
+    ${cell("베타", f(q.beta, 2), toneLow(q.beta, 1, 2), "시장 대비 변동성 · 빨강 ≥ 2")}
+    ${cell("내부자 지분", f(q.insiderPct, 1, "%"), tone(q.insiderPct, 10, 1), "경영진·대주주 보유")}
+    ${cell("기관 지분", f(q.institutionPct, 1, "%"), "q-nd", "기관 보유 비율")}
+    ${cell("애널리스트 의견", isNum(q.recommendationMean) ? `${q.recommendationMean.toFixed(1)} ${esc(q.recommendationKey || "")}` : "자료 없음", toneLow(q.recommendationMean, 2, 3.5), "1 강력 매수 ~ 5 매도, Yahoo 평균")}
+    ${cell("목표가 괴리", isNum(q.targetUpsidePct) ? `${q.targetUpsidePct > 0 ? "+" : ""}${q.targetUpsidePct.toFixed(1)}%` : "자료 없음", tone(q.targetUpsidePct, 20, 0), `평균 목표가 대비 · 애널리스트 ${q.analysts ?? "—"}명`)}
+  </div><p class="sub">초록·노랑·빨강은 각 칸의 설명(마우스 오버)에 적힌 고정 기준이며 매수·매도 신호가 아닙니다. 수익성·부채·지분·컨센서스는 Yahoo Finance, Rule of 40과 순현금은 이 사이트가 같은 기간 재무로 계산합니다.${Object.keys(c.filledFrom || {}).length ? ` 보충 출처: ${Object.entries(c.filledFrom).map(([k, v]) => `${esc(k)}←${esc(v)}`).join(", ")}.` : ""}</p></section>`;
+}
+
 export function renderCompany(c, pos = null) {
   const cur = c.statementCurrency || c.currency || "USD";
   const fy = c.revenueBasis === "ttm" ? "최근 12개월" : c.revenueBasis ? "회계연도" : "";
@@ -91,6 +115,7 @@ export function renderCompany(c, pos = null) {
     </header>
     <section class="co-sec"><h2>일간 차트</h2><div class="chart-host" data-chart-host></div></section>
     ${pos ? `<section class="co-sec"><h2>추세·변동성·수급</h2>${stockPositionKv(pos)}<p class="sub">모멘텀 z = 21·63·126·252일 변동성 조정 수익률 z값 평균. 공매도 비율은 미국 상장만, 거래소 집계 기준일 ${esc(c.shortInterest?.date || "자료 없음")}${isNum(c.shortInterest?.changePct) ? ` · 전월 대비 ${c.shortInterest.changePct > 0 ? "+" : ""}${c.shortInterest.changePct}%` : ""}.</p></section>` : ""}
+    ${quantSection(c)}
     <section class="co-sec"><h2>사업과 산업 노출</h2>${industries ? `<ul class="co-ind">${industries}</ul>` : `<p class="muted">${c.coverage === "holder" ? "비상장 스타트업 지분 보유사로 편입된 기업입니다." : c.screen ? `스크리너 업종: ${esc(c.screen.industryKo || c.screen.industry)}` : "산업 분류 자료 없음"}</p>`}</section>
     <section class="co-sec"><h2>매출 성장과 이익률</h2>${kv([
       ["매출", money(c.revenueTtm, cur), `${fy} · ${esc(c.revenueEnd || "기간 없음")}`],

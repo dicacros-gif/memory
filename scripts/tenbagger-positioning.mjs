@@ -77,6 +77,21 @@ export function equalWeightIndex(members) {
   return out;
 }
 
+export function rsi14(c, n = 14) {
+  if (c.length < n + 2) return null;
+  let gain = 0, loss = 0;
+  for (let i = 1; i <= n; i += 1) { const d = c[i] - c[i - 1]; gain += Math.max(d, 0); loss += Math.max(-d, 0); }
+  gain /= n; loss /= n;
+  for (let i = n + 1; i < c.length; i += 1) { const d = c[i] - c[i - 1]; gain = (gain * (n - 1) + Math.max(d, 0)) / n; loss = (loss * (n - 1) + Math.max(-d, 0)) / n; }
+  return round(100 - 100 / (1 + gain / (loss || 1e-9)), 1);
+}
+
+export function maxDrawdown(c) {
+  let peak = -Infinity, worst = 0;
+  for (const p of c) { peak = Math.max(peak, p); worst = Math.min(worst, p / peak - 1); }
+  return round(worst * 100, 1);
+}
+
 export function stockPositioning(bar) {
   const c = bar.c, n = c.length - 1;
   if (n < 260) return null;
@@ -90,6 +105,9 @@ export function stockPositioning(bar) {
     vol21: round(realisedVol(c, n), 1),
     above50: c[n] > sma(50), above200: c[n] > sma(200),
     offHigh252Pct: round((c[n] / high252 - 1) * 100, 1),
+    rsi14: rsi14(c.slice(-300)),
+    return6mPct: round((c[n] / c[n - 126] - 1) * 100, 1),
+    maxDrawdown1yPct: maxDrawdown(c.slice(n - 251)),
   };
 }
 

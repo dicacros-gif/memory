@@ -144,7 +144,29 @@ export function verifyListing(company, tvRow, secCik, scanAvailable) {
   return [...a].some((t) => b.has(t));
 }
 
-export function buildCompanies({ universe, metrics, screen, previousCompanies = null, changelog = null, now = new Date(), verified = null }) {
+/**
+ * Derived indicators, each from fields of the same record:
+ * Rule of 40 (revenue growth % + FCF margin %), net cash (cash + short-term
+ * investments − debt, same balance-sheet date) and its share of market cap,
+ * analyst target upside, plus the Yahoo quality/ownership/analyst fields.
+ */
+export function quantBlock(c) {
+  const v = c.valuation || {};
+  const sameCur = c.currency && c.statementCurrency && c.currency === c.statementCurrency;
+  const netCash = isNum(c.cashPlusSti) && isNum(c.debt) ? c.cashPlusSti - c.debt : isNum(c.cashPlusSti) && c.debt === null ? null : null;
+  return {
+    ruleOf40: isNum(c.revenueGrowthPct) && isNum(c.fcfMarginPct) ? round(c.revenueGrowthPct + c.fcfMarginPct) : null,
+    netCash, netCashToMcapPct: isNum(netCash) && isNum(c.marketCap) && c.marketCap > 0 && sameCur ? round((netCash / c.marketCap) * 100) : null,
+    targetUpsidePct: isNum(v.targetMean) && isNum(c.price) && c.price > 0 ? round((v.targetMean / c.price - 1) * 100) : null,
+    roePct: v.roePct ?? null, roaPct: v.roaPct ?? null, profitMarginPct: v.profitMarginPct ?? null,
+    revenueGrowthQoqYoyPct: v.revenueGrowthQoqYoyPct ?? null, earningsGrowthQoqYoyPct: v.earningsGrowthQoqYoyPct ?? null,
+    debtToEquity: v.debtToEquity ?? null, currentRatio: v.currentRatio ?? null, beta: v.beta ?? null,
+    insiderPct: v.insiderPct ?? null, institutionPct: v.institutionPct ?? null,
+    recommendationMean: v.recommendationMean ?? null, recommendationKey: v.recommendationKey ?? null, analysts: v.analysts ?? null,
+  };
+}
+
+export function buildCompanies({ universe, metrics, screen, previousCompanies = null, changelog = null, now = new Date(), verified = null, tvRows = null }) {
   const byTicker = new Map((metrics?.companies || []).map((m) => [m.ticker, m]));
   const out = new Map();
   const ensure = (ticker, base) => {
@@ -185,12 +207,13 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     const m = byTicker.get(rec.ticker) || null;
     const f = m?.fundamentals || null;
     const r = screenRows.find((x) => normalize(x.ticker) === rec.ticker) || null;
-    const tvFacts = m?.tv || null;
+    const tvFacts0 = m?.tv || null;
+    const tvRow = tvRows?.get(tvTicker(rec.ticker)) || null;
     rec.name = rec.name || m?.name || rec.ticker;
     rec.currency = m?.currency || null;
     rec.price = m?.price ?? null;
     rec.marketCap = m?.marketCap ?? null;
-    rec.marketCapUsd = m?.marketCapUsd ?? r?.marketCapUsd ?? tvFacts?.marketCapUsd ?? null;
+    rec.marketCapUsd = m?.marketCapUsd ?? r?.marketCapUsd ?? tvFacts0?.marketCapUsd ?? null;
     rec.statementCurrency = f?.currency || null;
     rec.revenueTtm = f?.revenueTtm ?? null;
     rec.revenueBasis = f?.revenueBasis ?? null;
@@ -226,12 +249,23 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     rec.nextEarnings = m?.nextEarnings ?? null;
     rec.daysToEarnings = rec.nextEarnings ? Math.round((Date.parse(rec.nextEarnings) - now.getTime()) / DAY) : null;
     rec.burnTrend = burnTrend(f?.quarters);
+    rec.revenueReported = f ? f.revenueReported !== false : null;
+    // Fields still empty after SEC/DART/Yahoo: TradingView's scan, labelled per field.
+    rec.filledFrom = {};
+    const tvFacts = tvRow ? rowFacts(tvRow) : null;
+    if (tvFacts) for (const [key, tvKey] of [["revenueGrowthPct", "revenueGrowthPct"], ["grossMarginPct", "grossMarginPct"], ["operatingMarginPct", "operatingMarginPct"], ["fcfMarginPct", "fcfMarginPct"]]) {
+      if (!isNum(rec[key]) && isNum(tvFacts[tvKey])) { rec[key] = tvFacts[tvKey]; rec.filledFrom[key] = "TradingView"; }
+    }
+    if (rec.fcfPositive === null && tvFacts?.fcfPositive !== null && tvFacts?.fcfPositive !== undefined) { rec.fcfPositive = tvFacts.fcfPositive; rec.filledFrom.fcfPositive = "TradingView"; }
+    if (!isNum(rec.runwayCashPlusStiYears) && isNum(tvFacts?.runwayYears)) { rec.runwayCashPlusStiYears = tvFacts.runwayYears; rec.filledFrom.runway = "TradingView"; rec.runwayStatus = rec.runwayStatus || "estimate"; }
+    for (const key of ["grossMarginPct", "operatingMarginPct"]) if (!isNum(rec[key]) && isNum(rec.valuation?.[key])) { rec[key] = rec.valuation[key]; rec.filledFrom[key] = "Yahoo"; }
+    rec.quant = quantBlock(rec);
     rec.tenBagger = m?.tenBagger ?? null;
     rec.quarters = f?.quarters || [];
     rec.annual = f?.annual || [];
     rec.filings = (f?.filings || []).slice(0, 12);
     rec.postPeriodRaises = m?.postPeriodRaises || [];
-    rec.tvCheck = periodAlignedCheck(rec, tvFacts, screen?.fetchedAt);
+    rec.tvCheck = periodAlignedCheck(rec, tvFacts0, screen?.fetchedAt);
     rec.data = {
       financials: f ? (f.status || (/SEC|DART/.test(f.source || "") ? "filed" : "provider snapshot")) : r ? "provider snapshot" : "no data",
       source: f?.source || (r ? "TradingView screener" : null),
@@ -509,7 +543,7 @@ async function main() {
   }
   const verified = new Set(Object.entries(verification).filter(([, v]) => v?.ok).map(([t]) => t));
   const changelog = updateChangelog(prevChangelog, buildCompanies({ universe, metrics, screen, verified }), iso.slice(0, 10));
-  const companies = buildCompanies({ universe, metrics, screen, previousCompanies: prevCompanies, changelog, now, verified });
+  const companies = buildCompanies({ universe, metrics, screen, previousCompanies: prevCompanies, changelog, now, verified, tvRows: tvByTicker });
   const startups = buildStartups({ universe, companies });
   const industries = buildIndustries({ universe, companies, startups, screen, metricsAt: metrics?.generatedAt, cohort });
   const history = buildHistory({ universe, metrics, cohort });

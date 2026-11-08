@@ -329,3 +329,29 @@ const dg2 = build.buildDigest({ previous: { generatedAt: "2026-11-07", companies
 assert.equal(dg2.names.gone, "Gone Inc", "a company that left coverage keeps its name in the digest");
 assert.equal(dg2.presets[0].prevCount, 1);
 console.log(JSON.stringify({ tenbaggerValuation: "pass" }));
+
+// Quant block, TradingView fill, RSI/drawdown.
+const qb = build.quantBlock({ revenueGrowthPct: 30, fcfMarginPct: 15, cashPlusSti: 200, debt: 50, marketCap: 1000, currency: "USD", statementCurrency: "USD", price: 10, valuation: { targetMean: 13, roePct: 18, analysts: 7 } });
+assert.equal(qb.ruleOf40, 45);
+assert.equal(qb.netCash, 150);
+assert.equal(qb.netCashToMcapPct, 15);
+assert.equal(qb.targetUpsidePct, 30);
+assert.equal(qb.roePct, 18);
+assert.equal(build.quantBlock({ cashPlusSti: 10, debt: 5, marketCap: 100, currency: "USD", statementCurrency: "KRW" }).netCashToMcapPct, null, "never mix currencies");
+assert.equal(posMod.rsi14(Array.from({ length: 40 }, (_, i) => 100 + i)), 100, "only gains → RSI 100");
+assert.equal(posMod.maxDrawdown([10, 20, 5, 30]), -75);
+console.log(JSON.stringify({ tenbaggerQuant: "pass" }));
+
+// SEC balance sheet on the cash date: no double-counted debt, any STI concept.
+const { debtAt, instantAt } = await import("./tenbagger-collect.mjs");
+const bs = { facts: { "us-gaap": {
+  LongTermDebt: { units: { USD: [{ end: "2026-07-26", val: 8500 }] } },
+  LongTermDebtCurrent: { units: { USD: [{ end: "2026-07-26", val: 1000 }] } },
+  MarketableSecuritiesCurrent: { units: { USD: [{ end: "2026-07-26", val: 40000 }, { end: "2026-04-27", val: 30000 }] } },
+} } };
+assert.equal(debtAt(bs, "2026-07-26"), 8500, "total long-term debt already includes the current portion");
+const bs2 = { facts: { "us-gaap": { LongTermDebtNoncurrent: { units: { USD: [{ end: "2026-07-26", val: 7500 }] } }, LongTermDebtCurrent: { units: { USD: [{ end: "2026-07-26", val: 1000 }] } } } } };
+assert.equal(debtAt(bs2, "2026-07-26"), 8500);
+assert.equal(debtAt({ facts: {} }, "2026-07-26"), null);
+assert.equal(instantAt(bs, ["us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent"], "2026-07-26").value, 40000);
+console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));

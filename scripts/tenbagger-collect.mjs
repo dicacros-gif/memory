@@ -75,6 +75,38 @@ export function annualGrowthPct(facts = []) {
   return Number(((Number(last.val) / Number(prior.val) - 1) * 100).toFixed(1));
 }
 
+/** Instant value of the first concept that has a fact exactly at `end` (latest filing wins). */
+export function instantAt(facts, concepts, end) {
+  if (!end) return null;
+  for (const concept of concepts) {
+    const [taxonomy, name] = concept.split(":");
+    const units = facts?.facts?.[taxonomy]?.[name]?.units;
+    const rows = (units?.USD || (units && Object.values(units)[0]) || []).filter((f) => f.end === end && !f.start && Number.isFinite(Number(f.val)));
+    if (rows.length) return { value: Number(rows.sort((a, b) => String(b.filed || "").localeCompare(String(a.filed || "")))[0].val), concept };
+  }
+  return null;
+}
+
+/**
+ * Debt on one balance-sheet date without double counting: long-term debt
+ * split into noncurrent + current portion when filed that way, otherwise the
+ * total long-term debt, plus short-term borrowings.
+ */
+export function debtAt(facts, end) {
+  const nonCur = instantAt(facts, ["us-gaap:LongTermDebtNoncurrent"], end);
+  const cur = instantAt(facts, ["us-gaap:LongTermDebtCurrent"], end);
+  const total = instantAt(facts, ["us-gaap:LongTermDebt"], end);
+  const shortB = instantAt(facts, ["us-gaap:ShortTermBorrowings", "us-gaap:CommercialPaper"], end);
+  const ifrs = instantAt(facts, ["ifrs-full:NoncurrentPortionOfNoncurrentBorrowings"], end);
+  const ifrsCur = instantAt(facts, ["ifrs-full:CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings"], end);
+  let longTerm = null;
+  if (nonCur) longTerm = nonCur.value + (cur?.value || 0);
+  else if (total) longTerm = total.value;
+  else if (ifrs) longTerm = ifrs.value + (ifrsCur?.value || 0);
+  if (longTerm === null && !shortB) return null;
+  return (longTerm || 0) + (shortB?.value || 0);
+}
+
 /** Latest instant value (balance-sheet items). */
 export function latestInstant(facts = []) {
   const rows = facts.filter((f) => f.end && !f.start && Number.isFinite(Number(f.val)));
@@ -119,10 +151,21 @@ export function trailingReturn(series = [], months) {
 
 // ── fetchers ────────────────────────────────────────────────────────────────
 
+// SEC asks for at most 10 requests a second; space them and back off on 429/403/5xx.
+let secNext = 0;
+async function secSlot() {
+  const wait = Math.max(0, secNext - Date.now());
+  secNext = Math.max(Date.now(), secNext) + 150;
+  if (wait) await new Promise((r) => setTimeout(r, wait));
+}
+
 async function getJson(url, headers = {}, attempts = 3) {
   let lastError;
-  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+  const sec = /sec\.gov/.test(url);
+  const tries = sec ? 6 : attempts;
+  for (let attempt = 1; attempt <= tries; attempt += 1) {
     try {
+      if (sec) await secSlot();
       const response = await fetch(url, { headers: { Accept: "application/json", ...headers }, signal: AbortSignal.timeout(25_000) });
       if (response.status === 404) throw Object.assign(new Error("HTTP 404"), { fatal: true });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -130,7 +173,7 @@ async function getJson(url, headers = {}, attempts = 3) {
     } catch (error) {
       lastError = error;
       if (error.fatal) break;
-      await new Promise((r) => setTimeout(r, 800 * attempt));
+      await new Promise((r) => setTimeout(r, (sec ? 1500 : 800) * 2 ** (attempt - 1)));
     }
   }
   throw lastError;
@@ -235,11 +278,8 @@ export function secFundamentals(facts) {
   const ocf = usd(facts, "us-gaap:NetCashProvidedByUsedInOperatingActivities", "ifrs-full:CashFlowsFromUsedInOperatingActivities");
   const capex = usd(facts, "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment", "us-gaap:PaymentsToAcquireProductiveAssets", "us-gaap:PaymentsToAcquirePropertyPlantAndEquipmentAndIntangibleAssets", "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "ifrs-full:PurchaseOfPropertyPlantAndEquipment");
   const cash = usd(facts, "us-gaap:CashAndCashEquivalentsAtCarryingValue", "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "ifrs-full:CashAndCashEquivalents");
-  const sti = usd(facts, "us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent");
   const gross = usd(facts, "us-gaap:GrossProfit", "ifrs-full:GrossProfit");
   const opInc = usd(facts, "us-gaap:OperatingIncomeLoss", "ifrs-full:ProfitLossFromOperatingActivities");
-  const debtLong = usd(facts, "us-gaap:LongTermDebtNoncurrent", "us-gaap:LongTermDebt", "ifrs-full:NoncurrentPortionOfNoncurrentBorrowings");
-  const debtShort = usd(facts, "us-gaap:LongTermDebtCurrent", "us-gaap:DebtCurrent", "us-gaap:ShortTermBorrowings", "ifrs-full:CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings");
   const shares = facts?.facts?.dei?.EntityCommonStockSharesOutstanding?.units?.shares;
   const rev = revenue && trailingTwelveMonths(revenue.rows);
   const op = ocf && trailingTwelveMonths(ocf.rows);
@@ -247,12 +287,11 @@ export function secFundamentals(facts) {
   const gp = gross && trailingTwelveMonths(gross.rows);
   const oi = opInc && trailingTwelveMonths(opInc.rows);
   const cashNow = cash && latestInstant(cash.rows);
-  const stiNow = sti && latestInstant(sti.rows);
-  const stiSameDate = stiNow && cashNow && stiNow.end === cashNow.end ? stiNow.value : 0;
-  const dl = debtLong && latestInstant(debtLong.rows);
-  const ds = debtShort && latestInstant(debtShort.rows);
-  const debtDate = cashNow?.end;
-  const debt = [dl, ds].filter((d) => d && d.end === debtDate).reduce((sum, d) => sum + d.value, 0);
+  // Short-term investments and debt on the cash date only, whichever concept the filer used.
+  const stiAt = instantAt(facts, ["us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent", "us-gaap:AvailableForSaleSecuritiesDebtSecuritiesCurrent", "us-gaap:HeldToMaturitySecuritiesCurrent", "ifrs-full:CurrentFinancialAssetsAtFairValueThroughProfitOrLoss"], cashNow?.end);
+  const stiNow = stiAt ? { value: stiAt.value, end: cashNow.end } : null;
+  const stiSameDate = stiNow ? stiNow.value : 0;
+  const debtValue = debtAt(facts, cashNow?.end);
   const sharesNow = shares && latestInstant(shares);
   const fcf = op && cx && op.end === cx.end ? op.value - cx.value : op && !capex ? op.value : null;
   const sameEnd = (x) => x && rev && x.end === rev.end;
@@ -264,6 +303,7 @@ export function secFundamentals(facts) {
     quarters: secQuarters(revenue?.rows, ocf?.rows, capex?.rows),
     annual: [...annualRev.keys()].slice(-15).map((end) => ({ end, revenue: annualRev.get(end), fcf: annualOcf.has(end) ? annualOcf.get(end) - (annualCapex.get(end) || 0) : null })),
     revenueTtm: rev?.value ?? null,
+    revenueReported: Boolean(revenue),
     revenueBasis: rev?.basis ?? null,
     revenueEnd: rev?.end ?? null,
     revenueGrowthPct: revenue ? annualGrowthPct(revenue.rows) : null,
@@ -274,9 +314,9 @@ export function secFundamentals(facts) {
     fcfTtm: Number.isFinite(fcf) ? fcf : null,
     fcfEnd: op?.end ?? null,
     cashOnly: cashNow?.value ?? null,
-    shortTermInvestments: stiNow && cashNow && stiNow.end === cashNow.end ? stiNow.value : null,
+    shortTermInvestments: stiNow ? stiNow.value : null,
     cashAndShortTermInvestments: cashNow ? cashNow.value + stiSameDate : null,
-    debt: dl || ds ? debt : null,
+    debt: debtValue,
     cashEnd: cashNow?.end ?? null,
     sharesOutstanding: sharesNow?.value ?? null,
     dilutionPct: shares ? dilutionPct(shares) : null,
@@ -464,7 +504,7 @@ async function main() {
     const dart = dartCache[company.ticker] || dartCache[company.ticker.replace(/^KOSDAQ:/, "KRX:")] || dartCache[company.ticker.replace(/^KRX:/, "KOSDAQ:")];
     const snapshot = cached?.fundamentals ? { ...cached.fundamentals, status: "provider snapshot" } : null;
     const [fundamentals] = await Promise.all([
-      company.historyOnly ? null : (cik ? fetchSec(cik) : dart ? Promise.resolve({ ...dart, quarters: snapshot?.quarters || [] }) : snapshot ? Promise.resolve(snapshot)
+      company.historyOnly ? null : (cik ? fetchSec(cik).catch((e) => { if (!snapshot) throw e; errors.push(`${company.ticker} SEC: ${e.message} — provider snapshot used`); return snapshot; }) : dart ? Promise.resolve({ ...dart, quarters: snapshot?.quarters || [] }) : snapshot ? Promise.resolve(snapshot)
         : fetchYahooFundamentals(prices?.symbol || symbol).then((f) => ({ ...f, status: "provider snapshot" })))
         .catch((e) => { errors.push(`${company.ticker} fundamentals: ${e.message}`); return null; }),
     ]);

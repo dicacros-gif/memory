@@ -79,5 +79,7 @@ export function stockPositionKv(s) {
   return `<dl class="kv"><div><dt>모멘텀 z</dt><dd class="${s.momentum > 0 ? "pos" : s.momentum < 0 ? "neg" : ""}">${isNum(s.momentum) ? s.momentum.toFixed(2) : "자료 없음"}</dd></div>
     <div><dt>모멘텀 백분위(2년)</dt><dd>${gauge(s.momentumPct)}</dd></div><div><dt>변동성 21일</dt><dd>${isNum(s.vol21) ? `${s.vol21}%` : "자료 없음"}</dd></div>
     <div><dt>이동평균</dt><dd>${s.above200 ? "200일선 위" : "200일선 아래"} · ${s.above50 ? "50일선 위" : "50일선 아래"}</dd></div>
-    <div><dt>52주 고점 대비</dt><dd>${pct(s.offHigh252Pct)}</dd></div><div><dt>공매도/유통주식</dt><dd>${isNum(si) ? `${si}%` : "자료 없음"}</dd></div></dl>`;
+    <div><dt>52주 고점 대비</dt><dd>${pct(s.offHigh252Pct)}</dd></div>
+    <div><dt>RSI(14)</dt><dd class="${s.rsi14 >= 70 ? "neg" : s.rsi14 <= 30 ? "pos" : ""}">${isNum(s.rsi14) ? `${s.rsi14}${s.rsi14 >= 70 ? " 과열" : s.rsi14 <= 30 ? " 과매도" : ""}` : "자료 없음"}</dd></div>
+    <div><dt>6개월 수익률</dt><dd>${pct(s.return6mPct)}</dd></div><div><dt>1년 최대 낙폭</dt><dd>${pct(s.maxDrawdown1yPct)}</dd></div><div><dt>공매도/유통주식</dt><dd>${isNum(si) ? `${si}%` : "자료 없음"}</dd></div></dl>`;
 }
