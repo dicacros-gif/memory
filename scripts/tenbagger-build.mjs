@@ -312,6 +312,16 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     for (const key of ["grossMarginPct", "operatingMarginPct"]) if (!isNum(rec[key]) && isNum(rec.valuation?.[key])) { rec[key] = rec.valuation[key]; rec.filledFrom[key] = "Yahoo"; }
     rec.annual = f?.annual || [];
     rec.balanceSheetConcepts = f?.balanceSheetConcepts || null;
+    // No filed short-term-investment line: Yahoo's latest-quarter total cash minus filed cash, same currency, labelled.
+    const yv = rec.valuation;
+    // Not for banks, brokers and asset managers (TradingView sector "Finance"): their cash is client and balance-sheet funding.
+    const financial = tvRow?.sector === "Finance" || rec.valuation?.sector === "Financial Services" || rec.industries.some((i) => i.id === "fintech-digital-assets");
+    if (!financial && rec.shortTermInvestments === null && isNum(rec.cashOnly) && isNum(yv?.totalCash) && yv.financialCurrency && yv.financialCurrency === rec.statementCurrency && yv.totalCash > rec.cashOnly * 1.05) {
+      rec.shortTermInvestments = yv.totalCash - rec.cashOnly;
+      rec.cashPlusSti = yv.totalCash;
+      rec.filledFrom.shortTermInvestments = "Yahoo totalCash − filed cash";
+      if (isNum(rec.fcfTtm) && rec.fcfTtm < 0) rec.runwayCashPlusStiYears = round(rec.cashPlusSti / -rec.fcfTtm);
+    }
     rec.quarters = f?.quarters || [];
     if (!isNum(rec.priceToSales) && isNum(tvFacts?.psRatio)) { rec.priceToSales = tvFacts.psRatio; rec.filledFrom.priceToSales = "TradingView"; }
     if (!isNum(rec.psToGrowth) && isNum(rec.priceToSales) && isNum(rec.revenueGrowthPct) && rec.revenueGrowthPct > 0) rec.psToGrowth = round(rec.priceToSales / rec.revenueGrowthPct, 2);

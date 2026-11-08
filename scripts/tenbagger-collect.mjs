@@ -96,6 +96,20 @@ export function debtAt(facts, end) {
   return debtBreakdown(facts, end)?.value ?? null;
 }
 
+/** Concepts (us-gaap/ifrs) with an instant fact on `end` whose name matches `pattern` (diagnostics). */
+export function instantConceptsAt(facts, end, pattern) {
+  if (!end) return [];
+  const out = [];
+  for (const taxonomy of ["us-gaap", "ifrs-full"]) {
+    for (const [name, body] of Object.entries(facts?.facts?.[taxonomy] || {})) {
+      if (!pattern.test(name) || /Noncurrent|Gain|Loss|Income|Proceeds|Payments|Purchase/.test(name)) continue;
+      const rows = (body.units?.USD || []).filter((f) => f.end === end && !f.start);
+      if (rows.length) out.push(`${taxonomy}:${name}=${rows.at(-1).val}`);
+    }
+  }
+  return out.slice(0, 12);
+}
+
 /** debtAt plus the concepts that made it up (shown on the company page as provenance). */
 export function debtBreakdown(facts, end) {
   const nonCur = instantAt(facts, ["us-gaap:LongTermDebtNoncurrent"], end);
@@ -337,7 +351,9 @@ export function secFundamentals(facts) {
     shortTermInvestments: stiNow ? stiNow.value : null,
     cashAndShortTermInvestments: cashNow ? cashNow.value + stiSameDate : null,
     debt: debtValue,
-    balanceSheetConcepts: { cash: cash?.concept || null, sti: stiAt?.concept || null, debt: debtB?.parts || [] },
+    balanceSheetConcepts: { cash: cash?.concept || null, sti: stiAt?.concept || null, debt: debtB?.parts || [],
+      // When no short-term-investment concept matched: the filer's other current-asset instants on the cash date.
+      stiCandidates: stiAt ? [] : instantConceptsAt(facts, cashNow?.end, /(Securities|Investments|Marketable)/i) },
     cashEnd: cashNow?.end ?? null,
     sharesOutstanding: sharesNow?.value ?? null,
     dilutionPct: shares ? dilutionPct(shares) : null,

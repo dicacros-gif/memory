@@ -186,7 +186,7 @@ def valuation(info: dict) -> dict | None:
         "change52wPct": pct("52WeekChange"),
         # balance-sheet totals (most recent quarter, Yahoo) — used only to cross-check filed figures
         "totalCash": num(info.get("totalCash")), "totalDebt": num(info.get("totalDebt")),
-        "financialCurrency": info.get("financialCurrency"),
+        "financialCurrency": info.get("financialCurrency"), "sector": info.get("sector"),
     })
     # Negative or absurd multiples carry no information as a ratio.
     for key in ("forwardPE", "trailingPE", "peg", "evToRevenue", "evToEbitda"):
@@ -320,34 +320,50 @@ def main() -> int:
     results, errors = {}, []
     deadline = time.time() + 15 * 60
     lock = threading.Lock()
+    cooldown = {"until": 0.0, "pause": 0.6}
+    limited: list[str] = []
+
+    def rate_limited(error: Exception) -> bool:
+        text = str(error).lower()
+        return "429" in text or "too many requests" in text or "rate limit" in text or "ratelimit" in type(error).__name__.lower()
 
     def work(ticker: str) -> None:
+        # One shared cool-down: when any worker is refused, every worker waits.
+        while time.time() < cooldown["until"]:
+            time.sleep(1)
         if time.time() > deadline:
             with lock:
                 errors.append(f"{ticker}: time budget reached")
             return
-        for attempt in range(2):
-            try:
-                row_ = collect(ticker)
-                with lock:
-                    if row_:
-                        results[ticker] = row_
-                    else:
-                        errors.append(f"{ticker}: no price history")
-                break
-            except Exception as error:  # noqa: BLE001
-                # Yahoo's rate limit: wait once, then try again.
-                if attempt == 0 and ("429" in str(error) or "Rate" in type(error).__name__ or "rate limit" in str(error).lower()):
-                    time.sleep(8)
-                    continue
-                with lock:
+        try:
+            row_ = collect(ticker)
+            with lock:
+                cooldown["pause"] = max(0.6, cooldown["pause"] * 0.95)  # relax again after successes
+                if row_:
+                    results[ticker] = row_
+                else:
+                    errors.append(f"{ticker}: no price history")
+        except Exception as error:  # noqa: BLE001
+            with lock:
+                if rate_limited(error):
+                    # One 15-second window per burst (refusals inside it do not extend it),
+                    # and slower spacing from then on.
+                    if time.time() >= cooldown["until"]:
+                        cooldown["until"] = time.time() + 15
+                    cooldown["pause"] = min(2.0, cooldown["pause"] * 1.5)
+                    limited.append(ticker)
+                else:
                     errors.append(f"{ticker}: {str(error)[:120]}")
-                break
-        time.sleep(0.35)
+        time.sleep(cooldown["pause"])
 
-    # Three workers: the universe grew past what one sequential pass covers in budget.
-    with ThreadPoolExecutor(max_workers=3) as pool:
+    # Two workers with a shared cool-down; three without one drew more 429s than they saved.
+    with ThreadPoolExecutor(max_workers=2) as pool:
         list(pool.map(work, tickers))
+    # Rate-limited tickers: one more sequential pass while the budget lasts.
+    retry, limited[:] = list(dict.fromkeys(limited)), []
+    for ticker in retry:
+        work(ticker)
+    errors.extend(f"{t}: rate limited (HTTP 429), previous values kept" for t in dict.fromkeys(limited))
     extra, extra_deadline = 0, time.time() + 3 * 60
     for ticker in screen_tickers():
         if ticker in results or time.time() > extra_deadline:
