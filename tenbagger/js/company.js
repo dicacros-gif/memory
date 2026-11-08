@@ -75,6 +75,24 @@ function failureChecks(c) {
 }
 
 // Quant indicators, colour-coded against plain rules stated in each tooltip.
+const RANK_LABELS = [
+  ["revenueGrowthPct", "매출 성장률"], ["revenueCagr3yPct", "매출 3년 CAGR"], ["revenueAccelPts", "매출 가속"], ["grossMarginPct", "매출총이익률"],
+  ["ruleOf40", "Rule of 40"], ["fcfYieldPct", "FCF 수익률"], ["netCashToMcapPct", "순현금/시총"], ["roePct", "ROE"],
+  ["priceToSales", "P/S (낮을수록 상위)"], ["forwardPE", "선행 P/E (낮을수록 상위)"],
+];
+
+/** Percentile among peers of the first industry, one bar per indicator. */
+function rankSection(c) {
+  const r = c.ranks;
+  const rows = RANK_LABELS.filter(([k]) => r?.[k]);
+  if (!rows.length) return "";
+  const ind = (c.industries || []).find((i) => i.id === r.industry)?.name || r.industry;
+  return `<section class="co-sec"><h2>업종 내 위치 <span class="sub">${esc(ind)} 추적 상장사 대비 백분위 · 100에 가까울수록 상위</span></h2>
+    <div class="ranks">${rows.map(([k, l]) => { const p = r[k].pct; return `<div class="rank-row" title="${esc(`${l}: 같은 산업 ${r[k].n}개 기업 중 백분위 ${p}`)}"><span>${esc(l)}</span>
+      <span class="rank-bar"><span class="${p >= 67 ? "q-good" : p <= 33 ? "q-bad" : "q-mid"}" style="width:${Math.max(2, p)}%"></span></span><b class="num">${p}</b><span class="sub">n${r[k].n}</span></div>`; }).join("")}</div>
+    <p class="sub">값이 있는 기업이 5곳 이상인 지표만 표시합니다. 백분위는 순위 정보이며 매수·매도 신호가 아닙니다.</p></section>`;
+}
+
 function quantSection(c) {
   const q = c.quant || {};
   const cell = (label, value, cls, title) => `<div class="qcell ${cls}" title="${esc(title)}"><span>${esc(label)}</span><b>${value}</b></div>`;
@@ -121,6 +139,7 @@ export function renderCompany(c, pos = null) {
     <section class="co-sec"><h2>일간 차트</h2><div class="chart-host" data-chart-host></div></section>
     ${pos ? `<section class="co-sec"><h2>추세·변동성·수급</h2>${stockPositionKv(pos)}<p class="sub">모멘텀 z = 21·63·126·252일 변동성 조정 수익률 z값 평균. 공매도 비율은 미국 상장만, 거래소 집계 기준일 ${esc(c.shortInterest?.date || "자료 없음")}${isNum(c.shortInterest?.changePct) ? ` · 전월 대비 ${c.shortInterest.changePct > 0 ? "+" : ""}${c.shortInterest.changePct}%` : ""}.</p></section>` : ""}
     ${quantSection(c)}
+    ${rankSection(c)}
     <section class="co-sec"><h2>사업과 산업 노출</h2>${industries ? `<ul class="co-ind">${industries}</ul>` : `<p class="muted">${c.coverage === "holder" ? "비상장 스타트업 지분 보유사로 편입된 기업입니다." : c.screen ? `스크리너 업종: ${esc(c.screen.industryKo || c.screen.industry)}` : "산업 분류 자료 없음"}</p>`}</section>
     <section class="co-sec"><h2>매출 성장과 이익률</h2>${kv([
       ["매출", money(c.revenueTtm, cur), `${fy} · ${esc(c.revenueEnd || "기간 없음")}`],

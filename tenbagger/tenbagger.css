@@ -324,3 +324,11 @@ h3 { font-size: 12px; color: var(--yellow); letter-spacing: .04em; }
 .ind-medians dt { color: var(--muted); }
 .ind-medians dd { margin: 0; font-variant-numeric: tabular-nums; }
 @media (max-width: 520px) { .ind-medians { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* industry percentile ranks */
+.ranks { display: grid; gap: 4px; max-width: 640px; }
+.rank-row { display: grid; grid-template-columns: 13em 1fr 2.5em 3em; align-items: center; gap: 8px; font-size: 12px; }
+.rank-bar { height: 8px; background: var(--line2); position: relative; }
+.rank-bar > span { display: block; height: 100%; }
+.rank-bar .q-good { background: var(--pos); } .rank-bar .q-mid { background: var(--yellow); } .rank-bar .q-bad { background: var(--neg); }
+@media (max-width: 520px) { .rank-row { grid-template-columns: 8em 1fr 2.2em; } .rank-row .sub { display: none; } }

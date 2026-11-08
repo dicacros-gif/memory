@@ -107,8 +107,16 @@ export function stockPositioning(bar) {
     offHigh252Pct: round((c[n] / high252 - 1) * 100, 1),
     rsi14: rsi14(c.slice(-300)),
     return6mPct: round((c[n] / c[n - 126] - 1) * 100, 1),
+    return3mPct: round((c[n] / c[n - 63] - 1) * 100, 1),
+    return1yPct: round((c[n] / c[n - 252] - 1) * 100, 1),
     maxDrawdown1yPct: maxDrawdown(c.slice(n - 251)),
   };
+}
+
+/** Stock return minus industry index return (percentage points) over 3 months and 1 year. */
+export function relativeStrength(stock, industry) {
+  const d = (a, b) => (isNum(a) && isNum(b) ? round(a - b, 1) : null);
+  return { rsIndustry: industry.id, rs3mPts: d(stock.return3mPct, industry.return3mPct), rs1yPts: d(stock.return1yPct, industry.return1yPct) };
 }
 
 export function industryPositioning(id, members) {
@@ -180,6 +188,12 @@ async function main() {
     return { ...p, name: i.name, observedGrowth: i.observed.medianRevenueGrowthPct, fcfPositiveShare: i.fcfPositiveShare, shortMedian: round(median(shorts), 1), shortN: shorts.length };
   });
   for (const r of rows) if (!r.insufficient) r.health = healthMap(r, rows.filter((x) => !x.insufficient), r);
+  // Relative strength: the stock's return minus its first industry's equal-weight index return, same window.
+  const rowById = new Map(rows.map((r) => [r.id, r]));
+  for (const c of companies) {
+    const s = stocks[c.id], ind = rowById.get(c.industries?.[0]?.id);
+    if (s && ind && !ind.insufficient) Object.assign(s, relativeStrength(s, ind));
+  }
   const out = {
     schemaVersion: "1.0", generatedAt: new Date().toISOString(),
     method: {
@@ -189,6 +203,7 @@ async function main() {
       volatility: "21일 실현 변동성(연율화)과 최근 1년 범위·백분위",
       breadth: "구성 종목 중 200일·50일 이동평균 위에 있는 비율",
       regime: "디리스킹: 3개월 고점 대비 −15% 이하 그리고 변동성 1년 백분위 80 이상 · 상승 추세: 모멘텀 > 0.5 그리고 참여 폭 ≥ 60% · 하락 추세: 모멘텀 < −0.5 그리고 참여 폭 ≤ 40%",
+      relativeStrength: "종목 수익률 − 소속 첫 산업 동일가중 지수 수익률(3개월·1년, %p). 플러스면 산업보다 강함",
       shortInterest: "Yahoo Finance가 표시하는 유통주식 대비 공매도 비율(미국 상장, 월 2회 거래소 집계)",
       note: "모든 값은 이 사이트가 공개 가격·재무 자료로 직접 계산한 것입니다. 포지셔닝 지표는 상태 설명이며 매매 신호가 아닙니다.",
     },
