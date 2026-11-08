@@ -306,3 +306,14 @@ h3 { font-size: 12px; color: var(--yellow); letter-spacing: .04em; }
 .rw-bar .rw-sti { position: absolute; left: 0; top: 0; bottom: 0; opacity: .45; }
 .rw-bar .rw-cash { position: absolute; left: 0; top: 4px; bottom: 4px; background: var(--text); opacity: .8; }
 .rw-bar em { position: absolute; right: 4px; top: 0; font-style: normal; font-size: 11px; line-height: 14px; color: var(--text); }
+
+/* quant grid */
+.qgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px; margin: 8px 0; }
+.qcell { padding: 6px 10px; background: var(--panel); border: 1px solid var(--line2); border-left: 3px solid var(--line2); }
+.qcell span { display: block; font-size: 10.5px; color: var(--label); text-transform: uppercase; letter-spacing: .04em; }
+.qcell b { font-size: 15px; font-variant-numeric: tabular-nums; }
+.qcell.q-good { border-left-color: var(--pos); } .qcell.q-good b { color: var(--pos); }
+.qcell.q-mid { border-left-color: var(--yellow); }
+.qcell.q-bad { border-left-color: var(--neg); } .qcell.q-bad b { color: var(--neg); }
+.qcell.q-nd b { color: var(--nd); font-weight: 400; }
+.src-mark { margin-left: 2px; font-size: 9px; color: var(--link); }

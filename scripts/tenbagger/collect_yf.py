@@ -168,11 +168,26 @@ def valuation(info: dict) -> dict | None:
         "analysts": info.get("numberOfAnalystOpinions"),
         "source": "Yahoo Finance (analyst consensus and reported multiples)",
     }
+    pct = lambda key: round(num(info.get(key)) * 100, 1) if num(info.get(key)) is not None else None  # noqa: E731
+    out.update({
+        # quality and profitability (trailing twelve months, Yahoo)
+        "roePct": pct("returnOnEquity"), "roaPct": pct("returnOnAssets"),
+        "profitMarginPct": pct("profitMargins"), "grossMarginPct": pct("grossMargins"), "operatingMarginPct": pct("operatingMargins"),
+        "revenueGrowthQoqYoyPct": pct("revenueGrowth"), "earningsGrowthQoqYoyPct": pct("earningsQuarterlyGrowth"),
+        # balance sheet and risk
+        "debtToEquity": num(info.get("debtToEquity")), "currentRatio": num(info.get("currentRatio")), "beta": num(info.get("beta")),
+        # ownership
+        "insiderPct": pct("heldPercentInsiders"), "institutionPct": pct("heldPercentInstitutions"),
+        # analysts
+        "recommendationMean": num(info.get("recommendationMean")), "recommendationKey": info.get("recommendationKey"),
+        "targetMean": num(info.get("targetMeanPrice")), "targetHigh": num(info.get("targetHighPrice")), "targetLow": num(info.get("targetLowPrice")),
+        "change52wPct": pct("52WeekChange"),
+    })
     # Negative or absurd multiples carry no information as a ratio.
     for key in ("forwardPE", "trailingPE", "peg", "evToRevenue", "evToEbitda"):
         if out[key] is not None and (out[key] <= 0 or out[key] > 2000):
             out[key] = None
-    return out if any(out[k] is not None for k in ("forwardPE", "trailingPE", "peg", "evToRevenue")) else None
+    return out if any(v is not None for k, v in out.items() if k != "source") else None
 
 
 def next_earnings(dates: list[str], t=None) -> str | None:
