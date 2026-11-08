@@ -2737,177 +2737,102 @@
       "summary": "위성·안테나·특수소재·발사·지구관측 데이터",
       "growth": [
         {
-          "institution": "World Economic Forum with McKinsey & Company",
+          "institution": "World Economic Forum x McKinsey & Company",
           "metric": "Global space economy size",
-          "definition": "WEF/McKinsey 'Space: The $1.8 Trillion Opportunity for Global Economic Growth'. Has two parts: 'backbone' (satellites, launch, ground equipment, services) and 'reach' (revenue from space-enabled uses in other industries such as supply chain, food, defense). The report gives about $630B in 2023 and $1.8T in 2035, about 9% a year. This came from model memory and was not fetched in this run.",
-          "url": "https://www.weforum.org/publications/space-the-1-8-trillion-opportunity-for-global-economic-growth/",
-          "cagrPct": 9,
+          "definition": "Backbone (space hardware/services) plus reach (space-enabled revenue in other industries); 2023 split was $330B backbone / $300B reach. WEF states the $1.8T figure is inflation-adjusted and growth averages ~9% per annum. Report: 'Space: The $1.8 Trillion Opportunity for Global Economic Growth'.",
           "baseYear": 2023,
-          "baseValue": "USD 630 billion",
+          "baseValue": 630000000000,
           "targetYear": 2035,
-          "targetValue": "USD 1.8 trillion",
+          "targetValue": 1800000000000,
+          "cagrPct": 9,
+          "url": "https://www.weforum.org/stories/2024/04/space-economy-technology-invest-rocket-opportunity/",
           "publishedAt": "2024-04-08",
           "check": "cited"
         },
         {
-          "institution": "Morgan Stanley",
-          "metric": "Global space industry revenue",
-          "definition": "Morgan Stanley Research 'Investing in Space'. Revenue of the global space industry, mainly satellite broadband, launch and related services. The forecast is more than $1T by 2040, up from about $350B at the time of publication. Morgan Stanley gives no CAGR, so it is null. The base year is approximate and the page was not fetched in this run.",
-          "url": "https://www.morganstanley.com/ideas/investing-in-space",
-          "cagrPct": null,
+          "institution": "Goldman Sachs Research",
+          "metric": "Global satellite market (base case)",
+          "definition": "Satellite market grows from '$15 billion' (current at publication, base year not specified) to $108B by 2035 in the base case; bull case up to $457B. Report also expects up to 70,000 LEO satellites launched over the next five years. Base year and CAGR not stated by source, so left null.",
           "baseYear": null,
-          "baseValue": "USD ~350 billion (at time of publication)",
-          "targetYear": 2040,
-          "targetValue": "USD >1 trillion",
-          "publishedAt": null,
+          "baseValue": 15000000000,
+          "targetYear": 2035,
+          "targetValue": 108000000000,
+          "cagrPct": null,
+          "url": "https://www.goldmansachs.com/insights/articles/the-global-satellite-market-is-forecast-to-become-seven-times-bigger",
+          "publishedAt": "2025-03",
           "check": "cited"
         },
         {
           "institution": "SIPRI (Stockholm International Peace Research Institute)",
-          "metric": "World military expenditure (actual, not a forecast)",
-          "definition": "SIPRI Military Expenditure Database, total world military spending for 2024. It was $2,718B, up 9.4% in real terms from 2023, the steepest year-on-year rise since at least the end of the Cold War. This is spending already made, not a forecast, so target and CAGR are null. The 2026 release with 2025 data could not be retrieved in this run. From model memory, not fetched this run.",
-          "url": "https://www.sipri.org/media/press-release/2025/unprecedented-rise-global-military-expenditure-european-and-middle-east-spending-surges",
-          "cagrPct": null,
+          "metric": "World military expenditure",
+          "definition": "Total world military expenditure, current USD. 2025 = $2,887B, +2.9% in real terms (11th consecutive annual rise; military burden 2.5% of world GDP), per SIPRI fact sheet/press release of 27 Apr 2026. 2024 base value ($2,718B, +9.4% real) is from SIPRI's 28 Apr 2025 release: https://www.sipri.org/media/press-release/2025/unprecedented-rise-global-military-expenditure-european-and-middle-east-spending-surges . cagrPct = SIPRI-stated 2025 real-terms growth, not a computed nominal rate.",
           "baseYear": 2024,
-          "baseValue": "USD 2,718 billion (+9.4% y/y real)",
-          "targetYear": null,
-          "targetValue": null,
-          "publishedAt": "2025-04-28",
+          "baseValue": 2718000000000,
+          "targetYear": 2025,
+          "targetValue": 2887000000000,
+          "cagrPct": 2.9,
+          "url": "https://www.sipri.org/publications/2026/sipri-fact-sheets/trends-world-military-expenditure-2025",
+          "publishedAt": "2026-04-27",
+          "check": "cited"
+        },
+        {
+          "institution": "Space Foundation",
+          "metric": "Global space economy (commercial + government)",
+          "definition": "Space Foundation 'State of the Global Space Economy' (Jul 2026): 2025 total $686B, +12% YoY; commercial $544.3B (79%), government ~$141B across 53 national budgets. 2024 base ($613B, +7.8% YoY) from The Space Report 2025 Q2 (22 Jul 2025): https://www.spacefoundation.org/2025/07/22/the-space-report-2025-q2/ . Space Foundation projects the economy could cross $1T as soon as 2032. cagrPct = stated 2025 YoY growth.",
+          "baseYear": 2024,
+          "baseValue": 613000000000,
+          "targetYear": 2025,
+          "targetValue": 686000000000,
+          "cagrPct": 12,
+          "url": "https://payloadspace.com/breaking-down-the-686b-space-economy/",
+          "publishedAt": "2026-07",
           "check": "cited"
         }
       ],
       "publicCompanies": [
         {
-          "name": "Rocket Lab Corporation",
+          "name": "SpaceX (Space Exploration Technologies Corp.)",
+          "ticker": "NASDAQ:SPCX",
+          "exchange": "NASDAQ",
+          "country": "US",
+          "secCik": null,
+          "layer": "leader",
+          "subsector": "Launch / satellite broadband (Starlink) / AI",
+          "thesis": "SpaceX listed on Nasdaq on 12 Jun 2026 (IPO at $135, ~$75B raised) and in its first quarterly report posted Q2 2026 revenue of about $7.8B, up 92% YoY, with Starlink connectivity at $4.3B.",
+          "sourceUrl": "https://fortune.com/2026/08/04/spacex-revenue-surges-92-to-7-8-billion-blowing-past-wall-street-expectations-by-nearly-1-billion/"
+        },
+        {
+          "name": "Lockheed Martin",
+          "ticker": "NYSE:LMT",
+          "exchange": "NYSE",
+          "country": "US",
+          "secCik": "0000936468",
+          "layer": "leader",
+          "subsector": "Defense prime (missiles, aircraft, space)",
+          "thesis": "Lockheed ended Q3 2026 with a record $292.0B backlog (up 27% QoQ, incl. $52.5B PAC-3 MSE multi-year award) on sales of $20.7B (+11%).",
+          "sourceUrl": "https://news.lockheedmartin.com/2026-10-22-Lockheed-Martin-Reports-Third-Quarter-2026-Financial-Results"
+        },
+        {
+          "name": "Rocket Lab",
           "ticker": "NASDAQ:RKLB",
           "exchange": "NASDAQ",
           "country": "US",
           "secCik": null,
           "layer": "leader",
-          "subsector": "Launch + spacecraft/components",
-          "thesis": "Small launch provider (Electron) that also makes satellite buses and components such as solar arrays, reaction wheels and separation systems; it is developing the medium-lift Neutron rocket.",
-          "sourceUrl": "https://investors.rocketlabusa.com/"
-        },
-        {
-          "name": "AST SpaceMobile",
-          "ticker": "NASDAQ:ASTS",
-          "exchange": "NASDAQ",
-          "country": "US",
-          "secCik": null,
-          "layer": "leader",
-          "subsector": "Satellite direct-to-device broadband",
-          "thesis": "Builds large phased-array BlueBird satellites that connect directly to ordinary smartphones, working with mobile network operators.",
-          "sourceUrl": "https://investors.ast-science.com/"
-        },
-        {
-          "name": "Planet Labs PBC",
-          "ticker": "NYSE:PL",
-          "exchange": "NYSE",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Earth-observation data",
-          "thesis": "Runs the largest commercial fleet of Earth-imaging satellites and sells daily optical imagery and analytics to defense, government and commercial customers.",
-          "sourceUrl": "https://investors.planet.com/"
-        },
-        {
-          "name": "Intuitive Machines",
-          "ticker": "NASDAQ:LUNR",
-          "exchange": "NASDAQ",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Lunar landers / space infrastructure / data relay",
-          "thesis": "Builds commercial lunar landers for NASA CLPS missions and is building lunar data-relay and navigation services under NASA's Near Space Network contract.",
-          "sourceUrl": "https://investors.intuitivemachines.com/"
-        },
-        {
-          "name": "Redwire Corporation",
-          "ticker": "NYSE:RDW",
-          "exchange": "NYSE",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Space components + defense UAS",
-          "thesis": "Supplies spacecraft components (roll-out solar arrays, sensors, in-space manufacturing) and, after acquiring Edge Autonomy in 2025, also makes uncrewed aerial systems.",
-          "sourceUrl": "https://ir.redwirespace.com/"
-        },
-        {
-          "name": "Firefly Aerospace",
-          "ticker": "NASDAQ:FLY",
-          "exchange": "NASDAQ",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Launch + lunar landers",
-          "thesis": "Operates the Alpha small rocket and the Blue Ghost lunar lander, and is co-developing a medium launch vehicle with Northrop Grumman; it listed on Nasdaq in August 2025.",
-          "sourceUrl": "https://fireflyspace.com/"
-        },
-        {
-          "name": "BlackSky Technology",
-          "ticker": "NYSE:BKSY",
-          "exchange": "NYSE",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Earth-observation data / real-time geospatial intelligence",
-          "thesis": "Runs a high-revisit optical imaging constellation (Gen-3) with AI analytics and sells mainly to US and allied defense and intelligence customers.",
-          "sourceUrl": "https://ir.blacksky.com/"
+          "subsector": "Launch + space systems",
+          "thesis": "Rocket Lab reported a record $2.36B backlog at end of Q2 2026 (60% space systems / 40% launch) on Q2 revenue of about $234M, +62% YoY.",
+          "sourceUrl": "https://pulse2.com/rocket-lab-backlog-reaches-record-2-36-billion-as-new-space-systems-and-launch-contracts-top-1-billion/"
         },
         {
           "name": "Kratos Defense & Security Solutions",
           "ticker": "NASDAQ:KTOS",
           "exchange": "NASDAQ",
           "country": "US",
-          "secCik": null,
+          "secCik": "0001069258",
           "layer": "leader",
-          "subsector": "Defense drones, satellite ground systems, hypersonics",
-          "thesis": "Makes low-cost jet drones (Valkyrie), satellite ground and command software (OpenSpace), and hypersonic and propulsion systems.",
-          "sourceUrl": "https://ir.kratosdefense.com/"
-        },
-        {
-          "name": "Karman Space & Defense",
-          "ticker": "NYSE:KRMN",
-          "exchange": "NYSE",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Special materials / missile and space subsystems",
-          "thesis": "Supplies engineered payload, propulsion and specialty-material subsystems for missiles, hypersonics and launch vehicles; it went public in February 2025.",
-          "sourceUrl": "https://www.karman-sd.com/"
-        },
-        {
-          "name": "Voyager Technologies",
-          "ticker": "NYSE:VOYG",
-          "exchange": "NYSE",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Space stations / defense space subsystems",
-          "thesis": "Leads the Starlab commercial space station program and supplies defense and space systems and components; it went public in June 2025.",
-          "sourceUrl": "https://voyagertechnologies.com/"
-        },
-        {
-          "name": "Iridium Communications",
-          "ticker": "NASDAQ:IRDM",
-          "exchange": "NASDAQ",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "LEO satellite communications / PNT",
-          "thesis": "Operates a global constellation of low-Earth-orbit satellites for voice, data and IoT, and is expanding into PNT (positioning, navigation and timing) as a GPS backup.",
-          "sourceUrl": "https://investor.iridium.com/"
-        },
-        {
-          "name": "Spire Global",
-          "ticker": "NYSE:SPIR",
-          "exchange": "NYSE",
-          "country": "US",
-          "secCik": null,
-          "layer": "candidate",
-          "subsector": "Earth-observation / RF data",
-          "thesis": "Runs a constellation of small satellites collecting radio-frequency, weather and ship/aircraft-tracking data, and builds satellites to customer order.",
-          "sourceUrl": "https://ir.spire.com/"
+          "subsector": "Unmanned systems, hypersonics, space & satellite ground",
+          "thesis": "Kratos posted Q3 2026 revenue of $471.8M (+35.7% YoY) with Q3 bookings of $1.04B (book-to-bill 2.2) and Government Solutions backlog of $2.292B.",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/0001069258/000106925826000085/ktos202609278kexhibit991.htm"
         },
         {
           "name": "AeroVironment",
@@ -2916,169 +2841,334 @@
           "country": "US",
           "secCik": null,
           "layer": "leader",
-          "subsector": "Defense drones / loitering munitions / space-RF (BlueHalo)",
-          "thesis": "Makes small military drones and Switchblade loitering munitions; after buying BlueHalo in 2025 it also sells space antennas, laser communications and counter-drone systems.",
-          "sourceUrl": "https://investor.avinc.com/"
+          "subsector": "Drones / loitering munitions / space (BlueHalo)",
+          "thesis": "AeroVironment reported record fiscal Q1 2027 revenue of $480.5M and funded backlog of $1.5B (up 37% YoY), reaffirming FY2027 revenue guidance of $2.125-2.225B.",
+          "sourceUrl": "https://secure.businesswire.com/news/home/20260910537472/en/AeroVironment-Announces-Fiscal-2027-First-Quarter-Results"
         },
         {
-          "name": "Lockheed Martin",
-          "ticker": "NYSE:LMT",
-          "exchange": "NYSE",
+          "name": "AST SpaceMobile",
+          "ticker": "NASDAQ:ASTS",
+          "exchange": "NASDAQ",
           "country": "US",
-          "secCik": null,
-          "layer": "leader",
-          "subsector": "Prime: missiles, satellites (GPS III, SDA tranches)",
-          "thesis": "Largest US defense prime contractor; its Space segment builds GPS, missile-warning and SDA transport-layer satellites, plus the Orion spacecraft.",
-          "sourceUrl": "https://investors.lockheedmartin.com/"
-        },
-        {
-          "name": "Northrop Grumman",
-          "ticker": "NYSE:NOC",
-          "exchange": "NYSE",
-          "country": "US",
-          "secCik": null,
-          "layer": "leader",
-          "subsector": "Prime: space systems, solid rocket motors",
-          "thesis": "Defense prime contractor whose Space Systems unit builds satellites and SDA tracking-layer satellites, and which is a major maker of solid rocket motors for missiles and launch.",
-          "sourceUrl": "https://investor.northropgrumman.com/"
-        },
-        {
-          "name": "MDA Space",
-          "ticker": "TSX:MDA",
-          "exchange": "TSX",
-          "country": "Canada",
           "secCik": null,
           "layer": "candidate",
-          "subsector": "Satellite manufacturing / robotics / antennas",
-          "thesis": "Builds satellites (AURORA software-defined digital payload and bus), space robotics (Canadarm3) and antennas for LEO constellations.",
-          "sourceUrl": "https://mda.space/en/investors/"
+          "subsector": "Direct-to-device satellite broadband",
+          "thesis": "AST SpaceMobile reported Q2 2026 revenue of $31.5M and about $1.30B of aggregate contracted revenue with commercial partners and US government awards, reaffirming 2026 revenue guidance of $150-200M.",
+          "sourceUrl": "https://www.01net.it/ast-spacemobile-provides-business-update-and-second-quarter-2026-results/"
+        },
+        {
+          "name": "Planet Labs PBC",
+          "ticker": "NYSE:PL",
+          "exchange": "NYSE",
+          "country": "US",
+          "secCik": null,
+          "layer": "candidate",
+          "subsector": "Earth observation data",
+          "thesis": "Planet reported record fiscal Q2 2027 revenue of $116.1M (+58% YoY) and backlog of about $814.9M for the quarter ended 31 Jul 2026.",
+          "sourceUrl": "https://s29.q4cdn.com/903184914/files/doc_earnings/2027/q2/earnings-result/PL-Q2-27-Press-Release.pdf"
+        },
+        {
+          "name": "Intuitive Machines",
+          "ticker": "NASDAQ:LUNR",
+          "exchange": "NASDAQ",
+          "country": "US",
+          "secCik": "0001844452",
+          "layer": "candidate",
+          "subsector": "Lunar landers / space data & infrastructure",
+          "thesis": "Intuitive Machines' 10-Q shows backlog of $1.762B at 30 Jun 2026 (vs $213M at end-2025, boosted by the Lanteris acquisition) and Q2 2026 revenue of $206.2M.",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/0001844452/000162828026056821/lunr-20260630.htm"
+        },
+        {
+          "name": "Redwire",
+          "ticker": "NYSE:RDW",
+          "exchange": "NYSE",
+          "country": "US",
+          "secCik": null,
+          "layer": "candidate",
+          "subsector": "Space infrastructure + defense drones (Edge Autonomy)",
+          "thesis": "Redwire posted Q2 2026 revenue of $117.1M (+89.6% YoY) and record contracted backlog of $542.1M, with 2026 revenue guidance of $450-500M reaffirmed.",
+          "sourceUrl": "https://www.fool.com/earnings/call-transcripts/2026/08/13/redwire-rdw-q2-2026-earnings-call-transcript/"
+        },
+        {
+          "name": "BlackSky Technology",
+          "ticker": "NYSE:BKSY",
+          "exchange": "NYSE",
+          "country": "US",
+          "secCik": "0001753539",
+          "layer": "candidate",
+          "subsector": "Real-time Earth observation / geospatial AI",
+          "thesis": "BlackSky reported Q2 2026 revenue of $33.3M (+50% YoY) with record imagery/AI services revenue of $24.5M and reaffirmed 2026 revenue guidance of $130-150M.",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/0001753539/000175353926000118/exhibit991-blackskyq22026e.htm"
+        },
+        {
+          "name": "Firefly Aerospace",
+          "ticker": "NASDAQ:FLY",
+          "exchange": "NASDAQ",
+          "country": "US",
+          "secCik": null,
+          "layer": "candidate",
+          "subsector": "Launch + lunar/spacecraft",
+          "thesis": "Firefly reported record Q2 2026 revenue of $117.7M (about +659% YoY) and a backlog of about $1.5B, maintaining 2026 revenue guidance of $420-450M.",
+          "sourceUrl": "https://www.marketbeat.com/instant-alerts/firefly-aerospace-q2-earnings-call-highlights-2026-08-11/"
+        },
+        {
+          "name": "Karman Space & Defense (Karman Holdings)",
+          "ticker": "NYSE:KRMN",
+          "exchange": "NYSE",
+          "country": "US",
+          "secCik": "0002040127",
+          "layer": "candidate",
+          "subsector": "Missile, launch & space subsystems",
+          "thesis": "Karman reported record Q2 FY2026 revenue of $182.1M (+58.2% YoY), backlog of $1.3B and raised 2026 revenue guidance to $730-745M.",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/0002040127/000204012726000018/krmn-ex99_1.htm"
+        },
+        {
+          "name": "Iridium Communications",
+          "ticker": "NASDAQ:IRDM",
+          "exchange": "NASDAQ",
+          "country": "US",
+          "secCik": "0001418819",
+          "layer": "candidate",
+          "subsector": "LEO satellite communications / IoT / PNT",
+          "thesis": "Iridium reported Q3 2026 revenue of $245.7M (+8%) and 2.696M billable subscribers; its stockholders approved on 24 Sep 2026 the pending acquisition by Rocket Lab (announced at ~$8.0B enterprise value, closing expected mid-2027).",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/0001418819/000141881926000053/pressreleaseq32026.htm"
+        },
+        {
+          "name": "Hanwha Aerospace",
+          "ticker": "KRX:012450",
+          "exchange": "KRX",
+          "country": "KR",
+          "secCik": null,
+          "layer": "leader",
+          "subsector": "Land systems (K9, Chunmoo), aero engines, space (Nuri), shipbuilding (Hanwha Ocean)",
+          "thesis": "Hanwha Aerospace's Q3 2026 consolidated revenue was KRW 6.0943T and operating profit KRW 452.0bn (-46% YoY) as Polish K9 and Chunmoo deliveries shifted into Q4.",
+          "sourceUrl": "https://biz.sbs.co.kr/amp/article/20000343061"
+        },
+        {
+          "name": "LIG Nex1 (renaming to LIG Defense & Aerospace)",
+          "ticker": "KRX:079550",
+          "exchange": "KRX",
+          "country": "KR",
+          "secCik": null,
+          "layer": "leader",
+          "subsector": "Guided missiles / air defense (Cheongung-II), electronic warfare",
+          "thesis": "LIG's order backlog was about KRW 24.54T at end-Q3 2026, roughly flat QoQ, on preliminary Q3 revenue of KRW 1.0713T (+2.1% YoY).",
+          "sourceUrl": "https://dealsite.co.kr/articles/172275"
+        },
+        {
+          "name": "Korea Aerospace Industries (KAI)",
+          "ticker": "KRX:047810",
+          "exchange": "KRX",
+          "country": "KR",
+          "secCik": null,
+          "layer": "leader",
+          "subsector": "Military aircraft (KF-21, FA-50), satellites",
+          "thesis": "KAI's preliminary Q3 2026 consolidated revenue was KRW 1.0643T (+51.6% YoY) with operating profit of KRW 79.4bn (+31.9%), driven by finished-aircraft exports.",
+          "sourceUrl": "https://m.ceoscoredaily.com/page/view/2026110317442403048"
         },
         {
           "name": "Satrec Initiative",
           "ticker": "KOSDAQ:099320",
           "exchange": "KOSDAQ",
-          "country": "South Korea",
+          "country": "KR",
           "secCik": null,
           "layer": "candidate",
-          "subsector": "Earth-observation satellites and data",
-          "thesis": "Korean maker of small and medium Earth-observation satellites and payloads, which also sells satellite imagery and analytics through subsidiaries; Hanwha Aerospace is its largest shareholder.",
-          "sourceUrl": "https://www.satreci.com/"
+          "subsector": "Earth observation satellites & ground systems",
+          "thesis": "Satrec Initiative won a KRW 283.1bn overseas satellite-imagery acquisition equipment supply contract in Feb 2026.",
+          "sourceUrl": "https://dealsite.co.kr/articles/170768"
         },
         {
           "name": "Intellian Technologies",
           "ticker": "KOSDAQ:189300",
           "exchange": "KOSDAQ",
-          "country": "South Korea",
+          "country": "KR",
           "secCik": null,
           "layer": "candidate",
-          "subsector": "Satellite antennas / ground terminals",
-          "thesis": "Makes satellite user terminals and gateway antennas for maritime, enterprise and LEO and multi-orbit networks such as OneWeb (Eutelsat).",
-          "sourceUrl": "https://www.intelliantech.com/"
+          "subsector": "Satellite antennas / LEO gateways & user terminals",
+          "thesis": "Intellian reported record Q2 2026 revenue of KRW 97.2bn (+30.1% YoY) and operating profit of KRW 7.1bn on LEO satcom and defense demand.",
+          "sourceUrl": "https://etfshopping.com/stock/189300/earnings"
         },
         {
-          "name": "Hanwha Aerospace",
-          "ticker": "KRX:012450",
-          "exchange": "KOSPI",
-          "country": "South Korea",
+          "name": "HVM Co., Ltd.",
+          "ticker": "KOSDAQ:295310",
+          "exchange": "KOSDAQ",
+          "country": "KR",
           "secCik": null,
-          "layer": "leader",
-          "subsector": "Defense systems, launch-vehicle engines, satellites",
-          "thesis": "Korean defense group making K9 artillery and engines, including the engines for the KSLV-II Nuri launcher; it is prime contractor for Nuri technology transfer and the controlling shareholder of Satrec Initiative.",
-          "sourceUrl": "https://www.hanwhaaerospace.com/"
+          "layer": "candidate",
+          "subsector": "High-purity advanced metals for launch vehicles / aerospace",
+          "thesis": "HVM (KOSDAQ 295310) reported Q2 2026 revenue of KRW 29.2bn (+74.3% YoY) and operating profit of KRW 2.0bn (aggregator figures; verify against DART).",
+          "sourceUrl": "https://etfshopping.com/stock/295310/earnings"
         },
         {
-          "name": "Korea Aerospace Industries",
-          "ticker": "KRX:047810",
-          "exchange": "KOSPI",
-          "country": "South Korea",
+          "name": "Innospace",
+          "ticker": "KOSDAQ:462350",
+          "exchange": "KOSDAQ",
+          "country": "KR",
           "secCik": null,
-          "layer": "leader",
-          "subsector": "Military aircraft + satellites/launch integration",
-          "thesis": "Korea's main airframe maker (KF-21, FA-50), which also integrates Korean multipurpose satellites (CAS500) and Nuri launch-vehicle systems.",
-          "sourceUrl": "https://www.koreaaero.com/"
+          "layer": "candidate",
+          "subsector": "Small-satellite hybrid-propellant launch (HANBIT)",
+          "thesis": "Innospace's first commercial HANBIT-Nano launch (Dec 2025, Brazil) ended about 30 seconds after liftoff; the company attributed it to a fin-control algorithm issue and planned a re-flight in Nov 2026.",
+          "sourceUrl": "https://www.mt.co.kr/tech/2026/09/30/2026093008565859904"
         }
       ],
       "startups": [
         {
-          "name": "SpaceX (Space Exploration Technologies)",
-          "country": "US",
-          "what": "Reusable launch (Falcon 9/Heavy, Starship), Starlink satellite broadband and direct-to-cell service, and Starshield national-security satellites.",
-          "valuationUsd": null,
-          "valuationDate": null,
-          "valuationUrl": null,
-          "holders": [
-            {
-              "holder": "Alphabet Inc. (Google)",
-              "holderTicker": "NASDAQ:GOOGL",
-              "pctOwned": null,
-              "amountUsd": null,
-              "basis": "reported",
-              "asOf": "2015-01-20",
-              "url": "https://abc.xyz/investor/",
-              "note": "Google and Fidelity jointly put $1B into SpaceX in January 2015 (company-disclosed total). Google's own share (about $900M) and the often-quoted stake of about 7% come from press reports only. Neither number was confirmed against a primary source in this run, so pct is null. Alphabet's own filings report gains on non-marketable equity securities without stating a percentage.",
-              "check": "cited"
-            },
-            {
-              "holder": "EchoStar Corporation",
-              "holderTicker": "NASDAQ:SATS",
-              "pctOwned": null,
-              "amountUsd": 8500000000,
-              "basis": "company-disclosure",
-              "asOf": "2025-09-08",
-              "url": "https://ir.echostar.com/",
-              "note": "EchoStar is selling its AWS-4 and H-block spectrum to SpaceX for about $17B: about $8.5B in cash and about $8.5B in SpaceX stock, plus SpaceX paying about $2B of EchoStar debt interest. A second deal in November 2025 for AWS-3 unpaired spectrum added about $2.6B more in SpaceX stock (from model memory). No ownership % was disclosed. The specific press-release URL was not fetched in this run, so the IR landing page is given.",
-              "check": "cited"
-            }
-          ],
-          "valuationCheck": "cited"
-        },
-        {
           "name": "Anduril Industries",
           "country": "US",
-          "what": "Autonomous defense systems: Lattice command-and-control software, Fury collaborative combat aircraft, Roadrunner interceptors, Ghost drones, undersea vehicles, and space surveillance sensors.",
-          "valuationUsd": 30500000000,
-          "valuationDate": "2025-06-05",
-          "valuationUrl": "https://www.anduril.com/",
+          "what": "Autonomous defense systems (drones, counter-UAS, Lattice software, munitions)",
+          "valuationUsd": 61000000000,
+          "valuationDate": "2026-05-13",
+          "valuationUrl": "https://washingtontechnology.com/companies/2026/05/anduril-hauls-5b-series-h-round/413515/",
           "holders": [],
           "valuationCheck": "cited"
         },
         {
           "name": "Shield AI",
           "country": "US",
-          "what": "Hivemind AI pilot software for autonomous aircraft and the V-BAT vertical-takeoff drone.",
-          "valuationUsd": 5300000000,
-          "valuationDate": "2025-03-06",
-          "valuationUrl": "https://shield.ai/",
-          "holders": [],
+          "what": "AI pilot software (Hivemind) and autonomous aircraft (V-BAT)",
+          "valuationUsd": 12700000000,
+          "valuationDate": "2026-03-26",
+          "valuationUrl": "https://www.businesswire.com/news/home/20260326446258/en/Shield-AI-to-Acquire-Software-Simulation-Company-Aechelon-and-Raise-%242B-at-%2412.7B-Valuation",
+          "holders": [
+            {
+              "holder": "JPMorgan Chase & Co. (Strategic Investment Group, Security and Resiliency Initiative)",
+              "holderTicker": "NYSE:JPM",
+              "pctOwned": null,
+              "amountUsd": null,
+              "basis": "company-disclosure",
+              "asOf": "2026-03-26",
+              "url": "https://www.businesswire.com/news/home/20260326446258/en/Shield-AI-to-Acquire-Software-Simulation-Company-Aechelon-and-Raise-%242B-at-%2412.7B-Valuation",
+              "note": "Co-led the $1.5B Series G with Advent International; individual amount not disclosed.",
+              "check": "cited"
+            },
+            {
+              "holder": "Blackstone Inc. (funds managed by)",
+              "holderTicker": "NYSE:BX",
+              "pctOwned": null,
+              "amountUsd": 500000000,
+              "basis": "company-disclosure",
+              "asOf": "2026-03-26",
+              "url": "https://www.businesswire.com/news/home/20260326446258/en/Shield-AI-to-Acquire-Software-Simulation-Company-Aechelon-and-Raise-%242B-at-%2412.7B-Valuation",
+              "note": "$500M fixed-return preferred equity, not common equity.",
+              "check": "cited"
+            }
+          ],
           "valuationCheck": "cited"
         },
         {
           "name": "Saronic Technologies",
           "country": "US",
-          "what": "Autonomous uncrewed surface vessels (Corsair, Cutlass, Marauder) for navies, plus a shipyard (Port Alpha).",
-          "valuationUsd": 4000000000,
-          "valuationDate": "2025-02-18",
-          "valuationUrl": "https://www.saronic.com/",
-          "holders": [],
+          "what": "Autonomous surface vessels and shipbuilding (Port Alpha)",
+          "valuationUsd": 9250000000,
+          "valuationDate": "2026-03-31",
+          "valuationUrl": "https://siliconangle.com/2026/03/31/saronic-raises-1-75b-9-25b-valuation-ramp-autonomous-ship-production/",
+          "holders": [
+            {
+              "holder": "Franklin Templeton (Franklin Resources, Inc.)",
+              "holderTicker": "NYSE:BEN",
+              "pctOwned": null,
+              "amountUsd": null,
+              "basis": "company-disclosure",
+              "asOf": "2026-03-31",
+              "url": "https://tools.prnewswire.com/en-us/live/20823/release/20260331EN21888",
+              "note": "Named as an existing investor participating in the $1.75B Series D; likely via managed funds rather than balance sheet.",
+              "check": "cited"
+            }
+          ],
           "valuationCheck": "cited"
         },
         {
           "name": "Helsing",
-          "country": "Germany",
-          "what": "European defense AI software, HX-2 strike drones, SG-1 Fathom underwater gliders, and AI for the Eurofighter EK electronic-warfare variant.",
-          "valuationUsd": null,
-          "valuationDate": "2025-06-17",
-          "valuationUrl": "https://helsing.ai/",
+          "country": "DE",
+          "what": "Defense AI software, strike drones (HX-2) and autonomous systems",
+          "valuationUsd": 18000000000,
+          "valuationDate": "2026-07-13",
+          "valuationUrl": "https://helsing.ai/newsroom/helsing-raises-1-8bn-in-series-e",
           "holders": [
             {
               "holder": "Saab AB",
               "holderTicker": "STO:SAAB-B",
+              "pctOwned": 5,
+              "amountUsd": null,
+              "basis": "company-disclosure",
+              "asOf": "2023-09-14",
+              "url": "https://www.saab.com/newsroom/press-releases/2023/saab-signs-strategic-cooperation-agreement-and-makes-investment-in-helsing",
+              "note": "EUR 75M for a 5% stake at the time (2023); likely diluted by Series C/D/E - no current % found.",
+              "check": "cited"
+            },
+            {
+              "holder": "Goldman Sachs (Goldman Sachs Alternatives)",
+              "holderTicker": "NYSE:GS",
               "pctOwned": null,
               "amountUsd": null,
               "basis": "reported",
-              "asOf": null,
-              "url": "https://www.saab.com/",
-              "note": "Saab was reported as a strategic investor in Helsing (around its 2023 round). Neither the amount nor a % was found in a source, and the press release was not fetched in this run, so this needs checking. The valuation was €12B (June 2025 round of €600M led by Prima Materia). It is stated in EUR, so valuationUsd is left null rather than converted.",
+              "asOf": "2026-07-13",
+              "url": "https://sifted.eu/articles/helsing-funding-round-goldman-lightspeed-jp-morgan",
+              "note": "Named investor in the $1.8B Series E; amount not disclosed.",
+              "check": "cited"
+            },
+            {
+              "holder": "JPMorgan Chase & Co.",
+              "holderTicker": "NYSE:JPM",
+              "pctOwned": null,
+              "amountUsd": null,
+              "basis": "reported",
+              "asOf": "2026-07-13",
+              "url": "https://sifted.eu/articles/helsing-funding-round-goldman-lightspeed-jp-morgan",
+              "note": "Named investor in the $1.8B Series E; amount not disclosed.",
+              "check": "cited"
+            }
+          ],
+          "valuationCheck": "cited"
+        },
+        {
+          "name": "Sierra Space",
+          "country": "US",
+          "what": "Dream Chaser spaceplane, inflatable habitats, defense space systems",
+          "valuationUsd": 8000000000,
+          "valuationDate": "2026-03-05",
+          "valuationUrl": "https://aviationweek.com/space/satellites/sierra-space-raises-550m-series-c-round",
+          "holders": [],
+          "valuationCheck": "cited"
+        },
+        {
+          "name": "Stoke Space",
+          "country": "US",
+          "what": "Fully reusable medium-lift launch vehicle (Nova)",
+          "valuationUsd": 9000000000,
+          "valuationDate": "2026-08",
+          "valuationUrl": "https://news.bgov.com/private-equity/stoke-space-is-raising-1-billion-to-fund-flagship-nova-rocket",
+          "holders": [],
+          "valuationCheck": "cited"
+        },
+        {
+          "name": "Axiom Space",
+          "country": "US",
+          "what": "Commercial space station modules, private astronaut missions, NASA lunar spacesuits",
+          "valuationUsd": null,
+          "valuationDate": null,
+          "valuationUrl": null,
+          "holders": [
+            {
+              "holder": "Boryung Corp.",
+              "holderTicker": "KRX:003850",
+              "pctOwned": 2.7,
+              "amountUsd": null,
+              "basis": "company-disclosure",
+              "asOf": "2022-12",
+              "url": "https://m.dailypharm.com/user/news/33049",
+              "note": "KRW 64.9bn Series C investment (295,980 convertible preferred shares) took the stake to 2.7%, after an earlier $10M for 0.40%; no newer % found after the 2026 raise.",
+              "check": "cited"
+            },
+            {
+              "holder": "4iG Nyrt.",
+              "holderTicker": "BET:4IG",
+              "pctOwned": null,
+              "amountUsd": null,
+              "basis": "reported",
+              "asOf": "2026-02-13",
+              "url": "https://www.satellitetoday.com/finance/2026/02/13/axiom-space-raises-350m-in-a-mix-of-equity-and-debt/",
+              "note": "Hungarian listed company named as participant in the $350M (later upsized to >$525M) equity+debt round.",
               "check": "cited"
             }
           ],
@@ -3087,70 +3177,15 @@
         {
           "name": "Relativity Space",
           "country": "US",
-          "what": "Terran R reusable medium-lift rocket using additively manufactured structures.",
-          "valuationUsd": null,
-          "valuationDate": null,
-          "valuationUrl": "https://www.relativityspace.com/",
-          "holders": [],
-          "valuationCheck": "cited"
-        },
-        {
-          "name": "Sierra Space",
-          "country": "US",
-          "what": "Dream Chaser spaceplane, LIFE inflatable habitats, and defense satellite buses/constellations.",
-          "valuationUsd": 5300000000,
-          "valuationDate": "2023-09-26",
-          "valuationUrl": "https://www.sierraspace.com/",
-          "holders": [
-            {
-              "holder": "Mitsui & Co.",
-              "holderTicker": "TYO:8031",
-              "pctOwned": null,
-              "amountUsd": null,
-              "basis": "reported",
-              "asOf": "2023-09-26",
-              "url": "https://www.sierraspace.com/",
-              "note": "Reported as an investor in Sierra Space's Series B ($290M at $5.3B). The amount and % were not found in a source, and the primary release was not fetched in this run.",
-              "check": "cited"
-            },
-            {
-              "holder": "Kanematsu Corporation",
-              "holderTicker": "TYO:8020",
-              "pctOwned": null,
-              "amountUsd": null,
-              "basis": "reported",
-              "asOf": "2023-09-26",
-              "url": "https://www.sierraspace.com/",
-              "note": "Reported as a Japanese strategic investor in Sierra Space's Series B. The amount and % were not found in a source, and the release was not fetched in this run.",
-              "check": "cited"
-            }
-          ],
-          "valuationCheck": "cited"
-        },
-        {
-          "name": "Isar Aerospace",
-          "country": "Germany",
-          "what": "Spectrum small-to-medium orbital launch vehicle; first orbital attempt flown from Andøya, Norway, in March 2025.",
+          "what": "Terran R reusable medium-lift launch vehicle; controlled by Eric Schmidt since 2025",
           "valuationUsd": null,
           "valuationDate": null,
           "valuationUrl": null,
-          "holders": [
-            {
-              "holder": "Porsche Automobil Holding SE",
-              "holderTicker": "XETRA:PAH3",
-              "pctOwned": null,
-              "amountUsd": null,
-              "basis": "reported",
-              "asOf": null,
-              "url": "https://www.porsche-se.com/",
-              "note": "Porsche SE has been reported as an investor in Isar Aerospace since 2021-22. No amount or % was found in a source, and this was not verified in this run.",
-              "check": "cited"
-            }
-          ],
+          "holders": [],
           "valuationCheck": "cited"
         }
       ],
-      "researchNotes": "VERIFICATION STATUS: NOT LIVE-VERIFIED. The shared WebSearch budget for this turn (200 calls across all agents) ran out before this agent's first search. Direct fetches then failed: www.sec.gov returned a proxy 403, and both www.sec.gov and www.weforum.org failed DNS resolution. Following the session rules, no further sites were tried. To verify, those hosts need to be allowed in the session's network settings, or the search budget (CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION) raised, with a follow-up run.\n\nAll items above therefore come from model knowledge (cutoff around mid-2026). They must be checked by the updater before anyone relies on them. Where an exact press-release URL could not be confirmed, the company's IR or home page is given, so most sourceUrl, valuationUrl and holder URLs are landing pages.\n\nSEC CIKs: all set to null because none could be confirmed on sec.gov. These candidates from memory should be checked against https://www.sec.gov/files/company_tickers.json: RKLB 0001819994, ASTS 0001780312, PL 0001836935, LUNR 0001844452, RDW 0001819810, LMT 0000936468, NOC 0001133421, KTOS 0001069258, AVAV 0001368622, IRDM 0001418819, BKSY 0001753706, GOOGL 0001652044, SATS 0001415404. FLY, KRMN, VOYG and SPIR are unknown.\n\nStartup valuations: Anduril $30.5B (Series G, June 2025), Shield AI $5.3B (March 2025), Saronic $4B (Series C, February 2025) and Sierra Space $5.3B (Series B, September 2023) are the latest primary rounds known to the model. More recent rounds may exist by 2026-11-08.\n\nSpaceX valuation is left null on purpose. Reports through 2025-26 (secondary tenders, the reported xAI combination and IPO preparation) change too quickly to state without a fetched source; if SpaceX has listed by now, move it to publicCompanies.\n\nHelsing's €12B valuation (June 2025) is in EUR and was not converted.\n\nNo startup holder ownership % could be confirmed. Every pctOwned is null; do not use the press-quoted ~7% Alphabet/SpaceX figure until a primary or reputable source is fetched.\n\nGaps to fill next run:\n(a) HVM: Korean special-metals supplier for space and defense; its KOSDAQ ticker is unconfirmed, so it is left out.\n(b) Innospace: Korean launch startup that listed on KOSDAQ in 2024; its ticker is unconfirmed.\n(c) Public holders of Axiom Space: Boryung (KRX:003850) was reported as an investor and in a joint venture (Brax Space); unverified, so left out.\n(d) Public holders of Shield AI, Anduril, Saronic and Relativity: none confirmed. Relativity is now controlled by Eric Schmidt personally (2025, reported).\n(e) Space Foundation 'The Space Report' (2024 global space economy about $613B) and Goldman Sachs LEO estimates were left out because their source URLs could not be confirmed.\n(f) Firefly is listed as public (NASDAQ:FLY, IPO August 2025), not as a startup.\n\nNo revenue, FCF or runway figures were collected for public companies; they need a run with EDGAR or DART access."
+      "researchNotes": "Redone 2026-11-08 with live web search (search-result attribution; pages not re-opened). SpaceX listed 2026-06-12 as NASDAQ:SPCX and is in publicCompanies."
     },
     {
       "id": "energy-nuclear",
