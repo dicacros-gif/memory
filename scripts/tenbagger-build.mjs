@@ -2,6 +2,7 @@ import { readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { rowFacts, tvTicker } from "./tenbagger-screen.mjs";
+import { PRESETS, applyFilters } from "../tenbagger/js/presets.js";
 
 /**
  * Ten-bagger company-data layer for the static site.
@@ -386,14 +387,73 @@ async function fetchFx(previous) {
   }
 }
 
+const DIGEST_PRESETS = ["cash-growers", "pullback", "funding-risk"];
+
+/**
+ * What changed for an investor since the previous run: companies entering or
+ * leaving each preset, new offering filings, large price moves, companies
+ * added to coverage, and startup status changes. Every item points at data
+ * already in companies.json / startups.json.
+ */
+export function buildDigest({ previous, companies, prevStartups, startups, fx, now }) {
+  const prevById = new Map((previous?.companies || []).map((c) => [c.id, c]));
+  const usd = (c) => ({ ...c, _liqUsd: c.currency === "USD" ? c.avgTradedValue20d : c.currency === "KRW" && fx?.rate ? (c.avgTradedValue20d ?? null) / fx.rate : null });
+  const ids = (list, key) => new Set(applyFilters(list.map(usd), PRESETS[key].params).map((c) => c.id));
+  const presets = DIGEST_PRESETS.map((key) => {
+    const nowSet = ids(companies, key);
+    const before = previous ? ids(previous.companies || [], key) : null;
+    return {
+      key, label: PRESETS[key].label, rule: PRESETS[key].text, count: nowSet.size,
+      entered: before ? [...nowSet].filter((id) => !before.has(id)) : [],
+      left: before ? [...before].filter((id) => !nowSet.has(id)) : [],
+    };
+  });
+  const since = previous?.generatedAt?.slice(0, 10) || null;
+  // New offering filings: present now and absent from the previous run's list for the same company.
+  const raises = previous ? companies.flatMap((c) => {
+    const prevFilings = prevById.get(c.id)?.filings;
+    if (!Array.isArray(prevFilings)) return []; // no baseline for this company yet
+    const seen = new Set(prevFilings.map((f) => f.url));
+    const floor = since ? new Date(Date.parse(since) - 7 * DAY).toISOString().slice(0, 10) : "";
+    return (c.filings || []).filter((f) => f.capitalRaise && !seen.has(f.url) && f.date >= floor).map((f) => ({ id: c.id, name: c.name, form: f.form, date: f.date, url: f.url }));
+  }) : [];
+  const moves = companies.map((c) => {
+    const p = prevById.get(c.id);
+    if (!p || !isNum(p.price) || !isNum(c.price) || p.price <= 0 || p.currency !== c.currency) return null;
+    const change = (c.price / p.price - 1) * 100;
+    return Math.abs(change) >= 15 ? { id: c.id, name: c.name, changePct: round(change), from: p.price, to: c.price, currency: c.currency } : null;
+  }).filter(Boolean).sort((a, b) => Math.abs(b.changePct) - Math.abs(a.changePct)).slice(0, 20);
+  const prevSt = new Map((prevStartups?.startups || []).map((s) => [s.id, s]));
+  const startupChanges = prevStartups ? startups.filter((s) => prevSt.get(s.id) && prevSt.get(s.id).entityType !== s.entityType)
+    .map((s) => ({ id: s.id, name: s.name, from: prevSt.get(s.id).entityType, to: s.entityType })) : [];
+  const added = previous ? companies.filter((c) => !prevById.has(c.id) && c.coverage !== "screen").map((c) => ({ id: c.id, name: c.name })) : [];
+  return { generatedAt: now, since, presets, raises, moves, startupChanges, added,
+    note: "직전 데이터 갱신 대비 변화. 프리셋 진입·이탈은 조건 충족 여부의 변화일 뿐 매수·매도 신호가 아닙니다." };
+}
+
+/** Small artifact for the landing page (assets/js/tenbagger-radar.js). */
+export function buildLanding({ industries, companies, digest, fx, metricsAt }) {
+  const byId = new Map(companies.map((c) => [c.id, c]));
+  const brief = (id) => { const c = byId.get(id); return c ? { id, name: c.name, ticker: c.ticker, revenueGrowthPct: c.revenueGrowthPct, fcfPositive: c.fcfPositive, runwayYears: c.runwayCashPlusStiYears, marketCapUsd: c.marketCapUsd } : null; };
+  const ranked = industries.filter((i) => isNum(i.observed.medianRevenueGrowthPct)).sort((a, b) => b.observed.medianRevenueGrowthPct - a.observed.medianRevenueGrowthPct);
+  return {
+    schemaVersion: "2.0", generatedAt: digest.generatedAt, dataDate: metricsAt || null, fx: fx || null,
+    industries: ranked.slice(0, 6).map((i) => ({ id: i.id, name: i.name, observed: i.observed.medianRevenueGrowthPct, observedN: i.observed.companies, forecast: i.forecastCagrRange, periods: i.forecastPeriods })),
+    presets: digest.presets.map((p) => ({ key: p.key, label: p.label, rule: p.rule, count: p.count,
+      entered: p.entered.map(brief).filter(Boolean).slice(0, 5), top: companies.filter((c) => p.entered.includes(c.id)).length ? [] : [] })),
+    raises: digest.raises.slice(0, 5), moves: digest.moves.slice(0, 5), added: digest.added.slice(0, 8), startupChanges: digest.startupChanges,
+    counts: { companies: companies.filter((c) => c.coverage !== "screen").length, us: companies.filter((c) => c.market === "US" && c.coverage !== "screen").length, kr: companies.filter((c) => c.market === "KR" && c.coverage !== "screen").length },
+  };
+}
+
 const readJson = async (name) => { try { return JSON.parse(await readFile(P(name), "utf8")); } catch { return null; } };
 const writeJson = async (name, value) => { await writeFile(`${P(name)}.tmp`, `${JSON.stringify(value)}\n`); await rename(`${P(name)}.tmp`, P(name)); };
 
 async function main() {
   const now = new Date();
   const iso = now.toISOString();
-  const [universe, metrics, screen, cohort, prevCompanies, prevChangelog, prevStatus, prevFx, yf, tv, dart] = await Promise.all(
-    ["universe.json", "metrics.json", "screen.json", "cohort.json", "companies.json", "changelog.json", "status.json", "fx.json", "yf-cache.json", "tv-cache.json", "dart-cache.json"].map(readJson));
+  const [universe, metrics, screen, cohort, prevCompanies, prevChangelog, prevStatus, prevFx, yf, tv, dart, prevStartups] = await Promise.all(
+    ["universe.json", "metrics.json", "screen.json", "cohort.json", "companies.json", "changelog.json", "status.json", "fx.json", "yf-cache.json", "tv-cache.json", "dart-cache.json", "startups.json"].map(readJson));
   if (!universe) throw new Error("universe.json missing");
   // Research additions: confirm each listing before it is published.
   const tvByTicker = new Map((tv?.rows || []).map((r) => [r.ticker, r]));
@@ -421,6 +481,9 @@ async function main() {
     cohort: { ok: cohort ? true : null, at: cohort?.generatedAt },
   });
   status.verification = verification;
+  const digest = buildDigest({ previous: prevCompanies, companies, prevStartups, startups, fx: fx.fx, now: iso });
+  await writeJson("digest.json", digest);
+  await writeJson("landing-client.json", buildLanding({ industries, companies, digest, fx: fx.fx, metricsAt: metrics?.generatedAt }));
   if (fx.fx) await writeJson("fx.json", fx.fx);
   await writeJson("companies.json", { schemaVersion: "1.0", generatedAt: iso, metricsAt: metrics?.generatedAt || null, screenAt: screen?.fetchedAt || null, fx: fx.fx || null, companies });
   await writeJson("industries.json", { schemaVersion: "1.0", generatedAt: iso, industries });

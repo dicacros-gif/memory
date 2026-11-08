@@ -46,13 +46,13 @@ async function render() {
   const route = parseHash();
   document.querySelectorAll(".tb-nav a").forEach((a) => a.setAttribute("aria-current", a.dataset.view === route.view ? "page" : "false"));
   skeleton(main, 8);
-  const { data, errors } = await loadAll(["companies", "industries", "startups", "history", "status", "changelog", "sources"]);
+  const { data, errors } = await loadAll(["companies", "industries", "startups", "history", "status", "changelog", "sources", "digest"]);
   const need = { industries: ["industries", "companies"], companies: ["companies", "industries", "startups"], startups: ["startups", "companies"], history: ["history"], sources: ["status"] }[route.view];
   const missing = errors.filter((e) => need.includes(e.name));
   if (missing.length) { errorBanner(main, missing, render); return; }
   if (data.companies && data.industries) renderBar(data, route);
   const companies = data.companies?.companies || [];
-  const ctx = { companies, industries: data.industries?.industries || [], startups: data.startups?.startups || [], fx: data.companies?.fx, params: route.params };
+  const ctx = { digest: data.digest || null, companies, industries: data.industries?.industries || [], startups: data.startups?.startups || [], fx: data.companies?.fx, params: route.params };
   if (route.view === "industries") {
     const ind = route.sub && ctx.industries.find((i) => i.id === route.sub);
     if (ind) renderIndustry(main, { industry: ind, companies }); else renderIndustries(main, ctx);

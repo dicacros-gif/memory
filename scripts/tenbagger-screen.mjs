@@ -379,9 +379,7 @@ async function main() {
   } else {
     console.log(JSON.stringify({ tenbaggerScreen: "kept-previous", rows: cache?.rows?.length || 0, errors: cache?.errors || null }));
   }
-  const landing = buildLandingClient(screen, universe, await readJson(METRICS));
-  if (landing) await writeJson(LANDING, landing);
-  console.log(JSON.stringify({ tenbaggerLanding: landing ? "written" : "skipped", candidates: landing?.candidateCount ?? 0 }));
+  // The landing artifact (landing-client.json) is written by tenbagger-build.mjs from the company data layer.
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main();
