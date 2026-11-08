@@ -395,3 +395,18 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   assert.match(f.nextEarnings, /^\d{4}-\d{2}-\d{2}$/);
   console.log(JSON.stringify({ tenbaggerAccelAndTvRatios: "pass" }));
 }
+
+// Industry percentile ranks and relative strength.
+{
+  const { industryRanks } = await import("./tenbagger-build.mjs");
+  const { relativeStrength } = await import("./tenbagger-positioning.mjs");
+  const mk = (i, g, ps) => ({ id: `c${i}`, industries: [{ id: "x" }], revenueGrowthPct: g, priceToSales: ps, quant: {}, valuation: {} });
+  const cs = [mk(1, 10, 2), mk(2, 20, 4), mk(3, 30, 6), mk(4, 40, 8), mk(5, 50, 10), { id: "lone", industries: [{ id: "y" }], revenueGrowthPct: 99, quant: {} }];
+  industryRanks(cs);
+  assert.equal(cs[4].ranks.revenueGrowthPct.pct, 100); assert.equal(cs[0].ranks.revenueGrowthPct.pct, 0);
+  assert.equal(cs[0].ranks.priceToSales.pct, 100, "cheapest P/S ranks highest"); assert.equal(cs[2].ranks.revenueGrowthPct.n, 5);
+  assert.equal(cs[5].ranks, null, "fewer than five peers: no rank");
+  const rs = relativeStrength({ return3mPct: 12.5, return1yPct: null }, { id: "x", return3mPct: 2.5, return1yPct: 30 });
+  assert.equal(rs.rs3mPts, 10); assert.equal(rs.rs1yPts, null);
+  console.log(JSON.stringify({ tenbaggerRanksAndRs: "pass" }));
+}

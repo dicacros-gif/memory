@@ -349,7 +349,38 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     };
     rec.newlyAdded = recentAdds.has(rec.id) ? recentAdds.get(rec.id) : (previousCompanies && !prevIds.has(rec.id) && rec.coverage !== "screen" ? now.toISOString().slice(0, 10) : null);
   }
-  return [...out.values()];
+  const all = [...out.values()];
+  industryRanks(all);
+  return all;
+}
+
+/**
+ * Where each company sits among peers of its first industry on each indicator:
+ * percentile 0–100 oriented so higher is better (lower P/S and forward P/E rank
+ * higher). Needs at least five peers with a value; otherwise no rank.
+ */
+export const RANK_KEYS = {
+  revenueGrowthPct: [(c) => c.revenueGrowthPct, 1], revenueCagr3yPct: [(c) => c.quant?.revenueCagr3yPct, 1],
+  revenueAccelPts: [(c) => c.quant?.revenueAccelPts, 1], grossMarginPct: [(c) => c.grossMarginPct, 1],
+  ruleOf40: [(c) => c.quant?.ruleOf40, 1], fcfYieldPct: [(c) => c.quant?.fcfYieldPct, 1],
+  netCashToMcapPct: [(c) => c.quant?.netCashToMcapPct, 1], roePct: [(c) => c.quant?.roePct, 1],
+  priceToSales: [(c) => c.priceToSales, -1], forwardPE: [(c) => c.valuation?.forwardPE, -1],
+};
+export function industryRanks(companies) {
+  const groups = new Map();
+  for (const c of companies) { const id = c.industries?.[0]?.id; if (id) (groups.get(id) || groups.set(id, []).get(id)).push(c); }
+  for (const c of companies) c.ranks = null;
+  for (const [id, peers] of groups) {
+    for (const [key, [get, dir]] of Object.entries(RANK_KEYS)) {
+      const vals = peers.map((c) => [c, get(c)]).filter(([, v]) => isNum(v));
+      if (vals.length < 5) continue;
+      for (const [c, v] of vals) {
+        const beaten = vals.filter(([, w]) => (dir > 0 ? w < v : w > v)).length;
+        const ties = vals.filter(([, w]) => w === v).length - 1;
+        (c.ranks ||= { industry: id })[key] = { pct: Math.round(((beaten + ties / 2) / (vals.length - 1)) * 100), n: vals.length };
+      }
+    }
+  }
 }
 
 export const slugify = (name) => String(name).toLowerCase().normalize("NFKD").replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "");
