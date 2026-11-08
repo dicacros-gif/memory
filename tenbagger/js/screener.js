@@ -57,6 +57,8 @@ function columns(fx) {
     { key: "debt", label: "차입금", num: true, optional: true, value: (c) => toUsd(c.debt, c.statementCurrency, fx), render: (c) => money(c.debt, c.statementCurrency || "USD") },
     { key: "operatingMarginPct", label: "영업이익률", num: true, optional: true, value: (c) => c.operatingMarginPct, render: (c) => pct(c.operatingMarginPct) },
     { key: "dilutionPct", label: "주식 수 변화(1년)", num: true, optional: true, value: (c) => c.dilutionPct, render: (c) => pct(c.dilutionPct) },
+    { key: "shortPct", label: "공매도/유통주식", num: true, optional: true, title: "미국 상장 · 거래소 집계(월 2회)", value: (c) => c.shortInterest?.pctFloat ?? null,
+      render: (c) => (isNum(c.shortInterest?.pctFloat) ? `<span class="num">${c.shortInterest.pctFloat}%</span><div class="sub">${esc(c.shortInterest.date || "")}</div>` : NO_DATA) },
     { key: "liquidity", label: "일평균 거래대금", num: true, optional: true, value: (c) => c._liqUsd, render: (c) => money(c._liqUsd) },
     { key: "industry", label: "산업", optional: true, value: (c) => c.industries[0]?.name || c.screen?.industryKo || c.screen?.industry || "", render: (c) => esc(c.industries.map((i) => i.name).join(", ") || c.screen?.industryKo || c.screen?.industry || "") || NO_DATA },
     { key: "coverage", label: "편입 경로", optional: true, value: (c) => c.coverage, render: (c) => esc({ universe: "산업 큐레이션", holder: "스타트업 주주", screen: "스크리너" }[c.coverage] || c.coverage) },

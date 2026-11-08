@@ -17,7 +17,7 @@
 
   fetch("data/tenbagger/landing-client.json", { cache: "no-cache" })
     .then((r) => (r.ok ? r.json() : null))
-    .then((d) => {
+    .then(async (d) => {
       if (!d || d.schemaVersion !== "2.0") return;
       const industries = (d.industries || []).map((i) => `<li><b><a href="tenbagger/#industries/${encodeURIComponent(i.id)}">${esc(i.name)}</a></b><span>관측 매출 성장 ${esc(pct(i.observed))} (상장사 ${esc(i.observedN)}곳) · 기관 전망 ${i.forecast ? `연 ${esc(i.forecast[0])}~${esc(i.forecast[1])}%` : "자료 없음"}</span></li>`);
       const presets = (d.presets || []).map((p) => `<li><b><a href="tenbagger/#companies?preset=${encodeURIComponent(p.key)}">${esc(p.label)}</a> · ${esc(p.count)}개</b><span>${esc(p.rule)}${p.entered.length ? ` · 새로 충족: ${p.entered.map(company).join(", ")}` : ""}</span></li>`);
@@ -27,8 +27,12 @@
         ...(d.added || []).map((a) => `<li><b>${company(a)}</b><span>추적 대상에 추가(상장 확인 완료)</span></li>`),
         ...(d.startupChanges || []).map((s) => `<li><b><a href="tenbagger/#startups/${encodeURIComponent(s.id)}">${esc(s.name)}</a></b><span>상태 변경 ${esc(s.from)} → ${esc(s.to)}</span></li>`),
       ];
+      const pos = await fetch("data/tenbagger/positioning.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+      const REG = { "de-risking": "디리스킹", uptrend: "상승 추세", downtrend: "하락 추세", neutral: "중립" };
+      const positioning = (pos?.industries || []).filter((r) => !r.insufficient).map((r) => `<li><b><a href="tenbagger/#industries/${encodeURIComponent(r.id)}">${esc(r.name)}</a> · ${esc(REG[r.regime] || r.regime)}</b><span>모멘텀 z ${num(r.momentum) ? r.momentum.toFixed(2) : "자료 없음"} · 3개월 고점 대비 ${esc(pct(r.drawdown3mPct))} · 200일선 위 ${num(r.breadth200) ? `${r.breadth200}%` : "자료 없음"}</span></li>`);
       const body = [
         card("성장 산업", "추적 상장사의 실제 매출 성장(관측)과 기관 전망을 따로 표시", industries),
+        card("수급·포지션", `산업별 동일가중 지수 · ${esc(day(pos?.industries?.find((r) => r.asOf)?.asOf) || "-")} 종가`, positioning),
         card("스크리너 프리셋", "조건을 그대로 공개 · 매수 의견 아님", presets),
         card("오늘의 변화", "직전 데이터 갱신 이후 공시·가격·편입 변화", events.slice(0, 10)),
       ].filter(Boolean);

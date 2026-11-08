@@ -219,6 +219,7 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     rec.returns = { m12: m?.returns?.m12 ?? r?.perf1yPct ?? null, m36: m?.returns?.m36 ?? null, m60: m?.returns?.m60 ?? r?.perf5yPct ?? null, ...trend(m?.series) };
     if (!isNum(rec.returns.offHigh12mPct) && r) rec.returns.offHigh12mPct = r.offHighPct ?? null;
     rec.avgTradedValue20d = m?.avgTradedValue20d ?? null; // listing currency
+    rec.shortInterest = m?.shortInterest ?? null;
     rec.tenBagger = m?.tenBagger ?? null;
     rec.quarters = f?.quarters || [];
     rec.annual = f?.annual || [];
@@ -472,7 +473,8 @@ async function main() {
   const startups = buildStartups({ universe, companies });
   const industries = buildIndustries({ universe, companies, startups, screen, metricsAt: metrics?.generatedAt });
   const history = buildHistory({ universe, metrics, cohort });
-  const fx = await fetchFx(prevFx);
+  // FX comes from scripts/tenbagger-fx.mjs (run earlier in the workflow).
+  const fx = prevFx?.rate ? { ok: !(prevFx.failed || []).length, fx: prevFx, error: (prevFx.failed || [])[0] } : { ok: false, fx: null, error: "fx.json missing" };
   const status = sourceStatus(prevStatus, iso, {
     sec: { ok: metrics ? !(metrics.errors || []).some((e) => /SEC ticker map/.test(e)) : null, at: metrics?.generatedAt, error: (metrics?.errors || []).find((e) => /SEC/.test(e)) },
     yahoo: { ok: yf ? Object.keys(yf.tickers || {}).length > 0 : null, at: yf?.generatedAt, detail: yf ? `${Object.keys(yf.tickers || {}).length} tickers` : null, error: yf?.errors?.[0] },
@@ -485,7 +487,6 @@ async function main() {
   const digest = buildDigest({ previous: prevCompanies, companies, prevStartups, startups, fx: fx.fx, now: iso });
   await writeJson("digest.json", digest);
   await writeJson("landing-client.json", buildLanding({ industries, companies, digest, fx: fx.fx, metricsAt: metrics?.generatedAt }));
-  if (fx.fx) await writeJson("fx.json", fx.fx);
   await writeJson("companies.json", { schemaVersion: "1.0", generatedAt: iso, metricsAt: metrics?.generatedAt || null, screenAt: screen?.fetchedAt || null, fx: fx.fx || null, companies });
   await writeJson("industries.json", { schemaVersion: "1.0", generatedAt: iso, industries });
   await writeJson("startups.json", { schemaVersion: "1.0", generatedAt: iso, startups });

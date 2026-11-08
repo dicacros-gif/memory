@@ -59,9 +59,11 @@ export const link = (url, text, cls = "") => (url ? `<a class="${cls}" href="${e
 export const srcBtn = (url, text = "원문") => (url ? `<a class="src-btn" href="${esc(url)}" target="_blank" rel="noopener" title="원문 공시·출처 열기">${esc(text)} ↗</a>` : "");
 
 /** USD value of an amount in a listing currency, using the published FX only for KRW. */
+/** USD value using the published FRED table (fx.rates: units per USD; GBX/ILA are 1/100 sub-units). */
 export function toUsd(value, currency, fx) {
   if (!isNum(value)) return null;
   if (currency === "USD") return value;
-  if (currency === "KRW" && isNum(fx?.rate)) return value / fx.rate;
-  return null;
+  const sub = { GBX: ["GBP", 100], ILA: ["ILS", 100] }[currency];
+  const rate = sub ? (fx?.rates?.[sub[0]]?.rate ?? NaN) * sub[1] : currency === "KRW" && isNum(fx?.rate) ? fx.rate : fx?.rates?.[currency]?.rate;
+  return isNum(rate) && rate > 0 ? value / rate : null;
 }

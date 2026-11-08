@@ -3,7 +3,7 @@
 const BASE = new URL("../../data/tenbagger/", import.meta.url);
 const FILES = {
   companies: "companies.json", industries: "industries.json", startups: "startups.json", history: "history.json",
-  status: "status.json", changelog: "changelog.json", digest: "digest.json", sources: "source-checks.json", universe: "universe.json", screen: "screen.json",
+  status: "status.json", changelog: "changelog.json", digest: "digest.json", positioning: "positioning.json", sources: "source-checks.json", universe: "universe.json", screen: "screen.json",
 };
 const cache = new Map();
 

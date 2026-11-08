@@ -16,7 +16,9 @@
 import { readFile, writeFile, rename } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { crossCheck, tvTicker } from "./tenbagger-screen.mjs";
+import { crossCheck, setFx, tvTicker } from "./tenbagger-screen.mjs";
+import { toUsd } from "./tenbagger-fx.mjs";
+let FX_TABLE = null;
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const UNIVERSE = resolve(root, "data/tenbagger/universe.json");
@@ -393,8 +395,10 @@ export function postPeriodRaises(f) {
 }
 
 /** US-dollar market cap: our own figure for USD listings, TradingView's conversion otherwise. */
-export function usdMarketCap(row, tv) {
+export function usdMarketCap(row, tv, fx = FX_TABLE) {
   if (row?.currency === "USD" && Number.isFinite(row.marketCap)) return Math.round(row.marketCap);
+  const own = fx ? toUsd(row?.marketCap, row?.currency, fx) : null;
+  if (Number.isFinite(own)) return Math.round(own);
   return Number.isFinite(tv?.marketCapUsd) ? tv.marketCapUsd : null;
 }
 
@@ -446,6 +450,7 @@ async function main() {
   let yfCache = {};
   try { yfCache = JSON.parse(await readFile(resolve(root, "data/tenbagger/yf-cache.json"), "utf8")).tickers || {}; } catch { /* step skipped */ }
   // TradingView's row per ticker (scripts/tenbagger/collect_tv.py), an independent cross-check.
+  try { FX_TABLE = JSON.parse(await readFile(resolve(root, "data/tenbagger/fx.json"), "utf8")); setFx(FX_TABLE); } catch { /* no FX: non-USD dollar values stay empty */ }
   let tvRows = new Map();
   try { tvRows = new Map((JSON.parse(await readFile(resolve(root, "data/tenbagger/tv-cache.json"), "utf8")).rows || []).map((r) => [r.ticker, r])); } catch { /* step skipped */ }
   const tickerMap = await fetchSecTickerMap().catch((e) => { errors.push(`SEC ticker map: ${e.message}`); return null; });
@@ -454,7 +459,7 @@ async function main() {
     const cik = secCikFor(company, tickerMap);
     const cached = yfCache[company.ticker];
     const prices = cached?.series?.length
-      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null }
+      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null, shortInterest: cached.shortInterest ?? null }
       : await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
     const dart = dartCache[company.ticker] || dartCache[company.ticker.replace(/^KOSDAQ:/, "KRX:")] || dartCache[company.ticker.replace(/^KRX:/, "KOSDAQ:")];
     const snapshot = cached?.fundamentals ? { ...cached.fundamentals, status: "provider snapshot" } : null;
@@ -465,7 +470,7 @@ async function main() {
     ]);
     const row = companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] });
     const tv = crossCheck(row, tvRows.get(tvTicker(company.ticker))) || previous[company.ticker]?.tv || null;
-    return { ...row, avgTradedValue20d: prices?.avgTradedValue20d ?? previous[company.ticker]?.avgTradedValue20d ?? null, name: company.name || null, holderOnly: Boolean(company.holderOnly), runwayStatus: runwayStatus(row.fundamentals),
+    return { ...row, shortInterest: prices?.shortInterest ?? previous[company.ticker]?.shortInterest ?? null, avgTradedValue20d: prices?.avgTradedValue20d ?? previous[company.ticker]?.avgTradedValue20d ?? null, name: company.name || null, holderOnly: Boolean(company.holderOnly), runwayStatus: runwayStatus(row.fundamentals),
       postPeriodRaises: postPeriodRaises(row.fundamentals), marketCapUsd: usdMarketCap(row, tv), tv, secCik: cik, yahooSymbol: prices?.symbol || symbol };
   });
   const fresh = rows.filter((r) => !r.stale.prices).length;

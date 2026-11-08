@@ -60,6 +60,11 @@ jobs:
         timeout-minutes: 10
         run: python scripts/tenbagger/collect_tv.py || echo "::warning::TradingView scan failed; previous screen kept"
 
+      - name: FX table (FRED)
+        continue-on-error: true
+        timeout-minutes: 3
+        run: node scripts/tenbagger-fx.mjs || echo "::warning::FX refresh failed; previous rates kept"
+
       - name: Prices, bars and statements (Yahoo via yfinance)
         continue-on-error: true
         timeout-minutes: 22
@@ -84,6 +89,7 @@ jobs:
           node scripts/tenbagger-collect.mjs || echo "::warning::metrics refresh failed; previous numbers kept"
           node scripts/tenbagger-screen.mjs || echo "::warning::market screen failed; previous screen kept"
           node scripts/tenbagger-build.mjs || echo "::warning::company data build failed; previous files kept"
+          node scripts/tenbagger-positioning.mjs || echo "::warning::positioning monitor failed; previous file kept"
           node scripts/tenbagger-verify-sources.mjs || echo "::warning::source re-check failed; previous results kept"
 
       - name: Integrity audit
