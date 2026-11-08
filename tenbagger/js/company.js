@@ -83,6 +83,7 @@ function quantSection(c) {
   const f = (v, d = 1, s = "") => (isNum(v) ? `${v.toFixed(d)}${s}` : "자료 없음");
   const bc = q.balanceCheck;
   return `<section class="co-sec"><h2>퀀트 지표</h2><div class="qgrid">
+    ${cell("매출 가속", isNum(q.revenueAccelPts) ? `${q.revenueAccelPts > 0 ? "+" : ""}${q.revenueAccelPts.toFixed(1)}%p` : "자료 없음", tone(q.revenueAccelPts, 5, -5), `최근 분기(${q.revenueAccelQuarter || "—"}) 매출 YoY ${isNum(q.revenueYoyLatestPct) ? `${q.revenueYoyLatestPct}%` : "—"} − 직전 분기 YoY · 초록 ≥ +5%p, 빨강 ≤ −5%p`)}
     ${cell("매출 3년 CAGR", f(q.revenueCagr3yPct, 1, "%"), tone(q.revenueCagr3yPct, 25, 0), `공시 연간 매출 기준 연평균 성장률 ${q.revenueCagr3yPeriod || ""} · 초록 ≥ 25%`)}
     ${cell("FCF 수익률", f(q.fcfYieldPct, 1, "%"), tone(q.fcfYieldPct, 4, 0), "최근 12개월 FCF ÷ 시가총액 · 초록 ≥ 4%, 빨강 ≤ 0")}
     ${cell("FCF 흑자 연수(최근 3년)", isNum(q.fcfPositiveYears) ? `${q.fcfPositiveYears}/3` : "자료 없음", tone(q.fcfPositiveYears, 3, 0), "최근 3개 회계연도 중 FCF가 플러스인 해")}

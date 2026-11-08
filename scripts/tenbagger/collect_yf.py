@@ -12,7 +12,9 @@ from __future__ import annotations
 import json
 import math
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -316,20 +318,36 @@ def main() -> int:
     tickers += holder_tickers(universe)
     tickers = list(dict.fromkeys(tickers))
     results, errors = {}, []
-    deadline = time.time() + 13 * 60
-    for ticker in tickers:
+    deadline = time.time() + 15 * 60
+    lock = threading.Lock()
+
+    def work(ticker: str) -> None:
         if time.time() > deadline:
-            errors.append("time budget reached")
-            break
-        try:
-            row_ = collect(ticker)
-            if row_:
-                results[ticker] = row_
-            else:
-                errors.append(f"{ticker}: no price history")
-        except Exception as error:  # noqa: BLE001
-            errors.append(f"{ticker}: {str(error)[:120]}")
+            with lock:
+                errors.append(f"{ticker}: time budget reached")
+            return
+        for attempt in range(2):
+            try:
+                row_ = collect(ticker)
+                with lock:
+                    if row_:
+                        results[ticker] = row_
+                    else:
+                        errors.append(f"{ticker}: no price history")
+                break
+            except Exception as error:  # noqa: BLE001
+                # Yahoo's rate limit: wait once, then try again.
+                if attempt == 0 and ("429" in str(error) or "Rate" in type(error).__name__ or "rate limit" in str(error).lower()):
+                    time.sleep(8)
+                    continue
+                with lock:
+                    errors.append(f"{ticker}: {str(error)[:120]}")
+                break
         time.sleep(0.35)
+
+    # Three workers: the universe grew past what one sequential pass covers in budget.
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        list(pool.map(work, tickers))
     extra, extra_deadline = 0, time.time() + 3 * 60
     for ticker in screen_tickers():
         if ticker in results or time.time() > extra_deadline:

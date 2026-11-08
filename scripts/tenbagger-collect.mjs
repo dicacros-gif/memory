@@ -501,6 +501,7 @@ async function main() {
   for (const sector of universe.sectors || []) for (const st of sector.startups || []) for (const h of st.holders || []) {
     for (const t of String(h.holderTicker || "").split("/").map((x) => x.trim()).filter((x) => /^[A-Z]+:[A-Z0-9.\-]+$/.test(x))) {
       if (!companies.has(t)) companies.set(t, { ticker: t, name: h.holder, holderOnly: true });
+      else if (companies.get(t).historyOnly) companies.set(t, { ...companies.get(t), historyOnly: false, holderOnly: true });
     }
   }
   const errors = [];

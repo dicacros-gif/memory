@@ -133,6 +133,15 @@ export function rowFacts(r) {
     // Valuation ratios are currency-neutral scanner fields.
     bookToMarket: isNum(r.price_book_fq) && r.price_book_fq > 0 ? round(1 / r.price_book_fq, 3) : null,
     operatingMarginPct: round(r.operating_margin),
+    // Currency-neutral ratios and dates (TradingView scanner), used to fill gaps only.
+    psRatio: isNum(r.price_revenue_ttm) && r.price_revenue_ttm > 0 ? round(r.price_revenue_ttm, 2) : null,
+    peTtm: isNum(r.price_earnings_ttm) && r.price_earnings_ttm > 0 && r.price_earnings_ttm < 2000 ? round(r.price_earnings_ttm) : null,
+    roePct: round(r.return_on_equity),
+    debtToEquityPct: isNum(r.debt_to_equity) ? round(r.debt_to_equity * 100) : null,
+    currentRatio: isNum(r.current_ratio) ? round(r.current_ratio, 2) : null,
+    beta: isNum(r.beta_1_year) ? round(r.beta_1_year, 2) : null,
+    rsi14: isNum(r.RSI) ? round(r.RSI) : null,
+    nextEarnings: isNum(r.earnings_release_next_date) && r.earnings_release_next_date > 0 ? new Date(r.earnings_release_next_date * 1000).toISOString().slice(0, 10) : null,
     fcfYieldPct: isNum(r.price_free_cash_flow_ttm) && r.price_free_cash_flow_ttm > 0 ? round(100 / r.price_free_cash_flow_ttm, 2)
       : isNum(fcf) && fcf < 0 ? 0 : null,
     perfAllPct: round(r["Perf.All"]),
