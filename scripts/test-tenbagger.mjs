@@ -261,3 +261,22 @@ assert.equal(build.verifyListing({ ticker: "KOSDAQ:123456", name: "에스피지"
 assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT" }, null, "1", true), false);
 assert.equal(build.verifyListing({ ticker: "NASDAQ:AXTI", name: "AXT" }, null, "1", false), null, "no scan this run: undecided");
 console.log(JSON.stringify({ tenbaggerVerification: "pass" }));
+
+// Daily change digest: preset entries/exits, offerings since the last run, big moves.
+const mk = (id, o) => ({ id, name: id, ticker: `NASDAQ:${id}`, market: "US", currency: "USD", coverage: "universe", industries: [], holdings: [], data: { financials: "filed" }, returns: {}, filings: [], ...o });
+const prevDoc = { generatedAt: "2026-11-07T00:00:00Z", companies: [mk("a", { revenueGrowthPct: 10, fcfPositive: true, price: 10 }), mk("b", { revenueGrowthPct: 30, fcfPositive: true, price: 10, filings: [] })] };
+const nowCos = [mk("a", { revenueGrowthPct: 25, fcfPositive: true, price: 12 }), mk("b", { revenueGrowthPct: 30, fcfPositive: false, price: 10, filings: [{ form: "424B5", date: "2026-11-07", url: "u", capitalRaise: true }, { form: "S-3", date: "2026-10-01", url: "v", capitalRaise: true }] }), mk("c", { revenueGrowthPct: 5 })];
+const dg = build.buildDigest({ previous: prevDoc, companies: nowCos, prevStartups: null, startups: [], fx: null, now: "2026-11-08T00:00:00Z" });
+const cg = dg.presets.find((p) => p.key === "cash-growers");
+assert.deepEqual(cg.entered, ["a"]);
+assert.deepEqual(cg.left, ["b"]);
+assert.deepEqual(dg.raises.map((r) => r.form), ["424B5"], "only offerings filed after the previous run");
+assert.deepEqual(dg.moves.map((m) => [m.id, m.changePct]), [["a", 20]]);
+assert.deepEqual(dg.added.map((a) => a.id), ["c"]);
+const first = build.buildDigest({ previous: null, companies: nowCos, prevStartups: null, startups: [], fx: null, now: "2026-11-08T00:00:00Z" });
+assert.equal(first.since, null);
+assert.deepEqual(first.presets[0].entered, [], "no baseline: nothing reported as new");
+const land = build.buildLanding({ industries: [{ id: "x", name: "X", observed: { medianRevenueGrowthPct: 12, companies: 3 }, forecastCagrRange: [10, 20], forecastPeriods: [] }], companies: nowCos, digest: dg, fx: null, metricsAt: "2026-11-08" });
+assert.equal(land.schemaVersion, "2.0");
+assert.equal(land.presets.find((p) => p.key === "cash-growers").entered[0].id, "a");
+console.log(JSON.stringify({ tenbaggerDigest: "pass" }));

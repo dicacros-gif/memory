@@ -108,12 +108,23 @@ jobs:
           git reset -q -- data/tenbagger/yf-cache.json data/tenbagger/tv-cache.json data/tenbagger/dart-cache.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No ten-bagger changes."; exit 0; fi
           git commit -q -m "data: ten-bagger research refresh"
-          # Only data/tenbagger changes here, so a rebase over the crawl's
-          # commits (other paths) cannot conflict.
+          # Only data/tenbagger changes here. The crawl commits other paths;
+          # if anything else touched these generated files meanwhile, this
+          # run's freshly built files win (-X theirs keeps the replayed commit).
           for attempt in 1 2 3 4; do
             if git push origin HEAD:main; then exit 0; fi
             sleep $((attempt * 5))
-            git pull --rebase -q origin main
+            if ! git pull --rebase -X theirs -q origin main; then
+              # Rebase still failed: rebuild the commit on the latest main from
+              # this run's data/tenbagger files only, never touching other paths.
+              git rebase --abort || true
+              rm -rf /tmp/tb && cp -r data/tenbagger /tmp/tb
+              git fetch -q origin main && git reset -q --hard origin/main
+              rm -rf data/tenbagger && cp -r /tmp/tb data/tenbagger
+              git add data/tenbagger
+              git reset -q -- data/tenbagger/yf-cache.json data/tenbagger/tv-cache.json data/tenbagger/dart-cache.json 2>/dev/null || true
+              git commit -q -m "data: ten-bagger research refresh" || exit 0
+            fi
           done
           exit 1
 

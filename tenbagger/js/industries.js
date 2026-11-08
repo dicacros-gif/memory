@@ -21,7 +21,27 @@ function bar(range) {
     <b class="num">${lo === hi ? `${lo}%` : `${lo}~${hi}%`}</b><span class="sub">전망 연평균(기관별)</span></div>`;
 }
 
-export function renderIndustries(root, { industries, params }) {
+function digestPanel(d, companies) {
+  if (!d) return "";
+  const byId = new Map((companies || []).map((c) => [c.id, c]));
+  const co = (id, name) => `<a href="${companyUrl(id)}" data-open="${esc(id)}">${esc(byId.get(id)?.name || name || id)}</a>`;
+  const items = [
+    ...d.presets.flatMap((p) => [
+      ...p.entered.map((id) => `<li><span class="chip chip-filed">새로 충족</span> ${co(id)} · <a href="#companies?preset=${esc(p.key)}">${esc(p.label)}</a></li>`),
+      ...p.left.map((id) => `<li><span class="chip">조건 이탈</span> ${co(id)} · ${esc(p.label)}</li>`),
+    ]),
+    ...d.raises.map((r) => `<li><span class="chip chip-warn">증자 공시</span> ${co(r.id, r.name)} · ${esc(r.date)} ${esc(r.form)} ${srcBtn(r.url, "원문")}</li>`),
+    ...d.moves.map((m) => `<li><span class="chip">가격</span> ${co(m.id, m.name)} · 직전 갱신 대비 ${pct(m.changePct)}</li>`),
+    ...d.added.map((a) => `<li><span class="chip chip-new">편입</span> ${co(a.id, a.name)}</li>`),
+    ...d.startupChanges.map((s) => `<li><span class="chip">스타트업</span> <a href="#startups/${esc(s.id)}">${esc(s.name)}</a> ${esc(s.from)} → ${esc(s.to)}</li>`),
+  ];
+  return `<section class="digest"><h2>오늘의 변화 <span class="sub">${d.since ? `${esc(d.since)} 이후` : "첫 실행 — 비교 기준 없음"} · ${esc(day(d.generatedAt))}</span></h2>
+    <div class="digest-presets">${d.presets.map((p) => `<a class="preset-count" href="#companies?preset=${esc(p.key)}"><b>${p.count}</b><span>${esc(p.label)}</span><small>${esc(p.rule)}</small></a>`).join("")}</div>
+    ${items.length ? `<ul class="digest-list">${items.slice(0, 30).join("")}</ul>` : '<p class="muted">직전 갱신 이후 조건 변화·증자 공시·큰 가격 변동이 없습니다.</p>'}
+    <p class="sub">${esc(d.note)}</p></section>`;
+}
+
+export function renderIndustries(root, { industries, params, digest, companies }) {
   const sortKey = SORTS[params.sort] ? params.sort : "forecast";
   const value = SORTS[sortKey][1];
   const ranked = industries.filter((i) => isNum(value(i))).sort((a, b) => value(b) - value(a));
@@ -34,12 +54,14 @@ export function renderIndustries(root, { industries, params }) {
       <dl class="ind-counts"><div><dt>미국</dt><dd>${i.counts.us}</dd></div><div><dt>한국</dt><dd>${i.counts.kr}</dd></div><div><dt>기타</dt><dd>${i.counts.other}</dd></div><div><dt>스타트업</dt><dd>${i.counts.startups}</dd></div></dl>
       <p class="sub">재무 수집 ${i.coverage.withFinancials}/${i.coverage.total} · FCF 플러스 ${isNum(i.fcfPositiveShare) ? `${i.fcfPositiveShare}%` : "자료 없음"} · 리서치 ${esc(day(i.researchDate) || "—")} · 수치 ${esc(day(i.dataDate) || "—")}</p>
     </article>`;
-  root.innerHTML = `<section class="view-head"><h1>성장 산업</h1>
+  root.innerHTML = `${digestPanel(digest, companies)}<section class="view-head"><h1>성장 산업</h1>
       <p class="lede">기관 전망(예측)과 추적 상장사의 실제 매출 성장(관측)을 따로 보여 줍니다. 기관마다 시장 정의와 기간이 달라 전망치는 평균하지 않고 범위로만 표시합니다.</p>
       <label class="inline">정렬 <select data-sort>${Object.entries(SORTS).map(([k, [l]]) => `<option value="${k}" ${k === sortKey ? "selected" : ""}>${l}</option>`).join("")}</select></label></section>
     <div class="ind-grid">${ranked.map(card).join("")}</div>
     ${unranked.length ? `<h2 class="sub-h">순위 없음 — ${esc(SORTS[sortKey][0])} 자료 없음</h2><div class="ind-grid">${unranked.map(card).join("")}</div>` : ""}`;
   root.querySelector("[data-sort]").addEventListener("change", (e) => go("industries", { sort: e.target.value }, null, { replace: true }));
+  const order = [...root.querySelectorAll(".digest [data-open]")].map((a) => a.dataset.open);
+  root.querySelectorAll(".digest [data-open]").forEach((a) => a.addEventListener("click", (e) => { if (e.metaKey || e.ctrlKey) return; e.preventDefault(); openPanel(a.dataset.open, order); }));
   root.querySelectorAll("[data-ind]").forEach((el) => {
     const open = () => go("industries", {}, el.dataset.ind);
     el.addEventListener("click", open);
