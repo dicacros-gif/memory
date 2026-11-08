@@ -317,3 +317,10 @@ h3 { font-size: 12px; color: var(--yellow); letter-spacing: .04em; }
 .qcell.q-bad { border-left-color: var(--neg); } .qcell.q-bad b { color: var(--neg); }
 .qcell.q-nd b { color: var(--nd); font-weight: 400; }
 .src-mark { margin-left: 2px; font-size: 9px; color: var(--link); }
+
+/* industry quant medians */
+.ind-medians { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px 8px; margin: 6px 0; font-size: 11px; }
+.ind-medians div { display: flex; flex-direction: column; }
+.ind-medians dt { color: var(--muted); }
+.ind-medians dd { margin: 0; font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) { .ind-medians { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

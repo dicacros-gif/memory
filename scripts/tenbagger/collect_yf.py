@@ -182,6 +182,9 @@ def valuation(info: dict) -> dict | None:
         "recommendationMean": num(info.get("recommendationMean")), "recommendationKey": info.get("recommendationKey"),
         "targetMean": num(info.get("targetMeanPrice")), "targetHigh": num(info.get("targetHighPrice")), "targetLow": num(info.get("targetLowPrice")),
         "change52wPct": pct("52WeekChange"),
+        # balance-sheet totals (most recent quarter, Yahoo) — used only to cross-check filed figures
+        "totalCash": num(info.get("totalCash")), "totalDebt": num(info.get("totalDebt")),
+        "financialCurrency": info.get("financialCurrency"),
     })
     # Negative or absurd multiples carry no information as a ratio.
     for key in ("forwardPE", "trailingPE", "peg", "evToRevenue", "evToEbitda"):

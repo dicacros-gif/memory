@@ -355,3 +355,27 @@ assert.equal(debtAt(bs2, "2026-07-26"), 8500);
 assert.equal(debtAt({ facts: {} }, "2026-07-26"), null);
 assert.equal(instantAt(bs, ["us-gaap:ShortTermInvestments", "us-gaap:MarketableSecuritiesCurrent"], "2026-07-26").value, 40000);
 console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
+
+// Long-horizon indicators, balance-sheet cross-check, industry medians, combined cash+STI.
+{
+  const { revenueCagr3y, balanceCheck, industryMedians } = await import("./tenbagger-build.mjs");
+  const { stiAtDate, debtBreakdown } = await import("./tenbagger-collect.mjs");
+  const annual = [{ end: "2022-01-30", revenue: 100 }, { end: "2023-01-29", revenue: 120 }, { end: "2024-01-28", revenue: 150 }, { end: "2025-01-26", revenue: 200 }];
+  const cg = revenueCagr3y(annual);
+  assert.equal(cg.pct, 26, "(200/100)^(1/3) − 1 ≈ 26%");
+  assert.equal(cg.from, "2022-01-30");
+  assert.equal(revenueCagr3y(annual.slice(1)), null, "needs four fiscal years");
+  const c = { statementCurrency: "USD", currency: "USD", marketCap: 1000, valuation: { totalCash: 300, totalDebt: 100, financialCurrency: "USD" } };
+  assert.equal(balanceCheck(c, -200).disagree, true);
+  assert.equal(balanceCheck(c, 180).disagree, false);
+  assert.equal(balanceCheck({ ...c, valuation: { ...c.valuation, financialCurrency: "KRW" } }, -200), null, "different currencies are not compared");
+  const med = industryMedians([{ priceToSales: 2, quant: { ruleOf40: 50 } }, { priceToSales: 4, quant: { ruleOf40: null } }, { priceToSales: 9, quant: {} }]);
+  assert.equal(med.priceToSales.median, 4); assert.equal(med.priceToSales.n, 3); assert.equal(med.ruleOf40.n, 1); assert.equal(med.forwardPE.median, null);
+  const combined = { facts: { "us-gaap": { CashCashEquivalentsAndShortTermInvestments: { units: { USD: [{ end: "2026-07-26", val: 56000 }] } } } } };
+  const sti = stiAtDate(combined, "2026-07-26", 11000);
+  assert.equal(sti.value, 45000, "combined total minus cash");
+  assert.equal(stiAtDate(combined, "2026-07-26", 60000), null);
+  const bs3 = { facts: { "us-gaap": { LongTermDebt: { units: { USD: [{ end: "2026-07-26", val: 8500 }] } } } } };
+  assert.deepEqual(debtBreakdown(bs3, "2026-07-26"), { value: 8500, parts: ["us-gaap:LongTermDebt"] });
+  console.log(JSON.stringify({ tenbaggerLongHorizonQuant: "pass" }));
+}
