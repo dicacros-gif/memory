@@ -433,7 +433,10 @@ export function buildIndustries({ universe, companies, startups, screen, metrics
     "medtech-ai-diagnostics": ["Medical Specialties", "Medical/Nursing Services", "Services to the Health Industry"],
     "power-grid": ["Electrical Products", "Engineering & Construction", "Industrial Machinery"],
     "gene-cell-therapy": ["Biotechnology", "Pharmaceuticals: Other"],
-    "satcom-6g": ["Telecommunications Equipment", "Specialty Telecommunications", "Electronic Components"] };
+    "satcom-6g": ["Telecommunications Equipment", "Specialty Telecommunications", "Electronic Components"],
+    "critical-minerals": ["Other Metals/Minerals", "Chemicals: Specialty", "Precious Metals"],
+    "drones-counter-uas": ["Aerospace & Defense", "Electronic Equipment/Instruments"],
+    "datacenter-power-cooling": ["Industrial Machinery", "Electrical Products", "Building Products"] };
   return (universe.sectors || []).map((s) => {
     const members = companies.filter((c) => c.industries.some((i) => i.id === s.id));
     const withFin = members.filter((c) => c.data.financials !== "no data" && c.data.financials !== "provider snapshot" || isNum(c.revenueTtm));
