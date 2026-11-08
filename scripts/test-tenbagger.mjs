@@ -96,3 +96,60 @@ for (const s of universe.sectors) {
   }
 }
 console.log(JSON.stringify({ tenbaggerUniverse: "pass", claims: universeClaims.length }));
+
+// ── Market screen (TradingView scan) ────────────────────────────────────────
+const screenMod = await import("./tenbagger-screen.mjs");
+const { tvTicker, dedupe, rowFacts, industryGrowthMap, discoveryCandidates, recentTenBaggers, crossCheck, buildLandingClient, universeScreen } = screenMod;
+const { usdMarketCap } = await import("./tenbagger-collect.mjs");
+assert.equal(tvTicker("KOSDAQ:196170"), "KRX:196170");
+assert.equal(tvTicker("NYSEAMERICAN:LEU"), "AMEX:LEU");
+assert.equal(tvTicker("AMS:BESI"), "EURONEXT:BESI");
+assert.equal(tvTicker("NASDAQ:IONQ"), "NASDAQ:IONQ");
+const tv = (o) => ({ ticker: "NASDAQ:X", description: "X Corp", country: "United States", industry: "Semiconductors", market_cap_basic: 2e9,
+  total_revenue_ttm: 100, total_revenue_yoy_growth_ttm: 50, free_cash_flow_ttm: -10, cash_n_short_term_invest_fq: 40, gross_margin: 55, "Perf.Y": 20, "Perf.5Y": 100, ...o });
+// Preferred lines repeat the parent; the larger listing stays.
+assert.equal(dedupe([tv({ ticker: "KRX:005930", description: "Samsung Electronics Co., Ltd.", market_cap_basic: 9 }), tv({ ticker: "KRX:005935", description: "Samsung Electronics Co Ltd Pfd", market_cap_basic: 1 })]).length, 1);
+const rf = rowFacts(tv({}));
+assert.equal(rf.fcfMarginPct, -10);
+assert.equal(rf.runwayYears, 4);
+assert.equal(rf.sector, "ai-infra");
+assert.equal(rowFacts(tv({ free_cash_flow_ttm: 5 })).runwayYears, null, "runway only when burning cash");
+// Industry map needs enough companies and clips outliers in the weighting.
+const manyRows = Array.from({ length: 10 }, (_, i) => tv({ ticker: `NASDAQ:S${i}`, description: `S${i}`, total_revenue_yoy_growth_ttm: i === 0 ? 5000 : 10 }));
+const imap = industryGrowthMap([...manyRows, tv({ ticker: "NYSE:Z", description: "Z", industry: "Tiny" })]);
+assert.equal(imap.length, 1);
+assert.equal(imap[0].medianGrowthPct, 10);
+assert.ok(imap[0].capWeightedGrowthPct <= 40, "a 5000% base effect is clipped to 300%");
+// Discovery: growth, size, funding and a tracked industry; universe names flagged.
+const disc = discoveryCandidates([
+  tv({ ticker: "NASDAQ:A", description: "A" }),
+  tv({ ticker: "NASDAQ:B", description: "B", free_cash_flow_ttm: -30 }), // runway 1.3y → out
+  tv({ ticker: "NASDAQ:C", description: "C", market_cap_basic: 20e9 }), // too big → out
+  tv({ ticker: "NASDAQ:D", description: "D", industry: "Restaurants" }), // untracked → out
+  tv({ ticker: "NASDAQ:E", description: "E", total_revenue_yoy_growth_ttm: 10 }), // slow → out
+], ["NASDAQ:A"]);
+assert.deepEqual(disc.map((f) => [f.ticker, f.inUniverse]), [["NASDAQ:A", true]]);
+const tx = recentTenBaggers([tv({ ticker: "NASDAQ:T", description: "T", "Perf.5Y": 1200 }), tv({ ticker: "NASDAQ:U", description: "U", "Perf.5Y": 800 })]);
+assert.equal(tx.total, 1);
+assert.equal(tx.industries[0].industry, "Semiconductors");
+// Cross-check: within 10pp and same FCF sign agrees.
+assert.equal(crossCheck({ fundamentals: { revenueGrowthPct: 55, fcfTtm: -1 } }, tv({})).agrees, true);
+assert.equal(crossCheck({ fundamentals: { revenueGrowthPct: 80, fcfTtm: -1 } }, tv({})).agrees, false);
+assert.equal(crossCheck({ fundamentals: { revenueGrowthPct: 52, fcfTtm: 5 } }, tv({})).agrees, false, "FCF sign disagrees");
+assert.equal(crossCheck({}, null), null);
+assert.equal(usdMarketCap({ currency: "USD", marketCap: 5.4 }, null), 5);
+assert.equal(usdMarketCap({ currency: "KRW", marketCap: 5e12 }, { marketCapUsd: 3.6e9 }), 3.6e9);
+assert.equal(usdMarketCap({ currency: "JPY", marketCap: 5e11 }, null), null, "never treat a foreign currency as dollars");
+// Universe screen uses dollar caps only and candidates only.
+const u2 = { sectors: [{ id: "q", name: "양자", publicCompanies: [
+  { ticker: "NASDAQ:A", name: "A", layer: "candidate" }, { ticker: "TSE:B", name: "B", layer: "candidate" }, { ticker: "NASDAQ:L", name: "L", layer: "leader" }] }] };
+const m2 = { companies: [
+  { ticker: "NASDAQ:A", currency: "USD", marketCap: 2e9, marketCapUsd: 2e9, runwayYears: 3, fundamentals: { revenueGrowthPct: 40, fcfTtm: -5 } },
+  { ticker: "TSE:B", currency: "JPY", marketCap: 1e11, marketCapUsd: null, fundamentals: { revenueGrowthPct: 90, fcfTtm: 5 } },
+  { ticker: "NASDAQ:L", currency: "USD", marketCap: 2e9, marketCapUsd: 2e9, fundamentals: { revenueGrowthPct: 90, fcfTtm: 5 } }] };
+assert.deepEqual(universeScreen(u2, m2).map((p) => p.ticker), ["NASDAQ:A"]);
+assert.equal(buildLandingClient(null, { sectors: [] }, null), null, "nothing verified → landing section stays hidden");
+const lcl = buildLandingClient({ fetchedAt: "2026-11-08", source: "TV", sourceUrl: "u", scope: { companies: 10 }, industryMap: [{ ...imap[0], companies: 20 }], discovery: [], recentTenBaggers: tx }, u2, m2);
+assert.equal(lcl.candidateCount, 1);
+assert.equal(lcl.industries.length, 1);
+console.log(JSON.stringify({ tenbaggerScreen: "pass" }));

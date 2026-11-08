@@ -21,6 +21,7 @@ export const assetBuildSpecs = [
   { entry: "assets/js/workload-translation.js", outfile: "assets/js/workload-translation.min.js", target: "es2020", format: "iife", bundle: true },
   { entry: "assets/js/strategy-experience.js", outfile: "assets/js/strategy-experience.min.js", target: "es2020", format: "iife", bundle: true },
   { entry: "assets/js/strategy-spine.js", outfile: "assets/js/strategy-spine.min.js", target: "es2020", format: "iife" },
+  { entry: "assets/js/tenbagger-radar.js", outfile: "assets/js/tenbagger-radar.min.js", target: "es2020", format: "iife" },
   { entry: "assets/js/terminal.js", outfile: "assets/js/terminal.min.js", target: "es2020", format: "iife", bundle: true },
   { entry: "assets/css/landing.css", outfile: "assets/css/landing.min.css" },
   { entry: "assets/css/brand-system.css", outfile: "assets/css/brand-system.min.css" },

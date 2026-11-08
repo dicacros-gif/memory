@@ -26,6 +26,7 @@ const sourceFiles = [
   "data/mbb-frames.json",
   "assets/js/terminal.js",
   "assets/css/terminal.css",
+  "assets/js/tenbagger-radar.js",
 ];
 
 function read(relativePath) {

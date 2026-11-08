@@ -16,6 +16,7 @@
 import { readFile, writeFile, rename } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { crossCheck, tvTicker } from "./tenbagger-screen.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const UNIVERSE = resolve(root, "data/tenbagger/universe.json");
@@ -270,6 +271,12 @@ async function mapLimit(items, limit, fn) {
 
 // ── build ───────────────────────────────────────────────────────────────────
 
+/** US-dollar market cap: our own figure for USD listings, TradingView's conversion otherwise. */
+export function usdMarketCap(row, tv) {
+  if (row?.currency === "USD" && Number.isFinite(row.marketCap)) return Math.round(row.marketCap);
+  return Number.isFinite(tv?.marketCapUsd) ? tv.marketCapUsd : null;
+}
+
 export function companyMetrics({ company, prices, fundamentals, previous }) {
   const series = prices?.series || previous?.series || [];
   const fx = fundamentals || previous?.fundamentals || null;
@@ -306,6 +313,9 @@ async function main() {
   // Prices and non-SEC statements come from the yfinance step (scripts/tenbagger/collect_yf.py).
   let yfCache = {};
   try { yfCache = JSON.parse(await readFile(resolve(root, "data/tenbagger/yf-cache.json"), "utf8")).tickers || {}; } catch { /* step skipped */ }
+  // TradingView's row per ticker (scripts/tenbagger/collect_tv.py), an independent cross-check.
+  let tvRows = new Map();
+  try { tvRows = new Map((JSON.parse(await readFile(resolve(root, "data/tenbagger/tv-cache.json"), "utf8")).rows || []).map((r) => [r.ticker, r])); } catch { /* step skipped */ }
   const tickerMap = await fetchSecTickerMap().catch((e) => { errors.push(`SEC ticker map: ${e.message}`); return null; });
   const rows = await mapLimit([...companies.values()], 4, async (company) => {
     const symbol = company.yahoo || yahooSymbol(company.ticker);
@@ -318,14 +328,17 @@ async function main() {
       company.historyOnly ? null : (cik ? fetchSec(cik) : cached?.fundamentals ? Promise.resolve(cached.fundamentals) : fetchYahooFundamentals(prices?.symbol || symbol))
         .catch((e) => { errors.push(`${company.ticker} fundamentals: ${e.message}`); return null; }),
     ]);
-    return { ...companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] }), secCik: cik, yahooSymbol: prices?.symbol || symbol };
+    const row = companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] });
+    const tv = crossCheck(row, tvRows.get(tvTicker(company.ticker))) || previous[company.ticker]?.tv || null;
+    return { ...row, marketCapUsd: usdMarketCap(row, tv), tv, secCik: cik, yahooSymbol: prices?.symbol || symbol };
   });
   const fresh = rows.filter((r) => !r.stale.prices).length;
   const out = {
     schemaVersion: "1.0",
     generatedAt: new Date().toISOString(),
     universeAsOf: universe.asOf || null,
-    coverage: { companies: rows.length, freshPrices: fresh, withFundamentals: rows.filter((r) => r.fundamentals).length },
+    coverage: { companies: rows.length, freshPrices: fresh, withFundamentals: rows.filter((r) => r.fundamentals).length,
+      tvCrossChecked: rows.filter((r) => r.tv).length, tvAgrees: rows.filter((r) => r.tv?.agrees === true).length },
     errors: errors.slice(0, 200),
     companies: rows,
   };
