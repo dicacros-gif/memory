@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42545074667",
-  "generatedAt": "2026-11-09T01:35:33.191Z",
+  "runId": "42577279948",
+  "generatedAt": "2026-11-09T07:23:03.590Z",
   "coverage": {
     "companiesObserved": 30,
     "companiesWithDerivedDemand": 26,
-    "derivedRequirements": 84,
+    "derivedRequirements": 85,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -402,8 +402,8 @@
           "gate": "Package Capacity · Ramp 일정",
           "hold": "지속",
           "firstSeen": "2026-10-15",
-          "lastSeen": "2026-11-02",
-          "evidenceCount": 8,
+          "lastSeen": "2026-11-09",
+          "evidenceCount": 9,
           "evidenceIds": [
             "1vj61wg",
             "01hmtol",
@@ -412,11 +412,12 @@
             "1gyv67u",
             "08hf09d",
             "0h3iclk",
-            "0fvk44g"
+            "0fvk44g",
+            "0l4tclt"
           ],
-          "evidence": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었습니다.",
-          "source": "technews.tw",
-          "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/"
+          "evidence": "급증하는 AI 수요로 인해 CoWoS는 골칫거리가 됩니다. MediaTek 부사장은 패키징 용량 확보가 최우선 과제라고 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261108PD200/mediatek-cowos-packaging-demand-capacity.html"
         },
         {
           "technology": "3nm",
@@ -1446,6 +1447,24 @@
     "mediatek": {
       "requirements": [
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-11-09",
+          "lastSeen": "2026-11-09",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0l4tclt"
+          ],
+          "evidence": "급증하는 AI 수요로 인해 CoWoS는 골칫거리가 됩니다. MediaTek 부사장은 패키징 용량 확보가 최우선 과제라고 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261108PD200/mediatek-cowos-packaging-demand-capacity.html"
+        },
+        {
           "technology": "TPU",
           "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
           "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
@@ -1890,6 +1909,24 @@
       "weight": 19
     },
     {
+      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+      "productAxis": "HBM · Package",
+      "stage": "SCALE",
+      "gate": "Package Capacity · Ramp 일정",
+      "technologies": [
+        "CoWoS"
+      ],
+      "accountCount": 5,
+      "accounts": [
+        "anthropic",
+        "intel",
+        "mediatek",
+        "nvidia",
+        "tsmc"
+      ],
+      "weight": 14
+    },
+    {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
       "productAxis": "HBM · System",
       "stage": "QUALIFY",
@@ -1924,23 +1961,6 @@
         "tsmc"
       ],
       "weight": 11
-    },
-    {
-      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-      "productAxis": "HBM · Package",
-      "stage": "SCALE",
-      "gate": "Package Capacity · Ramp 일정",
-      "technologies": [
-        "CoWoS"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "anthropic",
-        "intel",
-        "nvidia",
-        "tsmc"
-      ],
-      "weight": 13
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
