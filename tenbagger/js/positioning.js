@@ -80,6 +80,7 @@ export function stockPositionKv(s) {
     <div><dt>모멘텀 백분위(2년)</dt><dd>${gauge(s.momentumPct)}</dd></div><div><dt>변동성 21일</dt><dd>${isNum(s.vol21) ? `${s.vol21}%` : "자료 없음"}</dd></div>
     <div><dt>이동평균</dt><dd>${s.above200 ? "200일선 위" : "200일선 아래"} · ${s.above50 ? "50일선 위" : "50일선 아래"}</dd></div>
     <div><dt>52주 고점 대비</dt><dd>${pct(s.offHigh252Pct)}</dd></div>
+    <div><dt title="12개월 종가 범위에서 현재 위치: 0 = 저점, 100 = 고점. Yartseva(2025)는 저점에 가까운 매수 시점이 유리했다고 보고">12개월 범위 위치</dt><dd>${isNum(s.range12mPos) ? `${s.range12mPos} / 100` : "자료 없음"}</dd></div>
     <div><dt>RSI(14)</dt><dd class="${s.rsi14 >= 70 ? "neg" : s.rsi14 <= 30 ? "pos" : ""}">${isNum(s.rsi14) ? `${s.rsi14}${s.rsi14 >= 70 ? " 과열" : s.rsi14 <= 30 ? " 과매도" : ""}` : "자료 없음"}</dd></div>
     <div><dt>6개월 수익률</dt><dd>${pct(s.return6mPct)}</dd></div>
     <div><dt title="종목 수익률 − 소속 산업 동일가중 지수 수익률">산업 대비 3개월</dt><dd class="${s.rs3mPts > 0 ? "pos" : s.rs3mPts < 0 ? "neg" : ""}">${isNum(s.rs3mPts) ? `${s.rs3mPts > 0 ? "+" : ""}${s.rs3mPts}%p` : "자료 없음"}</dd></div>

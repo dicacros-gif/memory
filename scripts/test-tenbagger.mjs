@@ -450,3 +450,15 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   assert.deepEqual(applyFilters([good, bad], PRESETS.disciplined.params).map((c) => c.id), ["a"]);
   console.log(JSON.stringify({ tenbaggerResearchPresets: "pass" }));
 }
+
+// 12-month range position: TradingView facts feed the entry factor; evidence list well-formed.
+{
+  const { rowFacts, scoreFactors } = await import("./tenbagger-screen.mjs");
+  const f = rowFacts({ ticker: "NASDAQ:X", close: 30, price_52_week_high: 50, price_52_week_low: 10 });
+  assert.equal(f.rangePos12m, 50);
+  const scored = scoreFactors([{ marketCapUsd: 1e9, rangePos12m: 5, offHighPct: -10, bookToMarket: 0.5, fcfYieldPct: 5 }, { marketCapUsd: 2e9, rangePos12m: 95, offHighPct: -60, bookToMarket: 0.4, fcfYieldPct: 4 }]);
+  assert.equal(scored[0].factor.offHigh, 100, "nearer the 12-month low ranks higher when the range is known");
+  const { EVIDENCE } = await import("../tenbagger/js/evidence.js");
+  for (const e of EVIDENCE) { assert.match(e.url, /^https:\/\//); assert.ok(e.finding && e.indicators.length && e.caveat, e.id); }
+  console.log(JSON.stringify({ tenbaggerRangeAndEvidence: "pass" }));
+}

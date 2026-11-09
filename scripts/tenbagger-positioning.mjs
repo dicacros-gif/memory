@@ -108,6 +108,7 @@ export function stockPositioning(bar) {
     rsi14: rsi14(c.slice(-300)),
     return6mPct: round((c[n] / c[n - 126] - 1) * 100, 1),
     return3mPct: round((c[n] / c[n - 63] - 1) * 100, 1),
+    range12mPos: (() => { const w = c.slice(n - 251), lo = Math.min(...w), hi = Math.max(...w); return hi > lo ? round(((c[n] - lo) / (hi - lo)) * 100) : null; })(),
     return1yPct: round((c[n] / c[n - 252] - 1) * 100, 1),
     maxDrawdown1yPct: maxDrawdown(c.slice(n - 251)),
   };
