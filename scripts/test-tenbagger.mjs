@@ -462,3 +462,15 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   for (const e of EVIDENCE) { assert.match(e.url, /^https:\/\//); assert.ok(e.finding && e.indicators.length && e.caveat, e.id); }
   console.log(JSON.stringify({ tenbaggerRangeAndEvidence: "pass" }));
 }
+
+// Splits are not dilution (NVIDIA's 10-for-1 in June 2024).
+{
+  const { dilution3yPct, dilutionPct, looksLikeSplit } = await import("./tenbagger-collect.mjs");
+  const nv = [{ end: "2023-08-18", val: 2470000000 }, { end: "2025-08-20", val: 24300000000 }, { end: "2026-08-19", val: 24300000000 }];
+  assert.equal(dilution3yPct(nv, [{ date: "2024-06-10", ratio: 10 }]), -1.6);
+  assert.equal(dilution3yPct(nv), null, "a ~10x jump without split data is withheld");
+  assert.equal(dilution3yPct(nv, []), 883.8, "with split data saying no split, the change is reported as is");
+  assert.equal(dilutionPct([{ end: "2025-01-01", val: 100 }, { end: "2026-01-01", val: 10 }], [{ date: "2025-06-01", ratio: 0.1 }]), 0, "reverse split");
+  assert.equal(looksLikeSplit(1.5), false); assert.equal(looksLikeSplit(0.2), true);
+  console.log(JSON.stringify({ tenbaggerSplitAwareDilution: "pass" }));
+}

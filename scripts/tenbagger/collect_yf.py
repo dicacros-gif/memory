@@ -291,6 +291,18 @@ def estimates(t) -> dict | None:
     return out if any(v is not None for k, v in out.items() if k != "epsTrendPeriod") else None
 
 
+def splits_of(t) -> list:
+    """Stock splits as [{date, ratio}] (2.0 = 2-for-1, 0.1 = 1-for-10), last 10 years."""
+    try:
+        s = t.splits
+        if s is None or getattr(s, "empty", True):
+            return []
+        cutoff = datetime.now(timezone.utc).year - 10
+        return [{"date": str(i)[:10], "ratio": float(v)} for i, v in s.items() if num(v) and float(v) > 0 and int(str(i)[:4]) >= cutoff]
+    except Exception:  # noqa: BLE001
+        return []
+
+
 WANT_ESTIMATES: set[str] = set()
 ESTIMATE_DEADLINE = {"t": float("inf")}
 
@@ -321,6 +333,7 @@ def collect(ticker: str) -> dict | None:
             "shortInterest": short_interest(t, info) if symbol.isalpha() or "-" in symbol else None,
             "valuation": valuation(info),
             "nextEarnings": next_earnings(earnings_dates(t), t),
+            "splits": splits_of(t),
         }
         # Consensus estimates for the research universe only, and only while the budget allows.
         if ticker in WANT_ESTIMATES and time.time() < ESTIMATE_DEADLINE["t"]:
