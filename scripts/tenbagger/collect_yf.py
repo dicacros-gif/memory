@@ -76,14 +76,43 @@ def sig(value, digits=6):
     return None if value is None else float(f"{value:.{digits}g}")
 
 
+def _earnings_frame(t):
+    """Yahoo earnings dates with estimate/actual EPS, fetched once per ticker object."""
+    if not hasattr(t, "_tb_earnings"):
+        try:
+            t._tb_earnings = t.get_earnings_dates(limit=16)
+        except Exception:  # noqa: BLE001
+            t._tb_earnings = None
+    return t._tb_earnings
+
+
 def earnings_dates(t) -> list[str]:
     try:
-        frame = t.get_earnings_dates(limit=16)
+        frame = _earnings_frame(t)
         if frame is None or frame.empty:
             return []
         return sorted({str(index)[:10] for index in frame.index})
     except Exception:  # noqa: BLE001 - optional marker source
         return []
+
+
+def earnings_surprises(t) -> dict | None:
+    """Last four reported quarters: how many beat the EPS consensus, and the mean surprise %."""
+    try:
+        frame = _earnings_frame(t)
+        if frame is None or frame.empty or "Reported EPS" not in frame.columns or "EPS Estimate" not in frame.columns:
+            return None
+        rows = frame.dropna(subset=["Reported EPS", "EPS Estimate"]).sort_index(ascending=False).head(4)
+        if len(rows) < 2:
+            return None
+        beats = int(sum(1 for _, r in rows.iterrows() if float(r["Reported EPS"]) > float(r["EPS Estimate"])))
+        surprises = [num(r.get("Surprise(%)")) for _, r in rows.iterrows()]
+        surprises = [s for s in surprises if s is not None and abs(s) < 1000]
+        return {"quarters": len(rows), "beats": beats,
+                "meanSurprisePct": round(sum(surprises) / len(surprises), 1) if surprises else None,
+                "latest": str(rows.index[0])[:10]}
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def write_bars(ticker: str, symbol: str, currency, t) -> bool:
@@ -334,6 +363,7 @@ def collect(ticker: str) -> dict | None:
             "valuation": valuation(info),
             "nextEarnings": next_earnings(earnings_dates(t), t),
             "splits": splits_of(t),
+            "surprises": earnings_surprises(t),
         }
         # Consensus estimates for the research universe only, and only while the budget allows.
         if ticker in WANT_ESTIMATES and time.time() < ESTIMATE_DEADLINE["t"]:

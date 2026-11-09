@@ -80,6 +80,7 @@ const RANK_LABELS = [
   ["ruleOf40", "Rule of 40"], ["fcfYieldPct", "FCF 수익률"], ["netCashToMcapPct", "순현금/시총"], ["roePct", "ROE"],
   ["priceToSales", "P/S (낮을수록 상위)"], ["forwardPE", "선행 P/E (낮을수록 상위)"],
   ["grossProfitabilityPct", "총이익/자산"], ["investmentGapPts", "자산증가−EBITDA증가 (낮을수록 상위)"],
+  ["accrualsPct", "발생액 비율 (낮을수록 상위)"], ["epsSurpriseMeanPct", "평균 EPS 서프라이즈"],
   ["revenueGrowthFy1Pct", "내년 매출 성장 컨센서스"], ["epsRevision90dPct", "EPS 추정치 90일 변화"], ["dilution3yPct", "3년 주식 수 증가 (낮을수록 상위)"],
 ];
 
@@ -105,6 +106,8 @@ function quantSection(c) {
   return `<section class="co-sec"><h2>퀀트 지표</h2><div class="qgrid">
     ${cell("내년 매출 성장(컨센서스)", f(q.revenueGrowthFy1Pct, 1, "%"), tone(q.revenueGrowthFy1Pct, 25, 0), `Yahoo 애널리스트 평균 · 다음 회계연도 · 올해 ${isNum(q.revenueGrowthFy0Pct) ? `${q.revenueGrowthFy0Pct}%` : "—"} · ${q.revenueAnalysts ?? "—"}명`)}
     ${cell("EPS 추정치 변화(90일)", isNum(q.epsRevision90dPct) ? `${q.epsRevision90dPct > 0 ? "+" : ""}${q.epsRevision90dPct.toFixed(1)}%` : "자료 없음", tone(q.epsRevision90dPct, 3, -3), `${q.epsTrendPeriod === "+1y" ? "다음" : "이번"} 회계연도 EPS 컨센서스의 90일 전 대비 변화(추정치 수정이 이후 수익률 추세를 예측: Chan·Jegadeesh·Lakonishok 1996) · 30일 ${isNum(q.epsRevision30dPct) ? `${q.epsRevision30dPct}%` : "—"} · 30일 상향 ${q.epsUp30d ?? "—"} / 하향 ${q.epsDown30d ?? "—"}`)}
+    ${cell("EPS 서프라이즈(최근 4분기)", isNum(q.epsBeats) ? `${q.epsBeats}/${q.epsBeatQuarters} 상회${isNum(q.epsSurpriseMeanPct) ? ` · 평균 ${q.epsSurpriseMeanPct > 0 ? "+" : ""}${q.epsSurpriseMeanPct}%` : ""}` : "자료 없음", isNum(q.epsBeats) ? (q.epsBeats >= Math.ceil(q.epsBeatQuarters * 0.75) ? "q-good" : q.epsBeats <= Math.floor(q.epsBeatQuarters / 4) ? "q-bad" : "q-mid") : "q-nd", `발표 EPS가 컨센서스를 넘은 분기 수와 평균 서프라이즈(Yahoo) · 최근 ${q.epsSurpriseLatest || "—"} · 발표 후 주가가 서프라이즈 방향으로 이어졌다는 연구(Bernard·Thomas 1989)`)}
+    ${cell("발생액 비율", f(q.accrualsPct, 1, "%"), toneLow(q.accrualsPct, 0, 10), "(최근 12개월 순이익 − 영업현금흐름) ÷ 총자산 · 높을수록 이익 중 현금 아닌 부분이 큼(Sloan 1996) · 초록 ≤ 0, 빨강 ≥ 10%")}
     ${cell("총이익/자산", f(q.grossProfitabilityPct, 1, "%"), tone(q.grossProfitabilityPct, 30, 10), "매출총이익 ÷ 총자산(Novy-Marx 2013의 수익성 지표) · 초록 ≥ 30%, 빨강 ≤ 10%")}
     ${cell("자산증가 − EBITDA증가", isNum(q.investmentGapPts) ? `${q.investmentGapPts > 0 ? "+" : ""}${q.investmentGapPts.toFixed(0)}%p` : "자료 없음", toneLow(q.investmentGapPts, 0, 20), `최근 회계연도 총자산 증가율 ${isNum(q.assetGrowthPct) ? `${q.assetGrowthPct}%` : "—"} − EBITDA 증가율 ${isNum(q.ebitdaGrowthPct) ? `${q.ebitdaGrowthPct}%` : "—"} · 자산 증가가 빠른 기업의 이후 수익률이 낮았고(Cooper·Gulen·Schill 2008), 자산이 EBITDA보다 빨리 는 해의 다음 해 초과수익이 약 4–11%p 낮았다는 연구(Yartseva 2025) · 초록 ≤ 0, 빨강 ≥ +20%p`)}
     ${cell("3년 주식 수 증가", f(q.dilution3yPct, 1, "%"), toneLow(q.dilution3yPct, 5, 30), "공시 발행주식 수 3년 변화 · 주식 발행이 많을수록 이후 수익률이 낮았다는 연구(Pontiff·Woodgate 2008) · 빨강 ≥ 30%")}

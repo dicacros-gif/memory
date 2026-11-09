@@ -137,6 +137,7 @@ export function rowFacts(r) {
     bookToMarket: isNum(r.price_book_fq) && r.price_book_fq > 0 ? round(1 / r.price_book_fq, 3) : null,
     operatingMarginPct: round(r.operating_margin),
     // Currency-neutral ratios and dates (TradingView scanner), used to fill gaps only.
+    grossProfitabilityPct: isNum(r.gross_margin) && isNum(revenue) && isNum(r.total_assets) && r.total_assets > 0 ? round((r.gross_margin / 100) * revenue / r.total_assets * 100) : null,
     psRatio: isNum(r.price_revenue_ttm) && r.price_revenue_ttm > 0 ? round(r.price_revenue_ttm, 2) : null,
     peTtm: isNum(r.price_earnings_ttm) && r.price_earnings_ttm > 0 && r.price_earnings_ttm < 2000 ? round(r.price_earnings_ttm) : null,
     roePct: round(r.return_on_equity),
