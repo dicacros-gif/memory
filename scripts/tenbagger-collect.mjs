@@ -332,10 +332,21 @@ export function secFundamentals(facts) {
   const annualRev = new Map(annualValues(revenue?.rows).map((a) => [a.end, a.value]));
   const annualOcf = new Map(annualValues(ocf?.rows).map((a) => [a.end, a.value]));
   const annualCapex = new Map(annualValues(capex?.rows).map((a) => [a.end, a.value]));
+  const da = usd(facts, "us-gaap:DepreciationDepletionAndAmortization", "us-gaap:DepreciationAndAmortization", "us-gaap:DepreciationAmortizationAndAccretionNet", "ifrs-full:DepreciationAndAmortisationExpense");
+  const annualOpInc = new Map(annualValues(opInc?.rows).map((a) => [a.end, a.value]));
+  const annualDa = new Map(annualValues(da?.rows).map((a) => [a.end, a.value]));
+  const annualGross = new Map(annualValues(gross?.rows).map((a) => [a.end, a.value]));
+  const assetsAt = (end) => instantAt(facts, ["us-gaap:Assets", "ifrs-full:Assets"], end)?.value ?? null;
   return {
     currency: revenue?.unit || ocf?.unit || "USD",
     quarters: secQuarters(revenue?.rows, ocf?.rows, capex?.rows),
-    annual: [...annualRev.keys()].slice(-15).map((end) => ({ end, revenue: annualRev.get(end), fcf: annualOcf.has(end) ? annualOcf.get(end) - (annualCapex.get(end) || 0) : null })),
+    annual: [...annualRev.keys()].slice(-15).map((end, i, all) => ({
+      end, revenue: annualRev.get(end), fcf: annualOcf.has(end) ? annualOcf.get(end) - (annualCapex.get(end) || 0) : null,
+      // Last three fiscal years only: total assets, EBITDA (operating income + D&A) and gross profit.
+      ...(i >= all.length - 3 ? { assets: assetsAt(end), ebitda: annualOpInc.has(end) && annualDa.has(end) ? annualOpInc.get(end) + annualDa.get(end) : null, grossProfit: annualGross.get(end) ?? null } : {}),
+    })),
+    grossProfitTtm: gp?.value ?? null,
+    assetsLatest: cashNow ? assetsAt(cashNow.end) : null,
     revenueTtm: rev?.value ?? null,
     revenueReported: Boolean(revenue),
     revenueBasis: rev?.basis ?? null,
@@ -357,7 +368,17 @@ export function secFundamentals(facts) {
     cashEnd: cashNow?.end ?? null,
     sharesOutstanding: sharesNow?.value ?? null,
     dilutionPct: shares ? dilutionPct(shares) : null,
+    dilution3yPct: shares ? dilution3yPct(shares) : null,
   };
+}
+
+/** Share count change over roughly three years, in % (positive = dilution). */
+export function dilution3yPct(shareFacts = []) {
+  const rows = shareFacts.filter((f) => f.end && Number.isFinite(Number(f.val)) && Number(f.val) > 0).sort((a, b) => (a.end < b.end ? -1 : 1));
+  if (rows.length < 2) return null;
+  const last = rows.at(-1);
+  const prior = [...rows].reverse().find((r) => days(r.end, last.end) >= 1000 && days(r.end, last.end) <= 1190);
+  return prior ? Number(((Number(last.val) / Number(prior.val) - 1) * 100).toFixed(1)) : null;
 }
 
 async function fetchSec(cik) {
@@ -537,7 +558,7 @@ async function main() {
     const cik = secCikFor(company, tickerMap);
     const cached = yfCache[company.ticker];
     const prices = cached?.series?.length
-      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null, shortInterest: cached.shortInterest ?? null, valuation: cached.valuation ?? null, nextEarnings: cached.nextEarnings ?? null }
+      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null, shortInterest: cached.shortInterest ?? null, valuation: cached.valuation ?? null, nextEarnings: cached.nextEarnings ?? null, estimates: cached.estimates ?? null }
       : await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
     const dart = dartCache[company.ticker] || dartCache[company.ticker.replace(/^KOSDAQ:/, "KRX:")] || dartCache[company.ticker.replace(/^KRX:/, "KOSDAQ:")];
     const snapshot = cached?.fundamentals ? { ...cached.fundamentals, status: "provider snapshot" } : null;
@@ -548,7 +569,7 @@ async function main() {
     ]);
     const row = companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] });
     const tv = crossCheck(row, tvRows.get(tvTicker(company.ticker))) || previous[company.ticker]?.tv || null;
-    return { ...row, valuation: prices?.valuation ?? previous[company.ticker]?.valuation ?? null, nextEarnings: prices?.nextEarnings ?? previous[company.ticker]?.nextEarnings ?? null,
+    return { ...row, valuation: prices?.valuation ?? previous[company.ticker]?.valuation ?? null, estimates: prices?.estimates ?? previous[company.ticker]?.estimates ?? null, nextEarnings: prices?.nextEarnings ?? previous[company.ticker]?.nextEarnings ?? null,
       shortInterest: prices?.shortInterest ?? previous[company.ticker]?.shortInterest ?? null, avgTradedValue20d: prices?.avgTradedValue20d ?? previous[company.ticker]?.avgTradedValue20d ?? null, name: company.name || null, holderOnly: Boolean(company.holderOnly), runwayStatus: runwayStatus(row.fundamentals),
       postPeriodRaises: postPeriodRaises(row.fundamentals), marketCapUsd: usdMarketCap(row, tv), tv, secCik: cik, yahooSymbol: prices?.symbol || symbol };
   });

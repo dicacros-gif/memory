@@ -193,6 +193,33 @@ export function balanceCheck(c, netCash) {
   return { yahooNetCash: yahoo, filedNetCash: netCash, disagree: Math.sign(yahoo) !== Math.sign(netCash) && material };
 }
 
+/**
+ * Investment discipline (Cooper, Gulen & Schill 2008; Yartseva 2025): total asset
+ * growth against EBITDA growth over the last fiscal year, plus gross profitability
+ * (Novy-Marx 2013): gross profit ÷ total assets. Filed annual data first, else the
+ * Yahoo snapshot's two fiscal years.
+ */
+export function investmentBlock(c) {
+  const a = (c.annual || []).filter((x) => isNum(x.assets) && x.assets > 0);
+  let cur = null, prev = null, src = null;
+  if (a.length >= 2) { cur = a.at(-1); prev = a.at(-2); src = "filed"; }
+  else if (c.investment && isNum(c.investment.assets) && isNum(c.investment.assetsPrior)) {
+    cur = { assets: c.investment.assets, ebitda: c.investment.ebitda, grossProfit: c.investment.grossProfit, end: c.investment.end };
+    prev = { assets: c.investment.assetsPrior, ebitda: c.investment.ebitdaPrior };
+    src = "Yahoo";
+  }
+  const g = (x, y) => (isNum(x) && isNum(y) && y > 0 && x > 0 ? round((x / y - 1) * 100) : null);
+  const assetGrowthPct = cur && prev ? g(cur.assets, prev.assets) : null;
+  const ebitdaGrowthPct = cur && prev ? g(cur.ebitda, prev.ebitda) : null;
+  const gpBase = isNum(c.grossProfitTtm) && isNum(c.assetsLatest) && c.assetsLatest > 0 ? [c.grossProfitTtm, c.assetsLatest] : cur && isNum(cur.grossProfit) ? [cur.grossProfit, cur.assets] : null;
+  return {
+    assetGrowthPct, ebitdaGrowthPct,
+    investmentGapPts: isNum(assetGrowthPct) && isNum(ebitdaGrowthPct) ? round(assetGrowthPct - ebitdaGrowthPct) : null,
+    grossProfitabilityPct: gpBase ? round((gpBase[0] / gpBase[1]) * 100) : null,
+    investmentBasis: src, investmentYear: cur?.end || null,
+  };
+}
+
 export function quantBlock(c) {
   const v = c.valuation || {};
   const sameCur = c.currency && c.statementCurrency && c.currency === c.statementCurrency;
@@ -200,7 +227,13 @@ export function quantBlock(c) {
   const cagr = revenueCagr3y(c.annual);
   const lastAnnual = (c.annual || []).filter((x) => isNum(x.fcf)).slice(-3);
   const accel = revenueAcceleration(c.quarters);
+  const est = c.estimates || {};
   return {
+    ...investmentBlock(c),
+    dilution3yPct: c.dilution3yPct ?? null,
+    revenueGrowthFy0Pct: est.revenueGrowthFy0Pct ?? null, revenueGrowthFy1Pct: est.revenueGrowthFy1Pct ?? null, revenueAnalysts: est.revenueAnalysts ?? null,
+    epsRevision30dPct: est.epsRevision30dPct ?? null, epsRevision90dPct: est.epsRevision90dPct ?? null,
+    epsUp30d: est.epsUp30d ?? null, epsDown30d: est.epsDown30d ?? null, epsTrendPeriod: est.epsTrendPeriod ?? null,
     revenueAccelPts: accel?.accelPts ?? null, revenueYoyLatestPct: accel?.latestYoyPct ?? null, revenueAccelQuarter: accel?.quarter ?? null,
     revenueCagr3yPct: cagr?.pct ?? null, revenueCagr3yPeriod: cagr ? `${cagr.from}→${cagr.to}` : null,
     fcfYieldPct: isNum(c.fcfTtm) && isNum(c.marketCap) && c.marketCap > 0 && sameCur ? round((c.fcfTtm / c.marketCap) * 100) : null,
@@ -312,6 +345,11 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     for (const key of ["grossMarginPct", "operatingMarginPct"]) if (!isNum(rec[key]) && isNum(rec.valuation?.[key])) { rec[key] = rec.valuation[key]; rec.filledFrom[key] = "Yahoo"; }
     rec.annual = f?.annual || [];
     rec.balanceSheetConcepts = f?.balanceSheetConcepts || null;
+    rec.estimates = m?.estimates ?? null;
+    rec.grossProfitTtm = f?.grossProfitTtm ?? null;
+    rec.assetsLatest = f?.assetsLatest ?? null;
+    rec.investment = f?.investment ?? null;
+    rec.dilution3yPct = f?.dilution3yPct ?? null;
     // No filed short-term-investment line: Yahoo's latest-quarter total cash minus filed cash, same currency, labelled.
     const yv = rec.valuation;
     // Not for banks, brokers and asset managers (TradingView sector "Finance"): their cash is client and balance-sheet funding.
@@ -365,6 +403,9 @@ export const RANK_KEYS = {
   ruleOf40: [(c) => c.quant?.ruleOf40, 1], fcfYieldPct: [(c) => c.quant?.fcfYieldPct, 1],
   netCashToMcapPct: [(c) => c.quant?.netCashToMcapPct, 1], roePct: [(c) => c.quant?.roePct, 1],
   priceToSales: [(c) => c.priceToSales, -1], forwardPE: [(c) => c.valuation?.forwardPE, -1],
+  grossProfitabilityPct: [(c) => c.quant?.grossProfitabilityPct, 1], investmentGapPts: [(c) => c.quant?.investmentGapPts, -1],
+  revenueGrowthFy1Pct: [(c) => c.quant?.revenueGrowthFy1Pct, 1], epsRevision90dPct: [(c) => c.quant?.epsRevision90dPct, 1],
+  dilution3yPct: [(c) => c.quant?.dilution3yPct, -1],
 };
 export function industryRanks(companies) {
   const groups = new Map();

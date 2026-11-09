@@ -250,6 +250,51 @@ def quarters(t) -> list[dict]:
     return [{"end": k, **v} for k, v in sorted(out.items())][-8:]
 
 
+def _cell(frame, period: str, column: str):
+    try:
+        if frame is None or getattr(frame, "empty", True) or period not in frame.index or column not in frame.columns:
+            return None
+        return num(frame.loc[period, column])
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def estimates(t) -> dict | None:
+    """Analyst consensus from Yahoo: revenue growth for this and next fiscal year,
+    and how the EPS estimate moved over 30 and 90 days (revision momentum)."""
+    out = {}
+    try:
+        rev = t.revenue_estimate
+        for period, key in (("0y", "revenueGrowthFy0Pct"), ("+1y", "revenueGrowthFy1Pct")):
+            g = _cell(rev, period, "growth")
+            out[key] = round(g * 100, 1) if g is not None and abs(g) < 20 else None
+        out["revenueAnalysts"] = _cell(rev, "+1y", "numberOfAnalysts") or _cell(rev, "0y", "numberOfAnalysts")
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        trend = t.eps_trend
+        period = "+1y" if _cell(trend, "+1y", "current") is not None else "0y"
+        cur = _cell(trend, period, "current")
+        for col, key in (("30daysAgo", "epsRevision30dPct"), ("90daysAgo", "epsRevision90dPct")):
+            past = _cell(trend, period, col)
+            out[key] = round((cur / past - 1) * 100, 1) if cur is not None and past not in (None, 0) and past > 0 and cur > 0 else None
+        out["epsTrendPeriod"] = period
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        rv = t.eps_revisions
+        period = "+1y" if _cell(rv, "+1y", "upLast30days") is not None else "0y"
+        out["epsUp30d"] = _cell(rv, period, "upLast30days")
+        out["epsDown30d"] = _cell(rv, period, "downLast30days")
+    except Exception:  # noqa: BLE001
+        pass
+    return out if any(v is not None for k, v in out.items() if k != "epsTrendPeriod") else None
+
+
+WANT_ESTIMATES: set[str] = set()
+ESTIMATE_DEADLINE = {"t": float("inf")}
+
+
 def collect(ticker: str) -> dict | None:
     for symbol in symbols_for(ticker):
         t = yf.Ticker(symbol)
@@ -277,6 +322,12 @@ def collect(ticker: str) -> dict | None:
             "valuation": valuation(info),
             "nextEarnings": next_earnings(earnings_dates(t), t),
         }
+        # Consensus estimates for the research universe only, and only while the budget allows.
+        if ticker in WANT_ESTIMATES and time.time() < ESTIMATE_DEADLINE["t"]:
+            try:
+                out["estimates"] = estimates(t)
+            except Exception:  # noqa: BLE001
+                out["estimates"] = None
         try:
             revenue, revenue_prior, revenue_end = row(t.income_stmt, "Total Revenue", "Operating Revenue")
             fcf, _, _ = row(t.cashflow, "Free Cash Flow")
@@ -287,6 +338,8 @@ def collect(ticker: str) -> dict | None:
             debt, _, _ = row(t.balance_sheet, "Total Debt")
             gross, _, _ = row(t.income_stmt, "Gross Profit")
             op_inc, _, _ = row(t.income_stmt, "Operating Income")
+            assets, assets_prior, assets_end = row(t.balance_sheet, "Total Assets")
+            ebitda, ebitda_prior, _ = row(t.income_stmt, "EBITDA", "Normalized EBITDA")
             out["fundamentals"] = {
                 "currency": out["currency"],
                 "revenueTtm": revenue, "revenueBasis": "fiscal-year" if revenue is not None else None, "revenueEnd": revenue_end,
@@ -298,6 +351,9 @@ def collect(ticker: str) -> dict | None:
                 "operatingMarginPct": round(op_inc / revenue * 100, 1) if op_inc is not None and revenue else None,
                 "marketCapReported": out["marketCap"],
                 "quarters": quarters(t),
+                # Investment inputs (two fiscal years) for asset growth vs EBITDA growth and gross profitability.
+                "investment": {"assets": assets, "assetsPrior": assets_prior, "ebitda": ebitda, "ebitdaPrior": ebitda_prior,
+                               "grossProfit": gross, "end": assets_end},
                 "source": "Yahoo Finance annual statements (yfinance)",
                 "sourceUrl": f"https://finance.yahoo.com/quote/{symbol}/financials",
             }
@@ -317,8 +373,10 @@ def main() -> int:
     # the second path into each industry.
     tickers += holder_tickers(universe)
     tickers = list(dict.fromkeys(tickers))
+    WANT_ESTIMATES.update(c["ticker"] for sector in universe.get("sectors", []) for c in sector.get("publicCompanies", []))
     results, errors = {}, []
     deadline = time.time() + 15 * 60
+    ESTIMATE_DEADLINE["t"] = time.time() + 11 * 60  # estimates add three calls per ticker; stop them first
     lock = threading.Lock()
     cooldown = {"until": 0.0, "pause": 0.6}
     limited: list[str] = []

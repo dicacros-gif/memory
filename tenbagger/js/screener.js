@@ -28,6 +28,11 @@ export function filterChips(p, industries, startups) {
   if (p.rev) chips.push(["rev", `매출 ≥ $${p.rev}M`]);
   if (p.cov) chips.push(["cov", { universe: "큐레이션 산업 기업", holder: "스타트업 지분 보유사", screen: "스크리너 발굴" }[p.cov]]);
   if (p.new) chips.push(["new", "신규 편입"]);
+  if (p.erev) chips.push(["erev", `EPS 추정치 90일 > ${p.erev}%`]);
+  if (p.accel) chips.push(["accel", `매출 가속 > ${p.accel}%p`]);
+  if (p.gp) chips.push(["gp", `총이익/자산 ≥ ${p.gp}%`]);
+  if (p.igap) chips.push(["igap", `자산증가−EBITDA증가 ≤ ${p.igap}%p`]);
+  if (p.dil3) chips.push(["dil3", `3년 희석 ≤ ${p.dil3}%`]);
   if (p.status) chips.push(["status", p.status === "filed" ? "공시 재무" : "데이터 제공사 재무"]);
   if (p.layer) chips.push(["layer", p.layer === "candidate" ? "후보층" : "선도층"]);
   const st = startups.find((s) => s.id === p.stk);
@@ -65,6 +70,16 @@ function columns(fx) {
     { key: "debt", label: "차입금", num: true, optional: true, value: (c) => toUsd(c.debt, c.statementCurrency, fx), render: (c) => money(c.debt, c.statementCurrency || "USD") },
     { key: "operatingMarginPct", label: "영업이익률", num: true, optional: true, value: (c) => c.operatingMarginPct, render: (c) => pct(c.operatingMarginPct) },
     { key: "dilutionPct", label: "주식 수 변화(1년)", num: true, optional: true, value: (c) => c.dilutionPct, render: (c) => pct(c.dilutionPct) },
+    { key: "revenueFy1", label: "내년 매출 성장(컨센서스)", num: true, optional: true, title: "Yahoo 애널리스트 평균 매출 추정치의 다음 회계연도 성장률", value: (c) => c.quant?.revenueGrowthFy1Pct ?? null,
+      render: (c) => (isNum(c.quant?.revenueGrowthFy1Pct) ? `${pct(c.quant.revenueGrowthFy1Pct)}<div class="sub">${c.quant.revenueAnalysts ?? "—"}명</div>` : NO_DATA) },
+    { key: "epsRevision", label: "EPS 추정치 90일", num: true, optional: true, title: "EPS 컨센서스의 90일 전 대비 변화(%). 상향 조정은 이후 수익률과 연관된다는 연구가 있음", value: (c) => c.quant?.epsRevision90dPct ?? null,
+      render: (c) => (isNum(c.quant?.epsRevision90dPct) ? `<span class="num ${c.quant.epsRevision90dPct > 0 ? "pos" : c.quant.epsRevision90dPct < 0 ? "neg" : ""}">${c.quant.epsRevision90dPct > 0 ? "▲ +" : c.quant.epsRevision90dPct < 0 ? "▼ " : ""}${c.quant.epsRevision90dPct.toFixed(1)}%</span>` : NO_DATA) },
+    { key: "grossProfitability", label: "총이익/자산", num: true, optional: true, title: "매출총이익 ÷ 총자산(Novy-Marx 2013)", value: (c) => c.quant?.grossProfitabilityPct ?? null,
+      render: (c) => (isNum(c.quant?.grossProfitabilityPct) ? pct(c.quant.grossProfitabilityPct) : NO_DATA) },
+    { key: "investmentGap", label: "자산−EBITDA 증가", num: true, optional: true, title: "총자산 증가율 − EBITDA 증가율(최근 회계연도, %p). 높을수록 과잉 투자 신호", value: (c) => c.quant?.investmentGapPts ?? null,
+      render: (c) => (isNum(c.quant?.investmentGapPts) ? `<span class="num ${c.quant.investmentGapPts <= 0 ? "pos" : c.quant.investmentGapPts >= 20 ? "neg" : ""}">${c.quant.investmentGapPts > 0 ? "+" : ""}${c.quant.investmentGapPts.toFixed(0)}%p</span>` : NO_DATA) },
+    { key: "dilution3y", label: "3년 희석", num: true, optional: true, title: "공시 발행주식 수 3년 변화(%)", value: (c) => c.quant?.dilution3yPct ?? null,
+      render: (c) => (isNum(c.quant?.dilution3yPct) ? `<span class="num ${c.quant.dilution3yPct >= 30 ? "neg" : ""}">${pct(c.quant.dilution3yPct)}</span>` : NO_DATA) },
     { key: "revenueAccel", label: "매출 가속", num: true, optional: true, title: "최근 분기 매출 전년 동기 대비 성장률 − 직전 분기의 같은 성장률(%p). 플러스면 성장이 빨라지는 중", value: (c) => c.quant?.revenueAccelPts ?? null,
       render: (c) => (isNum(c.quant?.revenueAccelPts) ? `<span class="num ${c.quant.revenueAccelPts > 0 ? "pos" : c.quant.revenueAccelPts < 0 ? "neg" : ""}">${c.quant.revenueAccelPts > 0 ? "▲ +" : c.quant.revenueAccelPts < 0 ? "▼ " : ""}${c.quant.revenueAccelPts.toFixed(1)}%p</span><div class="sub">최근 분기 ${pct(c.quant.revenueYoyLatestPct)}</div>` : NO_DATA) },
     { key: "revenueCagr3y", label: "매출 3년 CAGR", num: true, optional: true, title: "최근 회계연도 매출 ÷ 3년 전 회계연도 매출의 연평균 성장률(공시 연간 자료 4개년 이상일 때)", value: (c) => c.quant?.revenueCagr3yPct ?? null,
