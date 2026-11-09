@@ -297,16 +297,37 @@ export function annualValues(facts = []) {
   return [...out.values()].sort((a, b) => (a.end < b.end ? -1 : 1)).map((f) => ({ end: f.end, value: Number(f.val) }));
 }
 
-/** Share count change over roughly one year, in % (positive = dilution). */
-export function dilutionPct(shareFacts = []) {
+/**
+ * Share count change between the latest filed count and one about `lo`–`hi`
+ * days earlier, adjusted for stock splits in between (Yahoo split history).
+ * Without split data, a change that matches a common split factor is not
+ * reported: a 10-for-1 split is not 900% dilution.
+ */
+export function shareChange(shareFacts = [], lo, hi, splits = null) {
   const rows = shareFacts.filter((f) => f.end && Number.isFinite(Number(f.val)) && Number(f.val) > 0).sort((a, b) => (a.end < b.end ? -1 : 1));
   if (rows.length < 2) return null;
   const last = rows.at(-1);
-  const prior = [...rows].reverse().find((r) => days(r.end, last.end) >= 330 && days(r.end, last.end) <= 400);
-  return prior ? Number(((Number(last.val) / Number(prior.val) - 1) * 100).toFixed(1)) : null;
+  const prior = [...rows].reverse().find((r) => days(r.end, last.end) >= lo && days(r.end, last.end) <= hi);
+  if (!prior) return null;
+  let ratio = Number(last.val) / Number(prior.val);
+  if (Array.isArray(splits)) {
+    const factor = splits.filter((x) => x.date > prior.end && x.date <= last.end).reduce((p, x) => p * Number(x.ratio || 1), 1);
+    ratio /= factor;
+  } else if (looksLikeSplit(ratio)) return null;
+  return Number(((ratio - 1) * 100).toFixed(1));
 }
 
-export function secFundamentals(facts) {
+const SPLIT_FACTORS = [2, 3, 4, 5, 8, 10, 15, 20, 25, 30, 40, 50];
+export function looksLikeSplit(ratio) {
+  if (!Number.isFinite(ratio) || ratio <= 0) return false;
+  const r = ratio >= 1 ? ratio : 1 / ratio;
+  return r >= 1.9 && SPLIT_FACTORS.some((f) => Math.abs(r / f - 1) < 0.03);
+}
+
+/** Share count change over roughly one year, in % (positive = dilution). */
+export const dilutionPct = (shareFacts = [], splits = null) => shareChange(shareFacts, 330, 400, splits);
+
+export function secFundamentals(facts, { splits = null } = {}) {
   const revenue = usd(facts, "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax", "us-gaap:Revenues", "us-gaap:SalesRevenueNet", "us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax", "ifrs-full:Revenue");
   const ocf = usd(facts, "us-gaap:NetCashProvidedByUsedInOperatingActivities", "ifrs-full:CashFlowsFromUsedInOperatingActivities");
   const capex = usd(facts, "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment", "us-gaap:PaymentsToAcquireProductiveAssets", "us-gaap:PaymentsToAcquirePropertyPlantAndEquipmentAndIntangibleAssets", "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "ifrs-full:PurchaseOfPropertyPlantAndEquipment");
@@ -367,25 +388,19 @@ export function secFundamentals(facts) {
       stiCandidates: stiAt ? [] : instantConceptsAt(facts, cashNow?.end, /(Securities|Investments|Marketable)/i) },
     cashEnd: cashNow?.end ?? null,
     sharesOutstanding: sharesNow?.value ?? null,
-    dilutionPct: shares ? dilutionPct(shares) : null,
-    dilution3yPct: shares ? dilution3yPct(shares) : null,
+    dilutionPct: shares ? dilutionPct(shares, splits) : null,
+    dilution3yPct: shares ? dilution3yPct(shares, splits) : null,
   };
 }
 
 /** Share count change over roughly three years, in % (positive = dilution). */
-export function dilution3yPct(shareFacts = []) {
-  const rows = shareFacts.filter((f) => f.end && Number.isFinite(Number(f.val)) && Number(f.val) > 0).sort((a, b) => (a.end < b.end ? -1 : 1));
-  if (rows.length < 2) return null;
-  const last = rows.at(-1);
-  const prior = [...rows].reverse().find((r) => days(r.end, last.end) >= 1000 && days(r.end, last.end) <= 1190);
-  return prior ? Number(((Number(last.val) / Number(prior.val) - 1) * 100).toFixed(1)) : null;
-}
+export const dilution3yPct = (shareFacts = [], splits = null) => shareChange(shareFacts, 1000, 1190, splits);
 
-async function fetchSec(cik) {
+async function fetchSec(cik, splits = null) {
   const padded = String(cik).padStart(10, "0");
   const facts = await getJson(`https://data.sec.gov/api/xbrl/companyfacts/CIK${padded}.json`, { "User-Agent": SEC_UA });
   const submissions = await getJson(`https://data.sec.gov/submissions/CIK${padded}.json`, { "User-Agent": SEC_UA }).catch(() => null);
-  return { ...secFundamentals(facts), filings: secFilings(submissions, cik), status: "filed", source: "SEC EDGAR companyfacts", sourceUrl: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}` };
+  return { ...secFundamentals(facts, { splits }), filings: secFilings(submissions, cik), status: "filed", source: "SEC EDGAR companyfacts", sourceUrl: `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}` };
 }
 
 /** Korean listings move between KOSPI (.KS) and KOSDAQ (.KQ); try the other suffix too. */
@@ -563,7 +578,7 @@ async function main() {
     const dart = dartCache[company.ticker] || dartCache[company.ticker.replace(/^KOSDAQ:/, "KRX:")] || dartCache[company.ticker.replace(/^KRX:/, "KOSDAQ:")];
     const snapshot = cached?.fundamentals ? { ...cached.fundamentals, status: "provider snapshot" } : null;
     const [fundamentals] = await Promise.all([
-      company.historyOnly ? null : (cik ? fetchSec(cik).catch((e) => { if (!snapshot) throw e; errors.push(`${company.ticker} SEC: ${e.message} — provider snapshot used`); return snapshot; }) : dart ? Promise.resolve({ ...dart, quarters: snapshot?.quarters || [] }) : snapshot ? Promise.resolve(snapshot)
+      company.historyOnly ? null : (cik ? fetchSec(cik, Array.isArray(cached?.splits) ? cached.splits : null).catch((e) => { if (!snapshot) throw e; errors.push(`${company.ticker} SEC: ${e.message} — provider snapshot used`); return snapshot; }) : dart ? Promise.resolve({ ...dart, quarters: snapshot?.quarters || [] }) : snapshot ? Promise.resolve(snapshot)
         : fetchYahooFundamentals(prices?.symbol || symbol).then((f) => ({ ...f, status: "provider snapshot" })))
         .catch((e) => { errors.push(`${company.ticker} fundamentals: ${e.message}`); return null; }),
     ]);
