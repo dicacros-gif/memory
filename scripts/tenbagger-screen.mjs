@@ -128,6 +128,9 @@ export function rowFacts(r) {
     grossMarginPct: round(r.gross_margin),
     perf1yPct: round(r["Perf.Y"]),
     perf5yPct: round(r["Perf.5Y"]),
+    // Position inside the 52-week range: 0 = at the low, 100 = at the high (Yartseva's "price range").
+    rangePos12m: isNum(r.close) && isNum(r.price_52_week_high) && isNum(r.price_52_week_low) && r.price_52_week_high > r.price_52_week_low
+      ? round(((r.close - r.price_52_week_low) / (r.price_52_week_high - r.price_52_week_low)) * 100) : null,
     offHighPct: isNum(r.close) && isNum(r.price_52_week_high) && r.price_52_week_high > 0
       ? round((r.close / r.price_52_week_high - 1) * 100) : null,
     // Valuation ratios are currency-neutral scanner fields.
@@ -168,7 +171,7 @@ export const FACTOR_RESEARCH = {
     { key: "value", label: "높은 장부가/시가(B/M)", basis: "논문 초록" },
     { key: "profitability", label: "높은 수익성(영업이익률)", basis: "논문 초록" },
     { key: "fcfYield", label: "높은 FCF 수익률", basis: "논문 결과 2차 요약" },
-    { key: "offHigh", label: "52주 고점에서 먼 주가", basis: "논문 결과 2차 요약" },
+    { key: "offHigh", label: "12개월 가격 범위의 저점 쪽 위치(없으면 52주 고점 대비 거리)", basis: "논문 본문(검색 발췌로 확인)" },
   ],
   caveat: "생존 편향(10배를 유지한 종목만 표본)과 다수 변수 검정의 과적합 위험이 지적됨. 점수는 순위 비교용이며 예측이 아님.",
 };
@@ -192,9 +195,13 @@ export function scoreFactors(facts) {
     profitability: percentiles(facts.map((f) => f.operatingMarginPct ?? f.grossMarginPct), true),
     fcfYield: percentiles(facts.map((f) => f.fcfYieldPct), true),
     offHigh: percentiles(facts.map((f) => f.offHighPct), false),
+    range: percentiles(facts.map((f) => f.rangePos12m), false),
   };
   return facts.map((f, i) => {
-    const parts = Object.fromEntries(Object.entries(cols).map(([k, v]) => [k, v[i]]));
+    const { range, ...rest } = cols;
+    const parts = Object.fromEntries(Object.entries(rest).map(([k, v]) => [k, v[i]]));
+    // Entry point: position in the 12-month range when the scan has the low, else distance below the high.
+    if (isNum(range[i])) parts.offHigh = range[i];
     const have = Object.values(parts).filter(isNum);
     return { ...f, factor: { ...parts, score: have.length >= 3 ? Math.round(have.reduce((a, b) => a + b, 0) / have.length) : null, factors: have.length } };
   });

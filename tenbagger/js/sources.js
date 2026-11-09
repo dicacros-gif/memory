@@ -3,6 +3,7 @@
 // coverage change log.
 import { esc, day, statusChip, srcBtn } from "./format.js";
 import { companyUrl } from "./state.js";
+import { EVIDENCE, EVIDENCE_CHECKED } from "./evidence.js";
 
 const NAMES = { sec: "SEC EDGAR (미국 재무·공시)", dart: "DART OpenAPI (한국 재무·공시)", yahoo: "Yahoo Finance via yfinance (가격·일간 OHLC·비공시 재무)", tradingview: "TradingView 공개 스크리너 (업종 실측·발굴)", fred: "FRED DEXKOUS (원/달러)", cohort: "과거 코호트 (주 1회)" };
 
@@ -26,6 +27,11 @@ export function renderSources(root, { status, sources, changelog, companies }) {
       <li><b>일간 차트</b>: 미국 상장은 TradingView 위젯(지연 시세). 그 외 시장은 Yahoo Finance 일간 수정 OHLC를 저장해 그리며, 공식 재배포 라이선스 시세가 아니므로 정확한 시세는 TradingView 링크에서 확인하세요.</li>
       <li><b>검토 절차</b>: 재무·가격은 매일 자동 갱신됩니다. 출처 페이지의 수치가 바뀐 지분율·산업 전망은 자동으로 덮어쓰지 않고 "검토 필요"로 표시합니다. 매 실행마다 무결성 감사(중복 티커, 날짜·출처 없는 지분, 미래 날짜, 비정상 숫자)를 통과해야 게시됩니다.</li>
     </ul></section>
+    <section><h2>지표 근거 연구</h2>
+      <p class="sub">퀀트 지표가 왜 들어갔는지와 그 한계. 초록·검색 발췌로 확인(${esc(EVIDENCE_CHECKED)}), 본문 인용이 아닌 요약입니다. 연구 결과는 평균적 경향이며 개별 종목의 수익을 보장하지 않습니다.</p>
+      <div class="tbl-wrap"><table class="grid evidence"><thead><tr><th class="first">연구</th><th>발견</th><th>사이트 지표</th><th>한계</th></tr></thead><tbody>
+      ${EVIDENCE.map((e) => `<tr><td class="first wrap"><b>${esc(e.title)}</b><div class="sub">${esc(e.who)}</div>${srcBtn(e.url, "원문")}</td><td class="wrap">${esc(e.finding)}</td><td class="wrap">${e.indicators.map(esc).join("<br>")}</td><td class="wrap sub">${esc(e.caveat)}</td></tr>`).join("")}
+      </tbody></table></div></section>
     <section><h2>검토 필요 (${review.length})</h2>${review.length ? `<ul>${review.map(([url, r]) => `<li>${esc(r.reviewRequired)}부터 · 출처에서 수치가 더 이상 확인되지 않음 ${srcBtn(url, new URL(url).hostname)}</li>`).join("")}</ul>` : '<p class="muted">없음</p>'}
       <p class="sub">출처 재확인 ${esc(day(sources?.checkedAt) || "—")} · 링크 ${sources?.urls ?? "—"}개 중 열림 ${sources?.reachable ?? "—"}개 · 접근 실패 ${failing.length}개</p></section>
     <section><h2>상장 확인 대기 (${Object.values(status?.verification || {}).filter((v) => !v?.ok).length})</h2>

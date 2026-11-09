@@ -39,7 +39,7 @@ OPTIONAL = ["total_revenue_ttm", "total_revenue_yoy_growth_ttm", "free_cash_flow
             "cash_n_short_term_invest_fq", "fundamental_currency_code", "Perf.Y", "Perf.5Y", "Perf.All",
             "price_52_week_high", "price_book_fq", "operating_margin", "price_free_cash_flow_ttm",
             "price_revenue_ttm", "price_earnings_ttm", "return_on_equity", "debt_to_equity", "current_ratio",
-            "beta_1_year", "earnings_release_next_date", "RSI"]
+            "beta_1_year", "earnings_release_next_date", "RSI", "price_52_week_low"]
 MIN_CAP_USD = 5e7
 LIMIT = 9000
 BUDGET_SECONDS = 420
