@@ -534,7 +534,10 @@ export function buildIndustries({ universe, companies, startups, screen, metrics
     "datacenter-power-cooling": ["Industrial Machinery", "Electrical Products", "Building Products"],
     "edge-ai-devices": ["Semiconductors", "Electronic Components", "Computer Peripherals"],
     "advanced-packaging-materials": ["Electronic Production Equipment", "Semiconductors", "Chemicals: Specialty"],
-    "water-infrastructure": ["Water Utilities", "Industrial Machinery", "Environmental Services"] };
+    "water-infrastructure": ["Water Utilities", "Industrial Machinery", "Environmental Services"],
+    "k-beauty-consumer-export": ["Household/Personal Care", "Apparel/Footwear", "Pharmaceuticals: Other"],
+    "silicon-photonics-optical": ["Telecommunications Equipment", "Semiconductors", "Electronic Components"],
+    "hydrogen-fuel-cells": ["Electrical Products", "Chemicals: Specialty", "Chemicals: Major Diversified"] };
   return (universe.sectors || []).map((s) => {
     const members = companies.filter((c) => c.industries.some((i) => i.id === s.id));
     const withFin = members.filter((c) => c.data.financials !== "no data" && c.data.financials !== "provider snapshot" || isNum(c.revenueTtm));
