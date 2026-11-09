@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "42629762847",
-  "generatedAt": "2026-11-09T14:09:11.450Z",
-  "expiresAt": "2026-11-10T16:09:10.196Z",
+  "runId": "42685709296",
+  "generatedAt": "2026-11-09T19:57:59.551Z",
+  "expiresAt": "2026-11-10T21:57:57.283Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-09T14:07:49.255Z",
-    "runId": "42629762847",
+    "generatedAt": "2026-11-09T19:56:31.232Z",
+    "runId": "42685709296",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,7 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "d64fbf603ababbadf9db",
+        "id": "dff57348873b43ac1df8",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -134,7 +134,7 @@
         "changed": true
       },
       {
-        "id": "f2244202b7970aae5354",
+        "id": "eb4f168190781a3a450f",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -278,12 +278,12 @@
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-09T14:07:49.255Z",
+      "generatedAt": "2026-11-09T19:56:31.232Z",
       "stats": {
-        "eligibleDocuments": 42,
-        "structuredEvents": 40,
-        "verifiedEvents": 35,
-        "currentStages": 34,
+        "eligibleDocuments": 40,
+        "structuredEvents": 36,
+        "verifiedEvents": 34,
+        "currentStages": 31,
         "newEvents": 0,
         "contradictionReviews": 0
       },
@@ -825,17 +825,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 149,
-        "structuredEvents": 40,
-        "verifiedEvents": 35,
+        "structuredEvents": 36,
+        "verifiedEvents": 34,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 38,
-        "useful": 30,
-        "observationRatePct": 92.7,
-        "usefulYieldPct": 78.9,
+        "observed": 36,
+        "useful": 29,
+        "observationRatePct": 87.8,
+        "usefulYieldPct": 80.6,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -852,12 +852,11 @@
             "sourceId": "trendforce",
             "latencyClass": "market-report",
             "refreshMode": "poll",
-            "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "transportStatus": "unavailable",
+            "attempts": 0,
+            "lastUsefulObservationAt": "2026-11-09T19:56:31.232Z",
             "usefulObservation": true,
-            "eventYield": 3
+            "eventYield": 0
           },
           {
             "id": "samsung-hbm4-stage",
@@ -866,8 +865,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -878,7 +877,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +888,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +900,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +912,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +924,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +935,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +947,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +959,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +971,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +983,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +995,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1008,8 +1007,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1019,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1031,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1042,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1053,12 +1052,10 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "transportStatus": "unavailable",
+            "attempts": 0,
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "llm-serving-systems-research",
@@ -1067,8 +1064,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1076,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1087,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1099,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1111,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1122,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1134,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1156,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1168,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1179,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1191,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1202,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1214,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1226,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1238,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1250,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1262,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1274,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1286,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1300,7 +1297,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1311,8 +1308,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T14:07:43.958Z",
-            "lastUsefulObservationAt": "2026-11-09T14:07:43.958Z",
+            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1327,7 +1324,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T14:07:49.255Z",
+          "updatedAt": "2026-11-09T19:56:31.232Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1457,7 +1454,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T14:07:49.255Z",
+          "updatedAt": "2026-11-09T19:56:31.232Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1587,7 +1584,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T14:07:49.255Z",
+          "updatedAt": "2026-11-09T19:56:31.232Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1714,7 +1711,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T14:07:49.255Z",
+          "updatedAt": "2026-11-09T19:56:31.232Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1860,7 +1857,7 @@
         "id": "trendforce-hbm-wafer-input",
         "sourceId": "trendforce",
         "kind": "parallel-series",
-        "status": "fetched"
+        "status": "unavailable"
       },
       {
         "id": "samsung-hbm4-stage",
@@ -1962,7 +1959,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "fetched"
+        "status": "unavailable"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2104,8 +2101,8 @@
         "chunks": 594,
         "added": 0,
         "changed": 1,
-        "unchanged": 41,
-        "retained": 107,
+        "unchanged": 39,
+        "retained": 109,
         "reindexed": 1
       },
       "packs": [
@@ -2292,8 +2289,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-09T14:07:49.255Z",
-              "sourceChangeDetectedAt": "2026-11-09T14:07:43.958Z",
+              "indexedAt": "2026-11-09T19:56:31.232Z",
+              "sourceChangeDetectedAt": "2026-11-09T19:55:41.483Z",
               "stale": false
             }
           ]
@@ -2469,7 +2466,7 @@
               "publishedAt": "2026-06-02",
               "indexedAt": "2026-11-06T11:13:17.179Z",
               "sourceChangeDetectedAt": "2026-11-06T11:13:11.955Z",
-              "stale": false
+              "stale": true
             }
           ]
         }
@@ -2477,7 +2474,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.2,
+      "score": 90.1,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2494,26 +2491,26 @@
       "components": {
         "contentAge": 97,
         "embeddingLag": 100,
-        "staleRetrievalRate": 69.2,
-        "coverageDrift": 99.9
+        "staleRetrievalRate": 67.3,
+        "coverageDrift": 96.7
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 30.8,
-        "feedCoveragePct": 92.7,
+        "staleRetrievalRatePct": 32.7,
+        "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0,
+        "coverageDropPctPoint": 1.7,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 97.6,
+        "currentPct": 95.9,
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-09T14:07:43.958Z",
-        "indexedAt": "2026-11-09T14:07:49.255Z"
+        "sourceChangeDetectedAt": "2026-11-09T19:55:41.483Z",
+        "indexedAt": "2026-11-09T19:56:31.232Z"
       },
-      "generatedAt": "2026-11-09T14:07:49.255Z"
+      "generatedAt": "2026-11-09T19:56:31.232Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2532,7 +2529,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-09T14:09:11.450Z",
+    "generatedAt": "2026-11-09T19:57:59.551Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5474,8 +5471,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 2,
-            "sourceCount": 2,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5504,7 +5501,7 @@
               },
               {
                 "week": "2026-11-02",
-                "count": 2
+                "count": 1
               },
               {
                 "week": "2026-11-09",
@@ -5943,14 +5940,7 @@
             },
             "evidenceStream": [
               {
-                "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-                "source": "finance.technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-                "date": "2026-11-08"
-              },
-              {
-                "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
+                "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
                 "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
@@ -11044,8 +11034,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11074,7 +11064,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             },
             {
               "week": "2026-11-09",
@@ -11513,14 +11503,7 @@
           },
           "evidenceStream": [
             {
-              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-              "date": "2026-11-08"
-            },
-            {
-              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
+              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
@@ -12130,7 +12113,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -22394,7 +22377,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-09T14:09:11.450Z",
+        "updatedAt": "2026-11-09T19:57:59.551Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23537,13 +23520,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-                  "source": "finance.technews.tw",
+                  "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+                  "source": "tomshardware.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+                  "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
                   "date": "2026-11-08"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 1,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24026,7 +24009,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+                  "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
                   "source": "servethehome.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -24426,13 +24409,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-              "source": "finance.technews.tw",
+              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+              "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
               "date": "2026-11-08"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 1,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24487,7 +24470,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -27688,14 +27671,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-              "date": "2026-11-08"
-            },
-            {
-              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
+              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
@@ -27720,7 +27696,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -28111,8 +28087,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28141,7 +28117,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             },
             {
               "week": "2026-11-09",
@@ -28580,14 +28556,7 @@
           },
           "evidenceStream": [
             {
-              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-              "date": "2026-11-08"
-            },
-            {
-              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
+              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
@@ -29197,7 +29166,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -38076,8 +38045,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "accountIds": [],
           "weekly": [
             {
@@ -38110,9 +38079,20 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "b2e7f75ee96126f65765",
+            "title": "Innodisk says AI applications now generate more than 40% of revenue as 3Q26 profit jumps",
+            "summary": "Innodisk said AI-related applications generated more than 40% of its revenue as demand for high-end AI server memory and storage lifted third-quarter results. The Taiwanese industrial memory maker is expanding into the cloud service provider, AI server supply chain, and humanoid robotics markets, highlighting how artificial intelligence is reshaping technology markets worldwide",
+            "text": "digitimes.com aidemand innodisk says ai applications now generate more than 40% of revenue as 3q26 profit jumps innodisk said ai-related applications generated more than 40% of its revenue as demand for high-end ai server memory and storage lifted third-quarter results. the taiwanese industrial memory maker is expanding into the cloud service provider, ai server supply chain, and humanoid robotics markets, highlighting how artificial intelligence is reshaping technology markets worldwide. innodisk says ai applications now generate more than 40% of revenue as 3q26 profit jumps innodisk said ai-related applications generated more than 40% of its revenue as demand for high-end ai server memory and storage lifted third-quarter results. the taiwanese industrial memory maker is expanding into the cloud service provider, ai server supply chain, and humanoid robotics markets, highlighting how artificial intelligence is reshaping technology markets worldwide",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261109pd222/innodisk-revenue-ai-applications-profit-high-end.html",
+            "date": "2026-11-09"
+          },
           "promotionStatus": "monitoring"
         },
         {
@@ -39328,7 +39308,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-09T14:07:49.509Z",
+        "generatedAt": "2026-11-09T19:56:31.611Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39505,6 +39485,23 @@
         "ageDays": 1
       },
       {
+        "title": "대만 대통령, 자립 우주 추진을 위해 칩 강점 활용",
+        "summary": "Taiwan will continuously elevate its self-reliant space technology capabilities while leveraging its long-standing strengths in semiconductors, electronics, telecommunications, an…",
+        "url": "https://www.digitimes.com/news/a20261109PD266/2026-taiwan-technology-taiwan-space-agency.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-09",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
         "title": "대용량 메모리가 명품화, 64GB PC 구성 비중 18% 감소",
         "summary": "최신 CPU-Z 하드웨어 조사 자료에 따르면 PC의 32GB와 64GB 메모리 구성은 지난해 같은 기간에 비해 각각 2.5%, 18% 감소한 것으로 나타났다 · 대용량 메모리는 현대 PC 구축에서 사치품이 되었음 · 하드웨어 조사 데이터의 소스인 CPU-Z 자체는 Windows PC 설치의 주요 핵심 구성 요소 사양을…",
         "url": "https://technews.tw/2026/11/09/soaring-memory-prices-drive-an-18-percent-drop-in-pcs-with-64gb-of-ram/",
@@ -39522,33 +39519,17 @@
         "ageDays": 1
       },
       {
-        "title": "수요가 기대치를 초과하고 주문이 기록을 경신하며 HBM 장비 제조업체 TOWA가 재무 전망을 높였음",
-        "url": "https://finance.technews.tw/2026/11/09/towa-raises-financial-forecast/",
-        "source": "finance.technews.tw",
-        "publishedAt": "2026-11-09",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "대만 ICT 제조업체 Wah Hong, 메모리 증가로 전자 제품에 타격을 가하면서 AI 냉각 가속화",
-        "summary": "Higher memory prices caused by tight supply weakened demand for consumer electronics, while investment in Wah Hong Industrial's thermal management division weighed on overall thir…",
-        "url": "https://www.digitimes.com/news/a20261109PD205/wah-hong-materials-cooling-electronics-management.html",
+        "title": "Innodisk says AI applications now generate more than 40% of revenue as 3Q26 profit jumps",
+        "summary": "Innodisk said AI-related applications generated more than 40% of its revenue as demand for high-end AI server memory and storage lifted third-quarter results. The Taiwanese indust…",
+        "url": "https://www.digitimes.com/news/a20261109PD222/innodisk-revenue-ai-applications-profit-high-end.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-09",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
           {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
+            "id": "rag",
+            "label": "RAG / VECTOR"
           }
         ],
         "freshness": "fresh",
@@ -39697,12 +39678,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "HPE puts storage to work on AI’s expensive memory problem",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "blocksandfiles.com",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
-          "publishedAt": "2026-10-29",
-          "evidenceLevel": "Watch"
+          "title": "Sino-American Silicon Products posts record revenue in first three quarters of 2026 on AI, energy demand",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261107PD200/sas-revenue-demand-2026-electricity.html",
+          "publishedAt": "2026-11-09",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -39744,12 +39725,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "중국 YMTC는 국내 칩 제조 도구의 70%를 목표로 하고 있지만 고급 NAND는 여전히 해외 의존도가 높음",
+          "title": "AMD는 GPU 드라이버 버그가 지속적으로 데이터를 쓰고 SSD를 마모시킨다는 사실을 인정",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261109VL215/ymtc-nand-fab-equipment-manufacturing.html",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/gpu-drivers/amd-adrenalin-bug-could-be-writing-data-continuously-wearing-out-ssds-radeon-owner-claims-external-events-utility-used-up-1-percent-of-ssd-health-every-month-for-over-a-year",
           "publishedAt": "2026-11-09",
-          "evidenceLevel": "Reported"
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -39792,12 +39773,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Broadcom × Meta MTIA · 공식 Baseline",
-          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
-          "source": "Broadcom × Meta MTIA",
-          "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-09T14:09:11.450Z",
-          "evidenceLevel": "Official baseline"
+          "title": "HPE puts storage to work on AI’s expensive memory problem",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
+          "publishedAt": "2026-10-29",
+          "evidenceLevel": "Watch"
         }
       }
     ],
@@ -39839,8 +39820,8 @@
       },
       "enabled": true
     },
-    "runId": "42629762847",
-    "generatedAt": "2026-11-09T14:09:11.450Z",
+    "runId": "42685709296",
+    "generatedAt": "2026-11-09T19:57:59.551Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40178,8 +40159,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "42629762847",
-    "generatedAt": "2026-11-09T14:09:11.450Z",
+    "runId": "42685709296",
+    "generatedAt": "2026-11-09T19:57:59.551Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40951,8 +40932,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-09T14:09:11.450Z",
-    "runId": "42629762847"
+    "generatedAt": "2026-11-09T19:57:59.551Z",
+    "runId": "42685709296"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41193,12 +41174,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.2,
+        "freshnessScore": 90.1,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-09T14:07:49.255Z"
+        "indexedAt": "2026-11-09T19:56:31.232Z"
       }
     },
     "sources": [
@@ -41335,8 +41316,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-09T14:09:11.450Z",
-    "runId": "42629762847"
+    "generatedAt": "2026-11-09T19:57:59.551Z",
+    "runId": "42685709296"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41350,6 +41331,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
+        "subtitle": "digitimes.com · 2026-11-09",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41361,15 +41343,22 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "pending": true,
-          "title": "HBM·AI 서버",
-          "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-09T14:09:11.450Z",
-          "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "pending": false,
+          "title": "Sino-American Silicon Products posts record revenue in first three quarters of 2026 on AI, energy demand",
+          "summary": "SAS(Sino-American Silicon Products)는 AI 데이터 센터 건설이 가속화되고 HBM에 대한 수요가 급증하며 글로벌 에너지 전환이 진행됨에 따라 컴퓨팅 성능과 전력에 중점을 두고 있음",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261107PD200/sas-revenue-demand-2026-electricity.html",
+          "publishedAt": "2026-11-09",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 1,
+        "evidenceCount": 2,
         "signals": [
+          [
+            "Reported · AUTHORITATIVE-MEDIA",
+            "Sino-American Silicon Products posts record revenue in first three quarters of 2026 on AI, energy demand",
+            "SAS(Sino-American Silicon Products)는 AI 데이터 센터 건설이 가속화되고 HBM에 대한 수요가 급증하며 글로벌 에너지 전환이 진행됨에 따라 컴퓨팅 성능과 전력에 중점을 두고 있음"
+          ],
           [
             "EXECUTIVE DECISION",
             "검증된 Ramp와 Custom Co-Design을 분리 운영",
@@ -41455,6 +41444,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
+            "Reported",
+            "digitimes.com · 2026-11-09",
+            "https://www.digitimes.com/news/a20261107PD200/sas-revenue-demand-2026-electricity.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41496,7 +41490,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 3,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
@@ -41626,9 +41620,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-09T14:09:11.450Z"
+          "publishedAt": "2026-11-09T19:57:59.551Z"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 4,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41749,11 +41743,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-09T14:09:11.450Z",
+          "publishedAt": "2026-11-09T19:57:59.551Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41879,7 +41873,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 3,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
@@ -42011,9 +42005,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-09T14:09:11.450Z"
+          "publishedAt": "2026-11-09T19:57:59.551Z"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 3,
         "signals": [
           [
             "EXECUTIVE DECISION",
