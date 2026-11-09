@@ -228,7 +228,11 @@ export function quantBlock(c) {
   const lastAnnual = (c.annual || []).filter((x) => isNum(x.fcf)).slice(-3);
   const accel = revenueAcceleration(c.quarters);
   const est = c.estimates || {};
+  const sp = c.surprises || {};
   return {
+    // Sloan (1996): (net income − operating cash flow) ÷ total assets; high accruals = lower earnings quality.
+    accrualsPct: isNum(c.netIncomeTtm) && isNum(c.ocfTtm) && isNum(c.assetsLatest) && c.assetsLatest > 0 ? round(((c.netIncomeTtm - c.ocfTtm) / c.assetsLatest) * 100) : null,
+    epsBeats: sp.beats ?? null, epsBeatQuarters: sp.quarters ?? null, epsSurpriseMeanPct: sp.meanSurprisePct ?? null, epsSurpriseLatest: sp.latest ?? null,
     ...investmentBlock(c),
     dilution3yPct: c.dilution3yPct ?? null,
     revenueGrowthFy0Pct: est.revenueGrowthFy0Pct ?? null, revenueGrowthFy1Pct: est.revenueGrowthFy1Pct ?? null, revenueAnalysts: est.revenueAnalysts ?? null,
@@ -350,6 +354,12 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
     rec.assetsLatest = f?.assetsLatest ?? null;
     rec.investment = f?.investment ?? null;
     rec.dilution3yPct = f?.dilution3yPct ?? null;
+    rec.netIncomeTtm = f?.netIncomeTtm ?? null;
+    rec.surprises = m?.surprises ?? null;
+    // Gross margin from revenue − cost of revenue when the filer does not tag gross profit.
+    if (!isNum(rec.grossMarginPct) && isNum(f?.grossProfitTtm) && isNum(rec.revenueTtm) && rec.revenueTtm > 0 && f?.grossProfitBasis === "revenue − cost of revenue") {
+      rec.grossMarginPct = round((f.grossProfitTtm / rec.revenueTtm) * 100); rec.filledFrom.grossMarginPct = "SEC revenue − cost of revenue";
+    }
     // No filed short-term-investment line: Yahoo's latest-quarter total cash minus filed cash, same currency, labelled.
     const yv = rec.valuation;
     // Not for banks, brokers and asset managers (TradingView sector "Finance"): their cash is client and balance-sheet funding.
@@ -367,7 +377,9 @@ export function buildCompanies({ universe, metrics, screen, previousCompanies = 
       rec.nextEarnings = tvFacts.nextEarnings; rec.daysToEarnings = Math.round((Date.parse(rec.nextEarnings) - now.getTime()) / DAY); rec.filledFrom.nextEarnings = "TradingView";
     }
     rec.quant = quantBlock(rec);
-    if (tvFacts) for (const [key, tvKey] of [["roePct", "roePct"], ["debtToEquity", "debtToEquityPct"], ["currentRatio", "currentRatio"], ["beta", "beta"]]) {
+    if (tvFacts) for (const [key, tvKey] of [["roePct", "roePct"], ["debtToEquity", "debtToEquityPct"], ["currentRatio", "currentRatio"], ["beta", "beta"], ["fcfYieldPct", "fcfYieldPct"], ["grossProfitabilityPct", "grossProfitabilityPct"]]) {
+      // TradingView reports 0 FCF yield for negative FCF: not a yield, so not filled.
+      if (key === "fcfYieldPct" && !(tvFacts[tvKey] > 0)) continue;
       if (!isNum(rec.quant[key]) && isNum(tvFacts[tvKey])) { rec.quant[key] = tvFacts[tvKey]; rec.filledFrom[key] = "TradingView"; }
     }
     if (tvFacts && !isNum(rec.valuation?.trailingPE) && isNum(tvFacts.peTtm)) { rec.valuation = { ...(rec.valuation || {}), trailingPE: tvFacts.peTtm }; rec.filledFrom.trailingPE = "TradingView"; }
@@ -406,6 +418,7 @@ export const RANK_KEYS = {
   grossProfitabilityPct: [(c) => c.quant?.grossProfitabilityPct, 1], investmentGapPts: [(c) => c.quant?.investmentGapPts, -1],
   revenueGrowthFy1Pct: [(c) => c.quant?.revenueGrowthFy1Pct, 1], epsRevision90dPct: [(c) => c.quant?.epsRevision90dPct, 1],
   dilution3yPct: [(c) => c.quant?.dilution3yPct, -1],
+  accrualsPct: [(c) => c.quant?.accrualsPct, -1], epsSurpriseMeanPct: [(c) => c.quant?.epsSurpriseMeanPct, 1],
 };
 export function industryRanks(companies) {
   const groups = new Map();

@@ -314,6 +314,8 @@ export function shareChange(shareFacts = [], lo, hi, splits = null) {
     const factor = splits.filter((x) => x.date > prior.end && x.date <= last.end).reduce((p, x) => p * Number(x.ratio || 1), 1);
     ratio /= factor;
   } else if (looksLikeSplit(ratio)) return null;
+  // More than a 50-fold change is a filing-unit or data error, not dilution.
+  if (ratio > 50 || ratio < 0.02) return null;
   return Number(((ratio - 1) * 100).toFixed(1));
 }
 
@@ -327,12 +329,26 @@ export function looksLikeSplit(ratio) {
 /** Share count change over roughly one year, in % (positive = dilution). */
 export const dilutionPct = (shareFacts = [], splits = null) => shareChange(shareFacts, 330, 400, splits);
 
+/** Gross profit rows built from revenue and cost-of-revenue facts with the same start and end. */
+export function derivedGross(revenue, cost) {
+  if (!revenue?.rows?.length || !cost?.rows?.length) return null;
+  const latest = (rows) => { const m = new Map(); for (const f of rows) { if (!f.start || !f.end) continue; const k = `${f.start}|${f.end}`; if (!m.has(k) || String(f.filed || "") > String(m.get(k).filed || "")) m.set(k, f); } return m; };
+  const rev = latest(revenue.rows), cst = latest(cost.rows);
+  const rows = [];
+  for (const [k, r] of rev) { const c = cst.get(k); if (c && Number.isFinite(Number(r.val)) && Number.isFinite(Number(c.val))) rows.push({ start: r.start, end: r.end, val: Number(r.val) - Number(c.val), filed: r.filed }); }
+  return rows.length ? { rows, concept: `${revenue.concept} − ${cost.concept}`, unit: revenue.unit, derived: true } : null;
+}
+
 export function secFundamentals(facts, { splits = null } = {}) {
   const revenue = usd(facts, "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax", "us-gaap:Revenues", "us-gaap:SalesRevenueNet", "us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax", "ifrs-full:Revenue");
   const ocf = usd(facts, "us-gaap:NetCashProvidedByUsedInOperatingActivities", "ifrs-full:CashFlowsFromUsedInOperatingActivities");
   const capex = usd(facts, "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment", "us-gaap:PaymentsToAcquireProductiveAssets", "us-gaap:PaymentsToAcquirePropertyPlantAndEquipmentAndIntangibleAssets", "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "ifrs-full:PurchaseOfPropertyPlantAndEquipment");
   const cash = usd(facts, "us-gaap:CashAndCashEquivalentsAtCarryingValue", "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "ifrs-full:CashAndCashEquivalents");
-  const gross = usd(facts, "us-gaap:GrossProfit", "ifrs-full:GrossProfit");
+  const grossFiled = usd(facts, "us-gaap:GrossProfit", "ifrs-full:GrossProfit");
+  const costOfRevenue = usd(facts, "us-gaap:CostOfRevenue", "us-gaap:CostOfGoodsAndServicesSold", "ifrs-full:CostOfSales");
+  // Filers that do not tag gross profit: revenue − cost of revenue over the same period.
+  const gross = grossFiled || derivedGross(revenue, costOfRevenue);
+  const netIncome = usd(facts, "us-gaap:NetIncomeLoss", "us-gaap:ProfitLoss", "ifrs-full:ProfitLoss");
   const opInc = usd(facts, "us-gaap:OperatingIncomeLoss", "ifrs-full:ProfitLossFromOperatingActivities");
   const shares = facts?.facts?.dei?.EntityCommonStockSharesOutstanding?.units?.shares;
   const rev = revenue && trailingTwelveMonths(revenue.rows);
@@ -367,6 +383,8 @@ export function secFundamentals(facts, { splits = null } = {}) {
       ...(i >= all.length - 3 ? { assets: assetsAt(end), ebitda: annualOpInc.has(end) && annualDa.has(end) ? annualOpInc.get(end) + annualDa.get(end) : null, grossProfit: annualGross.get(end) ?? null } : {}),
     })),
     grossProfitTtm: gp?.value ?? null,
+    grossProfitBasis: gross ? (gross.derived ? "revenue − cost of revenue" : "filed gross profit") : null,
+    netIncomeTtm: (() => { const ni = netIncome && trailingTwelveMonths(netIncome.rows); return ni && op && ni.end === op.end ? ni.value : null; })(),
     assetsLatest: cashNow ? assetsAt(cashNow.end) : null,
     revenueTtm: rev?.value ?? null,
     revenueReported: Boolean(revenue),
@@ -573,7 +591,7 @@ async function main() {
     const cik = secCikFor(company, tickerMap);
     const cached = yfCache[company.ticker];
     const prices = cached?.series?.length
-      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null, shortInterest: cached.shortInterest ?? null, valuation: cached.valuation ?? null, nextEarnings: cached.nextEarnings ?? null, estimates: cached.estimates ?? null }
+      ? { series: cached.series, price: cached.price, currency: cached.currency, symbol: cached.symbol, priceTime: null, marketCap: cached.marketCap, avgTradedValue20d: cached.avgTradedValue20d ?? null, shortInterest: cached.shortInterest ?? null, valuation: cached.valuation ?? null, nextEarnings: cached.nextEarnings ?? null, estimates: cached.estimates ?? null, surprises: cached.surprises ?? null }
       : await fetchYahooMonthlyAny(symbol).catch((e) => { errors.push(`${company.ticker} price: ${e.message}`); return null; });
     const dart = dartCache[company.ticker] || dartCache[company.ticker.replace(/^KOSDAQ:/, "KRX:")] || dartCache[company.ticker.replace(/^KRX:/, "KOSDAQ:")];
     const snapshot = cached?.fundamentals ? { ...cached.fundamentals, status: "provider snapshot" } : null;
@@ -584,7 +602,7 @@ async function main() {
     ]);
     const row = companyMetrics({ company, prices, fundamentals, previous: previous[company.ticker] });
     const tv = crossCheck(row, tvRows.get(tvTicker(company.ticker))) || previous[company.ticker]?.tv || null;
-    return { ...row, valuation: prices?.valuation ?? previous[company.ticker]?.valuation ?? null, estimates: prices?.estimates ?? previous[company.ticker]?.estimates ?? null, nextEarnings: prices?.nextEarnings ?? previous[company.ticker]?.nextEarnings ?? null,
+    return { ...row, valuation: prices?.valuation ?? previous[company.ticker]?.valuation ?? null, estimates: prices?.estimates ?? previous[company.ticker]?.estimates ?? null, surprises: prices?.surprises ?? previous[company.ticker]?.surprises ?? null, nextEarnings: prices?.nextEarnings ?? previous[company.ticker]?.nextEarnings ?? null,
       shortInterest: prices?.shortInterest ?? previous[company.ticker]?.shortInterest ?? null, avgTradedValue20d: prices?.avgTradedValue20d ?? previous[company.ticker]?.avgTradedValue20d ?? null, name: company.name || null, holderOnly: Boolean(company.holderOnly), runwayStatus: runwayStatus(row.fundamentals),
       postPeriodRaises: postPeriodRaises(row.fundamentals), marketCapUsd: usdMarketCap(row, tv), tv, secCik: cik, yahooSymbol: prices?.symbol || symbol };
   });

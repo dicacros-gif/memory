@@ -474,3 +474,18 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   assert.equal(looksLikeSplit(1.5), false); assert.equal(looksLikeSplit(0.2), true);
   console.log(JSON.stringify({ tenbaggerSplitAwareDilution: "pass" }));
 }
+
+// Derived gross profit, accruals, surprises, dilution sanity cap.
+{
+  const { derivedGross, dilution3yPct } = await import("./tenbagger-collect.mjs");
+  const { quantBlock } = await import("./tenbagger-build.mjs");
+  const rev = { concept: "us-gaap:Revenues", unit: "USD", rows: [{ start: "2025-01-01", end: "2025-12-31", val: 1000, filed: "2026-02-01" }, { start: "2025-01-01", end: "2025-12-31", val: 1010, filed: "2026-03-01" }] };
+  const cost = { concept: "us-gaap:CostOfRevenue", rows: [{ start: "2025-01-01", end: "2025-12-31", val: 600, filed: "2026-03-01" }] };
+  const g = derivedGross(rev, cost);
+  assert.equal(g.rows[0].val, 410, "latest filed revenue minus cost"); assert.equal(g.derived, true);
+  assert.equal(derivedGross(rev, null), null);
+  const q = quantBlock({ netIncomeTtm: 120, ocfTtm: 80, assetsLatest: 1000, surprises: { quarters: 4, beats: 3, meanSurprisePct: 6.2, latest: "2026-10-30" }, annual: [] });
+  assert.equal(q.accrualsPct, 4); assert.equal(q.epsBeats, 3); assert.equal(q.epsSurpriseMeanPct, 6.2);
+  assert.equal(dilution3yPct([{ end: "2022-09-30", val: 1 }, { end: "2025-09-30", val: 1915250 }], []), null, "a 1.9-million-fold change is a data error");
+  console.log(JSON.stringify({ tenbaggerGrossAccrualsSurprise: "pass" }));
+}
