@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42577279948",
-  "generatedAt": "2026-11-09T07:23:03.590Z",
+  "runId": "42629762847",
+  "generatedAt": "2026-11-09T14:09:11.450Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2540,27 +2540,7 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2590,10 +2570,7 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [
-          "용량",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2934,15 +2911,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "급증하는 AI 수요로 인해 CoWoS는 골칫거리가 됩니다 · MediaTek 부사장은 패키징 용량 확보가 최우선 과제라고 밝혔음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261108pd200/mediatek-cowos-packaging-demand-capacity.html",
-          "date": "2026-11-09"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -7028,17 +6997,7 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -7138,13 +7097,9 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8387,6 +8342,15 @@
             "source": "finance.technews.tw"
           },
           {
+            "key": "s:cnbc에 따르면, 뉴욕타임스와 파이낸셜타임스의 보도를 인용해 거대 반도체 엔비디아 창업자이자 ceo인 젠슨 황은 지난 일요일",
+            "text": "CNBC에 따르면, 뉴욕타임스와 파이낸셜타임스의 보도를 인용해 거대 반도체 엔비디아 창업자이자 CEO인 젠슨 황은 지난 일요일 모든 직원들에게 보낸 서한에서 혼외정사를 인정했다고 밝혔습니다.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-08",
+            "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair/",
+            "source": "finance.technews.tw"
+          },
+          {
             "key": "s:at a november 2 press conference in taiwan, chief strategy officer iri",
             "text": "At a November 2 press conference in Taiwan, chief strategy officer Iri Trashanski said the company was not seeking to compete with Nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge AI and cloud computing.",
             "kind": "보도",
@@ -8478,14 +8442,14 @@
           "date": "2026-07-25"
         },
         {
-          "title": "TSMC reaffirms foundry focus after report of 3D DRAM plans for Nvidia",
-          "source": "digitimes.com",
+          "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
+          "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261109vl202/tsmc-taiwan-dram-nvidia-3d.html",
-          "date": "2026-11-09"
+          "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+          "date": "2026-11-08"
         },
         {
-          "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+          "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
@@ -9716,18 +9680,7 @@
             "sourceId": "spacex-ai-compute"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9775,14 +9728,9 @@
       },
       "executiveLens": {
         "question": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -9942,15 +9890,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "머스크의 Terafab은 삼성의 DRAM 용량과 동등한 메모리 생산량을 목표로 하는 것으로 알려졌음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261109vl222/terafab-dram-capacity-elon-musk.html",
-          "date": "2026-11-09"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -10088,18 +10028,7 @@
             "sourceId": "tesla-ai"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10136,14 +10065,9 @@
       },
       "executiveLens": {
         "question": "AI5 Production · Vehicle Validation",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -10281,15 +10205,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "머스크의 Terafab은 삼성의 DRAM 용량과 동등한 메모리 생산량을 목표로 하는 것으로 알려졌음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261109vl222/terafab-dram-capacity-elon-musk.html",
-          "date": "2026-11-09"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tesla-ai",
@@ -10787,27 +10703,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10846,10 +10742,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "패키징·파운드리",
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11522,22 +11415,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "급증하는 AI 수요로 인해 CoWoS는 골칫거리가 됩니다 · MediaTek 부사장은 패키징 용량 확보가 최우선 과제라고 밝혔음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261108pd200/mediatek-cowos-packaging-demand-capacity.html",
-          "date": "2026-11-09"
-        },
-        {
-          "title": "TSMC reaffirms foundry focus after report of 3D DRAM plans for Nvidia",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261109vl202/tsmc-taiwan-dram-nvidia-3d.html",
-          "date": "2026-11-09"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -15588,7 +15466,7 @@
           "date": "2026-05-18"
         },
         {
-          "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
+          "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
           "source": "servethehome.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
