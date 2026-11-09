@@ -419,3 +419,34 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   assert.equal(r.value, 34143000000); assert.equal(r.concept, "us-gaap:DebtSecuritiesCurrent");
   console.log(JSON.stringify({ tenbaggerStiConcepts: "pass" }));
 }
+
+// Investment discipline, gross profitability, 3-year dilution, consensus estimates.
+{
+  const { investmentBlock, quantBlock } = await import("./tenbagger-build.mjs");
+  const { dilution3yPct } = await import("./tenbagger-collect.mjs");
+  const filed = { annual: [{ end: "2024-12-31", assets: 1000, ebitda: 100 }, { end: "2025-12-31", assets: 1500, ebitda: 110, grossProfit: 400 }], grossProfitTtm: 450, assetsLatest: 1500 };
+  const ib = investmentBlock(filed);
+  assert.equal(ib.assetGrowthPct, 50); assert.equal(ib.ebitdaGrowthPct, 10); assert.equal(ib.investmentGapPts, 40);
+  assert.equal(ib.grossProfitabilityPct, 30); assert.equal(ib.investmentBasis, "filed");
+  const neg = investmentBlock({ annual: [{ end: "2024-12-31", assets: 1000, ebitda: -5 }, { end: "2025-12-31", assets: 900, ebitda: 10 }] });
+  assert.equal(neg.ebitdaGrowthPct, null, "growth from negative EBITDA is not meaningful"); assert.equal(neg.investmentGapPts, null);
+  const snap = investmentBlock({ investment: { assets: 220, assetsPrior: 200, ebitda: 30, ebitdaPrior: 20, grossProfit: 66, end: "2025-12-31" } });
+  assert.equal(snap.investmentGapPts, -40); assert.equal(snap.grossProfitabilityPct, 30); assert.equal(snap.investmentBasis, "Yahoo");
+  const shares = [{ end: "2022-09-30", val: 100 }, { end: "2024-09-30", val: 120 }, { end: "2025-09-30", val: 150 }];
+  assert.equal(dilution3yPct(shares), 50);
+  assert.equal(dilution3yPct(shares.slice(1)), null, "needs a count ~three years earlier");
+  const q = quantBlock({ estimates: { revenueGrowthFy1Pct: 31.2, epsRevision90dPct: 4.5, epsUp30d: 3, epsDown30d: 1 }, annual: [] });
+  assert.equal(q.revenueGrowthFy1Pct, 31.2); assert.equal(q.epsRevision90dPct, 4.5); assert.equal(q.epsUp30d, 3);
+  console.log(JSON.stringify({ tenbaggerInvestmentAndEstimates: "pass" }));
+}
+
+// Research-backed presets filter on the new quant fields.
+{
+  const { PRESETS, applyFilters } = await import("../tenbagger/js/presets.js");
+  const base = { market: "US", name: "A", ticker: "NASDAQ:A", industries: [], data: { financials: "filed" }, revenueGrowthPct: 30 };
+  const good = { ...base, id: "a", quant: { epsRevision90dPct: 5, revenueAccelPts: 3, grossProfitabilityPct: 40, investmentGapPts: -5, dilution3yPct: 2 } };
+  const bad = { ...base, id: "b", quant: { epsRevision90dPct: -2, revenueAccelPts: 3, grossProfitabilityPct: 10, investmentGapPts: 30, dilution3yPct: 60 } };
+  assert.deepEqual(applyFilters([good, bad], PRESETS["estimate-upgrades"].params).map((c) => c.id), ["a"]);
+  assert.deepEqual(applyFilters([good, bad], PRESETS.disciplined.params).map((c) => c.id), ["a"]);
+  console.log(JSON.stringify({ tenbaggerResearchPresets: "pass" }));
+}
