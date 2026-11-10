@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42773917299",
-  "generatedAt": "2026-11-10T07:29:45.006Z",
+  "runId": "42820727381",
+  "generatedAt": "2026-11-10T13:15:50.786Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2688,6 +2688,15 @@
       },
       "organization": [],
       "priorities": [],
+      "capitalPlan": {
+        "observed": {
+          "headline": "논평: 중국의 신흥 반도체 투자 제국, 지배력을 향한 조용한 길을 택하다",
+          "url": "https://www.digitimes.com/news/a20261110PD216/cxmt-tsinghua-unigroup-manufacturing-investment.html",
+          "date": "2026-11-10",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
+      },
       "signals": {
         "capex": [],
         "quotes": [],
@@ -2940,7 +2949,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "논평: 중국의 신흥 반도체 투자 제국, 지배력을 향한 조용한 길을 택하다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261110pd216/cxmt-tsinghua-unigroup-manufacturing-investment.html",
+          "date": "2026-11-10"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -3097,35 +3114,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3229,16 +3218,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "전력·열",
-          "패키징·파운드리",
-          "로직 경계"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-o",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3803,13 +3785,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
-        },
-        {
-          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-          "source": "troy-technical.com",
-          "sourceClass": "general-media",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
-          "date": "2026-11-08"
         }
       ],
       "sources": [
@@ -4333,15 +4308,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "인위적 침해로 인해 100개 이상의 한국 기업 Claude 계정이 노출",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261110pd224/anthropic-claude-data-security-cybersecurity.html",
-          "date": "2026-11-10"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "anthropic-compute",
@@ -5883,7 +5850,7 @@
       },
       "evidence": [
         {
-          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+          "title": "Google TPU 8tx Pairs AMD EPYC Turin Hosts with Confidential Computing while TPU 8i Max Doubles Memory Bandwidth",
           "source": "servethehome.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
@@ -7080,30 +7047,13 @@
         ],
         "painAxes": [
           {
-            "id": "power-thermal",
-            "label": "전력·열",
+            "id": "bandwidth",
+            "label": "대역폭",
             "mentions": 1,
-            "trend": "down",
+            "trend": "up",
             "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
+              "custom-hbm",
+              "ai-n-b"
             ]
           }
         ],
@@ -7207,14 +7157,12 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "전력·열",
-          "패키징·파운드리",
-          "로직 경계"
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [
-          "ai-d-o",
-          "custom-hbm"
+          "custom-hbm",
+          "ai-n-b"
         ],
         "actions": [
           {
@@ -8436,14 +8384,29 @@
           {
             "name": "Jensen Huang",
             "role": "CEO",
-            "seenCount": 1,
+            "seenCount": 2,
             "firstSeen": "2026-10-24",
-            "lastSeen": "2026-10-24",
-            "url": "https://www.digitimes.com/news/a20261023PD243/nvidia-cxmt-demand-technology-market.html",
-            "headline": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았습니다.",
+            "lastSeen": "2026-11-10",
+            "url": "https://www.digitimes.com/news/a20261110PD232/usa-policy-ai-chip-security-jensen-huang-nvidia.html",
+            "headline": "논평: 미국 중간고사와 Jensen Huang 논란이 AI 정책을 어떻게 바꿀 것인가?",
             "source": "digitimes.com",
             "evidenceIds": [
-              "v2|jensen huang|ceo|https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html||2026-10-24|digitimes.com"
+              "v2|jensen huang|ceo|https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html||2026-10-24|digitimes.com",
+              "v2|jensen huang|ceo|https://www.digitimes.com/news/a20261110pd232/usa-policy-ai-chip-security-jensen-huang-nvidia.html||2026-11-10|digitimes.com"
+            ],
+            "attributionVersion": 1
+          },
+          {
+            "name": "Jensen Huang.",
+            "role": "CEO",
+            "seenCount": 1,
+            "firstSeen": "2026-11-10",
+            "lastSeen": "2026-11-10",
+            "url": "https://www.digitimes.com/news/a20261110VL203/nvidia-samsung-investigation-sk-hynix-ceo.html",
+            "headline": "Nvidia 조사 연료로 인해 중국 칩 억제가 추진되어 삼성, SKHY에 대한 위험 증가",
+            "source": "digitimes.com",
+            "evidenceIds": [
+              "v2|jensen huang.|ceo|https://www.digitimes.com/news/a20261110vl203/nvidia-samsung-investigation-sk-hynix-ceo.html||2026-11-10|digitimes.com"
             ],
             "attributionVersion": 1
           }
@@ -8566,18 +8529,25 @@
           "date": "2026-11-10"
         },
         {
+          "title": "논평: 미국 중간고사와 Jensen Huang 논란이 AI 정책을 어떻게 바꿀 것인가?",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261110pd232/usa-policy-ai-chip-security-jensen-huang-nvidia.html",
+          "date": "2026-11-10"
+        },
+        {
+          "title": "Nvidia 조사 연료로 인해 중국 칩 억제가 추진되어 삼성, SKHY에 대한 위험 증가",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261110vl203/nvidia-samsung-investigation-sk-hynix-ceo.html",
+          "date": "2026-11-10"
+        },
+        {
           "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
           "date": "2026-11-10"
-        },
-        {
-          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-          "source": "troy-technical.com",
-          "sourceClass": "general-media",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
-          "date": "2026-11-08"
         }
       ],
       "sources": [
@@ -9327,15 +9297,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
-          "source": "ccc.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram",
-          "date": "2026-11-10"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "openai-infrastructure",
