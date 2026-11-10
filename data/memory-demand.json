@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42685709296",
-  "generatedAt": "2026-11-09T19:57:59.551Z",
+  "runId": "42736191151",
+  "generatedAt": "2026-11-10T01:43:14.471Z",
   "coverage": {
     "companiesObserved": 30,
     "companiesWithDerivedDemand": 26,
-    "derivedRequirements": 85,
+    "derivedRequirements": 86,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -113,6 +113,24 @@
     },
     "amd": {
       "requirements": [
+        {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-11-09",
+          "lastSeen": "2026-11-09",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "174ftfs"
+          ],
+          "evidence": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
+        },
         {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
@@ -1535,15 +1553,16 @@
           "gate": "세대별 물량 동기화율",
           "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-20",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-09",
+          "evidenceCount": 3,
           "evidenceIds": [
             "0oaaau5",
-            "1ukcxli"
+            "1ukcxli",
+            "174ftfs"
           ],
-          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
+          "evidence": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
         }
       ]
     },
@@ -1996,20 +2015,20 @@
       "weight": 8
     },
     {
-      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+      "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
       "productAxis": "HBM",
-      "stage": "QUALIFY",
-      "gate": "Thermal · Yield",
+      "stage": "SCALE",
+      "gate": "세대별 물량 동기화율",
       "technologies": [
-        "Hybrid Bonding"
+        "TPU"
       ],
       "accountCount": 3,
       "accounts": [
-        "asml",
-        "cxmt",
-        "skhynix"
+        "amd",
+        "google",
+        "mediatek"
       ],
-      "weight": 3
+      "weight": 5
     }
   ]
 }

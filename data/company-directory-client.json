@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42685709296",
-  "generatedAt": "2026-11-09T19:57:59.551Z",
+  "runId": "42736191151",
+  "generatedAt": "2026-11-10T01:43:14.471Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -298,6 +298,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:TPU",
+            "label": "TPU",
+            "headline": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
+            "source": "servethehome.com",
+            "asOf": "2026-11-09",
+            "firstSeen": "2026-11-09",
+            "lastSeen": "2026-11-09",
+            "seenCount": 1
+          },
+          {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
             "headline": "AI 추론으로 CPU·DDR5 수요 견인, 고용량 MLCC 격차 2027년 상반기까지 지속",
@@ -334,6 +345,24 @@
         "stances": []
       },
       "derivedDemand": [
+        {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-11-09",
+          "lastSeen": "2026-11-09",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "174ftfs"
+          ],
+          "evidence": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
+        },
         {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
@@ -445,7 +474,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 101
+        "ageDays": 102
       }
     },
     {
@@ -695,7 +724,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -1393,7 +1422,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -1677,7 +1706,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -2432,7 +2461,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -2932,7 +2961,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -3813,7 +3842,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -4362,7 +4391,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -4491,18 +4520,7 @@
             "sourceId": "apple-pcc-expanding-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -4561,14 +4579,9 @@
       },
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4729,15 +4742,7 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [
-        {
-          "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-          "date": "2026-11-09"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -4782,7 +4787,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 124
+        "ageDays": 125
       }
     },
     {
@@ -5018,7 +5023,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -5136,7 +5141,18 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5286,9 +5302,14 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5567,13 +5588,13 @@
           {
             "key": "tech:TPU",
             "label": "TPU",
-            "headline": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-20",
+            "headline": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
+            "source": "servethehome.com",
+            "asOf": "2026-11-09",
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-20",
-            "seenCount": 2
+            "lastSeen": "2026-11-09",
+            "seenCount": 3
           }
         ],
         "stances": []
@@ -5588,15 +5609,16 @@
           "gate": "세대별 물량 동기화율",
           "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-20",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-09",
+          "evidenceCount": 3,
           "evidenceIds": [
             "0oaaau5",
-            "1ukcxli"
+            "1ukcxli",
+            "174ftfs"
           ],
-          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
+          "evidence": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
         }
       ],
       "silicon": {
@@ -5609,11 +5631,11 @@
             "family": "Google TPU",
             "memoryProfile": "세대 Ramp가 HBM 물량의 선행 지표",
             "relation": "자체 설계",
-            "seenCount": 2,
+            "seenCount": 3,
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-20",
-            "headline": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
+            "lastSeen": "2026-11-09",
+            "headline": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
           }
         ],
         "coversTraining": true,
@@ -5691,11 +5713,11 @@
           "executionGate": "세대별 물량 동기화율",
           "stage": "SCALE",
           "evidence": {
-            "title": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
-            "asOf": "2026-10-20",
-            "count": 2
+            "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
+            "source": "servethehome.com",
+            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
+            "asOf": "2026-11-09",
+            "count": 3
           }
         }
       ],
@@ -5808,7 +5830,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+          "source": "servethehome.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+          "date": "2026-11-09"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -5887,7 +5917,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -6341,7 +6371,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -6878,7 +6908,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -6997,7 +7027,18 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -7097,9 +7138,14 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8442,11 +8488,32 @@
           "date": "2026-07-25"
         },
         {
-          "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+          "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+          "date": "2026-11-10"
+        },
+        {
+          "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+          "date": "2026-11-08"
+        },
+        {
+          "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
           "date": "2026-11-08"
+        },
+        {
+          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "date": "2026-10-26"
         }
       ],
       "sources": [
@@ -8601,7 +8668,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 27
+        "ageDays": 28
       }
     },
     {
@@ -9272,7 +9339,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -9550,7 +9617,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -9911,7 +9978,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -10211,7 +10278,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -10575,7 +10642,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -11445,7 +11512,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 27
+        "ageDays": 28
       }
     },
     {
@@ -11984,7 +12051,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -12826,7 +12893,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 27
+        "ageDays": 28
       }
     },
     {
@@ -13783,7 +13850,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 32
+        "ageDays": 33
       }
     },
     {
@@ -15076,7 +15143,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 27
+        "ageDays": 28
       }
     },
     {
@@ -15459,7 +15526,7 @@
           "date": "2026-05-18"
         },
         {
-          "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
+          "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
           "source": "servethehome.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -15518,7 +15585,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -15749,7 +15816,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -15993,7 +16060,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -16312,7 +16379,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 90
+        "ageDays": 91
       }
     },
     {
@@ -16559,7 +16626,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -16787,7 +16854,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 167
+        "ageDays": 168
       }
     },
     {
@@ -16997,7 +17064,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 238
+        "ageDays": 239
       }
     },
     {
@@ -17222,7 +17289,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 77
+        "ageDays": 78
       }
     },
     {
@@ -17501,7 +17568,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 161
+        "ageDays": 162
       }
     },
     {
@@ -17724,7 +17791,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 101
+        "ageDays": 102
       }
     },
     {
@@ -18026,7 +18093,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 27
+        "ageDays": 28
       }
     },
     {
@@ -18250,7 +18317,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 101
+        "ageDays": 102
       }
     },
     {
@@ -18459,7 +18526,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 101
+        "ageDays": 102
       }
     },
     {
@@ -18668,7 +18735,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 101
+        "ageDays": 102
       }
     }
   ],

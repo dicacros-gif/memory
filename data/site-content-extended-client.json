@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "42685709296",
-  "generatedAt": "2026-11-09T19:57:59.551Z",
-  "expiresAt": "2026-11-10T21:57:57.283Z",
+  "runId": "42736191151",
+  "generatedAt": "2026-11-10T01:43:14.471Z",
+  "expiresAt": "2026-11-11T03:43:13.177Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-09T19:56:31.232Z",
-    "runId": "42685709296",
+    "generatedAt": "2026-11-10T01:41:52.219Z",
+    "runId": "42736191151",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,7 +122,46 @@
     ],
     "eventTriggers": [
       {
-        "id": "dff57348873b43ac1df8",
+        "id": "2afae8f8dc9c7bf1c562",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-11-09",
+        "changed": true
+      },
+      {
+        "id": "80f49a7bde117eaf6629",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-11-09",
+        "changed": true
+      },
+      {
+        "id": "08369f61c0f7bd6e62b1",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-11-09",
+        "changed": true
+      },
+      {
+        "id": "d64fbf603ababbadf9db",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -134,7 +173,7 @@
         "changed": true
       },
       {
-        "id": "eb4f168190781a3a450f",
+        "id": "f2244202b7970aae5354",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -146,17 +185,16 @@
         "changed": true
       },
       {
-        "id": "2ca22da55ddec53525f0",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
+        "id": "31543e43cf66689dba03",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
+        "sourceId": "aws-inferentia",
+        "source": "AWS Inferentia",
         "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-05",
-        "changed": false
+        "title": "AI Chip - Amazon Inferentia - AWS",
+        "url": "https://aws.amazon.com/ai/machine-learning/inferentia",
+        "changed": true
       },
       {
         "id": "695b672f920c41d0f82d",
@@ -235,56 +273,17 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "03d1894ebe386b1c4d1d",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "d68f89e9a3676800c266",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-09T19:56:31.232Z",
+      "generatedAt": "2026-11-10T01:41:52.219Z",
       "stats": {
-        "eligibleDocuments": 40,
-        "structuredEvents": 36,
-        "verifiedEvents": 34,
-        "currentStages": 31,
-        "newEvents": 0,
+        "eligibleDocuments": 43,
+        "structuredEvents": 40,
+        "verifiedEvents": 35,
+        "currentStages": 34,
+        "newEvents": 4,
         "contradictionReviews": 0
       },
       "events": [
@@ -825,17 +824,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 149,
-        "structuredEvents": 36,
-        "verifiedEvents": 34,
+        "structuredEvents": 40,
+        "verifiedEvents": 35,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 36,
-        "useful": 29,
-        "observationRatePct": 87.8,
-        "usefulYieldPct": 80.6,
+        "observed": 38,
+        "useful": 30,
+        "observationRatePct": 92.7,
+        "usefulYieldPct": 78.9,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -852,11 +851,12 @@
             "sourceId": "trendforce",
             "latencyClass": "market-report",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "lastUsefulObservationAt": "2026-11-09T19:56:31.232Z",
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
-            "eventYield": 0
+            "eventYield": 3
           },
           {
             "id": "samsung-hbm4-stage",
@@ -865,8 +865,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -877,7 +877,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -888,8 +888,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -900,8 +900,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -912,8 +912,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -924,7 +924,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -935,8 +935,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -947,8 +947,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -959,8 +959,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -971,8 +971,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -983,8 +983,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -995,8 +995,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1007,8 +1007,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1019,8 +1019,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1031,7 +1031,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1042,8 +1042,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1052,10 +1052,12 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "usefulObservation": false,
-            "eventYield": 0
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "usefulObservation": true,
+            "eventYield": 1
           },
           {
             "id": "llm-serving-systems-research",
@@ -1064,8 +1066,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1076,7 +1078,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1087,8 +1089,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1099,8 +1101,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1111,7 +1113,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1122,8 +1124,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1134,8 +1136,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1156,8 +1158,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1168,7 +1170,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1179,8 +1181,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1191,7 +1193,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1202,8 +1204,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1214,8 +1216,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1226,8 +1228,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1238,8 +1240,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1250,8 +1252,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1262,8 +1264,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1274,8 +1276,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1286,7 +1288,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1297,7 +1299,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1308,8 +1310,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-09T19:55:41.483Z",
-            "lastUsefulObservationAt": "2026-11-09T19:55:41.483Z",
+            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1324,7 +1326,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T19:56:31.232Z",
+          "updatedAt": "2026-11-10T01:41:52.219Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1454,7 +1456,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T19:56:31.232Z",
+          "updatedAt": "2026-11-10T01:41:52.219Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1584,7 +1586,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T19:56:31.232Z",
+          "updatedAt": "2026-11-10T01:41:52.219Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1711,7 +1713,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-09T19:56:31.232Z",
+          "updatedAt": "2026-11-10T01:41:52.219Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1837,9 +1839,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 9,
-        "fresh": 7,
-        "observationRatePct": 6.1,
+        "observed": 10,
+        "fresh": 5,
+        "observationRatePct": 6.8,
         "officialConfigured": 123,
         "officialObserved": 0,
         "officialFresh": 0,
@@ -1857,7 +1859,7 @@
         "id": "trendforce-hbm-wafer-input",
         "sourceId": "trendforce",
         "kind": "parallel-series",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "samsung-hbm4-stage",
@@ -1959,7 +1961,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2100,10 +2102,10 @@
         "documents": 149,
         "chunks": 594,
         "added": 0,
-        "changed": 1,
-        "unchanged": 39,
-        "retained": 109,
-        "reindexed": 1
+        "changed": 3,
+        "unchanged": 40,
+        "retained": 106,
+        "reindexed": 3
       },
       "packs": [
         {
@@ -2289,8 +2291,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-09T19:56:31.232Z",
-              "sourceChangeDetectedAt": "2026-11-09T19:55:41.483Z",
+              "indexedAt": "2026-11-10T01:41:52.219Z",
+              "sourceChangeDetectedAt": "2026-11-10T01:41:44.148Z",
               "stale": false
             }
           ]
@@ -2466,7 +2468,7 @@
               "publishedAt": "2026-06-02",
               "indexedAt": "2026-11-06T11:13:17.179Z",
               "sourceChangeDetectedAt": "2026-11-06T11:13:11.955Z",
-              "stale": true
+              "stale": false
             }
           ]
         }
@@ -2474,7 +2476,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 90.1,
+      "score": 91.3,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2491,26 +2493,26 @@
       "components": {
         "contentAge": 97,
         "embeddingLag": 100,
-        "staleRetrievalRate": 67.3,
-        "coverageDrift": 96.7
+        "staleRetrievalRate": 69.2,
+        "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 32.7,
-        "feedCoveragePct": 87.8,
+        "staleRetrievalRatePct": 30.8,
+        "feedCoveragePct": 92.7,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 1.7,
+        "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 95.9,
-        "previousPct": 97.6
+        "currentPct": 97.6,
+        "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-09T19:55:41.483Z",
-        "indexedAt": "2026-11-09T19:56:31.232Z"
+        "sourceChangeDetectedAt": "2026-11-10T01:41:44.148Z",
+        "indexedAt": "2026-11-10T01:41:52.219Z"
       },
-      "generatedAt": "2026-11-09T19:56:31.232Z"
+      "generatedAt": "2026-11-10T01:41:52.219Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2529,7 +2531,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-09T19:57:59.551Z",
+    "generatedAt": "2026-11-10T01:43:14.471Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3106,8 +3108,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -3140,7 +3142,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -3153,8 +3155,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-09-21",
@@ -3186,12 +3188,23 @@
                   },
                   {
                     "week": "2026-11-09",
-                    "count": 0
+                    "count": 1
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "3dbfd12e67892c2eccdd",
+                  "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                  "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                  "text": "servethehome.com aidemand google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth the new google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth for inference google tpu 8tx는 amd epyc turin 호스트와 기밀 컴퓨팅을 결합하고 tpu 8i max는 메모리 대역폭을 두 배로 늘림 · 새로운 google tpu 8tx는 amd epyc turin 호스트를 기밀 컴퓨팅과 결합하고 tpu 8i max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                  "source": "servethehome.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                  "date": "2026-11-09"
+                }
               },
               {
                 "id": "capacity",
@@ -3600,7 +3613,15 @@
               "bandwidthMultiplier": 2.67,
               "capacityMultiplier": 2.02
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                "source": "servethehome.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                "date": "2026-11-09"
+              }
+            ],
             "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -4902,8 +4923,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4936,21 +4957,21 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
               {
-                "id": "capacity",
-                "index": "2",
-                "label": "용량",
-                "accent": "#3E7198",
+                "id": "bandwidth",
+                "index": "1",
+                "label": "대역폭",
+                "accent": "#447BA6",
                 "productIds": [
-                  "ai-d-b",
-                  "ai-n-d"
+                  "custom-hbm",
+                  "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-09-21",
@@ -4982,32 +5003,21 @@
                   },
                   {
                     "week": "2026-11-09",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "9631812e8e2a17f35c8e",
-                  "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-                  "summary": "Apple과 Intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 AI 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 Luke Lin은 두 가지 공급망 신호를 확인 · Apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, Intel은 긴급한 서버 CPU 수요를 추적하기 위해 18A 용량을 이전 Intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                  "text": "digitimes.com aidemand podcast highlights: apple hoards supplies via long-term contracts; intel reverts 18a to intel 3 recent earnings reports from apple and intel highlight growing supply-chain strain driven by soaring memory costs and massive ai infrastructure build-outs. analyst luke lin identified two supply-chain signals: apple is locking in capacity through aggressive long-term procurement, while intel is taking the unusual step of converting 18a capacity back to the older intel 3 node to chase urgent server cpu demand. 팟캐스트 하이라이트: apple은 장기 계약을 통해 공급품을 비축 · intel은 18a를 intel 3으로 되돌림 · apple과 intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 ai 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 luke lin은 두 가지 공급망 신호를 확인 · apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, intel은 긴급한 서버 cpu 수요를 추적하기 위해 18a 용량을 이전 intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-                  "date": "2026-11-09"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
-                "id": "bandwidth",
-                "index": "1",
-                "label": "대역폭",
-                "accent": "#447BA6",
+                "id": "capacity",
+                "index": "2",
+                "label": "용량",
+                "accent": "#3E7198",
                 "productIds": [
-                  "custom-hbm",
-                  "ai-n-b"
+                  "ai-d-b",
+                  "ai-n-d"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5380,15 +5390,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-                "date": "2026-11-09"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "공식 인프라 공개",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -5471,8 +5473,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 4,
+            "sourceCount": 3,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5497,15 +5499,15 @@
               },
               {
                 "week": "2026-10-26",
-                "count": 0
-              },
-              {
-                "week": "2026-11-02",
                 "count": 1
               },
               {
+                "week": "2026-11-02",
+                "count": 2
+              },
+              {
                 "week": "2026-11-09",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -5518,8 +5520,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-09-21",
@@ -5543,7 +5545,7 @@
                   },
                   {
                     "week": "2026-10-26",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-11-02",
@@ -5556,7 +5558,17 @@
                 ],
                 "trend": "flat",
                 "delta": 0,
-                "risingTwoWeeks": false
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "616f3cc97467ba818154",
+                  "title": "Nvidia sidesteps JEDEC HBM standard",
+                  "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                  "source": "blocksandfiles.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+                  "date": "2026-10-26"
+                }
               },
               {
                 "id": "capacity",
@@ -5940,11 +5952,32 @@
             },
             "evidenceStream": [
               {
-                "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+                "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+                "date": "2026-11-10"
+              },
+              {
+                "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
+                "source": "finance.technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+                "date": "2026-11-08"
+              },
+              {
+                "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
                 "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
                 "date": "2026-11-08"
+              },
+              {
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+                "date": "2026-10-26"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -7420,8 +7453,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -7454,7 +7487,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -7467,8 +7500,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-09-21",
@@ -7500,12 +7533,23 @@
                   },
                   {
                     "week": "2026-11-09",
-                    "count": 0
+                    "count": 1
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "3dbfd12e67892c2eccdd",
+                  "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                  "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                  "text": "servethehome.com aidemand google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth the new google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth for inference google tpu 8tx는 amd epyc turin 호스트와 기밀 컴퓨팅을 결합하고 tpu 8i max는 메모리 대역폭을 두 배로 늘림 · 새로운 google tpu 8tx는 amd epyc turin 호스트를 기밀 컴퓨팅과 결합하고 tpu 8i max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                  "source": "servethehome.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                  "date": "2026-11-09"
+                }
               },
               {
                 "id": "capacity",
@@ -7914,7 +7958,15 @@
               "bandwidthMultiplier": 2.67,
               "capacityMultiplier": 2.02
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                "source": "servethehome.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                "date": "2026-11-09"
+              }
+            ],
             "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -9820,7 +9872,7 @@
             {
               "id": "bandwidth",
               "label": "대역폭",
-              "mentions": 0
+              "mentions": 1
             },
             {
               "id": "capacity",
@@ -9861,7 +9913,7 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 0
+                  "mentions": 1
                 },
                 {
                   "id": "capacity",
@@ -9930,7 +9982,7 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 0
+                  "mentions": 1
                 },
                 {
                   "id": "capacity",
@@ -10457,7 +10509,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "capacity",
@@ -10490,7 +10542,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "capacity",
@@ -10516,7 +10568,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "capacity",
@@ -10568,7 +10620,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "capacity",
@@ -10836,7 +10888,15 @@
             "Google",
             "Meta",
             "OpenAI"
-          ]
+          ],
+          "selectedInsight": {
+            "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+            "source": "servethehome.com",
+            "sourceClass": "authoritative-media",
+            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+            "date": "2026-11-09",
+            "account": "Google"
+          }
         },
         {
           "id": "next-memory-portfolio",
@@ -11034,8 +11094,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 4,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11060,15 +11120,15 @@
             },
             {
               "week": "2026-10-26",
-              "count": 0
-            },
-            {
-              "week": "2026-11-02",
               "count": 1
             },
             {
+              "week": "2026-11-02",
+              "count": 2
+            },
+            {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -11081,8 +11141,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-21",
@@ -11106,7 +11166,7 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-02",
@@ -11119,7 +11179,17 @@
               ],
               "trend": "flat",
               "delta": 0,
-              "risingTwoWeeks": false
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "616f3cc97467ba818154",
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+                "date": "2026-10-26"
+              }
             },
             {
               "id": "capacity",
@@ -11503,11 +11573,32 @@
           },
           "evidenceStream": [
             {
-              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "date": "2026-11-10"
+            },
+            {
+              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+              "date": "2026-11-08"
+            },
+            {
+              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
               "date": "2026-11-08"
+            },
+            {
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+              "date": "2026-10-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -12113,7 +12204,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
+              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -12324,8 +12415,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -12358,7 +12449,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -12371,8 +12462,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-21",
@@ -12404,12 +12495,23 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "3dbfd12e67892c2eccdd",
+                "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                "text": "servethehome.com aidemand google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth the new google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth for inference google tpu 8tx는 amd epyc turin 호스트와 기밀 컴퓨팅을 결합하고 tpu 8i max는 메모리 대역폭을 두 배로 늘림 · 새로운 google tpu 8tx는 amd epyc turin 호스트를 기밀 컴퓨팅과 결합하고 tpu 8i max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                "source": "servethehome.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                "date": "2026-11-09"
+              }
             },
             {
               "id": "capacity",
@@ -12818,7 +12920,15 @@
             "bandwidthMultiplier": 2.67,
             "capacityMultiplier": 2.02
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+              "source": "servethehome.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+              "date": "2026-11-09"
+            }
+          ],
           "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -16435,8 +16545,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -16469,21 +16579,21 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-21",
@@ -16515,32 +16625,21 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "9631812e8e2a17f35c8e",
-                "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-                "summary": "Apple과 Intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 AI 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 Luke Lin은 두 가지 공급망 신호를 확인 · Apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, Intel은 긴급한 서버 CPU 수요를 추적하기 위해 18A 용량을 이전 Intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                "text": "digitimes.com aidemand podcast highlights: apple hoards supplies via long-term contracts; intel reverts 18a to intel 3 recent earnings reports from apple and intel highlight growing supply-chain strain driven by soaring memory costs and massive ai infrastructure build-outs. analyst luke lin identified two supply-chain signals: apple is locking in capacity through aggressive long-term procurement, while intel is taking the unusual step of converting 18a capacity back to the older intel 3 node to chase urgent server cpu demand. 팟캐스트 하이라이트: apple은 장기 계약을 통해 공급품을 비축 · intel은 18a를 intel 3으로 되돌림 · apple과 intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 ai 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 luke lin은 두 가지 공급망 신호를 확인 · apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, intel은 긴급한 서버 cpu 수요를 추적하기 위해 18a 용량을 이전 intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-                "date": "2026-11-09"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -16913,15 +17012,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-              "date": "2026-11-09"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -22377,7 +22468,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-09T19:57:59.551Z",
+        "updatedAt": "2026-11-10T01:43:14.471Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23039,7 +23130,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                  "source": "servethehome.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                  "date": "2026-11-09"
+                },
+                "evidenceCount": 1,
                 "accent": "#30A59D",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
                 "source": {
@@ -23339,14 +23437,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-                  "date": "2026-11-09"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
                 "source": {
@@ -23520,13 +23611,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
-                  "source": "tomshardware.com",
+                  "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
+                  "source": "technews.tw",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
-                  "date": "2026-11-08"
+                  "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+                  "date": "2026-11-10"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 4,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24009,7 +24100,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
+                  "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
                   "source": "servethehome.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -24409,13 +24500,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
-              "source": "tomshardware.com",
+              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
+              "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
-              "date": "2026-11-08"
+              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "date": "2026-11-10"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 4,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24470,7 +24561,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
+              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -24525,7 +24616,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+              "source": "servethehome.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+              "date": "2026-11-09"
+            },
+            "evidenceCount": 1,
             "accent": "#30A59D",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
             "source": {
@@ -24825,14 +24923,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-              "date": "2026-11-09"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
             "source": {
@@ -27659,23 +27750,107 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "616f3cc97467ba818154",
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+                "date": "2026-10-26"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "date": "2026-11-10"
+            },
+            {
+              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+              "date": "2026-11-08"
+            },
+            {
+              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
               "date": "2026-11-08"
+            },
+            {
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+              "date": "2026-10-26"
             }
           ]
         },
@@ -27696,7 +27871,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
+              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -27709,7 +27884,68 @@
           "headline": "Google · 7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
           "layer": "end-customer",
           "decisionQuestion": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "3dbfd12e67892c2eccdd",
+                "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                "text": "servethehome.com aidemand google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth the new google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth for inference google tpu 8tx는 amd epyc turin 호스트와 기밀 컴퓨팅을 결합하고 tpu 8i max는 메모리 대역폭을 두 배로 늘림 · 새로운 google tpu 8tx는 amd epyc turin 호스트를 기밀 컴퓨팅과 결합하고 tpu 8i max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                "source": "servethehome.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                "date": "2026-11-09"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "measured",
@@ -27742,11 +27978,22 @@
             "bandwidthMultiplier": 2.67,
             "capacityMultiplier": 2.02
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+              "source": "servethehome.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+              "date": "2026-11-09"
+            }
+          ]
         },
         {
           "accountId": "microsoft",
@@ -27855,89 +28102,17 @@
           "headline": "Apple · Apple Silicon · AFM 3 · Private Cloud Compute",
           "layer": "end-customer",
           "decisionQuestion": "Workload Placement · Energy/Task · Privacy · On-device 용량",
-          "topPainAxes": [
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "9631812e8e2a17f35c8e",
-                "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-                "summary": "Apple과 Intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 AI 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 Luke Lin은 두 가지 공급망 신호를 확인 · Apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, Intel은 긴급한 서버 CPU 수요를 추적하기 위해 18A 용량을 이전 Intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                "text": "digitimes.com aidemand podcast highlights: apple hoards supplies via long-term contracts; intel reverts 18a to intel 3 recent earnings reports from apple and intel highlight growing supply-chain strain driven by soaring memory costs and massive ai infrastructure build-outs. analyst luke lin identified two supply-chain signals: apple is locking in capacity through aggressive long-term procurement, while intel is taking the unusual step of converting 18a capacity back to the older intel 3 node to chase urgent server cpu demand. 팟캐스트 하이라이트: apple은 장기 계약을 통해 공급품을 비축 · intel은 18a를 intel 3으로 되돌림 · apple과 intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 ai 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 luke lin은 두 가지 공급망 신호를 확인 · apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, intel은 긴급한 서버 cpu 수요를 추적하기 위해 18a 용량을 이전 intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-                "date": "2026-11-09"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "ai-d-b",
-            "ai-n-d"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-              "date": "2026-11-09"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "marvell",
@@ -28087,8 +28262,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 4,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28113,15 +28288,15 @@
             },
             {
               "week": "2026-10-26",
-              "count": 0
-            },
-            {
-              "week": "2026-11-02",
               "count": 1
             },
             {
+              "week": "2026-11-02",
+              "count": 2
+            },
+            {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -28134,8 +28309,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-21",
@@ -28159,7 +28334,7 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-02",
@@ -28172,7 +28347,17 @@
               ],
               "trend": "flat",
               "delta": 0,
-              "risingTwoWeeks": false
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "616f3cc97467ba818154",
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+                "date": "2026-10-26"
+              }
             },
             {
               "id": "capacity",
@@ -28556,11 +28741,32 @@
           },
           "evidenceStream": [
             {
-              "title": "Two Chinese companies cleared to buy banned Nvidia AI chips have empty offices and unknown addresses",
+              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "date": "2026-11-10"
+            },
+            {
+              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
+              "date": "2026-11-08"
+            },
+            {
+              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
               "date": "2026-11-08"
+            },
+            {
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+              "date": "2026-10-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -29166,7 +29372,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
+              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -29377,8 +29583,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -29411,7 +29617,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -29424,8 +29630,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-21",
@@ -29457,12 +29663,23 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "3dbfd12e67892c2eccdd",
+                "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+                "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                "text": "servethehome.com aidemand google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth the new google tpu 8tx pairs amd epyc turin hosts with confidential computing while tpu 8i max doubles memory bandwidth for inference google tpu 8tx는 amd epyc turin 호스트와 기밀 컴퓨팅을 결합하고 tpu 8i max는 메모리 대역폭을 두 배로 늘림 · 새로운 google tpu 8tx는 amd epyc turin 호스트를 기밀 컴퓨팅과 결합하고 tpu 8i max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+                "source": "servethehome.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+                "date": "2026-11-09"
+              }
             },
             {
               "id": "capacity",
@@ -29871,7 +30088,15 @@
             "bandwidthMultiplier": 2.67,
             "capacityMultiplier": 2.02
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+              "source": "servethehome.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
+              "date": "2026-11-09"
+            }
+          ],
           "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -33488,8 +33713,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -33522,21 +33747,21 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-21",
@@ -33568,32 +33793,21 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "9631812e8e2a17f35c8e",
-                "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-                "summary": "Apple과 Intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 AI 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 Luke Lin은 두 가지 공급망 신호를 확인 · Apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, Intel은 긴급한 서버 CPU 수요를 추적하기 위해 18A 용량을 이전 Intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                "text": "digitimes.com aidemand podcast highlights: apple hoards supplies via long-term contracts; intel reverts 18a to intel 3 recent earnings reports from apple and intel highlight growing supply-chain strain driven by soaring memory costs and massive ai infrastructure build-outs. analyst luke lin identified two supply-chain signals: apple is locking in capacity through aggressive long-term procurement, while intel is taking the unusual step of converting 18a capacity back to the older intel 3 node to chase urgent server cpu demand. 팟캐스트 하이라이트: apple은 장기 계약을 통해 공급품을 비축 · intel은 18a를 intel 3으로 되돌림 · apple과 intel의 최근 수익 보고서는 치솟는 메모리 비용과 대규모 ai 인프라 구축으로 인해 공급망 부담이 커지고 있음을 강조 · 분석가 luke lin은 두 가지 공급망 신호를 확인 · apple은 공격적인 장기 조달을 통해 용량을 확보하고 있는 반면, intel은 긴급한 서버 cpu 수요를 추적하기 위해 18a 용량을 이전 intel 3 노드로 다시 전환하는 특이한 조치를 취하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-                "date": "2026-11-09"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -33966,15 +34180,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "팟캐스트 하이라이트: Apple은 장기 계약을 통해 공급품을 비축 · Intel은 18A를 Intel 3으로 되돌림",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261106pd244/apple-intel-earnings-intel-3-capacity.html",
-              "date": "2026-11-09"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38045,8 +38251,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "accountIds": [],
           "weekly": [
             {
@@ -38079,20 +38285,9 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "b2e7f75ee96126f65765",
-            "title": "Innodisk says AI applications now generate more than 40% of revenue as 3Q26 profit jumps",
-            "summary": "Innodisk said AI-related applications generated more than 40% of its revenue as demand for high-end AI server memory and storage lifted third-quarter results. The Taiwanese industrial memory maker is expanding into the cloud service provider, AI server supply chain, and humanoid robotics markets, highlighting how artificial intelligence is reshaping technology markets worldwide",
-            "text": "digitimes.com aidemand innodisk says ai applications now generate more than 40% of revenue as 3q26 profit jumps innodisk said ai-related applications generated more than 40% of its revenue as demand for high-end ai server memory and storage lifted third-quarter results. the taiwanese industrial memory maker is expanding into the cloud service provider, ai server supply chain, and humanoid robotics markets, highlighting how artificial intelligence is reshaping technology markets worldwide. innodisk says ai applications now generate more than 40% of revenue as 3q26 profit jumps innodisk said ai-related applications generated more than 40% of its revenue as demand for high-end ai server memory and storage lifted third-quarter results. the taiwanese industrial memory maker is expanding into the cloud service provider, ai server supply chain, and humanoid robotics markets, highlighting how artificial intelligence is reshaping technology markets worldwide",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261109pd222/innodisk-revenue-ai-applications-profit-high-end.html",
-            "date": "2026-11-09"
-          },
           "promotionStatus": "monitoring"
         },
         {
@@ -38162,8 +38357,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "accountIds": [],
           "weekly": [
             {
@@ -38196,20 +38391,9 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "e87819bc815b113f40eb",
-            "title": "로봇은 변속기 제조업체가 맞춤형 틈새시장을 목표로 삼도록 박차를 가함",
-            "summary": "대만의 기계 산업은 최근 몇 년간 반도체, AI 애플리케이션, 산업 자동화 및 스마트 제조에 대한 강력한 수요로 지속적인 수출을 주도하면서 강력한 추진력을 얻었음 · 이러한 성장은 장비 제조업체뿐만 아니라 공작기계 시장의 장기적인 침체에도 불구하고 수요가 증가한 변속기 부품 제조업체를 포함한 핵심 부품의 업스트림 공급업체에게도 이익이 되고 있음",
-            "text": "digitimes.com aidemand robots spur transmission makers to target customized niches taiwan's machinery industry has gained strong momentum in recent years, with robust demand for semiconductors, ai applications, industrial automation and smart manufacturing driving sustained exports. the growth is benefiting not only equipment makers but also upstream suppliers of key components, including transmission-component manufacturers, demand for which has risen despite a prolonged downturn in the machine-tool market. 로봇은 변속기 제조업체가 맞춤형 틈새시장을 목표로 삼도록 박차를 가함 대만의 기계 산업은 최근 몇 년간 반도체, ai 애플리케이션, 산업 자동화 및 스마트 제조에 대한 강력한 수요로 지속적인 수출을 주도하면서 강력한 추진력을 얻었음 · 이러한 성장은 장비 제조업체뿐만 아니라 공작기계 시장의 장기적인 침체에도 불구하고 수요가 증가한 변속기 부품 제조업체를 포함한 핵심 부품의 업스트림 공급업체에게도 이익이 되고 있음",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261109pd237/taiwan-transmission-demand-automation-equipment.html",
-            "date": "2026-11-09"
-          },
           "promotionStatus": "monitoring"
         }
       ],
@@ -38241,8 +38425,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38270,13 +38454,23 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-09",
               "count": 0
             }
           ],
+          "latest": {
+            "id": "71c6c146bfd88a3b9643",
+            "title": "Same fab, different paths: Kioxia and Sandisk diverge on HBF",
+            "text": "blocksandfiles.com nand same fab, different paths: kioxia and sandisk diverge on hbf nand fab joint-venture (jv) partners kioxia and sandisk have differing views on the sk hynix-led high-bandwidth flash (hbf) initiative, with sandisk supporting it and kioxia so far neutral and staking out an alternative architectural position. same fab, different paths: kioxia and sandisk diverge on hbf",
+            "source": "blocksandfiles.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
+            "date": "2026-11-03"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38318,8 +38512,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38331,7 +38525,7 @@
             },
             {
               "week": "2026-10-05",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-12",
@@ -38354,6 +38548,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "5330d7c141816bb7bc51",
+            "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+            "text": "trendforce.com dram cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ...",
+            "source": "trendforce.com",
+            "sourceClass": "research",
+            "origin": "live-crawl",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
+            "date": "2026-10-11"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38935,8 +39139,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 2,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38960,7 +39164,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 0
+              "count": 2
             },
             {
               "week": "2026-11-02",
@@ -38971,6 +39175,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "6ae2322489bbfd9d7d4d",
+            "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
+            "source": "blocksandfiles.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+            "date": "2026-10-26"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39308,7 +39522,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-09T19:56:31.611Z",
+        "generatedAt": "2026-11-10T01:41:52.479Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39426,11 +39640,32 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "HPE puts storage to work on AI’s expensive memory problem",
-        "summary": "HPE는 Alletra Storage MP X10000에 또 다른 작업을 제공 · 그렇지 않으면 값비싼 GPU 메모리에서 제거되고 나중에 다시 계산될 추론 상태를 유지하는 것",
-        "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-29",
+        "title": "통합 개발 환경인 GoLand 2026.3을 사용하면 AI 에이전트가 성능 분석기를 직접 작동하여 Go 프로그램 병목 현상을 추적가능",
+        "summary": "Go 언어 통합 개발 환경인 GoLand 2026.3에서는 AI 에이전트가 MCP를 통해 성능 측정을 수행가능 · CPU, 메모리 또는 잠금 경쟁 문제를 기반으로 데이터를 검색하고 리소스를 소비하는 기능과 프로그램 코드 위치를 추적가능",
+        "url": "https://www.ithome.com.tw/news/180347",
+        "source": "ithome.com.tw",
+        "publishedAt": "2026-11-10",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+        "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+        "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
+        "source": "servethehome.com",
+        "publishedAt": "2026-11-09",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39439,8 +39674,40 @@
             "label": "LLM SERVING"
           },
           {
-            "id": "rag",
-            "label": "RAG / VECTOR"
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+        "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
+        "source": "trendforce.com",
+        "publishedAt": "2026-10-11",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 30
+      },
+      {
+        "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+        "source": "blocksandfiles.com",
+        "publishedAt": "2026-10-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
           },
           {
             "id": "accelerator",
@@ -39448,92 +39715,27 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 12
+        "ageDays": 15
       },
       {
-        "title": "메모리 부족으로 인해 스마트폰 제조업체는 오래된 장치에서 사용한 메모리를 녹인 다음 이를 새 제품에 다시 납땜하게 됩니다",
-        "summary": "리볼드 메모리는 현재 스마트폰 구성 요소 중 작은 부분을 차지하고 있지만 제조업체가 점점 더 비싼 DRAM에 대한 대안을 모색함에 따라 2027년까지 채택이 거의 두 배로 늘어날 수 있음",
-        "url": "https://www.tomshardware.com/pc-components/dram/memory-shortage-spurs-smartphone-makers-to-melt-used-memory-off-old-devices-then-re-solder-it-onto-new-products-recycled-memory-to-keep-budget-phones-affordable-reballing-adoption-to-double-by-2027",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-09",
+        "title": "Breaking the KV cache memory wall using Dynamo and Liqid CXL shared memory",
+        "url": "https://www.blocksandfiles.com/architecture/2026/10/26/breaking-the-kv-cache-memory-wall-using-dynamo-and-liqid-cxl-shared-memory/5305130",
+        "source": "blocksandfiles.com",
+        "publishedAt": "2026-10-26",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "AMD는 GPU 드라이버 버그가 지속적으로 데이터를 쓰고 SSD를 마모시킨다는 사실을 인정",
-        "summary": "Radeon 드라이버는 SSD 쓰기에서 조용히 수천 기가바이트를 축적가능",
-        "url": "https://www.tomshardware.com/pc-components/gpu-drivers/amd-adrenalin-bug-could-be-writing-data-continuously-wearing-out-ssds-radeon-owner-claims-external-events-utility-used-up-1-percent-of-ssd-health-every-month-for-over-a-year",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-09",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "대만 대통령, 자립 우주 추진을 위해 칩 강점 활용",
-        "summary": "Taiwan will continuously elevate its self-reliant space technology capabilities while leveraging its long-standing strengths in semiconductors, electronics, telecommunications, an…",
-        "url": "https://www.digitimes.com/news/a20261109PD266/2026-taiwan-technology-taiwan-space-agency.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-09",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "대용량 메모리가 명품화, 64GB PC 구성 비중 18% 감소",
-        "summary": "최신 CPU-Z 하드웨어 조사 자료에 따르면 PC의 32GB와 64GB 메모리 구성은 지난해 같은 기간에 비해 각각 2.5%, 18% 감소한 것으로 나타났다 · 대용량 메모리는 현대 PC 구축에서 사치품이 되었음 · 하드웨어 조사 데이터의 소스인 CPU-Z 자체는 Windows PC 설치의 주요 핵심 구성 요소 사양을…",
-        "url": "https://technews.tw/2026/11/09/soaring-memory-prices-drive-an-18-percent-drop-in-pcs-with-64gb-of-ram/",
-        "source": "technews.tw",
-        "publishedAt": "2026-11-09",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "Innodisk says AI applications now generate more than 40% of revenue as 3Q26 profit jumps",
-        "summary": "Innodisk said AI-related applications generated more than 40% of its revenue as demand for high-end AI server memory and storage lifted third-quarter results. The Taiwanese indust…",
-        "url": "https://www.digitimes.com/news/a20261109PD222/innodisk-revenue-ai-applications-profit-high-end.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-09",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 15
       }
     ],
     "reportPolicy": {
@@ -39678,12 +39880,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Sino-American Silicon Products posts record revenue in first three quarters of 2026 on AI, energy demand",
-          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261107PD200/sas-revenue-demand-2026-electricity.html",
+          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
           "publishedAt": "2026-11-09",
-          "evidenceLevel": "Reported"
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -39773,12 +39975,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "HPE puts storage to work on AI’s expensive memory problem",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "blocksandfiles.com",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
-          "publishedAt": "2026-10-29",
-          "evidenceLevel": "Watch"
+          "title": "Broadcom × Meta MTIA · 공식 Baseline",
+          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
+          "source": "Broadcom × Meta MTIA",
+          "url": "https://investors.broadcom.com/node/64236/pdf",
+          "publishedAt": "2026-11-10T01:43:14.471Z",
+          "evidenceLevel": "Official baseline"
         }
       }
     ],
@@ -39820,8 +40022,8 @@
       },
       "enabled": true
     },
-    "runId": "42685709296",
-    "generatedAt": "2026-11-09T19:57:59.551Z",
+    "runId": "42736191151",
+    "generatedAt": "2026-11-10T01:43:14.471Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40159,8 +40361,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "42685709296",
-    "generatedAt": "2026-11-09T19:57:59.551Z",
+    "runId": "42736191151",
+    "generatedAt": "2026-11-10T01:43:14.471Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40932,8 +41134,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-09T19:57:59.551Z",
-    "runId": "42685709296"
+    "generatedAt": "2026-11-10T01:43:14.471Z",
+    "runId": "42736191151"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41174,12 +41376,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 90.1,
+        "freshnessScore": 91.3,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-09T19:56:31.232Z"
+        "indexedAt": "2026-11-10T01:41:52.219Z"
       }
     },
     "sources": [
@@ -41316,8 +41518,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-09T19:57:59.551Z",
-    "runId": "42685709296"
+    "generatedAt": "2026-11-10T01:43:14.471Z",
+    "runId": "42736191151"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41331,7 +41533,6 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
-        "subtitle": "digitimes.com · 2026-11-09",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41343,22 +41544,15 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "pending": false,
-          "title": "Sino-American Silicon Products posts record revenue in first three quarters of 2026 on AI, energy demand",
-          "summary": "SAS(Sino-American Silicon Products)는 AI 데이터 센터 건설이 가속화되고 HBM에 대한 수요가 급증하며 글로벌 에너지 전환이 진행됨에 따라 컴퓨팅 성능과 전력에 중점을 두고 있음",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261107PD200/sas-revenue-demand-2026-electricity.html",
-          "publishedAt": "2026-11-09",
-          "evidenceLevel": "Reported",
-          "sourceClass": "authoritative-media"
+          "pending": true,
+          "title": "HBM·AI 서버",
+          "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
+          "publishedAt": "2026-11-10T01:43:14.471Z",
+          "evidenceLevel": "Watch",
+          "sourceClass": "unclassified"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 4,
         "signals": [
-          [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "Sino-American Silicon Products posts record revenue in first three quarters of 2026 on AI, energy demand",
-            "SAS(Sino-American Silicon Products)는 AI 데이터 센터 건설이 가속화되고 HBM에 대한 수요가 급증하며 글로벌 에너지 전환이 진행됨에 따라 컴퓨팅 성능과 전력에 중점을 두고 있음"
-          ],
           [
             "EXECUTIVE DECISION",
             "검증된 Ramp와 Custom Co-Design을 분리 운영",
@@ -41444,11 +41638,6 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-11-09",
-            "https://www.digitimes.com/news/a20261107PD200/sas-revenue-demand-2026-electricity.html"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41469,7 +41658,7 @@
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
-        "subtitle": "blocksandfiles.com · 2026-10-29",
+        "subtitle": "servethehome.com · 2026-11-09",
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -41482,20 +41671,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "HPE puts storage to work on AI’s expensive memory problem",
-          "summary": "HPE는 Alletra Storage MP X10000에 또 다른 작업을 제공 · 그렇지 않으면 값비싼 GPU 메모리에서 제거되고 나중에 다시 계산될 추론 상태를 유지하는 것",
-          "source": "blocksandfiles.com",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
-          "publishedAt": "2026-10-29",
+          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+          "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
+          "publishedAt": "2026-11-09",
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 6,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
-            "HPE puts storage to work on AI’s expensive memory problem",
-            "HPE는 Alletra Storage MP X10000에 또 다른 작업을 제공 · 그렇지 않으면 값비싼 GPU 메모리에서 제거되고 나중에 다시 계산될 추론 상태를 유지하는 것"
+            "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+            "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41582,8 +41771,8 @@
         "sources": [
           [
             "Watch",
-            "blocksandfiles.com · 2026-10-29",
-            "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788"
+            "servethehome.com · 2026-11-09",
+            "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
           ],
           [
             "CONTROL",
@@ -41620,9 +41809,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-09T19:57:59.551Z"
+          "publishedAt": "2026-11-10T01:43:14.471Z"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 10,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41729,6 +41918,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
+        "subtitle": "servethehome.com · 2026-11-07",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -41740,15 +41930,22 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": true,
-          "title": "DRAM·범용 가격",
-          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-09T19:57:59.551Z",
+          "pending": false,
+          "title": "Diamond Rapids용 16개 DDR5 슬롯이 있는 ASRock 랙 DMRD16-2L+ 발견",
+          "summary": "우리는 MCIO를 통해 128x PCIe Gen6 레인을 갖춘 16채널 Intel Diamond Rapids Xeon 마더보드인 ASRock Rack DMRD16-2L+를 확인",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/asrock-rack-dmrd16-2l-plus-diamond-rapids-ocp-summit-2026/",
+          "publishedAt": "2026-11-07",
           "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 11,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Diamond Rapids용 16개 DDR5 슬롯이 있는 ASRock 랙 DMRD16-2L+ 발견",
+            "우리는 MCIO를 통해 128x PCIe Gen6 레인을 갖춘 16채널 Intel Diamond Rapids Xeon 마더보드인 ASRock Rack DMRD16-2L+를 확인"
+          ],
           [
             "EXECUTIVE DECISION",
             "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
@@ -41832,6 +42029,11 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
+            "Watch",
+            "servethehome.com · 2026-11-07",
+            "https://www.servethehome.com/asrock-rack-dmrd16-2l-plus-diamond-rapids-ocp-summit-2026/"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41852,7 +42054,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "blocksandfiles.com · 2026-10-29",
+        "subtitle": "servethehome.com · 2026-11-09",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -41865,20 +42067,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "HPE puts storage to work on AI’s expensive memory problem",
-          "summary": "HPE는 Alletra Storage MP X10000에 또 다른 작업을 제공 · 그렇지 않으면 값비싼 GPU 메모리에서 제거되고 나중에 다시 계산될 추론 상태를 유지하는 것",
-          "source": "blocksandfiles.com",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
-          "publishedAt": "2026-10-29",
+          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+          "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
+          "publishedAt": "2026-11-09",
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 6,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
-            "HPE puts storage to work on AI’s expensive memory problem",
-            "HPE는 Alletra Storage MP X10000에 또 다른 작업을 제공 · 그렇지 않으면 값비싼 GPU 메모리에서 제거되고 나중에 다시 계산될 추론 상태를 유지하는 것"
+            "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+            "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41967,8 +42169,8 @@
         "sources": [
           [
             "Watch",
-            "blocksandfiles.com · 2026-10-29",
-            "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788"
+            "servethehome.com · 2026-11-09",
+            "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
           ],
           [
             "CONTROL",
@@ -42005,9 +42207,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-09T19:57:59.551Z"
+          "publishedAt": "2026-11-10T01:43:14.471Z"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
