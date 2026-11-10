@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "42736191151",
-  "generatedAt": "2026-11-10T01:43:14.471Z",
-  "expiresAt": "2026-11-11T03:43:13.177Z",
+  "runId": "42773917299",
+  "generatedAt": "2026-11-10T07:29:45.006Z",
+  "expiresAt": "2026-11-11T09:29:43.631Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-10T01:41:52.219Z",
-    "runId": "42736191151",
+    "generatedAt": "2026-11-10T07:28:22.496Z",
+    "runId": "42773917299",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,46 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "2afae8f8dc9c7bf1c562",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-09",
-        "changed": true
-      },
-      {
-        "id": "80f49a7bde117eaf6629",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-09",
-        "changed": true
-      },
-      {
-        "id": "08369f61c0f7bd6e62b1",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-09",
-        "changed": true
-      },
-      {
-        "id": "d64fbf603ababbadf9db",
+        "id": "dff57348873b43ac1df8",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -173,7 +134,7 @@
         "changed": true
       },
       {
-        "id": "f2244202b7970aae5354",
+        "id": "eb4f168190781a3a450f",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -185,7 +146,7 @@
         "changed": true
       },
       {
-        "id": "31543e43cf66689dba03",
+        "id": "f1108c1f6e9574f10316",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -195,6 +156,19 @@
         "title": "AI Chip - Amazon Inferentia - AWS",
         "url": "https://aws.amazon.com/ai/machine-learning/inferentia",
         "changed": true
+      },
+      {
+        "id": "2afae8f8dc9c7bf1c562",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-11-09",
+        "changed": false
       },
       {
         "id": "695b672f920c41d0f82d",
@@ -273,17 +247,43 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
+      },
+      {
+        "id": "03d1894ebe386b1c4d1d",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
+        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+        "publishedAt": "2026-08-04",
+        "changed": false
+      },
+      {
+        "id": "d68f89e9a3676800c266",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-10T01:41:52.219Z",
+      "generatedAt": "2026-11-10T07:28:22.496Z",
       "stats": {
-        "eligibleDocuments": 43,
+        "eligibleDocuments": 42,
         "structuredEvents": 40,
         "verifiedEvents": 35,
         "currentStages": 34,
-        "newEvents": 4,
+        "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
@@ -853,8 +853,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -865,8 +865,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -877,7 +877,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -888,8 +888,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -900,8 +900,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -912,8 +912,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -924,7 +924,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -935,8 +935,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -947,8 +947,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -959,8 +959,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -971,8 +971,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -983,8 +983,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -995,8 +995,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1007,8 +1007,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1019,8 +1019,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1031,7 +1031,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1042,8 +1042,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1054,8 +1054,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1066,8 +1066,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1078,7 +1078,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1089,8 +1089,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1101,8 +1101,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1113,7 +1113,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1124,8 +1124,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1136,8 +1136,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1158,8 +1158,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1170,7 +1170,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1181,8 +1181,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1193,7 +1193,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1204,8 +1204,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1216,8 +1216,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1228,8 +1228,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1240,8 +1240,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1252,8 +1252,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1264,8 +1264,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1276,8 +1276,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1288,7 +1288,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1299,7 +1299,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1310,8 +1310,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-10T01:41:44.148Z",
-            "lastUsefulObservationAt": "2026-11-10T01:41:44.148Z",
+            "lastSuccessAt": "2026-11-10T07:28:17.102Z",
+            "lastUsefulObservationAt": "2026-11-10T07:28:17.102Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1326,7 +1326,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-10T01:41:52.219Z",
+          "updatedAt": "2026-11-10T07:28:22.496Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,7 +1456,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-10T01:41:52.219Z",
+          "updatedAt": "2026-11-10T07:28:22.496Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1586,7 +1586,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-10T01:41:52.219Z",
+          "updatedAt": "2026-11-10T07:28:22.496Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1713,7 +1713,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-10T01:41:52.219Z",
+          "updatedAt": "2026-11-10T07:28:22.496Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1839,9 +1839,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 10,
+        "observed": 9,
         "fresh": 5,
-        "observationRatePct": 6.8,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
         "officialFresh": 0,
@@ -2102,10 +2102,10 @@
         "documents": 149,
         "chunks": 594,
         "added": 0,
-        "changed": 3,
+        "changed": 2,
         "unchanged": 40,
-        "retained": 106,
-        "reindexed": 3
+        "retained": 107,
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2291,8 +2291,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-10T01:41:52.219Z",
-              "sourceChangeDetectedAt": "2026-11-10T01:41:44.148Z",
+              "indexedAt": "2026-11-10T07:28:22.496Z",
+              "sourceChangeDetectedAt": "2026-11-10T07:28:17.102Z",
               "stale": false
             }
           ]
@@ -2476,7 +2476,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.3,
+      "score": 91.2,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2494,7 +2494,7 @@
         "contentAge": 97,
         "embeddingLag": 100,
         "staleRetrievalRate": 69.2,
-        "coverageDrift": 100
+        "coverageDrift": 99.9
       },
       "diagnostics": {
         "staleRetrievalRatePct": 30.8,
@@ -2506,13 +2506,13 @@
       },
       "coverage": {
         "currentPct": 97.6,
-        "previousPct": 95.9
+        "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-10T01:41:44.148Z",
-        "indexedAt": "2026-11-10T01:41:52.219Z"
+        "sourceChangeDetectedAt": "2026-11-10T07:28:17.102Z",
+        "indexedAt": "2026-11-10T07:28:22.496Z"
       },
-      "generatedAt": "2026-11-10T01:41:52.219Z"
+      "generatedAt": "2026-11-10T07:28:22.496Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2531,7 +2531,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-10T01:43:14.471Z",
+    "generatedAt": "2026-11-10T07:29:45.006Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4287,8 +4287,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4317,7 +4317,7 @@
               },
               {
                 "week": "2026-11-02",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-11-09",
@@ -4325,6 +4325,180 @@
               }
             ],
             "painAxes": [
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "5e9834a4fce0f6ea4ddd",
+                  "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                  "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                  "date": "2026-11-08"
+                }
+              },
+              {
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "5e9834a4fce0f6ea4ddd",
+                  "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                  "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                  "date": "2026-11-08"
+                }
+              },
+              {
+                "id": "logic-boundary",
+                "index": "5",
+                "label": "로직 경계",
+                "accent": "#C26262",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "5e9834a4fce0f6ea4ddd",
+                  "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                  "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                  "date": "2026-11-08"
+                }
+              },
               {
                 "id": "bandwidth",
                 "index": "1",
@@ -4382,150 +4556,6 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
-                "productIds": [
-                  "custom-hbm"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "logic-boundary",
-                "index": "5",
-                "label": "로직 경계",
-                "accent": "#C26262",
-                "productIds": [
-                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -4754,7 +4784,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            ],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -5473,8 +5511,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 4,
-            "sourceCount": 3,
+            "mentions": 3,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5499,26 +5537,25 @@
               },
               {
                 "week": "2026-10-26",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-11-02",
-                "count": 2
+                "count": 1
               },
               {
                 "week": "2026-11-09",
-                "count": 1
+                "count": 2
               }
             ],
             "painAxes": [
               {
-                "id": "bandwidth",
-                "index": "1",
-                "label": "대역폭",
-                "accent": "#447BA6",
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
                 "productIds": [
-                  "custom-hbm",
-                  "ai-n-b"
+                  "ai-d-o"
                 ],
                 "mentions": 1,
                 "sourceCount": 1,
@@ -5545,127 +5582,30 @@
                   },
                   {
                     "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
                     "count": 1
                   },
                   {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
                     "week": "2026-11-09",
                     "count": 0
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
+                "trend": "down",
+                "delta": -1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "616f3cc97467ba818154",
-                  "title": "Nvidia sidesteps JEDEC HBM standard",
-                  "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
-                  "source": "blocksandfiles.com",
-                  "sourceClass": "authoritative-media",
+                  "id": "5e9834a4fce0f6ea4ddd",
+                  "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                  "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
                   "origin": "live-crawl",
-                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-                  "date": "2026-10-26"
+                  "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                  "date": "2026-11-08"
                 }
-              },
-              {
-                "id": "capacity",
-                "index": "2",
-                "label": "용량",
-                "accent": "#3E7198",
-                "productIds": [
-                  "ai-d-b",
-                  "ai-n-d"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
               },
               {
                 "id": "package-foundry",
@@ -5675,6 +5615,123 @@
                 "productIds": [
                   "custom-hbm"
                 ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "5e9834a4fce0f6ea4ddd",
+                  "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                  "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                  "date": "2026-11-08"
+                }
+              },
+              {
+                "id": "logic-boundary",
+                "index": "5",
+                "label": "로직 경계",
+                "accent": "#C26262",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "5e9834a4fce0f6ea4ddd",
+                  "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                  "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                  "date": "2026-11-08"
+                }
+              },
+              {
+                "id": "bandwidth",
+                "index": "1",
+                "label": "대역폭",
+                "accent": "#447BA6",
+                "productIds": [
+                  "custom-hbm",
+                  "ai-n-b"
+                ],
                 "mentions": 0,
                 "sourceCount": 0,
                 "weekly": [
@@ -5716,12 +5773,13 @@
                 "risingTwoWeeks": false
               },
               {
-                "id": "logic-boundary",
-                "index": "5",
-                "label": "로직 경계",
-                "accent": "#C26262",
+                "id": "capacity",
+                "index": "2",
+                "label": "용량",
+                "accent": "#3E7198",
                 "productIds": [
-                  "custom-hbm"
+                  "ai-d-b",
+                  "ai-n-d"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5952,32 +6010,25 @@
             },
             "evidenceStream": [
               {
-                "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
-                "source": "technews.tw",
+                "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+                "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+                "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
                 "date": "2026-11-10"
               },
               {
-                "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-                "source": "finance.technews.tw",
+                "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
+                "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-                "date": "2026-11-08"
+                "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
+                "date": "2026-11-10"
               },
               {
-                "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
                 "date": "2026-11-08"
-              },
-              {
-                "title": "Nvidia sidesteps JEDEC HBM standard",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-                "date": "2026-10-26"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -8840,8 +8891,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -8874,7 +8925,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -9307,7 +9358,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
+                "source": "ccc.technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram",
+                "date": "2026-11-10"
+              }
+            ],
             "chipStage": "Jalapeño Engineering Sample",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -9985,14 +10044,14 @@
                   "mentions": 1
                 },
                 {
-                  "id": "capacity",
-                  "label": "용량",
-                  "mentions": 0
-                },
-                {
                   "id": "power-thermal",
                   "label": "전력·열",
-                  "mentions": 0
+                  "mentions": 1
+                },
+                {
+                  "id": "package-foundry",
+                  "label": "패키징·파운드리",
+                  "mentions": 1
                 }
               ]
             },
@@ -10545,14 +10604,14 @@
                 "mentions": 1
               },
               {
-                "id": "capacity",
-                "label": "용량",
-                "mentions": 0
-              },
-              {
                 "id": "power-thermal",
                 "label": "전력·열",
-                "mentions": 0
+                "mentions": 1
+              },
+              {
+                "id": "package-foundry",
+                "label": "패키징·파운드리",
+                "mentions": 1
               }
             ]
           },
@@ -10592,19 +10651,19 @@
             "buyingCriteria": [],
             "topPainAxes": [
               {
-                "id": "bandwidth",
-                "label": "대역폭",
-                "mentions": 0
-              },
-              {
-                "id": "capacity",
-                "label": "용량",
-                "mentions": 0
-              },
-              {
                 "id": "power-thermal",
                 "label": "전력·열",
-                "mentions": 0
+                "mentions": 1
+              },
+              {
+                "id": "package-foundry",
+                "label": "패키징·파운드리",
+                "mentions": 1
+              },
+              {
+                "id": "logic-boundary",
+                "label": "로직 경계",
+                "mentions": 1
               }
             ]
           },
@@ -11094,8 +11153,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
-          "sourceCount": 3,
+          "mentions": 3,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11120,26 +11179,25 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-o"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -11166,127 +11224,30 @@
                 },
                 {
                   "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
                   "count": 1
                 },
                 {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
                   "week": "2026-11-09",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "616f3cc97467ba818154",
-                "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-                "date": "2026-10-26"
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
               }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
             },
             {
               "id": "package-foundry",
@@ -11296,6 +11257,123 @@
               "productIds": [
                 "custom-hbm"
               ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
               "mentions": 0,
               "sourceCount": 0,
               "weekly": [
@@ -11337,12 +11415,13 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11573,32 +11652,25 @@
           },
           "evidenceStream": [
             {
-              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
-              "source": "technews.tw",
+              "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
               "date": "2026-11-10"
             },
             {
-              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-              "source": "finance.technews.tw",
+              "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-              "date": "2026-11-08"
+              "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
+              "date": "2026-11-10"
             },
             {
-              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
-              "source": "tomshardware.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
+              "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
               "date": "2026-11-08"
-            },
-            {
-              "title": "Nvidia sidesteps JEDEC HBM standard",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-              "date": "2026-10-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -12204,7 +12276,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -13594,8 +13666,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13624,7 +13696,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-09",
@@ -13632,6 +13704,180 @@
             }
           ],
           "painAxes": [
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -13689,150 +13935,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -14061,7 +14163,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+              "date": "2026-11-08"
+            }
+          ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -18283,8 +18393,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -18317,7 +18427,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -18750,7 +18860,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
+              "source": "ccc.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram",
+              "date": "2026-11-10"
+            }
+          ],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -18857,8 +18975,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -18891,7 +19009,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -19324,7 +19442,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "인위적 침해로 인해 100개 이상의 한국 기업 Claude 계정이 노출",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261110pd224/anthropic-claude-data-security-cybersecurity.html",
+              "date": "2026-11-10"
+            }
+          ],
           "chipStage": "멀티플랫폼 Training·Serving 공개",
           "chipPortfolio": [],
           "stageLedger": {
@@ -19896,8 +20022,8 @@
             "asOf": "2026-03-02"
           },
           "servesAccounts": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 2,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -19930,7 +20056,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 2
             }
           ],
           "painAxes": [
@@ -20363,7 +20489,22 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
+              "date": "2026-11-10"
+            },
+            {
+              "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
+              "date": "2026-11-10"
+            }
+          ],
           "chipStage": "전략 파트너십",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22468,7 +22609,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-10T01:43:14.471Z",
+        "updatedAt": "2026-11-10T07:29:45.006Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23237,7 +23378,14 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                  "date": "2026-11-08"
+                },
+                "evidenceCount": 1,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23472,7 +23620,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
+                  "source": "ccc.technews.tw",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram",
+                  "date": "2026-11-10"
+                },
+                "evidenceCount": 1,
                 "accent": "#4A6B78",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
                 "source": {
@@ -23517,7 +23672,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "인위적 침해로 인해 100개 이상의 한국 기업 Claude 계정이 노출",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261110pd224/anthropic-claude-data-security-cybersecurity.html",
+                  "date": "2026-11-10"
+                },
+                "evidenceCount": 1,
                 "accent": "#C46868",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
                 "source": {
@@ -23611,13 +23773,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
-                  "source": "technews.tw",
+                  "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+                  "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+                  "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
                   "date": "2026-11-10"
                 },
-                "evidenceCount": 4,
+                "evidenceCount": 3,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23937,7 +24099,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "interconnect",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
+                  "date": "2026-11-10"
+                },
+                "evidenceCount": 2,
                 "accent": "#2B7996",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
                 "source": {
@@ -24100,7 +24269,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+                  "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
                   "source": "servethehome.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -24500,13 +24669,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
-              "source": "technews.tw",
+              "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
               "date": "2026-11-10"
             },
-            "evidenceCount": 4,
+            "evidenceCount": 3,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24561,7 +24730,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -24723,7 +24892,14 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+              "date": "2026-11-08"
+            },
+            "evidenceCount": 1,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -25057,7 +25233,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
+              "source": "ccc.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram",
+              "date": "2026-11-10"
+            },
+            "evidenceCount": 1,
             "accent": "#4A6B78",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
             "source": {
@@ -25102,7 +25285,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "인위적 침해로 인해 100개 이상의 한국 기업 Claude 계정이 노출",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261110pd224/anthropic-claude-data-security-cybersecurity.html",
+              "date": "2026-11-10"
+            },
+            "evidenceCount": 1,
             "accent": "#C46868",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
             "source": {
@@ -25182,7 +25372,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "interconnect",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
+              "date": "2026-11-10"
+            },
+            "evidenceCount": 2,
             "accent": "#2B7996",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
             "source": {
@@ -27752,13 +27949,12 @@
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
           "topPainAxes": [
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-o"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -27785,29 +27981,145 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-09",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "616f3cc97467ba818154",
-                "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-                "date": "2026-10-26"
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
               }
             }
           ],
@@ -27817,40 +28129,33 @@
             "generations": []
           },
           "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b"
+            "ai-d-o",
+            "custom-hbm"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
-              "source": "technews.tw",
+              "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
               "date": "2026-11-10"
             },
             {
-              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-              "source": "finance.technews.tw",
+              "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-              "date": "2026-11-08"
+              "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
+              "date": "2026-11-10"
             },
             {
-              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
-              "source": "tomshardware.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
+              "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
               "date": "2026-11-08"
-            },
-            {
-              "title": "Nvidia sidesteps JEDEC HBM standard",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-              "date": "2026-10-26"
             }
           ]
         },
@@ -27871,7 +28176,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -28017,17 +28322,203 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "ai-d-o",
+            "custom-hbm"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+              "date": "2026-11-08"
+            }
+          ]
         },
         {
           "accountId": "oracle",
@@ -28146,7 +28637,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
+              "source": "ccc.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram",
+              "date": "2026-11-10"
+            }
+          ]
         },
         {
           "accountId": "anthropic",
@@ -28163,7 +28662,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "인위적 침해로 인해 100개 이상의 한국 기업 Claude 계정이 노출",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261110pd224/anthropic-claude-data-security-cybersecurity.html",
+              "date": "2026-11-10"
+            }
+          ]
         },
         {
           "accountId": "coreweave",
@@ -28262,8 +28769,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
-          "sourceCount": 3,
+          "mentions": 3,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28288,26 +28795,25 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-o"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -28334,127 +28840,30 @@
                 },
                 {
                   "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
                   "count": 1
                 },
                 {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
                   "week": "2026-11-09",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "616f3cc97467ba818154",
-                "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-                "date": "2026-10-26"
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
               }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
             },
             {
               "id": "package-foundry",
@@ -28464,6 +28873,123 @@
               "productIds": [
                 "custom-hbm"
               ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
               "mentions": 0,
               "sourceCount": 0,
               "weekly": [
@@ -28505,12 +29031,13 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -28741,32 +29268,25 @@
           },
           "evidenceStream": [
             {
-              "title": "태풍이 끝나면서 한국 언론은 미국이 후이다 사건으로 수출 통제를 강화해 한국 공장의 수출에 영향을 미칠 것을 우려하고 있음",
-              "source": "technews.tw",
+              "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/10/south-korean-media-are-concerned-that-the-restrictions-will-affect-south-korean-manufacturers-exports",
+              "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
               "date": "2026-11-10"
             },
             {
-              "title": "황젠슨이 혼외정사를 인정 · Huida 이사회는 중국 간첩 침투 사건에 대해 독립적인 조사를 제출",
-              "source": "finance.technews.tw",
+              "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair",
-              "date": "2026-11-08"
+              "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
+              "date": "2026-11-10"
             },
             {
-              "title": "금지된 엔비디아 AI 칩 구매 승인을 받은 두 중국 기업의 사무실은 비어 있고 주소는 알 수 없음",
-              "source": "tomshardware.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/two-chinese-companies-cleared-to-buy-banned-nvidia-ai-chips-have-empty-offices-and-unknown-addresses-investigation-reveals-businesses-have-ties-to-sanctioned-chinese-military-suppliers",
+              "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
               "date": "2026-11-08"
-            },
-            {
-              "title": "Nvidia sidesteps JEDEC HBM standard",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-              "date": "2026-10-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -29372,7 +29892,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Dell PowerEdge R770AP 검토 하나의 빠른 Intel Xeon 6 서버",
+              "title": "Dell PowerEdge R770AP Review One Fast Intel Xeon 6 Server",
               "source": "servethehome.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.servethehome.com/dell-poweredge-r770ap-review-one-fast-intel-xeon-6-server",
@@ -30762,8 +31282,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -30792,7 +31312,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-09",
@@ -30800,6 +31320,180 @@
             }
           ],
           "painAxes": [
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5e9834a4fce0f6ea4ddd",
+                "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+                "text": "troy-technical.com packaging nvhbm: micron’s nvidia custom base die specs and 15% power cut micron will outsource the base die for its custom nvhbm product, developed for nvidia and based on hbm4e, anticipating e nvhbm: micron’s nvidia custom base die specs and 15% power cut",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+                "date": "2026-11-08"
+              }
+            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -30857,150 +31551,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -31229,7 +31779,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+              "date": "2026-11-08"
+            }
+          ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -34922,8 +35480,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34956,7 +35514,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -35389,7 +35947,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
+              "source": "ccc.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram",
+              "date": "2026-11-10"
+            }
+          ],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -35496,8 +36062,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -35530,7 +36096,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -35963,7 +36529,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "인위적 침해로 인해 100개 이상의 한국 기업 Claude 계정이 노출",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261110pd224/anthropic-claude-data-security-cybersecurity.html",
+              "date": "2026-11-10"
+            }
+          ],
           "chipStage": "멀티플랫폼 Training·Serving 공개",
           "chipPortfolio": [],
           "stageLedger": {
@@ -38425,8 +38999,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38454,23 +39028,13 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-09",
               "count": 0
             }
           ],
-          "latest": {
-            "id": "71c6c146bfd88a3b9643",
-            "title": "Same fab, different paths: Kioxia and Sandisk diverge on HBF",
-            "text": "blocksandfiles.com nand same fab, different paths: kioxia and sandisk diverge on hbf nand fab joint-venture (jv) partners kioxia and sandisk have differing views on the sk hynix-led high-bandwidth flash (hbf) initiative, with sandisk supporting it and kioxia so far neutral and staking out an alternative architectural position. same fab, different paths: kioxia and sandisk diverge on hbf",
-            "source": "blocksandfiles.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
-            "date": "2026-11-03"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38512,8 +39076,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38525,7 +39089,7 @@
             },
             {
               "week": "2026-10-05",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-12",
@@ -38548,16 +39112,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "5330d7c141816bb7bc51",
-            "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-            "text": "trendforce.com dram cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ...",
-            "source": "trendforce.com",
-            "sourceClass": "research",
-            "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-11"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38595,8 +39149,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38628,9 +39182,20 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "f124ad46287b5be18912",
+            "title": "렌즈테크놀로지, 연말까지 유리기판 파일럿 라인 가동, 한국 반도체 업체 주목",
+            "summary": "China's Lens Technology plans to build and operate its first through-glass via (TGV) glass substrate pilot line by the end of 2026 and is seeking partnerships with South Korean semiconductor and memory companies as it pushes from smartphone glass into advanced chip packaging. Jiang Nan, the company's China region president, outlined the plans in an interview with on October 28 at the C-TOUCH & DISPLAY SHENZHEN 2026 exhibition in Shenzhen, published on November 9",
+            "text": "digitimes.com packaging lens technology to start glass substrate pilot line by year-end, eyes korean chipmakers china's lens technology plans to build and operate its first through-glass via (tgv) glass substrate pilot line by the end of 2026 and is seeking partnerships with south korean semiconductor and memory companies as it pushes from smartphone glass into advanced chip packaging. jiang nan, the company's china region president, outlined the plans in an interview with on october 28 at the c-touch & display shenzhen 2026 exhibition in shenzhen, published on november 9. 렌즈테크놀로지, 연말까지 유리기판 파일럿 라인 가동, 한국 반도체 업체 주목 china's lens technology plans to build and operate its first through-glass via (tgv) glass substrate pilot line by the end of 2026 and is seeking partnerships with south korean semiconductor and memory companies as it pushes from smartphone glass into advanced chip packaging. jiang nan, the company's china region president, outlined the plans in an interview with on october 28 at the c-touch & display shenzhen 2026 exhibition in shenzhen, published on november 9",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261109vl211/lens-technology-glass-substrate-tgv-packaging-capacity-2026.html",
+            "date": "2026-11-10"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38672,8 +39237,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 2,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38705,9 +39270,20 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 2
             }
           ],
+          "latest": {
+            "id": "d581227bb73af5e8cc76",
+            "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+            "summary": "Intel은 생성 AI 붐에서 Nvidia 및 AMD를 포함한 경쟁사에 비해 눈에 띄게 뒤처졌음 · 회사는 현재 시장 리더를 잡기 위해 모든 자원을 집중하기보다는 컴퓨팅 아키텍처의 다음 변화에 대비하기 위해 양자 컴퓨팅, 뉴로모픽 컴퓨팅, 실리콘 포토닉스, 신소재, 인메모리 컴퓨팅을 추구하고 있음",
+            "text": "digitimes.com aidemand intel looks beyond 18a and 14a to reshape computing intel has fallen noticeably behind rivals including nvidia and amd in the generative ai boom. rather than concentrating all its resources on catching current market leaders, the company is pursuing quantum computing, neuromorphic computing, silicon photonics, new materials, and in-memory computing to prepare for the next shift in computing architectures. 인텔은 컴퓨팅을 재편하기 위해 18a와 14a를 넘어선다 intel은 생성 ai 붐에서 nvidia 및 amd를 포함한 경쟁사에 비해 눈에 띄게 뒤처졌음 · 회사는 현재 시장 리더를 잡기 위해 모든 자원을 집중하기보다는 컴퓨팅 아키텍처의 다음 변화에 대비하기 위해 양자 컴퓨팅, 뉴로모픽 컴퓨팅, 실리콘 포토닉스, 신소재, 인메모리 컴퓨팅을 추구하고 있음",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
+            "date": "2026-11-10"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38749,8 +39325,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 2,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38782,9 +39358,20 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 2
             }
           ],
+          "latest": {
+            "id": "d581227bb73af5e8cc76",
+            "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+            "summary": "Intel은 생성 AI 붐에서 Nvidia 및 AMD를 포함한 경쟁사에 비해 눈에 띄게 뒤처졌음 · 회사는 현재 시장 리더를 잡기 위해 모든 자원을 집중하기보다는 컴퓨팅 아키텍처의 다음 변화에 대비하기 위해 양자 컴퓨팅, 뉴로모픽 컴퓨팅, 실리콘 포토닉스, 신소재, 인메모리 컴퓨팅을 추구하고 있음",
+            "text": "digitimes.com aidemand intel looks beyond 18a and 14a to reshape computing intel has fallen noticeably behind rivals including nvidia and amd in the generative ai boom. rather than concentrating all its resources on catching current market leaders, the company is pursuing quantum computing, neuromorphic computing, silicon photonics, new materials, and in-memory computing to prepare for the next shift in computing architectures. 인텔은 컴퓨팅을 재편하기 위해 18a와 14a를 넘어선다 intel은 생성 ai 붐에서 nvidia 및 amd를 포함한 경쟁사에 비해 눈에 띄게 뒤처졌음 · 회사는 현재 시장 리더를 잡기 위해 모든 자원을 집중하기보다는 컴퓨팅 아키텍처의 다음 변화에 대비하기 위해 양자 컴퓨팅, 뉴로모픽 컴퓨팅, 실리콘 포토닉스, 신소재, 인메모리 컴퓨팅을 추구하고 있음",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261110pd225/intel-quantum-computing-chips-technology.html",
+            "date": "2026-11-10"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39139,8 +39726,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -39164,7 +39751,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 2
+              "count": 0
             },
             {
               "week": "2026-11-02",
@@ -39175,16 +39762,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "6ae2322489bbfd9d7d4d",
-            "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
-            "source": "blocksandfiles.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-            "date": "2026-10-26"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39522,7 +40099,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-10T01:41:52.479Z",
+        "generatedAt": "2026-11-10T07:28:22.763Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39661,6 +40238,27 @@
         "ageDays": 0
       },
       {
+        "title": "독점: 양자 컴퓨터가 없는 양자 — Quinas는 AI의 메모리 병목 현상을 해결하기 위해 양자 터널링에 투자",
+        "summary": "인공 지능이 컴퓨팅 시스템을 전례 없는 처리 요구 사항으로 밀어붙임에 따라 또 다른 기술적 병목 현상, 즉 데이터를 저장, 검색 및 이동하는 데 필요한 에너지와 시간을 무시하기가 점점 더 어려워지고 있음",
+        "url": "https://www.digitimes.com/news/a20261109VL213/quantum-taiwan-technology.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-10",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
         "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
         "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
         "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
@@ -39682,60 +40280,55 @@
         "ageDays": 1
       },
       {
-        "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-        "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
-        "source": "trendforce.com",
-        "publishedAt": "2026-10-11",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 30
-      },
-      {
-        "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-26",
+        "title": "울트라맨은 자신의 PC가 메모리를 차지해 대중의 분노를 샀고, 그래서 개발자는 유휴 RAM이 얼마나 많은지 \"보고\"하기 위해 스크립트를 작성하고 매일 편지를 보냈음",
+        "summary": "OpenAI CEO인 Sam Altman의 추억 발언은 최근 대중의 분노를 불러일으켰음 · 영국의 한 개발자는 컴퓨터가 데이터 센터에서 가져가지 않은 메모리 양을 \"보고\"하기 위해 매일 Altman에 자동으로 편지를 보낼 수 있는 스크립트를 작성",
+        "url": "https://ccc.technews.tw/2026/11/10/developer-makes-script-to-spam-sam-altman-about-ram/",
+        "source": "ccc.technews.tw",
+        "publishedAt": "2026-11-10",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
           {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
-          {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
-        "ageDays": 15
+        "ageDays": 0
       },
       {
-        "title": "Breaking the KV cache memory wall using Dynamo and Liqid CXL shared memory",
-        "url": "https://www.blocksandfiles.com/architecture/2026/10/26/breaking-the-kv-cache-memory-wall-using-dynamo-and-liqid-cxl-shared-memory/5305130",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-26",
+        "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+        "summary": "Intel은 생성 AI 붐에서 Nvidia 및 AMD를 포함한 경쟁사에 비해 눈에 띄게 뒤처졌음 · 회사는 현재 시장 리더를 잡기 위해 모든 자원을 집중하기보다는 컴퓨팅 아키텍처의 다음 변화에 대비하기 위해 양자 컴퓨팅, 뉴로모픽 컴퓨팅, 실리콘 포토닉스, 신소재, 인메모리 컴퓨팅을 추구하고 있음",
+        "url": "https://www.digitimes.com/news/a20261110PD225/intel-quantum-computing-chips-technology.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-10",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
           {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "Phison은 AI 수요 급증으로 2027년 NAND 공급의 70%를 고정",
+        "summary": "Phison Electronics CEO Pua Khein-Seng은 설 이후 AI 수요가 다시 급증하여 NAND 플래시 공급을 강화하고 고용량 TLC(삼중 레벨 셀) 및 QLC(쿼드 레벨 셀) 제품에 대한 경쟁이 심화될 것으로 예상 · 회사는 이미 2027년 목표 공급량의 70% 이상을 확보",
+        "url": "https://www.digitimes.com/news/a20261109PD258/phison-demand-nand-2027-ceo.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-10",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
-        "ageDays": 15
+        "ageDays": 0
       }
     ],
     "reportPolicy": {
@@ -39880,12 +40473,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
+          "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
           "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
-          "publishedAt": "2026-11-09",
-          "evidenceLevel": "Watch"
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261109PD207/intel-photonics-silicon-in-memory-computing-technology.html",
+          "publishedAt": "2026-11-10",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -39927,12 +40520,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "AMD는 GPU 드라이버 버그가 지속적으로 데이터를 쓰고 SSD를 마모시킨다는 사실을 인정",
+          "title": "Phison은 AI 수요 급증으로 2027년 NAND 공급의 70%를 고정",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/gpu-drivers/amd-adrenalin-bug-could-be-writing-data-continuously-wearing-out-ssds-radeon-owner-claims-external-events-utility-used-up-1-percent-of-ssd-health-every-month-for-over-a-year",
-          "publishedAt": "2026-11-09",
-          "evidenceLevel": "Watch"
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261109PD258/phison-demand-nand-2027-ceo.html",
+          "publishedAt": "2026-11-10",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -39979,7 +40572,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-10T01:43:14.471Z",
+          "publishedAt": "2026-11-10T07:29:45.006Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40022,8 +40615,8 @@
       },
       "enabled": true
     },
-    "runId": "42736191151",
-    "generatedAt": "2026-11-10T01:43:14.471Z",
+    "runId": "42773917299",
+    "generatedAt": "2026-11-10T07:29:45.006Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40361,8 +40954,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "42736191151",
-    "generatedAt": "2026-11-10T01:43:14.471Z",
+    "runId": "42773917299",
+    "generatedAt": "2026-11-10T07:29:45.006Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41134,8 +41727,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-10T01:43:14.471Z",
-    "runId": "42736191151"
+    "generatedAt": "2026-11-10T07:29:45.006Z",
+    "runId": "42773917299"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41376,12 +41969,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.3,
+        "freshnessScore": 91.2,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-10T01:41:52.219Z"
+        "indexedAt": "2026-11-10T07:28:22.496Z"
       }
     },
     "sources": [
@@ -41518,8 +42111,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-10T01:43:14.471Z",
-    "runId": "42736191151"
+    "generatedAt": "2026-11-10T07:29:45.006Z",
+    "runId": "42773917299"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41547,11 +42140,11 @@
           "pending": true,
           "title": "HBM·AI 서버",
           "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-10T01:43:14.471Z",
+          "publishedAt": "2026-11-10T07:29:45.006Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41658,7 +42251,6 @@
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
-        "subtitle": "servethehome.com · 2026-11-09",
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -41670,22 +42262,13 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": false,
-          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
-          "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
-          "publishedAt": "2026-11-09",
-          "evidenceLevel": "Watch",
-          "sourceClass": "authoritative-media"
+          "pending": true,
+          "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
+          "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
+          "publishedAt": "2026-11-10T07:29:45.006Z"
         },
         "evidenceCount": 6,
         "signals": [
-          [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
-            "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림"
-          ],
           [
             "EXECUTIVE DECISION",
             "Agentic Inference를 Serving SW × Data Placement로 판단",
@@ -41770,11 +42353,6 @@
         "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
         "sources": [
           [
-            "Watch",
-            "servethehome.com · 2026-11-09",
-            "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41809,9 +42387,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-10T01:43:14.471Z"
+          "publishedAt": "2026-11-10T07:29:45.006Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 3,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41918,7 +42496,6 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
-        "subtitle": "servethehome.com · 2026-11-07",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -41930,22 +42507,15 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": false,
-          "title": "Diamond Rapids용 16개 DDR5 슬롯이 있는 ASRock 랙 DMRD16-2L+ 발견",
-          "summary": "우리는 MCIO를 통해 128x PCIe Gen6 레인을 갖춘 16채널 Intel Diamond Rapids Xeon 마더보드인 ASRock Rack DMRD16-2L+를 확인",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/asrock-rack-dmrd16-2l-plus-diamond-rapids-ocp-summit-2026/",
-          "publishedAt": "2026-11-07",
+          "pending": true,
+          "title": "DRAM·범용 가격",
+          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-11-10T07:29:45.006Z",
           "evidenceLevel": "Watch",
-          "sourceClass": "authoritative-media"
+          "sourceClass": "unclassified"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 6,
         "signals": [
-          [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "Diamond Rapids용 16개 DDR5 슬롯이 있는 ASRock 랙 DMRD16-2L+ 발견",
-            "우리는 MCIO를 통해 128x PCIe Gen6 레인을 갖춘 16채널 Intel Diamond Rapids Xeon 마더보드인 ASRock Rack DMRD16-2L+를 확인"
-          ],
           [
             "EXECUTIVE DECISION",
             "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
@@ -42029,11 +42599,6 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
-            "Watch",
-            "servethehome.com · 2026-11-07",
-            "https://www.servethehome.com/asrock-rack-dmrd16-2l-plus-diamond-rapids-ocp-summit-2026/"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42054,7 +42619,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "servethehome.com · 2026-11-09",
+        "subtitle": "digitimes.com · 2026-11-10",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42067,20 +42632,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
-          "summary": "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
-          "publishedAt": "2026-11-09",
-          "evidenceLevel": "Watch",
+          "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
+          "summary": "전 세계 반도체 산업이 계속해서 Nvidia에 초점을 맞추면서 Intel은 차세대 컴퓨팅 아키텍처가 어디로 갈지 결정하기 위해 GPU를 넘어서는 방안을 모색하고 있음 · Intel 최고 기술 책임자인 Pushkar Ranade는 일본 간행물과의 인터뷰에서 고급 프로세스 기술, AI 가속기, 양자 컴퓨팅, 뉴로모픽 컴퓨팅, 실리콘 포토닉스, 인메모리 컴퓨팅 및 신소재를 포괄하는 회사의 기술 로드맵을 설명",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261109PD207/intel-photonics-silicon-in-memory-computing-technology.html",
+          "publishedAt": "2026-11-10",
+          "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
         "evidenceCount": 6,
         "signals": [
           [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘림",
-            "새로운 Google TPU 8tx는 AMD EPYC Turin 호스트를 기밀 컴퓨팅과 결합하고 TPU 8i Max는 추론을 위해 메모리 대역폭을 두 배로 늘림"
+            "Reported · AUTHORITATIVE-MEDIA",
+            "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
+            "전 세계 반도체 산업이 계속해서 Nvidia에 초점을 맞추면서 Intel은 차세대 컴퓨팅 아키텍처가 어디로 갈지 결정하기 위해 GPU를 넘어서는 방안을 모색하고 있음 · Intel 최고 기술 책임자인 Pushkar Ranade는 일본 간행물과의 인터뷰에서 고급 프로세스 기술, AI 가속기, 양자 컴퓨팅, 뉴로모픽 컴퓨팅, 실리콘 포토닉스, 인메모리 컴퓨팅 및 신소재를 포괄하는 회사의 기술 로드맵을 설명"
           ],
           [
             "EXECUTIVE DECISION",
@@ -42168,9 +42733,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
-            "Watch",
-            "servethehome.com · 2026-11-09",
-            "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
+            "Reported",
+            "digitimes.com · 2026-11-10",
+            "https://www.digitimes.com/news/a20261109PD207/intel-photonics-silicon-in-memory-computing-technology.html"
           ],
           [
             "CONTROL",
@@ -42207,7 +42772,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-10T01:43:14.471Z"
+          "publishedAt": "2026-11-10T07:29:45.006Z"
         },
         "evidenceCount": 6,
         "signals": [

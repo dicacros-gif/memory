@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42736191151",
-  "generatedAt": "2026-11-10T01:43:14.471Z",
+  "runId": "42773917299",
+  "generatedAt": "2026-11-10T07:29:45.006Z",
   "coverage": {
     "companiesObserved": 30,
     "companiesWithDerivedDemand": 26,
-    "derivedRequirements": 86,
+    "derivedRequirements": 87,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -555,8 +555,8 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "지속",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-11-05",
-          "evidenceCount": 8,
+          "lastSeen": "2026-11-08",
+          "evidenceCount": 9,
           "evidenceIds": [
             "105urmn",
             "06l7v1e",
@@ -565,9 +565,10 @@
             "0ykarzn",
             "1tnrry0",
             "1xylrhd",
-            "1xom5se"
+            "1xom5se",
+            "1wuncph"
           ],
-          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
@@ -996,14 +997,15 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "반복",
           "firstSeen": "2026-10-31",
-          "lastSeen": "2026-11-05",
-          "evidenceCount": 3,
+          "lastSeen": "2026-11-08",
+          "evidenceCount": 4,
           "evidenceIds": [
             "1tnrry0",
             "1xylrhd",
-            "1xom5se"
+            "1xom5se",
+            "1wuncph"
           ],
-          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
@@ -1246,6 +1248,24 @@
           "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/"
         },
         {
+          "technology": "Silicon Photonics",
+          "systemShift": "데이터 이동 방식이 전기에서 광으로 이동",
+          "memoryNeed": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
+          "productAxis": "System",
+          "stage": "EXPLORE",
+          "gate": "Energy/Task · 상호운용성",
+          "hold": "관측",
+          "firstSeen": "2026-11-10",
+          "lastSeen": "2026-11-10",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0g2gg4w"
+          ],
+          "evidence": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261109PD207/intel-photonics-silicon-in-memory-computing-technology.html"
+        },
+        {
           "technology": "3nm",
           "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
           "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -1312,16 +1332,17 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-05",
-          "evidenceCount": 5,
+          "lastSeen": "2026-11-08",
+          "evidenceCount": 6,
           "evidenceIds": [
             "06l7v1e",
             "07f6o4b",
             "1tnrry0",
             "1xylrhd",
-            "1xom5se"
+            "1xom5se",
+            "1wuncph"
           ],
-          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
@@ -1597,19 +1618,21 @@
           "productAxis": "System",
           "stage": "EXPLORE",
           "gate": "Energy/Task · 상호운용성",
-          "hold": "반복",
+          "hold": "지속",
           "firstSeen": "2026-10-17",
-          "lastSeen": "2026-11-06",
-          "evidenceCount": 4,
+          "lastSeen": "2026-11-10",
+          "evidenceCount": 6,
           "evidenceIds": [
             "0x8jxps",
             "0pap1z3",
             "11f60il",
-            "15uluy8"
+            "15uluy8",
+            "0obal6a",
+            "0g2gg4w"
           ],
-          "evidence": "Hua Hong Grace는 AI 칩 부족으로 가격 결정력이 높아짐에 따라 실리콘 포토닉스 확장을 주목하고 있습니다.",
+          "evidence": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261106VL204/photonics-silicon-expansion-revenue-demand.html"
+          "url": "https://www.digitimes.com/news/a20261110PD225/intel-quantum-computing-chips-technology.html"
         }
       ]
     },
@@ -1907,7 +1930,7 @@
         "samsung",
         "skhynix"
       ],
-      "weight": 24
+      "weight": 26
     },
     {
       "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
