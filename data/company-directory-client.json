@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "42878679959",
-  "generatedAt": "2026-11-10T19:01:53.701Z",
+  "runId": "42932329729",
+  "generatedAt": "2026-11-11T00:53:47.538Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -474,7 +474,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 102
+        "ageDays": 103
       }
     },
     {
@@ -724,7 +724,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -1422,7 +1422,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -1706,7 +1706,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -2461,7 +2461,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -2688,6 +2688,15 @@
       },
       "organization": [],
       "priorities": [],
+      "capitalPlan": {
+        "observed": {
+          "headline": "논평: 중국의 신흥 반도체 투자 제국, 지배력을 향한 조용한 길을 택하다",
+          "url": "https://www.digitimes.com/news/a20261110PD216/cxmt-tsinghua-unigroup-manufacturing-investment.html",
+          "date": "2026-11-10",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
+      },
       "signals": {
         "capex": [],
         "quotes": [],
@@ -2940,7 +2949,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "논평: 중국의 신흥 반도체 투자 제국, 지배력을 향한 조용한 길을 택하다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261110pd216/cxmt-tsinghua-unigroup-manufacturing-investment.html",
+          "date": "2026-11-10"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -2961,7 +2978,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -3843,7 +3860,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -4392,7 +4409,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -4788,7 +4805,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 125
+        "ageDays": 126
       }
     },
     {
@@ -5024,7 +5041,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -5918,7 +5935,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -6372,7 +6389,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -6909,7 +6926,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -7028,7 +7045,18 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -7128,9 +7156,14 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8489,17 +8522,10 @@
           "date": "2026-07-25"
         },
         {
-          "title": "논평: 미국 중간고사와 Jensen Huang 논란이 AI 정책을 어떻게 바꿀 것인가?",
+          "title": "Nvidia 조사 연료로 인해 중국 칩 억제가 추진되어 삼성, SKHY에 대한 위험 증가",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261110pd232/usa-policy-ai-chip-security-jensen-huang-nvidia.html",
-          "date": "2026-11-10"
-        },
-        {
-          "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
+          "url": "https://www.digitimes.com/news/a20261110vl203/nvidia-samsung-investigation-sk-hynix-ceo.html",
           "date": "2026-11-10"
         }
       ],
@@ -8655,7 +8681,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 28
+        "ageDays": 29
       }
     },
     {
@@ -9326,7 +9352,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -9604,7 +9630,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -9965,7 +9991,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -10265,7 +10291,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -10616,13 +10642,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
-        },
-        {
-          "title": "Intel은 GPU를 넘어 실리콘 포토닉스, 인메모리 컴퓨팅을 목표로 합니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261109pd207/intel-photonics-silicon-in-memory-computing-technology.html",
-          "date": "2026-11-10"
         }
       ],
       "sources": [
@@ -10638,7 +10657,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -11508,7 +11527,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 28
+        "ageDays": 29
       }
     },
     {
@@ -12047,7 +12066,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -12890,7 +12909,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 28
+        "ageDays": 29
       }
     },
     {
@@ -13847,7 +13866,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 33
+        "ageDays": 34
       }
     },
     {
@@ -15140,7 +15159,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 28
+        "ageDays": 29
       }
     },
     {
@@ -15582,7 +15601,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -15813,7 +15832,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -16057,7 +16076,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -16376,7 +16395,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 91
+        "ageDays": 92
       }
     },
     {
@@ -16623,7 +16642,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -16851,7 +16870,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 168
+        "ageDays": 169
       }
     },
     {
@@ -17061,7 +17080,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 239
+        "ageDays": 240
       }
     },
     {
@@ -17286,7 +17305,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 78
+        "ageDays": 79
       }
     },
     {
@@ -17565,7 +17584,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 162
+        "ageDays": 163
       }
     },
     {
@@ -17788,7 +17807,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 102
+        "ageDays": 103
       }
     },
     {
@@ -18090,7 +18109,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 28
+        "ageDays": 29
       }
     },
     {
@@ -18314,7 +18333,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 102
+        "ageDays": 103
       }
     },
     {
@@ -18523,7 +18542,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 102
+        "ageDays": 103
       }
     },
     {
@@ -18732,7 +18751,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 102
+        "ageDays": 103
       }
     }
   ],
