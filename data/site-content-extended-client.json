@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "42972326442",
-  "generatedAt": "2026-11-11T06:40:51.329Z",
-  "expiresAt": "2026-11-12T08:40:49.683Z",
+  "runId": "43018301301",
+  "generatedAt": "2026-11-11T12:27:30.388Z",
+  "expiresAt": "2026-11-12T14:27:28.633Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-11T06:39:25.934Z",
-    "runId": "42972326442",
+    "generatedAt": "2026-11-11T12:26:03.339Z",
+    "runId": "43018301301",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,15 +122,66 @@
     ],
     "eventTriggers": [
       {
-        "id": "f1108c1f6e9574f10316",
+        "id": "79105e789e5fd0c44968",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "9d9afd220b1fd656c5db",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "aws-inferentia",
-        "source": "AWS Inferentia",
-        "sourceClass": "official",
-        "title": "AI Chip - Amazon Inferentia - AWS",
-        "url": "https://aws.amazon.com/ai/machine-learning/inferentia",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "cf6a37a5c66bb09a4d30",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "dff57348873b43ac1df8",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
+      {
+        "id": "eb4f168190781a3a450f",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
       },
       {
@@ -223,63 +274,11 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "03d1894ebe386b1c4d1d",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "d68f89e9a3676800c266",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-11T06:39:25.934Z",
+      "generatedAt": "2026-11-11T12:26:03.339Z",
       "stats": {
         "eligibleDocuments": 42,
         "structuredEvents": 40,
@@ -855,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -867,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -879,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -890,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -902,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -914,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -926,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -937,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -949,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -961,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -973,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -985,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -997,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1009,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1021,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1033,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1044,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1056,8 +1055,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1068,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1080,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1091,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1103,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1115,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1126,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1138,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1160,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1172,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1183,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1195,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1206,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1218,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1230,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1242,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1254,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1266,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1278,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1290,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1301,7 +1300,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1312,8 +1311,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-11T06:39:20.988Z",
-            "lastUsefulObservationAt": "2026-11-11T06:39:20.988Z",
+            "lastSuccessAt": "2026-11-11T12:25:57.059Z",
+            "lastUsefulObservationAt": "2026-11-11T12:25:57.059Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1328,7 +1327,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-11T06:39:25.934Z",
+          "updatedAt": "2026-11-11T12:26:03.339Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1458,7 +1457,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-11T06:39:25.934Z",
+          "updatedAt": "2026-11-11T12:26:03.339Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1588,7 +1587,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-11T06:39:25.934Z",
+          "updatedAt": "2026-11-11T12:26:03.339Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1715,7 +1714,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-11T06:39:25.934Z",
+          "updatedAt": "2026-11-11T12:26:03.339Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1842,7 +1841,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 9,
-        "fresh": 5,
+        "fresh": 7,
         "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -2293,8 +2292,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-11T00:52:19.383Z",
-              "sourceChangeDetectedAt": "2026-11-11T00:52:12.734Z",
+              "indexedAt": "2026-11-11T12:26:03.339Z",
+              "sourceChangeDetectedAt": "2026-11-11T12:25:57.059Z",
               "stale": false
             }
           ]
@@ -2468,8 +2467,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-11-06T11:13:17.179Z",
-              "sourceChangeDetectedAt": "2026-11-06T11:13:11.955Z",
+              "indexedAt": "2026-11-11T12:26:03.339Z",
+              "sourceChangeDetectedAt": "2026-11-11T12:25:57.059Z",
               "stale": false
             }
           ]
@@ -2511,10 +2510,10 @@
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-11T06:39:20.988Z",
-        "indexedAt": "2026-11-11T06:39:25.934Z"
+        "sourceChangeDetectedAt": "2026-11-11T12:25:57.059Z",
+        "indexedAt": "2026-11-11T12:26:03.339Z"
       },
-      "generatedAt": "2026-11-11T06:39:25.934Z"
+      "generatedAt": "2026-11-11T12:26:03.339Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2533,7 +2532,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-11T06:40:51.329Z",
+    "generatedAt": "2026-11-11T12:27:30.388Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3692,8 +3691,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -3726,7 +3725,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -4159,15 +4158,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "GitHub 부사장은 그래픽 카드 메모리를 사용하는 사람을 찾는 데 도움이 되는 오픈 소스 GPU 작업 관리자를 출시",
-                "source": "technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://technews.tw/2026/11/11/microsoft-developer-builds-a-gpu-task-manager-to-show-which-apps-are-eating-your-vram",
-                "date": "2026-11-11"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Region 배포",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -5482,8 +5473,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 5,
-            "sourceCount": 3,
+            "mentions": 4,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5512,7 +5503,7 @@
               },
               {
                 "week": "2026-11-02",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-11-09",
@@ -5976,7 +5967,7 @@
                 "date": "2026-11-11"
               },
               {
-                "title": "삼성과 Nvidia는 칩 시뮬레이션에서 최대 3,800배의 속도 향상을 시연",
+                "title": "Samsung and Nvidia demonstrate up to 3,800-fold speedup in chip simulation",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.digitimes.com/news/a20261111pd241/nvidia-samsung-gpu-2026-materials.html",
@@ -9318,7 +9309,7 @@
             },
             "evidenceStream": [
               {
-                "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+                "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -11111,8 +11102,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 5,
-          "sourceCount": 3,
+          "mentions": 4,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11141,7 +11132,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-09",
@@ -11605,7 +11596,7 @@
               "date": "2026-11-11"
             },
             {
-              "title": "삼성과 Nvidia는 칩 시뮬레이션에서 최대 3,800배의 속도 향상을 시연",
+              "title": "Samsung and Nvidia demonstrate up to 3,800-fold speedup in chip simulation",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd241/nvidia-samsung-gpu-2026-materials.html",
@@ -13015,8 +13006,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13049,7 +13040,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -13482,15 +13473,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "GitHub 부사장은 그래픽 카드 메모리를 사용하는 사람을 찾는 데 도움이 되는 오픈 소스 GPU 작업 관리자를 출시",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/11/microsoft-developer-builds-a-gpu-task-manager-to-show-which-apps-are-eating-your-vram",
-              "date": "2026-11-11"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -18777,7 +18760,7 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -19359,7 +19342,7 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -20460,7 +20443,7 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 2,
+          "mentions": 3,
           "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -20494,7 +20477,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 2
+              "count": 3
             }
           ],
           "painAxes": [
@@ -20929,7 +20912,14 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC, 3D DRAM 진입 가능성 낮아 CXMT 확장이 더 큰 위협",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261111pd251/dram-tsmc-3d-cxmt-expansion.html",
+              "date": "2026-11-11"
+            },
+            {
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -22524,7 +22514,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-11T06:40:51.329Z",
+        "updatedAt": "2026-11-11T12:27:30.388Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23228,14 +23218,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "GitHub 부사장은 그래픽 카드 메모리를 사용하는 사람을 찾는 데 도움이 되는 오픈 소스 GPU 작업 관리자를 출시",
-                  "source": "technews.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://technews.tw/2026/11/11/microsoft-developer-builds-a-gpu-task-manager-to-show-which-apps-are-eating-your-vram",
-                  "date": "2026-11-11"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#3085A5",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
@@ -23536,7 +23519,7 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+                  "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -23588,7 +23571,7 @@
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+                  "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -23967,13 +23950,13 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+                  "title": "TSMC, 3D DRAM 진입 가능성 낮아 CXMT 확장이 더 큰 위협",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
+                  "url": "https://www.digitimes.com/news/a20261111pd251/dram-tsmc-3d-cxmt-expansion.html",
                   "date": "2026-11-11"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 3,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24742,14 +24725,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "GitHub 부사장은 그래픽 카드 메모리를 사용하는 사람을 찾는 데 도움이 되는 오픈 소스 GPU 작업 관리자를 출시",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/11/microsoft-developer-builds-a-gpu-task-manager-to-show-which-apps-are-eating-your-vram",
-              "date": "2026-11-11"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#3085A5",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
@@ -25149,7 +25125,7 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -25201,7 +25177,7 @@
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -25331,13 +25307,13 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC, 3D DRAM 진입 가능성 낮아 CXMT 확장이 더 큰 위협",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
+              "url": "https://www.digitimes.com/news/a20261111pd251/dram-tsmc-3d-cxmt-expansion.html",
               "date": "2026-11-11"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 3,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -27175,7 +27151,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-06-12",
-            "ageMonths": 16,
+            "ageMonths": 17,
             "freshnessBand": "recent",
             "status": "공식 플랫폼 통합",
             "source": {
@@ -27950,7 +27926,7 @@
               "date": "2026-11-11"
             },
             {
-              "title": "삼성과 Nvidia는 칩 시뮬레이션에서 최대 3,800배의 속도 향상을 시연",
+              "title": "Samsung and Nvidia demonstrate up to 3,800-fold speedup in chip simulation",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd241/nvidia-samsung-gpu-2026-materials.html",
@@ -28120,15 +28096,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "GitHub 부사장은 그래픽 카드 메모리를 사용하는 사람을 찾는 데 도움이 되는 오픈 소스 GPU 작업 관리자를 출시",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/11/microsoft-developer-builds-a-gpu-task-manager-to-show-which-apps-are-eating-your-vram",
-              "date": "2026-11-11"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "aws",
@@ -28266,7 +28234,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -28291,7 +28259,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -28396,8 +28364,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 5,
-          "sourceCount": 3,
+          "mentions": 4,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28426,7 +28394,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-09",
@@ -28890,7 +28858,7 @@
               "date": "2026-11-11"
             },
             {
-              "title": "삼성과 Nvidia는 칩 시뮬레이션에서 최대 3,800배의 속도 향상을 시연",
+              "title": "Samsung and Nvidia demonstrate up to 3,800-fold speedup in chip simulation",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd241/nvidia-samsung-gpu-2026-materials.html",
@@ -30300,8 +30268,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -30334,7 +30302,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -30767,15 +30735,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "GitHub 부사장은 그래픽 카드 메모리를 사용하는 사람을 찾는 데 도움이 되는 오픈 소스 GPU 작업 관리자를 출시",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/11/microsoft-developer-builds-a-gpu-task-manager-to-show-which-apps-are-eating-your-vram",
-              "date": "2026-11-11"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -35533,7 +35493,7 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -36115,7 +36075,7 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC는 Anthropic, OpenAI에 투자할 계획 · 반도체 전략 확대 위해 투자회사 설립",
+              "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
@@ -38583,8 +38543,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38612,23 +38572,13 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-09",
               "count": 0
             }
           ],
-          "latest": {
-            "id": "71c6c146bfd88a3b9643",
-            "title": "Same fab, different paths: Kioxia and Sandisk diverge on HBF",
-            "text": "blocksandfiles.com nand same fab, different paths: kioxia and sandisk diverge on hbf nand fab joint-venture (jv) partners kioxia and sandisk have differing views on the sk hynix-led high-bandwidth flash (hbf) initiative, with sandisk supporting it and kioxia so far neutral and staking out an alternative architectural position. same fab, different paths: kioxia and sandisk diverge on hbf",
-            "source": "blocksandfiles.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
-            "date": "2026-11-03"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38707,7 +38657,7 @@
             }
           ],
           "latest": {
-            "id": "2026-10-11:74",
+            "id": "2026-10-11:77",
             "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
             "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
             "source": "trendforce.com",
@@ -39297,8 +39247,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -39322,7 +39272,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-02",
@@ -39333,16 +39283,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "6ae2322489bbfd9d7d4d",
-            "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
-            "source": "blocksandfiles.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-            "date": "2026-10-26"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39680,7 +39620,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-11T06:39:26.277Z",
+        "generatedAt": "2026-11-11T12:26:03.783Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39815,7 +39755,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 2
       },
       {
         "title": "Seagate resurrects hybrid storage: Hands-on with the FireCuda Forge – 8 or 20TB external hard drive requires you to bring your…",
@@ -39835,32 +39775,62 @@
           }
         ],
         "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
+        "title": "AMD는 MEXT를 통해 메모리 부족을 방지하고 절반의 DRAM으로 서버 성능의 95%를 유지할 수 있는 방법을 공유",
+        "summary": "MEXT는 콜드 메모리 페이지를 플래시 스토리지로 오프로드하고 예측 AI 모델을 제공",
+        "url": "https://www.tomshardware.com/pc-components/cpus/amd-shares-how-it-can-retain-95-percent-of-server-performance-with-just-half-the-dram-sidestepping-memory-shortages-with-mext-tech-powers-over-100-servers-already-running-with-plans-to-expand-to-2-000-servers-in-2027",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-11-11",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
         "ageDays": 1
       },
       {
-        "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-26",
+        "title": "9800X3D가 포함된 이 Newegg 번들로 32GB DDR5를 351달러에 구입하세요 · 다음으로 가장 저렴한 메모리보다 87달러 저렴",
+        "summary": "이 Newegg 부품 번들로 4K 게이밍 PC 구축을 시작해 보세요",
+        "url": "https://www.tomshardware.com/pc-components/ddr5/grab-32gb-ddr5-for-usd351-with-this-newegg-bundle-with-the-9800x3d-usd87-less-than-the-next-cheapest-memory-gaming-pc-build-kit-includes-enthusiast-asus-x870e-motherboard-and-free-aio-liquid-cooler-with-usd128-99-in-total-savings",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-11-11",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
-        "ageDays": 16
+        "ageDays": 1
       },
       {
-        "title": "SK Hynix taps HBM veteran to lead US business as competition intensifies",
-        "summary": "한국의 메모리 칩 제조업체인 SKHY는 맞춤형 고대역폭 메모리(HBM) 경쟁이 공급업체를 미국 칩 설계자와 더 가까워지게 함에 따라 전 개발 책임자인 안현을 새로운 미국 사업부를 이끌도록 임명",
-        "url": "https://www.digitimes.com/news/a20261110VL209/hbm-sk-hynix-competition-business-development.html",
+        "title": "기계 재고가 쌓이고 있으며 일부 PC OEM은 2027년 메모리 조달 전략을 조정",
+        "url": "https://technews.tw/2026/11/11/pc-inventory-piles-high-oems-adjust-2027-memory-procurement-strategy/",
+        "source": "technews.tw",
+        "publishedAt": "2026-11-11",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "TSMC, 3D DRAM 진입 가능성 낮아 CXMT 확장이 더 큰 위협",
+        "summary": "일부 가입자는 사이트를 방문할 때마다 사용자 ID와 비밀번호를 입력할 필요가 없도록 로그인 정보를 저장하는 것을 선호 · 이 기능을 활성화하려면 로그인 섹션에서 '로그인 유지' 확인란을 선택하세요 · 그러면 사이트에 액세스하는 데 사용하는 컴퓨터에 비밀번호가 저장",
+        "url": "https://www.digitimes.com/news/a20261111PD251/dram-tsmc-3d-cxmt-expansion.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-11",
         "sourceClass": "authoritative-media",
@@ -39872,41 +39842,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "퀄컴, 연례 서류 제출에서 삼성·마이크론을 메모리 공급업체로 지정",
-        "summary": "Qualcomm has identified Samsung Electronics and Micron Technology as its primary memory suppliers for certain products, including automotive applications, in its fiscal 2026 annua…",
-        "url": "https://www.digitimes.com/news/a20261111VL209/qualcomm-samsung-automotive-micron-revenue.html?chid=10",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-11",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "유통업체인 Smith는 메모리 부족으로 인해 일부 서버 구매자가 베어본 시스템을 선택하게 되었다고 밝혔음",
-        "summary": "독립 전자 부품 유통업체인 Smith에 따르면 일부 서버 구매자는 베어본 시스템을 요구하고 있으며 부품 부족으로 인해 배송이 복잡해짐에 따라 메모리를 별도로 구매할 계획이라고 합니다 · 다른 사람들은 새 서버를 구입하는 대신 기존 인프라를 업그레이드하고 있음",
-        "url": "https://www.digitimes.com/news/a20261110VL216/barebones-component-production-chairman-32gb.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-11",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       }
     ],
     "reportPolicy": {
@@ -40098,7 +40034,7 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "Seagate는 동적으로 캐시된 SSD와 HDD를 단일 볼륨 데스크탑 드라이브에 결합",
+          "title": "Seagate combines dynamically cached SSD and HDD in single volume desktop drive",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/disk/2026/11/10/seagate-combines-dynamically-cached-ssd-and-hdd-in-single-volume-desktop-drive/5308782",
@@ -40193,8 +40129,8 @@
       },
       "enabled": true
     },
-    "runId": "42972326442",
-    "generatedAt": "2026-11-11T06:40:51.329Z",
+    "runId": "43018301301",
+    "generatedAt": "2026-11-11T12:27:30.388Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40532,8 +40468,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "42972326442",
-    "generatedAt": "2026-11-11T06:40:51.329Z",
+    "runId": "43018301301",
+    "generatedAt": "2026-11-11T12:27:30.388Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41305,8 +41241,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-11T06:40:51.329Z",
-    "runId": "42972326442"
+    "generatedAt": "2026-11-11T12:27:30.388Z",
+    "runId": "43018301301"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41552,7 +41488,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-11T06:39:25.934Z"
+        "indexedAt": "2026-11-11T12:26:03.339Z"
       }
     },
     "sources": [
@@ -41689,8 +41625,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-11T06:40:51.329Z",
-    "runId": "42972326442"
+    "generatedAt": "2026-11-11T12:27:30.388Z",
+    "runId": "43018301301"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41725,7 +41661,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 1,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -41856,9 +41792,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-11T06:40:51.329Z"
+          "publishedAt": "2026-11-11T12:27:30.388Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41978,9 +41914,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-11T06:40:51.329Z"
+          "publishedAt": "2026-11-11T12:27:30.388Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42101,7 +42037,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-11T06:40:51.329Z",
+          "publishedAt": "2026-11-11T12:27:30.388Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42231,7 +42167,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -42363,9 +42299,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-11T06:40:51.329Z"
+          "publishedAt": "2026-11-11T12:27:30.388Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
