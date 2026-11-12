@@ -1,29 +1,29 @@
 {
   "schemaVersion": "1.0",
-  "runId": "43073327814",
-  "generatedAt": "2026-11-11T18:13:56.733Z",
+  "runId": "43122247428",
+  "generatedAt": "2026-11-12T00:01:28.798Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
     "news": 66,
     "priceRows": 41,
-    "communitySignals": 6,
+    "communitySignals": 7,
     "benchmarkSignals": 2,
     "intelligenceBriefs": 7,
     "factEvents": 0,
     "sourceChannels": 9
   },
   "referenceOnly": {
-    "news": 1865,
+    "news": 1868,
     "communitySignals": 62,
     "benchmarkSignals": 8,
     "benchmarkDiscoveries": 4
   },
   "quarantined": {
-    "news": 5,
+    "news": 7,
     "reasonCounts": {
-      "source_summary_missing": 5,
-      "source_not_observed_this_run": 5
+      "source_summary_missing": 7,
+      "source_not_observed_this_run": 6
     }
   },
   "sourceClasses": {
@@ -39,22 +39,22 @@
     "sourceOriginal": 18,
     "selfHealing": {
       "retryPolicy": "unverified rows are not cached and are retried first on the next run",
-      "requests": 16,
+      "requests": 33,
       "retries": 0,
-      "cacheHits": 50,
-      "translated": 3,
-      "qualityRejected": 73,
-      "markerFallbacks": 0,
-      "batches": 16,
-      "singleFallbackRequests": 0,
+      "cacheHits": 54,
+      "translated": 5,
+      "qualityRejected": 77,
+      "markerFallbacks": 1,
+      "batches": 18,
+      "singleFallbackRequests": 15,
       "rateLimited": 0,
       "transientFailures": 0,
       "networkErrors": 0,
-      "nonRetryableFailures": 0,
+      "nonRetryableFailures": 1,
       "deadlineSkipped": 0,
-      "pending": 73
+      "pending": 77
     },
-    "averageTokenMatchPct": 88.9
+    "averageTokenMatchPct": 90.5
   },
   "priceVerification": {
     "sourceCount": 0,
@@ -69,13 +69,20 @@
     "configuredSources": 147,
     "discoveryQueries": 117,
     "healthChecks": 94,
-    "connectedHealthChecks": 81,
+    "connectedHealthChecks": 79,
     "observedSources": 9,
-    "freshObservedSources": 7,
-    "staleObservedSources": 2,
+    "freshObservedSources": 0,
+    "staleObservedSources": 9,
     "staleSourceIds": [
       "blocksandfiles-feed",
-      "servethehome-feed"
+      "digitimes-en-feed",
+      "eetimes-japan-feed",
+      "ithome-tw-feed",
+      "servethehome-feed",
+      "solidot-feed",
+      "technews-tw-feed",
+      "technews-tw-finance-feed",
+      "tomshardware-feed"
     ],
     "observationCoveragePct": 6.1,
     "officialConfigured": 123,
@@ -92,15 +99,7 @@
       "technews-tw-finance-feed",
       "tomshardware-feed"
     ],
-    "freshSourceIds": [
-      "digitimes-en-feed",
-      "eetimes-japan-feed",
-      "ithome-tw-feed",
-      "solidot-feed",
-      "technews-tw-feed",
-      "technews-tw-finance-feed",
-      "tomshardware-feed"
-    ],
+    "freshSourceIds": [],
     "byTier": {
       "primary-company": 61,
       "primary-customer": 41,
@@ -438,11 +437,11 @@
     }
   },
   "channelAsOf": {
-    "prices": "2026-11-11T18:05:20.243Z",
-    "news": "2026-11-11T18:13:56.733Z",
-    "community": "2026-11-11T18:05:34.457Z",
-    "brokerResearch": "2026-11-11T18:11:13.337Z",
-    "markets": "2026-11-11T18:10:14.943Z"
+    "prices": "2026-11-11T23:53:10.378Z",
+    "news": "2026-11-12T00:01:28.798Z",
+    "community": "2026-11-11T23:53:24.430Z",
+    "brokerResearch": "2026-11-11T23:58:45.729Z",
+    "markets": "2026-11-11T23:57:30.450Z"
   },
   "checks": [
     {
@@ -463,14 +462,14 @@
       "id": "news_english",
       "critical": true,
       "passed": true,
-      "observed": 44,
+      "observed": 42,
       "threshold": 6
     },
     {
       "id": "news_chinese",
       "critical": false,
       "passed": true,
-      "observed": 12,
+      "observed": 14,
       "threshold": 4
     },
     {
@@ -519,14 +518,14 @@
       "id": "news_observed_english",
       "critical": true,
       "passed": true,
-      "observed": 44,
+      "observed": 42,
       "threshold": 6
     },
     {
       "id": "news_observed_chinese",
       "critical": false,
       "passed": true,
-      "observed": 12,
+      "observed": 14,
       "threshold": 2
     },
     {
@@ -540,15 +539,15 @@
       "id": "community_signals",
       "critical": true,
       "passed": true,
-      "observed": 6,
+      "observed": 7,
       "threshold": 5
     },
     {
       "id": "community_live_only",
       "critical": true,
       "passed": true,
-      "observed": 6,
-      "threshold": 6
+      "observed": 7,
+      "threshold": 7
     },
     {
       "id": "benchmark_live_only",
