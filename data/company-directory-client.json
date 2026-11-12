@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "43122247428",
-  "generatedAt": "2026-11-12T00:01:28.798Z",
+  "runId": "43162137517",
+  "generatedAt": "2026-11-12T05:48:13.833Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3155,7 +3155,26 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3259,9 +3278,14 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3826,6 +3850,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -4251,7 +4282,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "$500 million",
+        "capex": "멀티플랫폼 Compute Capacity 확대",
         "plan": "5/6 Anthropic 공식 · SpaceX Colossus 1 전체 Compute Capacity 계약 · xAI 자체 학습 인프라와 분리 · AMD Helios Rack 기반 MI450 최대 2GW 배치 전략적 파트너십(AMD 2Q26 실적 발표 8/4 공식)",
         "comment": "300MW+ · NVIDIA GPU 22만+ · Claude Pro·Max Capacity 확대",
         "memoryRead": "단일 대형 Capacity 계약과 멀티플랫폼 운영 → Platform Portability·Goodput/W·Capacity Resilience 수요",
@@ -4274,20 +4305,8 @@
             "observedAt": "2026-08-04"
           }
         ],
-        "capexBasis": "관측",
-        "capexHeadline": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-        "capexUrl": "https://www.digitimes.com/news/a20261111PD200/tsmc-investment-taiwan-anthropic-openai.html",
-        "capexAsOf": "2026-11-11",
-        "capexBaseline": "멀티플랫폼 Compute Capacity 확대",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-          "url": "https://www.digitimes.com/news/a20261111PD200/tsmc-investment-taiwan-anthropic-openai.html",
-          "date": "2026-11-11",
-          "source": "digitimes.com",
-          "amount": "$500 million",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -4374,15 +4393,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
-          "date": "2026-11-11"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "anthropic-compute",
@@ -6328,7 +6339,14 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "MetaAge는 미국 데이터 센터 정책 클라우드 AI 용량 전망을 밝혔습니다.",
+          "url": "https://www.digitimes.com/news/a20261111PD231/data-center-capacity-demand-policy-hardware.html",
+          "date": "2026-11-12",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
       },
       "painPoints": [
         {
@@ -7121,12 +7139,31 @@
         ],
         "painAxes": [
           {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 2,
-            "trend": "up",
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "flat",
             "productIds": [
-              "ai-d-o"
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -7230,11 +7267,14 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "전력·열"
+          "대역폭",
+          "패키징·파운드리",
+          "로직 경계"
         ],
         "riskSignals": [],
         "recommendedProducts": [
-          "ai-d-o"
+          "custom-hbm",
+          "ai-n-b"
         ],
         "actions": [
           {
@@ -7957,6 +7997,18 @@
         ],
         "stances": [
           {
+            "key": "stance:중국 칩 자급자족 역설: 제한된 nvidia gpu가 중국 대학에 도달함에 따라 ymtc는 2027년 ipo를 예상합니다.",
+            "statement": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상합니다.",
+            "verb": "예상",
+            "headline": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상합니다.",
+            "url": "https://www.digitimes.com/news/a20261112VL202/nvidia-ipo-ymtc-2027-military.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-12",
+            "firstSeen": "2026-11-12",
+            "lastSeen": "2026-11-12",
+            "seenCount": 1
+          },
+          {
             "key": "stance:nvidia의 맞춤형 hbm은 삼성을 tsmc의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
             "statement": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
             "verb": "밝혔",
@@ -8002,18 +8054,6 @@
             "asOf": "2026-08-25",
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
-            "seenCount": 1
-          },
-          {
-            "key": "stance:nvidia는 ai 서버의 가격이 15% 인상될 것이라고 최대 고객에게 경고한 것으로 알려졌습니다. 메모리 비용은 계속 치솟고",
-            "statement": "Nvidia는 AI 서버의 가격이 15% 인상될 것이라고 최대 고객에게 경고한 것으로 알려졌습니다. 메모리 비용은 계속 치솟고 있습니다.",
-            "verb": "경고",
-            "headline": "Nvidia는 AI 서버의 가격이 15% 인상될 것이라고 최대 고객에게 경고한 것으로 알려졌습니다. 메모리 비용은 계속 치솟고 있습니다.",
-            "url": "https://www.tomshardware.com/pc-components/dram/nvidia-reportedly-warns-biggest-customers-of-15-percent-price-hikes-on-ai-servers",
-            "source": "Tom's Hardware",
-            "asOf": "2026-08-23",
-            "firstSeen": "2026-08-23",
-            "lastSeen": "2026-08-23",
             "seenCount": 1
           }
         ]
@@ -8594,32 +8634,25 @@
           "date": "2026-07-25"
         },
         {
-          "title": "엔비디아 보안 조사, 대만 공급망 주문 조사",
+          "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261110pd248/nvidia-security-taiwan-supply-chain-taiwan-ai-server.html",
-          "date": "2026-11-11"
+          "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
+          "date": "2026-11-12"
         },
         {
-          "title": "SKHY, Nvidia와 협력하여 메모리 칩 시뮬레이션 속도 향상",
-          "source": "digitimes.com",
+          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261111pd235/sk-hynix-nvidia-gpu-data-memory-chips.html",
-          "date": "2026-11-11"
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "date": "2026-10-26"
         },
         {
-          "title": "Samsung and Nvidia demonstrate up to 3,800-fold speedup in chip simulation",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261111pd241/nvidia-samsung-gpu-2026-materials.html",
-          "date": "2026-11-11"
-        },
-        {
-          "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-          "source": "TrendForce",
-          "sourceClass": "news",
-          "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-          "date": "2026-11-11"
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -9259,7 +9292,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "$500 million",
+        "capex": "Broadcom 10GW Custom Accelerator 프로그램 · H2'26 Rack 배치 시작 목표 · 2029년 말 완료 목표",
         "plan": "Jalapeño Production Qualification 진행 · OpenAI Compute 배치 시작 목표: 2026년 말 · '25 발표 기준 2H26 병행 배치 목표:NVIDIA Vera Rubin 기반 첫 1GW(NVIDIA 최소 10GW LOI · '25.9월 공식)·AMD Instinct MI450 첫 1GW(AMD 6GW 파트너십 · '25.10월 공식)",
         "comment": "8/25 InferenceX 측정 · 공개 3개 모델에서 Peak AI work/W 1.5~1.9배 · End-to-end latency 1.7~3.6배 개선",
         "memoryRead": "Decode Memory Bandwidth·KV Cache Locality·Data Movement·Network를 동일 System Gate로 최적화",
@@ -9305,20 +9338,8 @@
             "observedAt": "2025-10-06"
           }
         ],
-        "capexBasis": "관측",
-        "capexHeadline": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-        "capexUrl": "https://www.digitimes.com/news/a20261111PD200/tsmc-investment-taiwan-anthropic-openai.html",
-        "capexAsOf": "2026-11-11",
-        "capexBaseline": "Broadcom 10GW Custom Accelerator 프로그램 · H2'26 Rack 배치 시작 목표 · 2029년 말 완료 목표",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-          "url": "https://www.digitimes.com/news/a20261111PD200/tsmc-investment-taiwan-anthropic-openai.html",
-          "date": "2026-11-11",
-          "source": "digitimes.com",
-          "amount": "$500 million",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -9400,15 +9421,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
-          "date": "2026-11-11"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "openai-infrastructure",
@@ -9705,14 +9718,7 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "Taiwan machinery exports rise for 21st month on AI demand, but US election adds uncertainty",
-          "url": "https://www.digitimes.com/news/a20261111PD210/taiwan-investment-infrastructure-exports-equipment.html",
-          "date": "2026-11-11",
-          "source": "digitimes.com",
-          "observedCount": 1
-        }
+        "commentBasis": "기준선"
       },
       "painPoints": [
         {
@@ -10663,13 +10669,13 @@
           {
             "key": "tech:Silicon Photonics",
             "label": "Silicon Photonics",
-            "headline": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
-            "url": "https://www.digitimes.com/news/a20261110PD225/intel-quantum-computing-chips-technology.html",
+            "headline": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
+            "url": "https://www.digitimes.com/news/a20261111PD246/equipment-taiwan-materials-silicon-semiconductors.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-10",
+            "asOf": "2026-11-12",
             "firstSeen": "2026-10-17",
-            "lastSeen": "2026-11-10",
-            "seenCount": 6
+            "lastSeen": "2026-11-12",
+            "seenCount": 7
           }
         ],
         "stances": []
@@ -10684,19 +10690,20 @@
           "gate": "Energy/Task · 상호운용성",
           "hold": "지속",
           "firstSeen": "2026-10-17",
-          "lastSeen": "2026-11-10",
-          "evidenceCount": 6,
+          "lastSeen": "2026-11-12",
+          "evidenceCount": 7,
           "evidenceIds": [
             "0x8jxps",
             "0pap1z3",
             "11f60il",
             "15uluy8",
             "0obal6a",
-            "0g2gg4w"
+            "0g2gg4w",
+            "0mafc3j"
           ],
-          "evidence": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+          "evidence": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261110PD225/intel-quantum-computing-chips-technology.html"
+          "url": "https://www.digitimes.com/news/a20261111PD246/equipment-taiwan-materials-silicon-semiconductors.html"
         }
       ],
       "painPoints": [
@@ -10728,11 +10735,11 @@
           "executionGate": "Energy/Task · 상호운용성",
           "stage": "EXPLORE",
           "evidence": {
-            "title": "인텔은 컴퓨팅을 재편하기 위해 18A와 14A를 넘어선다",
+            "title": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261110PD225/intel-quantum-computing-chips-technology.html",
-            "asOf": "2026-11-10",
-            "count": 6
+            "url": "https://www.digitimes.com/news/a20261111PD246/equipment-taiwan-materials-silicon-semiconductors.html",
+            "asOf": "2026-11-12",
+            "count": 7
           }
         }
       ],
@@ -10781,6 +10788,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
+        },
+        {
+          "title": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261111pd246/equipment-taiwan-materials-silicon-semiconductors.html",
+          "date": "2026-11-12"
         }
       ],
       "sources": [
@@ -10917,7 +10931,26 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10956,7 +10989,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11120,7 +11156,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "$500 million",
+        "capex": "선단 공정·CoWoS 캐파 대규모 증설",
         "plan": "로직·패키징 동시 확장",
         "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
         "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
@@ -11143,20 +11179,8 @@
             "observedAt": "2026-09-14"
           }
         ],
-        "capexBasis": "관측",
-        "capexHeadline": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-        "capexUrl": "https://www.digitimes.com/news/a20261111PD200/tsmc-investment-taiwan-anthropic-openai.html",
-        "capexAsOf": "2026-11-11",
-        "capexBaseline": "선단 공정·CoWoS 캐파 대규모 증설",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-          "url": "https://www.digitimes.com/news/a20261111PD200/tsmc-investment-taiwan-anthropic-openai.html",
-          "date": "2026-11-11",
-          "source": "digitimes.com",
-          "amount": "$500 million",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -11643,25 +11667,11 @@
       },
       "evidence": [
         {
-          "title": "TSMC, 3D DRAM 진입 가능성 낮아 CXMT 확장이 더 큰 위협",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261111pd251/dram-tsmc-3d-cxmt-expansion.html",
-          "date": "2026-11-11"
-        },
-        {
-          "title": "TSMC plans investments in Anthropic, OpenAI; sets up investment firm to expand semiconductor strategy",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261111pd200/tsmc-investment-taiwan-anthropic-openai.html",
-          "date": "2026-11-11"
-        },
-        {
-          "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-          "source": "TrendForce",
-          "sourceClass": "news",
-          "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-          "date": "2026-11-11"
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
