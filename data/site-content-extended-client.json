@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "43162137517",
-  "generatedAt": "2026-11-12T05:48:13.833Z",
-  "expiresAt": "2026-11-13T07:48:11.555Z",
+  "runId": "43208207833",
+  "generatedAt": "2026-11-12T11:49:33.014Z",
+  "expiresAt": "2026-11-13T13:49:30.723Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-12T05:46:44.915Z",
-    "runId": "43162137517",
+    "generatedAt": "2026-11-12T11:48:03.870Z",
+    "runId": "43208207833",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,7 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "dff57348873b43ac1df8",
+        "id": "d64fbf603ababbadf9db",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -134,7 +134,7 @@
         "changed": true
       },
       {
-        "id": "eb4f168190781a3a450f",
+        "id": "f2244202b7970aae5354",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -143,6 +143,18 @@
         "sourceClass": "research",
         "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
         "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
+      {
+        "id": "31543e43cf66689dba03",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "aws-inferentia",
+        "source": "AWS Inferentia",
+        "sourceClass": "official",
+        "title": "AI Chip - Amazon Inferentia - AWS",
+        "url": "https://aws.amazon.com/ai/machine-learning/inferentia",
         "changed": true
       },
       {
@@ -156,19 +168,6 @@
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
         "publishedAt": "2026-11-09",
-        "changed": false
-      },
-      {
-        "id": "bf76442ee4c2af564b68",
-        "ruleId": "foundry-concentration",
-        "label": "Logic Base-Die Foundry Dependency",
-        "priority": "quarterly",
-        "sourceId": "trendforce-news-feed",
-        "source": "trendforce.com",
-        "sourceClass": "research",
-        "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-        "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-        "publishedAt": "2026-10-19",
         "changed": false
       },
       {
@@ -278,11 +277,11 @@
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-12T05:46:44.915Z",
+      "generatedAt": "2026-11-12T11:48:03.870Z",
       "stats": {
-        "eligibleDocuments": 43,
+        "eligibleDocuments": 42,
         "structuredEvents": 40,
-        "verifiedEvents": 34,
+        "verifiedEvents": 35,
         "currentStages": 34,
         "newEvents": 1,
         "contradictionReviews": 0
@@ -445,37 +444,6 @@
           "claimType": "verified-fact",
           "asOf": "2026-06-18",
           "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
-          "id": "0fc2456f9ccadfbfba14",
-          "ruleId": "foundry-concentration",
-          "eventType": "supply-risk",
-          "label": "Logic Base-Die Foundry Dependency",
-          "entity": {
-            "id": "sk-hynix",
-            "label": "SK hynix"
-          },
-          "product": {
-            "id": "ai-memory",
-            "label": "AI Memory"
-          },
-          "stage": {
-            "id": "ANNOUNCED",
-            "rank": 30
-          },
-          "metrics": [],
-          "evidenceSpan": "A new report from Seoul Economic Daily lends further weight to this strategy, revealing that NVIDIA has asked Samsung, SK hynix and Micron to adopt TSMC’s 3nm process for the base dies of its NVHBM, unveiled in August",
-          "source": "trendforce.com",
-          "sourceId": "trendforce-news-feed",
-          "sourceClass": "research",
-          "sourceUrl": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-          "publishedAt": "2026-10-19",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-10-19",
-          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
@@ -791,6 +759,37 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
+        },
+        {
+          "id": "2bba443d461375820020",
+          "ruleId": "memory-centric-compute",
+          "eventType": "memory-centric-architecture",
+          "label": "PIM · CXL Pooling · 3D Stacked DRAM",
+          "entity": {
+            "id": "sk-hynix",
+            "label": "SK hynix"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [],
+          "evidenceSpan": "Utilizing hybrid bonding technology that connects chips without bumps, SoIC widens data processing bandwidth and reduces chip size, making it an essential technology for next generation AI semiconductor production",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "sourceUrl": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
+          "publishedAt": "2026-04-23",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-04-23",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
         }
       ]
     },
@@ -826,16 +825,16 @@
       "funnel": {
         "sourceDocuments": 150,
         "structuredEvents": 40,
-        "verifiedEvents": 34,
+        "verifiedEvents": 35,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 37,
-        "useful": 29,
-        "observationRatePct": 90.2,
-        "usefulYieldPct": 78.4,
+        "observed": 38,
+        "useful": 30,
+        "observationRatePct": 92.7,
+        "usefulYieldPct": 78.9,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -854,8 +853,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -866,8 +865,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -878,7 +877,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +888,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +900,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +912,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +924,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +935,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +947,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +959,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +971,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +983,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +995,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1008,8 +1007,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1019,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1031,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1042,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1053,10 +1052,12 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "usefulObservation": false,
-            "eventYield": 0
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
+            "usefulObservation": true,
+            "eventYield": 1
           },
           {
             "id": "llm-serving-systems-research",
@@ -1065,8 +1066,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1077,7 +1078,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1088,8 +1089,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1100,8 +1101,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1112,7 +1113,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1123,8 +1124,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1135,8 +1136,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1157,8 +1158,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1169,7 +1170,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1180,8 +1181,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1192,7 +1193,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1203,8 +1204,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1215,8 +1216,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1227,8 +1228,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1239,8 +1240,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1251,8 +1252,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1263,8 +1264,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1275,8 +1276,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1287,7 +1288,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1298,7 +1299,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1309,8 +1310,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T05:46:41.237Z",
-            "lastUsefulObservationAt": "2026-11-12T05:46:41.237Z",
+            "lastSuccessAt": "2026-11-12T11:48:01.142Z",
+            "lastUsefulObservationAt": "2026-11-12T11:48:01.142Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1325,12 +1326,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T05:46:44.915Z",
+          "updatedAt": "2026-11-12T11:48:03.870Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "SK hynix · AI Memory · ANNOUNCED",
-          "sourceStage": "ANNOUNCED",
+          "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
+          "sourceStage": "COMMERCIAL_SHIPMENT",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "research-observed",
+          "confidence": "verified-primary",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1360,27 +1361,12 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 8,
-          "officialFactCount": 5,
-          "marketEstimateCount": 3,
-          "independentSources": 4,
-          "primaryEvidence": 5,
+          "officialFactCount": 6,
+          "marketEstimateCount": 2,
+          "independentSources": 3,
+          "primaryEvidence": 6,
           "verifiedClaims": 11,
           "evidence": [
-            {
-              "id": "0fc2456f9ccadfbfba14",
-              "ruleId": "foundry-concentration",
-              "title": "SK hynix · AI Memory · ANNOUNCED",
-              "source": "trendforce.com",
-              "sourceId": "trendforce-news-feed",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "publishedAt": "2026-10-19",
-              "stage": "ANNOUNCED",
-              "confidence": "research-observed",
-              "claimType": "market-estimate",
-              "asOf": "2026-10-19",
-              "excerpt": "A new report from Seoul Economic Daily lends further weight to this strategy, revealing that NVIDIA has asked Samsung, SK hynix and Micron to adopt TSMC’s 3nm process for the base dies of its NVHBM, unveiled in August"
-            },
             {
               "score": 3.5,
               "chunkId": "d7f64e9d77146b39d4c7",
@@ -1443,6 +1429,22 @@
               "claimType": "verified-fact",
               "asOf": "2026-07-29",
               "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
+            },
+            {
+              "id": "9d6f0424120480932e3c",
+              "ruleId": "partner-codesign",
+              "feedId": "skhynix-nvidia-partnership-2026",
+              "title": "SK hynix · AI Memory · ANNOUNCED",
+              "source": "SK hynix Newsroom",
+              "sourceId": "skhynix-newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+              "publishedAt": "2026-07-25",
+              "stage": "ANNOUNCED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-07-25",
+              "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
             }
           ]
         },
@@ -1454,7 +1456,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T05:46:44.915Z",
+          "updatedAt": "2026-11-12T11:48:03.870Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1584,7 +1586,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T05:46:44.915Z",
+          "updatedAt": "2026-11-12T11:48:03.870Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1711,7 +1713,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T05:46:44.915Z",
+          "updatedAt": "2026-11-12T11:48:03.870Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1837,12 +1839,12 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 11,
-        "fresh": 5,
-        "observationRatePct": 7.5,
+        "observed": 7,
+        "fresh": 4,
+        "observationRatePct": 4.8,
         "officialConfigured": 123,
-        "officialObserved": 1,
-        "officialFresh": 1,
+        "officialObserved": 0,
+        "officialFresh": 0,
         "targetPct": 90
       }
     },
@@ -1959,7 +1961,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2099,10 +2101,10 @@
       "stats": {
         "documents": 150,
         "chunks": 595,
-        "added": 1,
-        "changed": 1,
-        "unchanged": 41,
-        "retained": 107,
+        "added": 0,
+        "changed": 2,
+        "unchanged": 40,
+        "retained": 108,
         "reindexed": 2
       },
       "packs": [
@@ -2289,8 +2291,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-12T05:46:44.915Z",
-              "sourceChangeDetectedAt": "2026-11-12T05:46:41.237Z",
+              "indexedAt": "2026-11-12T11:48:03.870Z",
+              "sourceChangeDetectedAt": "2026-11-12T11:48:01.142Z",
               "stale": false
             }
           ]
@@ -2496,21 +2498,21 @@
       },
       "diagnostics": {
         "staleRetrievalRatePct": 32.7,
-        "feedCoveragePct": 90.2,
+        "feedCoveragePct": 92.7,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
         "activeDocumentCount": 23
       },
       "coverage": {
-        "currentPct": 96.7,
+        "currentPct": 97.6,
         "previousPct": 96.7
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-12T05:46:41.237Z",
-        "indexedAt": "2026-11-12T05:46:44.915Z"
+        "sourceChangeDetectedAt": "2026-11-12T11:48:01.142Z",
+        "indexedAt": "2026-11-12T11:48:03.870Z"
       },
-      "generatedAt": "2026-11-12T05:46:44.915Z"
+      "generatedAt": "2026-11-12T11:48:03.870Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2529,7 +2531,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-12T05:48:13.833Z",
+    "generatedAt": "2026-11-12T11:49:33.014Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4284,8 +4286,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4306,7 +4308,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-10-26",
@@ -4322,122 +4324,6 @@
               }
             ],
             "painAxes": [
-              {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
-                "productIds": [
-                  "custom-hbm"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 1
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d11c438434e9776103d7",
-                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                  "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "origin": "live-crawl",
-                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                  "date": "2026-10-19"
-                }
-              },
-              {
-                "id": "logic-boundary",
-                "index": "5",
-                "label": "로직 경계",
-                "accent": "#C26262",
-                "productIds": [
-                  "custom-hbm"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 1
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d11c438434e9776103d7",
-                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                  "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "origin": "live-crawl",
-                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                  "date": "2026-10-19"
-                }
-              },
               {
                 "id": "bandwidth",
                 "index": "1",
@@ -4543,6 +4429,102 @@
                 "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "logic-boundary",
+                "index": "5",
+                "label": "로직 경계",
+                "accent": "#C26262",
+                "productIds": [
+                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -4771,15 +4753,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -5498,8 +5472,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 3,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5520,7 +5494,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-10-26",
@@ -5532,7 +5506,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -5596,122 +5570,6 @@
                 }
               },
               {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
-                "productIds": [
-                  "custom-hbm"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 1
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d11c438434e9776103d7",
-                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                  "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "origin": "live-crawl",
-                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                  "date": "2026-10-19"
-                }
-              },
-              {
-                "id": "logic-boundary",
-                "index": "5",
-                "label": "로직 경계",
-                "accent": "#C26262",
-                "productIds": [
-                  "custom-hbm"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 1
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d11c438434e9776103d7",
-                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                  "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "origin": "live-crawl",
-                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                  "date": "2026-10-19"
-                }
-              },
-              {
                 "id": "capacity",
                 "index": "2",
                 "label": "용량",
@@ -5767,6 +5625,102 @@
                 "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "logic-boundary",
+                "index": "5",
+                "label": "로직 경계",
+                "accent": "#C26262",
+                "productIds": [
+                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5997,25 +5951,11 @@
             },
             "evidenceStream": [
               {
-                "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
-                "date": "2026-11-12"
-              },
-              {
                 "title": "Nvidia sidesteps JEDEC HBM standard",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                 "date": "2026-10-26"
-              },
-              {
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -8877,8 +8817,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -8911,7 +8851,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -9344,7 +9284,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
+                "date": "2026-11-12"
+              }
+            ],
             "chipStage": "Jalapeño Engineering Sample",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -10022,14 +9970,14 @@
                   "mentions": 1
                 },
                 {
-                  "id": "package-foundry",
-                  "label": "패키징·파운드리",
-                  "mentions": 1
+                  "id": "capacity",
+                  "label": "용량",
+                  "mentions": 0
                 },
                 {
-                  "id": "logic-boundary",
-                  "label": "로직 경계",
-                  "mentions": 1
+                  "id": "power-thermal",
+                  "label": "전력·열",
+                  "mentions": 0
                 }
               ]
             },
@@ -10582,14 +10530,14 @@
                 "mentions": 1
               },
               {
-                "id": "package-foundry",
-                "label": "패키징·파운드리",
-                "mentions": 1
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
               },
               {
-                "id": "logic-boundary",
-                "label": "로직 경계",
-                "mentions": 1
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
               }
             ]
           },
@@ -10629,18 +10577,18 @@
             "buyingCriteria": [],
             "topPainAxes": [
               {
-                "id": "package-foundry",
-                "label": "패키징·파운드리",
-                "mentions": 1
-              },
-              {
-                "id": "logic-boundary",
-                "label": "로직 경계",
-                "mentions": 1
-              },
-              {
                 "id": "bandwidth",
                 "label": "대역폭",
+                "mentions": 0
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 0
               }
             ]
@@ -11131,8 +11079,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11153,7 +11101,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-26",
@@ -11165,7 +11113,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -11229,122 +11177,6 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
               "id": "capacity",
               "index": "2",
               "label": "용량",
@@ -11400,6 +11232,102 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11630,25 +11558,11 @@
           },
           "evidenceStream": [
             {
-              "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
-              "date": "2026-11-12"
-            },
-            {
               "title": "Nvidia sidesteps JEDEC HBM standard",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
               "date": "2026-10-26"
-            },
-            {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -13643,8 +13557,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13665,7 +13579,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-26",
@@ -13681,122 +13595,6 @@
             }
           ],
           "painAxes": [
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -13902,6 +13700,102 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -14130,15 +14024,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -18360,8 +18246,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -18394,7 +18280,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -18827,7 +18713,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
+              "date": "2026-11-12"
+            }
+          ],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -20504,8 +20398,8 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20526,7 +20420,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-26",
@@ -20542,122 +20436,6 @@
             }
           ],
           "painAxes": [
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -20763,6 +20541,102 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20991,15 +20865,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22581,7 +22447,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-12T05:48:13.833Z",
+        "updatedAt": "2026-11-12T11:49:33.014Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23350,14 +23216,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                  "date": "2026-10-19"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23592,7 +23451,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
+                  "date": "2026-11-12"
+                },
+                "evidenceCount": 1,
                 "accent": "#4A6B78",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
                 "source": {
@@ -23731,13 +23597,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
-                  "source": "digitimes.com",
+                  "title": "Nvidia sidesteps JEDEC HBM standard",
+                  "source": "blocksandfiles.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
-                  "date": "2026-11-12"
+                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+                  "date": "2026-10-26"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 1,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24009,14 +23875,7 @@
                   "Broadcom",
                   "Marvell"
                 ],
-                "latestSignal": {
-                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                  "date": "2026-10-19"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24634,13 +24493,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
-              "source": "digitimes.com",
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
-              "date": "2026-11-12"
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+              "date": "2026-10-26"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 1,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24857,14 +24716,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -25198,7 +25050,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
+              "date": "2026-11-12"
+            },
+            "evidenceCount": 1,
             "accent": "#4A6B78",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
             "source": {
@@ -25373,14 +25232,7 @@
               "Broadcom",
               "Marvell"
             ],
-            "latestSignal": {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -27964,122 +27816,6 @@
                 "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                 "date": "2026-10-26"
               }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
             }
           ],
           "whyLost": [],
@@ -28096,25 +27832,11 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
-              "date": "2026-11-12"
-            },
-            {
               "title": "Nvidia sidesteps JEDEC HBM standard",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
               "date": "2026-10-26"
-            },
-            {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
             }
           ]
         },
@@ -28280,144 +28002,17 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "oracle",
@@ -28536,7 +28131,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
+              "date": "2026-11-12"
+            }
+          ]
         },
         {
           "accountId": "anthropic",
@@ -28652,8 +28255,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28674,7 +28277,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-26",
@@ -28686,7 +28289,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -28750,122 +28353,6 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
               "id": "capacity",
               "index": "2",
               "label": "용량",
@@ -28921,6 +28408,102 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -29151,25 +28734,11 @@
           },
           "evidenceStream": [
             {
-              "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
-              "date": "2026-11-12"
-            },
-            {
               "title": "Nvidia sidesteps JEDEC HBM standard",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
               "date": "2026-10-26"
-            },
-            {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -31164,8 +30733,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -31186,7 +30755,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-26",
@@ -31202,122 +30771,6 @@
             }
           ],
           "painAxes": [
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d11c438434e9776103d7",
-                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-                "date": "2026-10-19"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -31423,6 +30876,102 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -31651,15 +31200,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-              "date": "2026-10-19"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -35352,8 +34893,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -35386,7 +34927,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -35819,7 +35360,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
+              "date": "2026-11-12"
+            }
+          ],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38681,8 +38230,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "accountIds": [],
           "weekly": [
             {
@@ -38715,9 +38264,20 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "991296fb7552fce40226",
+            "title": "삼성과 현대가 AI 동맹을 맺다",
+            "summary": "Samsung Group and Hyundai are deepening their strategic partnership, exploring opportunities in robotics, energy and physical AI alongside existing cooperation in automotive semiconductors, batteries and displays. More than 100 senior executives from the two conglomerates met in Yongin, Gyeonggi-do province, South Korea, on November 9 to map out collaboration in future mobility and industrial applications",
+            "text": "digitimes.com aidemand samsung and hyundai forge ai alliance samsung group and hyundai are deepening their strategic partnership, exploring opportunities in robotics, energy and physical ai alongside existing cooperation in automotive semiconductors, batteries and displays. more than 100 senior executives from the two conglomerates met in yongin, gyeonggi-do province, south korea, on november 9 to map out collaboration in future mobility and industrial applications. 삼성과 현대가 ai 동맹을 맺다 samsung group and hyundai are deepening their strategic partnership, exploring opportunities in robotics, energy and physical ai alongside existing cooperation in automotive semiconductors, batteries and displays. more than 100 senior executives from the two conglomerates met in yongin, gyeonggi-do province, south korea, on november 9 to map out collaboration in future mobility and industrial applications",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261112pd216/samsung-hyundai-samsung-sdi-chairman-automotive.html",
+            "date": "2026-11-12"
+          },
           "promotionStatus": "monitoring"
         },
         {
@@ -38990,7 +38550,7 @@
             }
           ],
           "latest": {
-            "id": "2026-10-11:65",
+            "id": "2026-10-11:70",
             "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
             "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
             "source": "trendforce.com",
@@ -39974,7 +39534,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-12T05:46:45.321Z",
+        "generatedAt": "2026-11-12T11:48:04.325Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -40092,38 +39652,6 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
-        "url": "https://www.solidigm.com/support-page.html",
-        "source": "solidigmtechnology.com",
-        "publishedAt": "2026-11-10",
-        "sourceClass": "official",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 2
-      },
-      {
-        "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-        "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up/",
-        "source": "trendforce.com",
-        "publishedAt": "2026-10-19",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 24
-      },
-      {
         "title": "Upgrade your PS5's storage for GTA 6's digital pre-load with these SSD storage options from $174",
         "url": "https://www.tomshardware.com/video-games/playstation/upgrade-your-ps5s-storage-for-gta-6s-digital-pre-load-with-these-ssd-storage-options-from-usd174-ultra-fast-drives-slot-into-the-m-2-expansion-slot-to-ready-your-console-for-gtas-huge-212gb-installation",
         "source": "tomshardware.com",
@@ -40202,6 +39730,40 @@
         ],
         "freshness": "fresh",
         "ageDays": 17
+      },
+      {
+        "title": "마이크론 노사분쟁》타오위안 노조, 이익분배 투쟁 실패, 협상 탈퇴, 마이크론은 노조 절대 탄압하지 않겠다고 밝혔다",
+        "summary": "미국의 대표적인 메모리 제조사 마이크론 테크놀로지(Micron)의 노사협상이 대만에서 큰 전환점을 맞았다 · 마이크론타오위안 노동조합은 지난 12일 조합원과 대중에게 공개 서한을 보내 이익공유제를 위한 투쟁 행동이 실패했음을 공식적으로 인정하고 당초 협의회의를 철회하고 여당 중앙당위원회에 항의하겠다고 밝혔다 · 이에 마…",
+        "url": "https://finance.technews.tw/2026/11/12/micron-labor-dispute/",
+        "source": "finance.technews.tw",
+        "publishedAt": "2026-11-12",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "중국의 AI 단편 드라마 붐으로 ByteDance의 Seedance, Volcengine에 새로운 토큰 수익 기회가 열렸음",
+        "summary": "중국의 AI 기반 단편 드라마 시장은 콘텐츠 제작과 시청률이 급증하면서 급속도로 확장되고 있으며 이 부문은 AI 컴퓨팅 리소스에 대한 수요의 중요한 원천이 되고 있음",
+        "url": "https://www.digitimes.com/news/a20261112PD213/bytedance-ai-video-production-revenue-china.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-12",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
       }
     ],
     "reportPolicy": {
@@ -40346,12 +39908,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "NVIDIA Vera Rubin Platform · 공식 Baseline",
-          "decision": "GPU·ASIC Roadmap과 실제 Workload/SLO를 함께 분석해 고객별 지배 병목·구매 기준·메모리 요구를 정의",
-          "source": "NVIDIA Vera Rubin Platform",
-          "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
-          "publishedAt": "2026-11-12T05:48:13.833Z",
-          "evidenceLevel": "Official baseline"
+          "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
+          "publishedAt": "2026-11-12",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -40445,7 +40007,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-12T05:48:13.833Z",
+          "publishedAt": "2026-11-12T11:49:33.014Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40488,8 +40050,8 @@
       },
       "enabled": true
     },
-    "runId": "43162137517",
-    "generatedAt": "2026-11-12T05:48:13.833Z",
+    "runId": "43208207833",
+    "generatedAt": "2026-11-12T11:49:33.014Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40827,8 +40389,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "43162137517",
-    "generatedAt": "2026-11-12T05:48:13.833Z",
+    "runId": "43208207833",
+    "generatedAt": "2026-11-12T11:49:33.014Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41600,8 +41162,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-12T05:48:13.833Z",
-    "runId": "43162137517"
+    "generatedAt": "2026-11-12T11:49:33.014Z",
+    "runId": "43208207833"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41847,7 +41409,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-12T05:46:44.915Z"
+        "indexedAt": "2026-11-12T11:48:03.870Z"
       }
     },
     "sources": [
@@ -41984,8 +41546,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-12T05:48:13.833Z",
-    "runId": "43162137517"
+    "generatedAt": "2026-11-12T11:49:33.014Z",
+    "runId": "43208207833"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -42013,7 +41575,7 @@
           "pending": true,
           "title": "HBM·AI 서버",
           "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-12T05:48:13.833Z",
+          "publishedAt": "2026-11-12T11:49:33.014Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42138,9 +41700,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-12T05:48:13.833Z"
+          "publishedAt": "2026-11-12T11:49:33.014Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 11,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42260,9 +41822,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-12T05:48:13.833Z"
+          "publishedAt": "2026-11-12T11:49:33.014Z"
         },
-        "evidenceCount": 16,
+        "evidenceCount": 12,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42505,6 +42067,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
+        "subtitle": "digitimes.com · 2026-11-12",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42516,15 +42079,22 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": true,
-          "title": "수요·고객",
-          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-12T05:48:13.833Z",
-          "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "pending": false,
+          "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+          "summary": "OpenAI CEO 샘 알트만(Sam Altman)은 삼성전자 임원들에게 AI 메모리 수요가 단기적으로 변동할 수 있으며 시장에서는 동일한 수요를 두 번 이상 계산할 가능성이 있다고 경고 · 그럼에도 불구하고 그는 장기적인 AI 수요가 급증하여 칩과 데이터 센터가 부족해지고 더 큰 공급망 투자의 필요성이 강조될 것으로 예상",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
+          "publishedAt": "2026-11-12",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 11,
         "signals": [
+          [
+            "Reported · AUTHORITATIVE-MEDIA",
+            "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+            "OpenAI CEO 샘 알트만(Sam Altman)은 삼성전자 임원들에게 AI 메모리 수요가 단기적으로 변동할 수 있으며 시장에서는 동일한 수요를 두 번 이상 계산할 가능성이 있다고 경고 · 그럼에도 불구하고 그는 장기적인 AI 수요가 급증하여 칩과 데이터 센터가 부족해지고 더 큰 공급망 투자의 필요성이 강조될 것으로 예상"
+          ],
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
@@ -42611,6 +42181,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
+            "Reported",
+            "digitimes.com · 2026-11-12",
+            "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42645,9 +42220,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-12T05:48:13.833Z"
+          "publishedAt": "2026-11-12T11:49:33.014Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 11,
         "signals": [
           [
             "EXECUTIVE DECISION",

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "43162137517",
-  "generatedAt": "2026-11-12T05:48:13.833Z",
-  "expiresAt": "2026-11-13T07:48:11.555Z",
+  "runId": "43208207833",
+  "generatedAt": "2026-11-12T11:49:33.014Z",
+  "expiresAt": "2026-11-13T13:49:30.723Z",
   "state": "DECISION_READY",
   "freshness": {
     "score": 90.8,
@@ -13,7 +13,7 @@
   "funnel": {
     "sourceDocuments": 150,
     "structuredEvents": 40,
-    "verifiedEvents": 34,
+    "verifiedEvents": 35,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
   },
@@ -27,15 +27,15 @@
       "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
       "status": "DECISION_READY",
       "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-      "latestSignal": "SK hynix · AI Memory · ANNOUNCED",
-      "sourceStage": "ANNOUNCED",
+      "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
+      "sourceStage": "COMMERCIAL_SHIPMENT",
       "stage": "CUSTOMER_QUALIFICATION",
-      "confidence": "research-observed",
+      "confidence": "verified-primary",
       "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 5,
-      "marketEstimateCount": 3,
+      "officialFactCount": 6,
+      "marketEstimateCount": 2,
       "hypothesis": "양산 Ramp와 Custom Co-Design을 분리하고 확정 물량·NRE 회수·Qualification·Foundry Capacity를 통과한 고객에만 Custom 범위를 확대",
       "options": [
         "HBM4 Ramp & Capacity",
@@ -62,21 +62,6 @@
       "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
       "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
       "evidence": [
-        {
-          "id": "0fc2456f9ccadfbfba14",
-          "ruleId": "foundry-concentration",
-          "title": "SK hynix · AI Memory · ANNOUNCED",
-          "source": "trendforce.com",
-          "sourceId": "trendforce-news-feed",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-          "publishedAt": "2026-10-19",
-          "stage": "ANNOUNCED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-10-19",
-          "excerpt": "A new report from Seoul Economic Daily lends further weight to this strategy, revealing that NVIDIA has asked Samsung, SK hynix and Micron to adopt TSMC’s 3nm process for the base dies of its NVHBM, unveiled in August"
-        },
         {
           "score": 3.5,
           "chunkId": "d7f64e9d77146b39d4c7",
@@ -139,6 +124,22 @@
           "claimType": "verified-fact",
           "asOf": "2026-07-29",
           "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
+        },
+        {
+          "id": "9d6f0424120480932e3c",
+          "ruleId": "partner-codesign",
+          "feedId": "skhynix-nvidia-partnership-2026",
+          "title": "SK hynix · AI Memory · ANNOUNCED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+          "publishedAt": "2026-07-25",
+          "stage": "ANNOUNCED",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-07-25",
+          "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
         }
       ]
     },
@@ -600,12 +601,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "NVIDIA Vera Rubin Platform · 공식 Baseline",
-          "decision": "GPU·ASIC Roadmap과 실제 Workload/SLO를 함께 분석해 고객별 지배 병목·구매 기준·메모리 요구를 정의",
-          "source": "NVIDIA Vera Rubin Platform",
-          "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
-          "publishedAt": "2026-11-12T05:48:13.833Z",
-          "evidenceLevel": "Official baseline"
+          "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
+          "publishedAt": "2026-11-12",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -699,7 +700,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-12T05:48:13.833Z",
+          "publishedAt": "2026-11-12T11:49:33.014Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -742,8 +743,8 @@
       },
       "enabled": true
     },
-    "runId": "43162137517",
-    "generatedAt": "2026-11-12T05:48:13.833Z",
+    "runId": "43208207833",
+    "generatedAt": "2026-11-12T11:49:33.014Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -915,37 +916,6 @@
       "isCurrentStage": true
     },
     {
-      "id": "0fc2456f9ccadfbfba14",
-      "ruleId": "foundry-concentration",
-      "eventType": "supply-risk",
-      "label": "Logic Base-Die Foundry Dependency",
-      "entity": {
-        "id": "sk-hynix",
-        "label": "SK hynix"
-      },
-      "product": {
-        "id": "ai-memory",
-        "label": "AI Memory"
-      },
-      "stage": {
-        "id": "ANNOUNCED",
-        "rank": 30
-      },
-      "metrics": [],
-      "evidenceSpan": "A new report from Seoul Economic Daily lends further weight to this strategy, revealing that NVIDIA has asked Samsung, SK hynix and Micron to adopt TSMC’s 3nm process for the base dies of its NVHBM, unveiled in August",
-      "source": "trendforce.com",
-      "sourceId": "trendforce-news-feed",
-      "sourceClass": "research",
-      "sourceUrl": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-      "publishedAt": "2026-10-19",
-      "confidence": "research-observed",
-      "claimType": "market-estimate",
-      "asOf": "2026-10-19",
-      "promotionStatus": "review",
-      "contradictionStatus": "clear",
-      "isCurrentStage": true
-    },
-    {
       "id": "23573c07e31f7af6e053",
       "ruleId": "partner-codesign",
       "eventType": "partner-execution",
@@ -1003,6 +973,37 @@
       "confidence": "confirmed-primary",
       "claimType": "verified-fact",
       "asOf": "2026-07-25",
+      "promotionStatus": "verified-primary",
+      "contradictionStatus": "clear",
+      "isCurrentStage": true
+    },
+    {
+      "id": "bd5f84b2590468a32a79",
+      "ruleId": "partner-codesign",
+      "eventType": "partner-execution",
+      "label": "Customer·Foundry Co-Design",
+      "entity": {
+        "id": "sk-hynix",
+        "label": "SK hynix"
+      },
+      "product": {
+        "id": "hbm4",
+        "label": "HBM4"
+      },
+      "stage": {
+        "id": "ANNOUNCED",
+        "rank": 30
+      },
+      "metrics": [],
+      "evidenceSpan": "Through its collaboration with TSMC, SK hynix is applying advanced logic process technology to the base die * starting with HBM4, expanding the basis of HBM competitiveness beyond bandwidth to include logic dies, packaging, power efficiency, and customer system optimization",
+      "source": "SK hynix Newsroom",
+      "sourceId": "skhynix-newsroom",
+      "sourceClass": "official",
+      "sourceUrl": "https://news.skhynix.com/en/hbm-to-essd",
+      "publishedAt": "2026-07-08",
+      "confidence": "confirmed-primary",
+      "claimType": "verified-fact",
+      "asOf": "2026-07-08",
       "promotionStatus": "verified-primary",
       "contradictionStatus": "clear",
       "isCurrentStage": true

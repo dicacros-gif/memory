@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "43162137517",
-  "generatedAt": "2026-11-12T05:48:13.833Z",
+  "runId": "43208207833",
+  "generatedAt": "2026-11-12T11:49:33.014Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3155,26 +3155,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3278,14 +3259,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "패키징·파운드리",
-          "로직 경계"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3850,13 +3826,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
-        },
-        {
-          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-          "source": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -7147,24 +7116,6 @@
               "custom-hbm",
               "ai-n-b"
             ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
           }
         ],
         "supplierRelations": [
@@ -7267,9 +7218,7 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
-          "패키징·파운드리",
-          "로직 경계"
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [
@@ -8634,25 +8583,11 @@
           "date": "2026-07-25"
         },
         {
-          "title": "중국 칩 자급자족 역설: 제한된 Nvidia GPU가 중국 대학에 도달함에 따라 YMTC는 2027년 IPO를 예상",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261112vl202/nvidia-ipo-ymtc-2027-military.html",
-          "date": "2026-11-12"
-        },
-        {
           "title": "Nvidia sidesteps JEDEC HBM standard",
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
           "date": "2026-10-26"
-        },
-        {
-          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-          "source": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -9339,7 +9274,14 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+          "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
+          "date": "2026-11-12",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -9372,14 +9314,15 @@
           {
             "name": "Sam Altman",
             "role": "CEO",
-            "seenCount": 1,
+            "seenCount": 2,
             "firstSeen": "2026-11-02",
-            "lastSeen": "2026-11-02",
-            "url": "https://www.digitimes.com/news/a20261102VL211/openai-sam-altman-samsung-sk-hynix-memory-chips-demand.html",
-            "headline": "샘 알트만, 메모리 경색 심화 속 삼성·SK 만난다",
+            "lastSeen": "2026-11-12",
+            "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
+            "headline": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
             "source": "digitimes.com",
             "evidenceIds": [
-              "v2|sam altman|ceo|https://www.digitimes.com/news/a20261102vl211/openai-sam-altman-samsung-sk-hynix-memory-chips-demand.html||2026-11-02|digitimes.com"
+              "v2|sam altman|ceo|https://www.digitimes.com/news/a20261102vl211/openai-sam-altman-samsung-sk-hynix-memory-chips-demand.html||2026-11-02|digitimes.com",
+              "v2|sam altman|ceo|https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html||2026-11-12|digitimes.com"
             ],
             "attributionVersion": 1
           }
@@ -9421,7 +9364,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
+          "date": "2026-11-12"
+        }
+      ],
       "sources": [
         {
           "id": "openai-infrastructure",
@@ -10931,26 +10882,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10989,10 +10921,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "패키징·파운드리",
-          "로직 경계"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11665,15 +11594,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-          "source": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
-          "date": "2026-10-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -13901,6 +13822,15 @@
       "org": {
         "people": [],
         "statements": [
+          {
+            "key": "s:samsung electronics said on november 12 it had moved up the planned op",
+            "text": "Samsung Electronics said on November 12 it had moved up the planned opening of its new high-bandwidth memory (HBM) packaging plant in South Korea by one year to June 2028 to meet rising demand for AI server memory.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-12",
+            "url": "https://www.digitimes.com/news/a20261112VL209/samsung-hbm-packaging-2028-plant.html",
+            "source": "digitimes.com"
+          },
           {
             "key": "s:samsung display (sdc) reported improved results in the third quarter o",
             "text": "Samsung Display (SDC) reported improved results in the third quarter of 2026 as major customers launched new products, but expects rising memory prices in 2027 to push up prices for smartphones and other end products, suppressing panel demand.",
