@@ -1,5 +1,7 @@
 # Memory Intelligence
 
+Project documentation (architecture, pipelines, indicators, industries, work log, cleanup log): [`wiki/2026-11-13_growth-industry-session/`](wiki/2026-11-13_growth-industry-session/README.md).
+
 ## Data reliability pipeline
 
 The published dashboard is generated through a fail-closed evidence pipeline:

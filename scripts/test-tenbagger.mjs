@@ -489,3 +489,12 @@ console.log(JSON.stringify({ tenbaggerBalanceSheet: "pass" }));
   assert.equal(dilution3yPct([{ end: "2022-09-30", val: 1 }, { end: "2025-09-30", val: 1915250 }], []), null, "a 1.9-million-fold change is a data error");
   console.log(JSON.stringify({ tenbaggerGrossAccrualsSurprise: "pass" }));
 }
+
+// Stale chart files: only codes referenced nowhere are pruned; KRX/KOSDAQ aliases survive.
+{
+  const { staleBars } = await import("./tenbagger-build.mjs");
+  const ref = [{ companies: [{ ticker: "KOSDAQ:086520" }, { ticker: "NASDAQ:NVDA" }] }, { cases: [{ ticker: "TPEX:6488" }] }];
+  const out = staleBars(["NASDAQ_NVDA.json", "KRX_086520.json", "TPEX_6488.json", "HKEX_1022.json", "notes.txt"], ref);
+  assert.deepEqual(out, ["HKEX_1022.json"]);
+  console.log(JSON.stringify({ tenbaggerPruneBars: "pass" }));
+}

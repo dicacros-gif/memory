@@ -1,4 +1,4 @@
-import { readFile, rename, writeFile } from "node:fs/promises";
+import { readFile, readdir, rename, unlink, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { rowFacts, tvTicker } from "./tenbagger-screen.mjs";
@@ -711,6 +711,33 @@ export function buildLanding({ industries, companies, digest, fx, metricsAt }) {
 const readJson = async (name) => { try { return JSON.parse(await readFile(P(name), "utf8")); } catch { return null; } };
 const writeJson = async (name, value) => { await writeFile(`${P(name)}.tmp`, `${JSON.stringify(value)}\n`); await rename(`${P(name)}.tmp`, P(name)); };
 
+/**
+ * Chart files for tickers that no longer appear anywhere the site can link to
+ * (companies, history, screen, universe): stocks that rotated out of the daily
+ * screen. Matched by ticker code across venues (KRX_/KOSDAQ_ aliases kept).
+ */
+export function staleBars(fileNames, referenced) {
+  const text = referenced.map((x) => JSON.stringify(x ?? null)).join("\n");
+  return fileNames.filter((f) => {
+    if (!f.endsWith(".json")) return false;
+    const code = f.replace(/\.json$/, "").split("_").slice(1).join("_");
+    if (!code) return false;
+    return ![`:${code}"`, `:${code.replace(/-/g, "/")}"`, `:${code}/`].some((needle) => text.includes(needle));
+  });
+}
+
+async function pruneBars(referenced) {
+  const dir = P("bars");
+  let names = [];
+  try { names = await readdir(dir); } catch { return 0; }
+  // Never prune when an input is missing: an empty reference set would match everything.
+  if (referenced.some((x) => !x) || names.length === 0) return 0;
+  const stale = staleBars(names, referenced);
+  if (stale.length > names.length * 0.3) return 0; // a sudden mass prune means bad inputs, not rotation
+  for (const f of stale) await unlink(resolve(dir, f)).catch(() => {});
+  return stale.length;
+}
+
 async function main() {
   const now = new Date();
   const iso = now.toISOString();
@@ -753,7 +780,8 @@ async function main() {
   await writeJson("history.json", history);
   await writeJson("changelog.json", changelog);
   await writeJson("status.json", status);
-  console.log(JSON.stringify({ tenbaggerBuild: "written", companies: companies.length, industries: industries.length, startups: startups.length, hindsight: history.hindsight.length, cohort: Boolean(history.cohort), fx: fx.ok }));
+  const pruned = await pruneBars([companies, history, screen, universe]);
+  console.log(JSON.stringify({ tenbaggerBuild: "written", barsPruned: pruned, companies: companies.length, industries: industries.length, startups: startups.length, hindsight: history.hindsight.length, cohort: Boolean(history.cohort), fx: fx.ok }));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main();
