@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "43449695887",
-  "generatedAt": "2026-11-13T15:25:27.954Z",
-  "expiresAt": "2026-11-14T17:25:25.673Z",
+  "runId": "43506178724",
+  "generatedAt": "2026-11-13T21:13:18.573Z",
+  "expiresAt": "2026-11-14T23:13:16.325Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-13T15:23:59.156Z",
-    "runId": "43449695887",
+    "generatedAt": "2026-11-13T21:11:50.020Z",
+    "runId": "43506178724",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,42 +122,27 @@
     ],
     "eventTriggers": [
       {
-        "id": "b79e42071aea3a18b990",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "id": "dff57348873b43ac1df8",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
       },
       {
-        "id": "a9c6383beb2af6370683",
+        "id": "eb4f168190781a3a450f",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "2852fed5435841a9605d",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
       },
       {
@@ -276,11 +261,24 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
+      },
+      {
+        "id": "fa5f7151388fbece7d36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-13T15:23:59.156Z",
+      "generatedAt": "2026-11-13T21:11:50.020Z",
       "stats": {
         "eligibleDocuments": 40,
         "structuredEvents": 39,
@@ -856,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,8 +1055,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
-            "lastUsefulObservationAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
+            "lastUsefulObservationAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-13T15:23:51.311Z",
+            "lastSuccessAt": "2026-11-13T21:11:45.741Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,7 +1324,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-13T15:23:59.156Z",
+          "updatedAt": "2026-11-13T21:11:50.020Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,7 +1454,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-13T15:23:59.156Z",
+          "updatedAt": "2026-11-13T21:11:50.020Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1586,7 +1584,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-13T15:23:59.156Z",
+          "updatedAt": "2026-11-13T21:11:50.020Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1628,7 +1626,7 @@
           "evidence": [
             {
               "score": 1.75,
-              "chunkId": "aa941908414bae42397b",
+              "chunkId": "1df456771be4d3e95adc",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
               "sourceId": "openai-infrastructure",
@@ -1637,8 +1635,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T05:42:19.424Z",
-              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
+              "indexedAt": "2026-11-13T21:11:50.020Z",
+              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1713,7 +1711,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-13T15:23:59.156Z",
+          "updatedAt": "2026-11-13T21:11:50.020Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1756,7 +1754,7 @@
           "evidence": [
             {
               "score": 2.75,
-              "chunkId": "51ca97cbf9b0a04a8c25",
+              "chunkId": "fc68e5dafd7c14e3d39a",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "th them: chip architecture, kernels, memory systems, networking, scheduling, deployment systems, and product experience. Because OpenAI operates across the stack, each layer can be optimized around the same goal: making its models faster, more reliable, and more affordable for users. Jalapeño strengthens the flywheel…",
               "sourceId": "openai-infrastructure",
@@ -1765,8 +1763,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T05:42:19.424Z",
-              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
+              "indexedAt": "2026-11-13T21:11:50.020Z",
+              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1840,7 +1838,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 9,
-        "fresh": 6,
+        "fresh": 7,
         "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -2102,10 +2100,10 @@
         "documents": 151,
         "chunks": 596,
         "added": 0,
-        "changed": 1,
-        "unchanged": 39,
+        "changed": 2,
+        "unchanged": 38,
         "retained": 111,
-        "reindexed": 1
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2275,8 +2273,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T05:42:19.424Z",
-              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
+              "indexedAt": "2026-11-13T21:11:50.020Z",
+              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
               "stale": false
             }
           ]
@@ -2301,8 +2299,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-13T09:36:42.864Z",
-              "sourceChangeDetectedAt": "2026-11-13T09:36:35.264Z",
+              "indexedAt": "2026-11-13T21:11:50.020Z",
+              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
               "stale": false
             }
           ]
@@ -2320,8 +2318,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T05:42:19.424Z",
-              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
+              "indexedAt": "2026-11-13T21:11:50.020Z",
+              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
               "stale": false
             },
             {
@@ -2519,10 +2517,10 @@
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-13T15:23:51.311Z",
-        "indexedAt": "2026-11-13T15:23:59.156Z"
+        "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
+        "indexedAt": "2026-11-13T21:11:50.020Z"
       },
-      "generatedAt": "2026-11-13T15:23:59.156Z"
+      "generatedAt": "2026-11-13T21:11:50.020Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2541,7 +2539,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-13T15:25:27.954Z",
+    "generatedAt": "2026-11-13T21:13:18.573Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5490,8 +5488,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 5,
-            "sourceCount": 5,
+            "mentions": 4,
+            "sourceCount": 4,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5524,7 +5522,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 4
+                "count": 3
               }
             ],
             "painAxes": [
@@ -5983,18 +5981,18 @@
                 "date": "2026-11-13"
               },
               {
-                "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-                "source": "finance.technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-                "date": "2026-11-12"
-              },
-              {
                 "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
                 "source": "TrendForce",
                 "sourceClass": "news",
                 "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
                 "date": "2026-11-11"
+              },
+              {
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+                "date": "2026-10-26"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -9393,8 +9391,8 @@
             "source": "Broadcom AI Infrastructure",
             "url": "https://www.broadcom.com/info/ai/3point5d"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -9427,7 +9425,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -9860,15 +9858,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -11118,8 +11108,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 5,
-          "sourceCount": 5,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11152,7 +11142,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 4
+              "count": 3
             }
           ],
           "painAxes": [
@@ -11611,18 +11601,18 @@
               "date": "2026-11-13"
             },
             {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            },
-            {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
               "sourceClass": "news",
               "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
               "date": "2026-11-11"
+            },
+            {
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+              "date": "2026-10-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -17104,8 +17094,8 @@
             "source": "Broadcom AI Infrastructure",
             "url": "https://www.broadcom.com/info/ai/3point5d"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17138,7 +17128,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -17571,15 +17561,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22515,7 +22497,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-13T15:25:27.954Z",
+        "updatedAt": "2026-11-13T21:13:18.573Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23766,14 +23748,7 @@
                   "OpenAI",
                   "Anthropic"
                 ],
-                "latestSignal": {
-                  "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-                  "source": "finance.technews.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-                  "date": "2026-11-12"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#C26262",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
                 "source": {
@@ -25043,14 +25018,7 @@
               "OpenAI",
               "Anthropic"
             ],
-            "latestSignal": {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#C26262",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
             "source": {
@@ -27928,18 +27896,18 @@
               "date": "2026-11-13"
             },
             {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            },
-            {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
               "sourceClass": "news",
               "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
               "date": "2026-11-11"
+            },
+            {
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+              "date": "2026-10-26"
             }
           ]
         },
@@ -28358,8 +28326,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 5,
-          "sourceCount": 5,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28392,7 +28360,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 4
+              "count": 3
             }
           ],
           "painAxes": [
@@ -28851,18 +28819,18 @@
               "date": "2026-11-13"
             },
             {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            },
-            {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
               "sourceClass": "news",
               "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
               "date": "2026-11-11"
+            },
+            {
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+              "date": "2026-10-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -38615,8 +38583,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -38628,7 +38596,7 @@
             },
             {
               "week": "2026-10-05",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-12",
@@ -38651,16 +38619,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "2026-10-11:65",
-            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
-            "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
-            "source": "trendforce.com",
-            "sourceClass": "news",
-            "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-11"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39087,8 +39045,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "weekly": [
             {
               "week": "2026-09-21",
@@ -39120,23 +39078,23 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 2
             }
           ],
           "latest": {
-            "id": "45eb5beb161d5eea21d2",
-            "title": "SKHY, 인텔과 AI 병목 현상 완화 위해 공유 메모리 연구",
-            "summary": "SKHY는 에이전트 AI가 메모리 용량과 대역폭에 대한 수요를 증가시키므로 인텔 및 기타 업계 파트너와 협력하여 AI 서버가 메모리 리소스를 공유할 수 있는 메모리 중심 컴퓨팅 아키텍처를 개발하고 있음",
-            "text": "digitimes.com aidemand sk hynix, intel explore shared memory to ease ai bottlenecks sk hynix is working with intel and other industry partners to develop memory-centric computing architectures that would allow ai servers to share memory resources, as agentic ai drives up demand for memory capacity and bandwidth. skhy, 인텔과 ai 병목 현상 완화 위해 공유 메모리 연구 skhy는 에이전트 ai가 메모리 용량과 대역폭에 대한 수요를 증가시키므로 인텔 및 기타 업계 파트너와 협력하여 ai 서버가 메모리 리소스를 공유할 수 있는 메모리 중심 컴퓨팅 아키텍처를 개발하고 있음",
-            "source": "digitimes.com",
+            "id": "4a8103cc81e8a1ade8d5",
+            "title": "Neo4j의 녹슨 인메모리 AI 에이전트 그래프 데이터베이스",
+            "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+            "text": "blocksandfiles.com aidemand neo4j’s rusty in-memory ai agent graph database graph database supplier neo4j’s relate is an in-memory database built in rust for ai agents and agentic systems. neo4j의 녹슨 인메모리 ai 에이전트 그래프 데이터베이스 그래프 데이터베이스 공급업체인 neo4j의 relate는 ai 에이전트 및 agentic 시스템을 위해 rust로 구축된 인메모리 데이터베이스",
+            "source": "blocksandfiles.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261113pd229/sk-hynix-intel-data-capacity-cxl.html",
+            "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
             "date": "2026-11-13"
           },
-          "status": "monitoring",
-          "evidenceStatus": "insufficient",
-          "evidenceLabel": "MONITORING",
+          "status": "opportunity-candidate",
+          "evidenceStatus": "cross-checked",
+          "evidenceLabel": "2-SOURCE SIGNAL",
           "translation": {
             "ruleId": "Agentic Inference",
             "systemShift": "도구 호출·재검색·다단계 추론 반복 → 세션당 활성 Context 확대",
@@ -39145,6 +39103,12 @@
             "stage": "POC",
             "gate": "Cache Hit · Bytes/Task · Cost/Successful Task",
             "status": "approved-rule"
+          },
+          "source": {
+            "name": "blocksandfiles.com",
+            "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+            "asOf": "2026-11-13",
+            "sourceClass": "authoritative-media"
           }
         },
         {
@@ -39623,7 +39587,103 @@
       "horizonPortfolio": [
         {
           "horizon": "H1",
-          "items": []
+          "items": [
+            {
+              "id": "agentic-inference",
+              "label": "AGENTIC INFERENCE",
+              "horizon": "H1",
+              "aliases": [
+                "agentic AI",
+                "agentic inference",
+                "AI agent",
+                "tool calling",
+                "multi-step reasoning",
+                "reasoning AI"
+              ],
+              "memoryMapKeys": [
+                "Agentic Inference",
+                "Context Caching"
+              ],
+              "painAxisIds": [
+                "capacity",
+                "power-thermal"
+              ],
+              "productIds": [
+                "custom-hbm",
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "promotionRule": {
+                "minMentions": 2,
+                "minSources": 2
+              },
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 2
+                }
+              ],
+              "latest": {
+                "id": "4a8103cc81e8a1ade8d5",
+                "title": "Neo4j의 녹슨 인메모리 AI 에이전트 그래프 데이터베이스",
+                "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+                "text": "blocksandfiles.com aidemand neo4j’s rusty in-memory ai agent graph database graph database supplier neo4j’s relate is an in-memory database built in rust for ai agents and agentic systems. neo4j의 녹슨 인메모리 ai 에이전트 그래프 데이터베이스 그래프 데이터베이스 공급업체인 neo4j의 relate는 ai 에이전트 및 agentic 시스템을 위해 rust로 구축된 인메모리 데이터베이스",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+                "date": "2026-11-13"
+              },
+              "status": "opportunity-candidate",
+              "evidenceStatus": "cross-checked",
+              "evidenceLabel": "2-SOURCE SIGNAL",
+              "translation": {
+                "ruleId": "Agentic Inference",
+                "systemShift": "도구 호출·재검색·다단계 추론 반복 → 세션당 활성 Context 확대",
+                "memoryNeed": "KV Cache 재사용·장기 세션 보존·Hot/Warm 데이터 계층화",
+                "productAxis": "HBM · AI-DRAM · AI-NAND",
+                "stage": "POC",
+                "gate": "Cache Hit · Bytes/Task · Cost/Successful Task",
+                "status": "approved-rule"
+              },
+              "source": {
+                "name": "blocksandfiles.com",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+                "asOf": "2026-11-13",
+                "sourceClass": "authoritative-media"
+              }
+            }
+          ]
         },
         {
           "horizon": "H2",
@@ -39636,12 +39696,36 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-13T15:23:59.575Z",
-        "items": [],
-        "newItems": [],
-        "newCount": 0,
-        "recentIds": [],
-        "counts": {}
+        "generatedAt": "2026-11-13T21:11:50.432Z",
+        "items": [
+          {
+            "id": "opportunity:agentic-inference:2026-11-13:https-www-blocksandfiles-com-ai-ml-2026-11-13-neo4js-rusty-in-memory-ai-agent-graph-database-5309746",
+            "kind": "opportunity-candidate",
+            "headline": "AGENTIC INFERENCE · H1 기회 후보",
+            "asOf": "2026-11-13",
+            "source": "blocksandfiles.com",
+            "sourceUrl": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+            "isNew": true
+          }
+        ],
+        "newItems": [
+          {
+            "id": "opportunity:agentic-inference:2026-11-13:https-www-blocksandfiles-com-ai-ml-2026-11-13-neo4js-rusty-in-memory-ai-agent-graph-database-5309746",
+            "kind": "opportunity-candidate",
+            "headline": "AGENTIC INFERENCE · H1 기회 후보",
+            "asOf": "2026-11-13",
+            "source": "blocksandfiles.com",
+            "sourceUrl": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+            "isNew": true
+          }
+        ],
+        "newCount": 1,
+        "recentIds": [
+          "opportunity:agentic-inference:2026-11-13:https-www-blocksandfiles-com-ai-ml-2026-11-13-neo4js-rusty-in-memory-ai-agent-graph-database-5309746"
+        ],
+        "counts": {
+          "opportunity-candidate": 1
+        }
       },
       "roadmap90d": [
         {
@@ -39815,6 +39899,23 @@
         "ageDays": 19
       },
       {
+        "title": "Neo4j의 녹슨 인메모리 AI 에이전트 그래프 데이터베이스",
+        "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+        "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+        "source": "blocksandfiles.com",
+        "publishedAt": "2026-11-13",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
         "title": "Rust 1.100에서는 새로운 패키지의 채택이 지연될 수 있으며 Never Type은 10년 후에 공식적으로 안정적",
         "summary": "프로그래밍 언어 Rust 개발 팀은 Rust 1.100.0을 출시 · 패키지 관리 도구인 Cargo에는 종속 패키지 릴리스에 대한 휴지 기간이 추가되어 개발자가 새로 릴리스된 패키지 버전의 사용을 연기하고 소프트웨어 공급망 공격의 위험을 줄일 수 있음 · 새 버전은 또한 10년 동안 5번이나 안정 단계 진입에 실패한 네…",
         "url": "https://www.ithome.com.tw/news/180489",
@@ -39843,23 +39944,6 @@
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "DIGITIMES 회장, 대만이 주권적인 AI 파트너가 될 것을 촉구",
-        "summary": "Digitimes Chairman and CEO Colley Hwang said Taiwan should leverage its strengths in chip manufacturing, advanced packaging, and ICT hardware production to pursue sovereign AI opp…",
-        "url": "https://www.digitimes.com/news/a20261113PD248/digitimes-colley-hwang-ai-manufacturing-taiwan-2026.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-13",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
           }
         ],
         "freshness": "fresh",
@@ -40012,7 +40096,7 @@
           "decision": "GPU·ASIC Roadmap과 실제 Workload/SLO를 함께 분석해 고객별 지배 병목·구매 기준·메모리 요구를 정의",
           "source": "NVIDIA Vera Rubin Platform",
           "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
-          "publishedAt": "2026-11-13T15:25:27.954Z",
+          "publishedAt": "2026-11-13T21:13:18.573Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -40107,7 +40191,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-13T15:25:27.954Z",
+          "publishedAt": "2026-11-13T21:13:18.573Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40150,8 +40234,8 @@
       },
       "enabled": true
     },
-    "runId": "43449695887",
-    "generatedAt": "2026-11-13T15:25:27.954Z",
+    "runId": "43506178724",
+    "generatedAt": "2026-11-13T21:13:18.573Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40489,8 +40573,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "43449695887",
-    "generatedAt": "2026-11-13T15:25:27.954Z",
+    "runId": "43506178724",
+    "generatedAt": "2026-11-13T21:13:18.573Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41262,8 +41346,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-13T15:25:27.954Z",
-    "runId": "43449695887"
+    "generatedAt": "2026-11-13T21:13:18.573Z",
+    "runId": "43506178724"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41509,7 +41593,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-13T15:23:59.156Z"
+        "indexedAt": "2026-11-13T21:11:50.020Z"
       }
     },
     "sources": [
@@ -41646,8 +41730,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-13T15:25:27.954Z",
-    "runId": "43449695887"
+    "generatedAt": "2026-11-13T21:13:18.573Z",
+    "runId": "43506178724"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41675,7 +41759,7 @@
           "pending": true,
           "title": "HBM·AI 서버",
           "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-13T15:25:27.954Z",
+          "publishedAt": "2026-11-13T21:13:18.573Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -41800,9 +41884,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-13T15:25:27.954Z"
+          "publishedAt": "2026-11-13T21:13:18.573Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41922,9 +42006,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-13T15:25:27.954Z"
+          "publishedAt": "2026-11-13T21:13:18.573Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42045,11 +42129,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-13T15:25:27.954Z",
+          "publishedAt": "2026-11-13T21:13:18.573Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42168,11 +42252,11 @@
           "pending": true,
           "title": "수요·고객",
           "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-13T15:25:27.954Z",
+          "publishedAt": "2026-11-13T21:13:18.573Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42294,9 +42378,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-13T15:25:27.954Z"
+          "publishedAt": "2026-11-13T21:13:18.573Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
