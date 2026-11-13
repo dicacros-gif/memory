@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "43370472242",
-  "generatedAt": "2026-11-13T05:43:47.906Z",
+  "runId": "43398078118",
+  "generatedAt": "2026-11-13T09:38:11.514Z",
   "coverage": {
     "companiesObserved": 33,
     "companiesWithDerivedDemand": 26,
@@ -22,19 +22,20 @@
           "gate": "Performance/W · 규격 채택",
           "hold": "지속",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-11-02",
-          "evidenceCount": 6,
+          "lastSeen": "2026-11-13",
+          "evidenceCount": 7,
           "evidenceIds": [
             "0xccvpk",
             "0wd2d4f",
             "13uynno",
             "1m8czam",
             "1lyddln",
-            "10en879"
+            "10en879",
+            "0pv2cj8"
           ],
-          "evidence": "CXMT의 3Q26 실적에서 DRAM 부족, DDR5 모멘텀, 2027년 성장 전략에 대해 알 수 있는 내용",
+          "evidence": "CXMT, AI 서버 메모리, LPDDR6 혁신으로 고부가가치 DRAM 시장 공략",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261102VL210/dram-cxmt-ddr5-2027-growth.html"
+          "url": "https://www.digitimes.com/news/a20261113VL228/dram-cxmt-market-ai-server-automotive.html"
         },
         {
           "technology": "Chiplet",
@@ -248,6 +249,28 @@
           "url": "https://www.digitimes.com/news/a20261113VL217/sk-hynix-hbm4-production-packaging-samsung.html"
         },
         {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "지속",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-11-13",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "12i0vdu",
+            "1r313b9",
+            "1pf3h5f",
+            "0q4l5cu",
+            "0torwh0"
+          ],
+          "evidence": "중국의 eSSD 주문으로 삼성, SKHY에 미국 시장 기회 열림",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261113VL225/samsung-sk-hynix-ssd-data-center-infrastructure-demand.html"
+        },
+        {
           "technology": "HBF",
           "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
           "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
@@ -273,27 +296,6 @@
           "evidence": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
-        },
-        {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "반복",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-11-06",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "12i0vdu",
-            "1r313b9",
-            "1pf3h5f",
-            "0q4l5cu"
-          ],
-          "evidence": "한국 SSD 수출이 584% 급증하면서 삼성·SKHY, AI 추론 붐 주목",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261106PD219/sk-hynix-samsung-ssd-exports-demand.html"
         },
         {
           "technology": "Vera Rubin",
@@ -880,15 +882,16 @@
           "gate": "Cost/Query · Latency SLA",
           "hold": "반복",
           "firstSeen": "2026-10-13",
-          "lastSeen": "2026-11-06",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-13",
+          "evidenceCount": 3,
           "evidenceIds": [
             "12i0vdu",
-            "0q4l5cu"
+            "0q4l5cu",
+            "0torwh0"
           ],
-          "evidence": "한국 SSD 수출이 584% 급증하면서 삼성·SKHY, AI 추론 붐 주목",
+          "evidence": "중국의 eSSD 주문으로 삼성, SKHY에 미국 시장 기회 열림",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261106PD219/sk-hynix-samsung-ssd-exports-demand.html"
+          "url": "https://www.digitimes.com/news/a20261113VL225/samsung-sk-hynix-ssd-data-center-infrastructure-demand.html"
         },
         {
           "technology": "HBM4E",
@@ -2041,7 +2044,7 @@
         "samsung",
         "tsmc"
       ],
-      "weight": 11
+      "weight": 12
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -2075,7 +2078,7 @@
         "skhynix",
         "solidigm"
       ],
-      "weight": 8
+      "weight": 10
     },
     {
       "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
