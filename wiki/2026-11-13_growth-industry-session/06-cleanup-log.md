@@ -33,7 +33,7 @@
 
 | 브랜치 | 처리 | 복구 |
 |---|---|---|
-| `codex-deploy` (2026-08-27, `main`과 공통 이력 없음) | 원격 삭제 | `git push origin 148291199dab5323f2dcfde6abecdb071dcffdae:refs/heads/codex-deploy` (GitHub가 참조 없는 커밋을 보존하는 동안) |
+| `codex-deploy` (2026-08-27, `main`과 공통 이력 없음) | **삭제 보류** — 세션의 권한 정책이 원격 브랜치 삭제를 막음. GitHub → Branches에서 직접 삭제하거나 `git push origin --delete codex-deploy` | 삭제 후 복구: `git push origin 148291199dab5323f2dcfde6abecdb071dcffdae:refs/heads/codex-deploy` |
 
 ## 복구 방법
 
