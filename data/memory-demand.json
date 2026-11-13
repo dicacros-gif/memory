@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "43326268631",
-  "generatedAt": "2026-11-12T23:40:27.197Z",
+  "runId": "43370472242",
+  "generatedAt": "2026-11-13T05:43:47.906Z",
   "coverage": {
-    "companiesObserved": 31,
+    "companiesObserved": 33,
     "companiesWithDerivedDemand": 26,
     "derivedRequirements": 89,
     "rules": 40,
@@ -226,6 +226,28 @@
     "skhynix": {
       "requirements": [
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-11-13",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "0fyqwvp",
+            "026p40z",
+            "1kz6kxx",
+            "0ykarzn",
+            "0t4d89z"
+          ],
+          "evidence": "SKHY, 삼성전자 칩 패키징 역량 확대로 HBM4 수율 70% 돌파",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261113VL217/sk-hynix-hbm4-production-packaging-samsung.html"
+        },
+        {
           "technology": "HBF",
           "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
           "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
@@ -291,27 +313,6 @@
           "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "반복",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-10-27",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "0fyqwvp",
-            "026p40z",
-            "1kz6kxx",
-            "0ykarzn"
-          ],
-          "evidence": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261027VL215/samsung-sk-hynix-hbm4-shipments-nvidia.html"
         },
         {
           "technology": "HBM4E",
@@ -808,8 +809,8 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-10-27",
-          "evidenceCount": 8,
+          "lastSeen": "2026-11-13",
+          "evidenceCount": 9,
           "evidenceIds": [
             "0fyqwvp",
             "1nzsr90",
@@ -818,11 +819,12 @@
             "0u6njrs",
             "1s4egs8",
             "1kz6kxx",
-            "0ykarzn"
+            "0ykarzn",
+            "0t4d89z"
           ],
-          "evidence": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
+          "evidence": "SKHY, 삼성전자 칩 패키징 역량 확대로 HBM4 수율 70% 돌파",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261027VL215/samsung-sk-hynix-hbm4-shipments-nvidia.html"
+          "url": "https://www.digitimes.com/news/a20261113VL217/sk-hynix-hbm4-production-packaging-samsung.html"
         },
         {
           "technology": "3nm",
@@ -1887,7 +1889,7 @@
         "skhynix",
         "tesla"
       ],
-      "weight": 29
+      "weight": 30
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",

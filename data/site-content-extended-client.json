@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "43326268631",
-  "generatedAt": "2026-11-12T23:40:27.197Z",
-  "expiresAt": "2026-11-14T01:40:24.838Z",
+  "runId": "43370472242",
+  "generatedAt": "2026-11-13T05:43:47.906Z",
+  "expiresAt": "2026-11-14T07:43:45.561Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-12T23:38:58.767Z",
-    "runId": "43326268631",
+    "generatedAt": "2026-11-13T05:42:19.424Z",
+    "runId": "43370472242",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,7 +122,46 @@
     ],
     "eventTriggers": [
       {
-        "id": "d64fbf603ababbadf9db",
+        "id": "79d6d6acb8a0c82d33bb",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "f5af2406ee6e18c17b28",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "a2feb99fb6aa71511546",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "dff57348873b43ac1df8",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -134,7 +173,7 @@
         "changed": true
       },
       {
-        "id": "f2244202b7970aae5354",
+        "id": "eb4f168190781a3a450f",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -143,6 +182,30 @@
         "sourceClass": "research",
         "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
         "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
+      {
+        "id": "c2559fd6afdcfc5ee54a",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "aws-trainium",
+        "source": "AWS Trainium",
+        "sourceClass": "official",
+        "title": "AI Accelerator - AWS Trainium - AWS",
+        "url": "https://aws.amazon.com/ai/machine-learning/trainium",
+        "changed": true
+      },
+      {
+        "id": "010c893482372afadf9e",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "aws-inferentia",
+        "source": "AWS Inferentia",
+        "sourceClass": "official",
+        "title": "AI Chip - Amazon Inferentia - AWS",
+        "url": "https://aws.amazon.com/ai/machine-learning/inferentia",
         "changed": true
       },
       {
@@ -209,76 +272,11 @@
         "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
         "publishedAt": "2026-08-07",
         "changed": false
-      },
-      {
-        "id": "40981beecb284d713466",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "marvell-custom-hbm",
-        "source": "Marvell Custom HBM Compute",
-        "sourceClass": "official",
-        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
-        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-        "publishedAt": "2026-08-05",
-        "changed": false
-      },
-      {
-        "id": "b09f11bbb8d2e4ae8fac",
-        "ruleId": "hbf-standardization-stage",
-        "label": "HBF Standard → Lighthouse PoC",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "03d1894ebe386b1c4d1d",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "d68f89e9a3676800c266",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-12T23:38:58.767Z",
+      "generatedAt": "2026-11-13T05:42:19.424Z",
       "stats": {
         "eligibleDocuments": 40,
         "structuredEvents": 39,
@@ -854,8 +852,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -866,8 +864,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -878,7 +876,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +887,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +899,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +911,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +923,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +934,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +946,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +958,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +970,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +982,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +994,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1008,8 +1006,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1018,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1030,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1041,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,8 +1053,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1067,8 +1065,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1077,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1088,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1100,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1112,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1123,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1135,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1157,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1169,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1180,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1192,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1203,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1215,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1227,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1239,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1251,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1263,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1275,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
-            "lastUsefulObservationAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
+            "lastUsefulObservationAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1287,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-12T23:38:52.940Z",
+            "lastSuccessAt": "2026-11-13T05:42:11.803Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1324,7 +1322,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T23:38:58.767Z",
+          "updatedAt": "2026-11-13T05:42:19.424Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1454,7 +1452,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T23:38:58.767Z",
+          "updatedAt": "2026-11-13T05:42:19.424Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1584,7 +1582,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T23:38:58.767Z",
+          "updatedAt": "2026-11-13T05:42:19.424Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1626,7 +1624,7 @@
           "evidence": [
             {
               "score": 1.75,
-              "chunkId": "eaf99cd18f5587792484",
+              "chunkId": "aa941908414bae42397b",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
               "sourceId": "openai-infrastructure",
@@ -1635,8 +1633,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-11T06:39:25.934Z",
-              "sourceChangeDetectedAt": "2026-11-11T06:39:20.988Z",
+              "indexedAt": "2026-11-13T05:42:19.424Z",
+              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1711,7 +1709,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-12T23:38:58.767Z",
+          "updatedAt": "2026-11-13T05:42:19.424Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1754,7 +1752,7 @@
           "evidence": [
             {
               "score": 2.75,
-              "chunkId": "0249585a9e464af3d3b9",
+              "chunkId": "51ca97cbf9b0a04a8c25",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "th them: chip architecture, kernels, memory systems, networking, scheduling, deployment systems, and product experience. Because OpenAI operates across the stack, each layer can be optimized around the same goal: making its models faster, more reliable, and more affordable for users. Jalapeño strengthens the flywheel…",
               "sourceId": "openai-infrastructure",
@@ -1763,8 +1761,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-11T06:39:25.934Z",
-              "sourceChangeDetectedAt": "2026-11-11T06:39:20.988Z",
+              "indexedAt": "2026-11-13T05:42:19.424Z",
+              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1837,9 +1835,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 7,
-        "fresh": 4,
-        "observationRatePct": 4.8,
+        "observed": 9,
+        "fresh": 5,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
         "officialFresh": 0,
@@ -2100,10 +2098,10 @@
         "documents": 151,
         "chunks": 596,
         "added": 0,
-        "changed": 1,
-        "unchanged": 39,
+        "changed": 5,
+        "unchanged": 35,
         "retained": 111,
-        "reindexed": 1
+        "reindexed": 5
       },
       "packs": [
         {
@@ -2263,8 +2261,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-11T06:39:25.934Z",
-              "sourceChangeDetectedAt": "2026-11-11T06:39:20.988Z",
+              "indexedAt": "2026-11-13T05:42:19.424Z",
+              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
               "stale": false
             }
           ]
@@ -2289,8 +2287,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-12T23:38:58.767Z",
-              "sourceChangeDetectedAt": "2026-11-12T23:38:52.940Z",
+              "indexedAt": "2026-11-13T05:42:19.424Z",
+              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
               "stale": false
             }
           ]
@@ -2308,8 +2306,8 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-11T06:39:25.934Z",
-              "sourceChangeDetectedAt": "2026-11-11T06:39:20.988Z",
+              "indexedAt": "2026-11-13T05:42:19.424Z",
+              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
               "stale": false
             },
             {
@@ -2464,8 +2462,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-11-11T12:26:03.339Z",
-              "sourceChangeDetectedAt": "2026-11-11T12:25:57.059Z",
+              "indexedAt": "2026-11-13T05:42:19.424Z",
+              "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
               "stale": false
             }
           ]
@@ -2507,10 +2505,10 @@
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-12T23:38:52.940Z",
-        "indexedAt": "2026-11-12T23:38:58.767Z"
+        "sourceChangeDetectedAt": "2026-11-13T05:42:11.803Z",
+        "indexedAt": "2026-11-13T05:42:19.424Z"
       },
-      "generatedAt": "2026-11-12T23:38:58.767Z"
+      "generatedAt": "2026-11-13T05:42:19.424Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2529,7 +2527,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-12T23:40:27.197Z",
+    "generatedAt": "2026-11-13T05:43:47.906Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5470,8 +5468,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 3,
+            "mentions": 4,
+            "sourceCount": 4,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5504,7 +5502,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 2
+                "count": 3
               }
             ],
             "painAxes": [
@@ -5949,11 +5947,18 @@
             },
             "evidenceStream": [
               {
-                "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-                "source": "finance.technews.tw",
+                "title": "Huang Renxun 사임, 공급망: Huida의 기술 경로는 변하지 않고 ASIC 개발이 가속화",
+                "source": "technews.tw",
                 "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-                "date": "2026-11-12"
+                "url": "https://technews.tw/2026/11/13/jensen-huang-departs-supply-chain-nvidia-tech-roadmap-unchanged-asic-dev-accelerates",
+                "date": "2026-11-13"
+              },
+              {
+                "title": "엔비디아 전 CEO 젠슨 황, 의회 증언에 동의",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.digitimes.com/news/a20261113pd235/nvidia-ceo-jensen-huang-policy-business.html?chid=10",
+                "date": "2026-11-13"
               },
               {
                 "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -8829,8 +8834,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -8863,7 +8868,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -9296,15 +9301,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
-                "date": "2026-11-12"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Jalapeño Engineering Sample",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -9374,8 +9371,8 @@
             "source": "Broadcom AI Infrastructure",
             "url": "https://www.broadcom.com/info/ai/3point5d"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -9408,7 +9405,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -9841,15 +9838,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -11099,8 +11088,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11133,7 +11122,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 2
+              "count": 3
             }
           ],
           "painAxes": [
@@ -11578,11 +11567,18 @@
           },
           "evidenceStream": [
             {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
+              "title": "Huang Renxun 사임, 공급망: Huida의 기술 경로는 변하지 않고 ASIC 개발이 가속화",
+              "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
+              "url": "https://technews.tw/2026/11/13/jensen-huang-departs-supply-chain-nvidia-tech-roadmap-unchanged-asic-dev-accelerates",
+              "date": "2026-11-13"
+            },
+            {
+              "title": "엔비디아 전 CEO 젠슨 황, 의회 증언에 동의",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261113pd235/nvidia-ceo-jensen-huang-policy-business.html?chid=10",
+              "date": "2026-11-13"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -17070,8 +17066,8 @@
             "source": "Broadcom AI Infrastructure",
             "url": "https://www.broadcom.com/info/ai/3point5d"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17104,7 +17100,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -17537,15 +17533,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -18288,8 +18276,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -18322,7 +18310,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -18755,15 +18743,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
-              "date": "2026-11-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -22489,7 +22469,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-12T23:40:27.197Z",
+        "updatedAt": "2026-11-13T05:43:47.906Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23493,14 +23473,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
-                  "date": "2026-11-12"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#4A6B78",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
                 "source": {
@@ -23639,13 +23612,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-                  "source": "finance.technews.tw",
+                  "title": "Huang Renxun 사임, 공급망: Huida의 기술 경로는 변하지 않고 ASIC 개발이 가속화",
+                  "source": "technews.tw",
                   "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-                  "date": "2026-11-12"
+                  "url": "https://technews.tw/2026/11/13/jensen-huang-departs-supply-chain-nvidia-tech-roadmap-unchanged-asic-dev-accelerates",
+                  "date": "2026-11-13"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 4,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23740,14 +23713,7 @@
                   "OpenAI",
                   "Anthropic"
                 ],
-                "latestSignal": {
-                  "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-                  "source": "finance.technews.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-                  "date": "2026-11-12"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#C26262",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
                 "source": {
@@ -24542,13 +24508,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
+              "title": "Huang Renxun 사임, 공급망: Huida의 기술 경로는 변하지 않고 ASIC 개발이 가속화",
+              "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
+              "url": "https://technews.tw/2026/11/13/jensen-huang-departs-supply-chain-nvidia-tech-roadmap-unchanged-asic-dev-accelerates",
+              "date": "2026-11-13"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 4,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -25010,14 +24976,7 @@
               "OpenAI",
               "Anthropic"
             ],
-            "latestSignal": {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#C26262",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
             "source": {
@@ -25106,14 +25065,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
-              "date": "2026-11-12"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#4A6B78",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
             "source": {
@@ -27557,8 +27509,8 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-04-14",
-            "ageMonths": 6,
-            "freshnessBand": "current",
+            "ageMonths": 7,
+            "freshnessBand": "recent",
             "status": "다세대 공동 개발",
             "source": {
               "id": "meta-broadcom-mtia-2026",
@@ -27888,11 +27840,18 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
+              "title": "Huang Renxun 사임, 공급망: Huida의 기술 경로는 변하지 않고 ASIC 개발이 가속화",
+              "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
+              "url": "https://technews.tw/2026/11/13/jensen-huang-departs-supply-chain-nvidia-tech-roadmap-unchanged-asic-dev-accelerates",
+              "date": "2026-11-13"
+            },
+            {
+              "title": "엔비디아 전 CEO 젠슨 황, 의회 증언에 동의",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261113pd235/nvidia-ceo-jensen-huang-policy-business.html?chid=10",
+              "date": "2026-11-13"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -28201,15 +28160,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
-              "date": "2026-11-12"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "anthropic",
@@ -28325,8 +28276,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28359,7 +28310,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 2
+              "count": 3
             }
           ],
           "painAxes": [
@@ -28804,11 +28755,18 @@
           },
           "evidenceStream": [
             {
-              "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있음",
-              "source": "finance.technews.tw",
+              "title": "Huang Renxun 사임, 공급망: Huida의 기술 경로는 변하지 않고 ASIC 개발이 가속화",
+              "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/13/wall-street-analysts-are-optimistic-about-amds-future-performance-and-market-outlook",
-              "date": "2026-11-12"
+              "url": "https://technews.tw/2026/11/13/jensen-huang-departs-supply-chain-nvidia-tech-roadmap-unchanged-asic-dev-accelerates",
+              "date": "2026-11-13"
+            },
+            {
+              "title": "엔비디아 전 CEO 젠슨 황, 의회 증언에 동의",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261113pd235/nvidia-ceo-jensen-huang-policy-business.html?chid=10",
+              "date": "2026-11-13"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -34977,8 +34935,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -35011,7 +34969,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -35444,15 +35402,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261112pd219/samsung-demand-openai-sam-altman-ceo.html",
-              "date": "2026-11-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38314,8 +38264,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "accountIds": [],
           "weekly": [
             {
@@ -38348,20 +38298,9 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "991296fb7552fce40226",
-            "title": "삼성과 현대가 AI 동맹을 맺다",
-            "summary": "Samsung Group and Hyundai are deepening their strategic partnership, exploring opportunities in robotics, energy and physical AI alongside existing cooperation in automotive semiconductors, batteries and displays. More than 100 senior executives from the two conglomerates met in Yongin, Gyeonggi-do province, South Korea, on November 9 to map out collaboration in future mobility and industrial applications",
-            "text": "digitimes.com aidemand samsung and hyundai forge ai alliance samsung group and hyundai are deepening their strategic partnership, exploring opportunities in robotics, energy and physical ai alongside existing cooperation in automotive semiconductors, batteries and displays. more than 100 senior executives from the two conglomerates met in yongin, gyeonggi-do province, south korea, on november 9 to map out collaboration in future mobility and industrial applications. 삼성과 현대가 ai 동맹을 맺다 samsung group and hyundai are deepening their strategic partnership, exploring opportunities in robotics, energy and physical ai alongside existing cooperation in automotive semiconductors, batteries and displays. more than 100 senior executives from the two conglomerates met in yongin, gyeonggi-do province, south korea, on november 9 to map out collaboration in future mobility and industrial applications",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261112pd216/samsung-hyundai-samsung-sdi-chairman-automotive.html",
-            "date": "2026-11-12"
-          },
           "promotionStatus": "monitoring"
         },
         {
@@ -39242,7 +39181,8 @@
           "latest": {
             "id": "6ae2322489bbfd9d7d4d",
             "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
+            "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer ai 추론은 메모리가 제한되어 있으며 gpu의 고대역폭 메모리(hbm) 양에 따라 결정되는 kv 캐시 용량 제한과 x86 호스트 dram을 통해 내부 및 외부 nvme ssd에 이르는 계층형 kv 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 kv 캐시 뉴스와 개발에 대해 여러 번 논의했으며 dapustor는 제거된 kv 캐시 콘텐츠를 nvme ssd로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
             "source": "blocksandfiles.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -39586,7 +39526,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-12T23:38:59.187Z",
+        "generatedAt": "2026-11-13T05:42:19.841Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39704,8 +39644,7 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "$174부터 시작하는 SSD 스토리지 옵션으로 GTA 6의 디지털 사전 로드를 위한 PS5 스토리지를 업그레이드하세요",
-        "summary": "가장 큰 게임 출시를 위해 PS5를 준비하세요",
+        "title": "Upgrade your PS5's storage for GTA 6's digital pre-load with these SSD storage options from $174",
         "url": "https://www.tomshardware.com/video-games/playstation/upgrade-your-ps5s-storage-for-gta-6s-digital-pre-load-with-these-ssd-storage-options-from-usd174-ultra-fast-drives-slot-into-the-m-2-expansion-slot-to-ready-your-console-for-gtas-huge-212gb-installation",
         "source": "tomshardware.com",
         "publishedAt": "2026-11-10",
@@ -39726,6 +39665,7 @@
       },
       {
         "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+        "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된…",
         "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
         "source": "blocksandfiles.com",
         "publishedAt": "2026-10-26",
@@ -39765,11 +39705,11 @@
         "ageDays": 18
       },
       {
-        "title": "마이크론 노사분쟁》타오위안 노조, 이익분배 투쟁 실패, 협상 탈퇴, 마이크론은 노조 절대 탄압하지 않겠다고 밝혔다",
-        "summary": "미국의 대표적인 메모리 제조사 마이크론 테크놀로지(Micron)의 노사협상이 대만에서 큰 전환점을 맞았다 · 마이크론타오위안 노동조합은 지난 12일 조합원과 대중에게 공개 서한을 보내 이익공유제를 위한 투쟁 행동이 실패했음을 공식적으로 인정하고 당초 협의회의를 철회하고 여당 중앙당위원회에 항의하겠다고 밝혔다 · 이에 마…",
-        "url": "https://finance.technews.tw/2026/11/12/micron-labor-dispute/",
-        "source": "finance.technews.tw",
-        "publishedAt": "2026-11-12",
+        "title": "Rust 1.100에서는 새로운 패키지의 채택이 지연될 수 있으며 Never Type은 10년 후에 공식적으로 안정적",
+        "summary": "프로그래밍 언어 Rust 개발 팀은 Rust 1.100.0을 출시 · 패키지 관리 도구인 Cargo에는 종속 패키지 릴리스에 대한 휴지 기간이 추가되어 개발자가 새로 릴리스된 패키지 버전의 사용을 연기하고 소프트웨어 공급망 공격의 위험을 줄일 수 있음 · 새 버전은 또한 10년 동안 5번이나 안정 단계 진입에 실패한 네…",
+        "url": "https://www.ithome.com.tw/news/180489",
+        "source": "ithome.com.tw",
+        "publishedAt": "2026-11-13",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39779,14 +39719,14 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
       },
       {
-        "title": "중국의 AI 단편 드라마 붐으로 ByteDance의 Seedance, Volcengine에 새로운 토큰 수익 기회가 열렸음",
-        "summary": "중국의 AI 기반 단편 드라마 시장은 콘텐츠 제작과 시청률이 급증하면서 급속도로 확장되고 있으며 이 부문은 AI 컴퓨팅 리소스에 대한 수요의 중요한 원천이 되고 있음",
-        "url": "https://www.digitimes.com/news/a20261112PD213/bytedance-ai-video-production-revenue-china.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-12",
+        "title": "Huang Renxun 사임, 공급망: Huida의 기술 경로는 변하지 않고 ASIC 개발이 가속화",
+        "summary": "황런쉰(Huang Renxun)이 주요 인공지능 칩 제조업체 엔비디아(NVIDIA)의 CEO직에서 사임해 글로벌 기술업계에 충격을 안겼다 · 오늘 반도체 공급망 전문가 4인은 후이다의 기존 하이엔드 기술 청사진 로드맵에는 변함이 없을 것이며, 그래픽 칩(GPU) 반복 속도도 느려지지 않을 것이지만, 애플리케이션 특정 칩…",
+        "url": "https://technews.tw/2026/11/13/jensen-huang-departs-supply-chain-nvidia-tech-roadmap-unchanged-asic-dev-accelerates/",
+        "source": "technews.tw",
+        "publishedAt": "2026-11-13",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39796,14 +39736,14 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
       },
       {
-        "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-        "summary": "OpenAI CEO 샘 알트만(Sam Altman)은 삼성전자 임원들에게 AI 메모리 수요가 단기적으로 변동할 수 있으며 시장에서는 동일한 수요를 두 번 이상 계산할 가능성이 있다고 경고 · 그럼에도 불구하고 그는 장기적인 AI 수요가 급증하여 칩과 데이터 센터가 부족해지고 더 큰 공급망 투자의 필요성이 강조될 것으로…",
-        "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
+        "title": "삼성, 천안 공간 부족해 온양에 HBM 패키징 확장",
+        "summary": "삼성전자가 천안캠퍼스의 공간 부족으로 고대역폭메모리(HBM) 패키징 사업을 국내로 확대하고 있음 · 이에 따라 인근 온양을 첨단 AI 메모리의 또 다른 주요 생산기지로 육성",
+        "url": "https://www.digitimes.com/news/a20261113VL219/samsung-hbm-packaging-production-capacity.html",
         "source": "digitimes.com",
-        "publishedAt": "2026-11-12",
+        "publishedAt": "2026-11-13",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39813,7 +39753,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
       }
     ],
     "reportPolicy": {
@@ -39958,12 +39898,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
+          "title": "DapuStor's KV Cache NVMe SSD offload explainer",
           "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
-          "publishedAt": "2026-11-12",
-          "evidenceLevel": "Reported"
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+          "publishedAt": "2026-10-26",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -40005,7 +39945,7 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "Seagate는 동적으로 캐시된 SSD와 HDD를 단일 볼륨 데스크탑 드라이브에 결합",
+          "title": "Seagate combines dynamically cached SSD and HDD in single volume desktop drive",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/disk/2026/11/10/seagate-combines-dynamically-cached-ssd-and-hdd-in-single-volume-desktop-drive/5308782",
@@ -40057,7 +39997,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-12T23:40:27.197Z",
+          "publishedAt": "2026-11-13T05:43:47.906Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40100,8 +40040,8 @@
       },
       "enabled": true
     },
-    "runId": "43326268631",
-    "generatedAt": "2026-11-12T23:40:27.197Z",
+    "runId": "43370472242",
+    "generatedAt": "2026-11-13T05:43:47.906Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40439,8 +40379,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "43326268631",
-    "generatedAt": "2026-11-12T23:40:27.197Z",
+    "runId": "43370472242",
+    "generatedAt": "2026-11-13T05:43:47.906Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41212,8 +41152,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-12T23:40:27.197Z",
-    "runId": "43326268631"
+    "generatedAt": "2026-11-13T05:43:47.906Z",
+    "runId": "43370472242"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41459,7 +41399,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-12T23:38:58.767Z"
+        "indexedAt": "2026-11-13T05:42:19.424Z"
       }
     },
     "sources": [
@@ -41596,8 +41536,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-12T23:40:27.197Z",
-    "runId": "43326268631"
+    "generatedAt": "2026-11-13T05:43:47.906Z",
+    "runId": "43370472242"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41625,11 +41565,11 @@
           "pending": true,
           "title": "HBM·AI 서버",
           "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-12T23:40:27.197Z",
+          "publishedAt": "2026-11-13T05:43:47.906Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41736,6 +41676,7 @@
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
+        "subtitle": "blocksandfiles.com · 2026-10-26",
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -41747,13 +41688,22 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": true,
-          "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
-          "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-12T23:40:27.197Z"
+          "pending": false,
+          "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+          "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+          "publishedAt": "2026-10-26",
+          "evidenceLevel": "Watch",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "DapuStor's KV Cache NVMe SSD offload explainer",
+            "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리"
+          ],
           [
             "EXECUTIVE DECISION",
             "Agentic Inference를 Serving SW × Data Placement로 판단",
@@ -41838,6 +41788,11 @@
         "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
         "sources": [
           [
+            "Watch",
+            "blocksandfiles.com · 2026-10-26",
+            "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41872,7 +41827,7 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-12T23:40:27.197Z"
+          "publishedAt": "2026-11-13T05:43:47.906Z"
         },
         "evidenceCount": 10,
         "signals": [
@@ -41995,11 +41950,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-12T23:40:27.197Z",
+          "publishedAt": "2026-11-13T05:43:47.906Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 8,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42104,7 +42059,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "digitimes.com · 2026-11-12",
+        "subtitle": "blocksandfiles.com · 2026-10-26",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42117,20 +42072,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-          "summary": "OpenAI CEO 샘 알트만(Sam Altman)은 삼성전자 임원들에게 AI 메모리 수요가 단기적으로 변동할 수 있으며 시장에서는 동일한 수요를 두 번 이상 계산할 가능성이 있다고 경고 · 그럼에도 불구하고 그는 장기적인 AI 수요가 급증하여 칩과 데이터 센터가 부족해지고 더 큰 공급망 투자의 필요성이 강조될 것으로 예상",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html",
-          "publishedAt": "2026-11-12",
-          "evidenceLevel": "Reported",
+          "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+          "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+          "publishedAt": "2026-10-26",
+          "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "Sam Altman, 삼성에 단기 AI 수요 변동성 경고",
-            "OpenAI CEO 샘 알트만(Sam Altman)은 삼성전자 임원들에게 AI 메모리 수요가 단기적으로 변동할 수 있으며 시장에서는 동일한 수요를 두 번 이상 계산할 가능성이 있다고 경고 · 그럼에도 불구하고 그는 장기적인 AI 수요가 급증하여 칩과 데이터 센터가 부족해지고 더 큰 공급망 투자의 필요성이 강조될 것으로 예상"
+            "Watch · AUTHORITATIVE-MEDIA",
+            "DapuStor's KV Cache NVMe SSD offload explainer",
+            "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리"
           ],
           [
             "EXECUTIVE DECISION",
@@ -42218,9 +42173,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-11-12",
-            "https://www.digitimes.com/news/a20261112PD219/samsung-demand-openai-sam-altman-ceo.html"
+            "Watch",
+            "blocksandfiles.com · 2026-10-26",
+            "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417"
           ],
           [
             "CONTROL",
@@ -42257,9 +42212,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-12T23:40:27.197Z"
+          "publishedAt": "2026-11-13T05:43:47.906Z"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
