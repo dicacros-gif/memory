@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "43789906616",
-  "generatedAt": "2026-11-16T02:38:06.424Z",
-  "expiresAt": "2026-11-17T04:38:04.047Z",
+  "runId": "43829054814",
+  "generatedAt": "2026-11-16T08:39:03.778Z",
+  "expiresAt": "2026-11-17T10:39:02.042Z",
   "state": "DECISION_READY",
   "freshness": {
     "score": 91.3,
@@ -12,8 +12,8 @@
   },
   "funnel": {
     "sourceDocuments": 154,
-    "structuredEvents": 40,
-    "verifiedEvents": 35,
+    "structuredEvents": 39,
+    "verifiedEvents": 34,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
   },
@@ -27,10 +27,10 @@
       "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
       "status": "DECISION_READY",
       "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-      "latestSignal": "Memory industry · HBF · DISCLOSED",
-      "sourceStage": "DISCLOSED",
+      "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
+      "sourceStage": "COMMERCIAL_SHIPMENT",
       "stage": "CUSTOMER_QUALIFICATION",
-      "confidence": "confirmed-primary",
+      "confidence": "verified-primary",
       "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
@@ -62,21 +62,6 @@
       "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
       "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
       "evidence": [
-        {
-          "id": "2aa00769d7ba2f40ed26",
-          "ruleId": "capacity-commitment",
-          "title": "Memory industry · HBF · DISCLOSED",
-          "source": "sandisk.com",
-          "sourceId": "sandisk-newsroom",
-          "sourceClass": "official",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-15",
-          "stage": "DISCLOSED",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-11-15",
-          "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-        },
         {
           "score": 3.5,
           "chunkId": "d7f64e9d77146b39d4c7",
@@ -139,6 +124,22 @@
           "claimType": "verified-fact",
           "asOf": "2026-07-29",
           "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
+        },
+        {
+          "id": "9d6f0424120480932e3c",
+          "ruleId": "partner-codesign",
+          "feedId": "skhynix-nvidia-partnership-2026",
+          "title": "SK hynix · AI Memory · ANNOUNCED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+          "publishedAt": "2026-07-25",
+          "stage": "ANNOUNCED",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-07-25",
+          "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
         }
       ]
     },
@@ -198,25 +199,10 @@
           "sourceClass": "official",
           "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
           "publishedAt": "2026-11-16",
-          "indexedAt": "2026-11-16T02:36:37.733Z",
-          "sourceChangeDetectedAt": "2026-11-16T02:36:33.301Z",
+          "indexedAt": "2026-11-16T08:37:38.194Z",
+          "sourceChangeDetectedAt": "2026-11-16T08:37:30.280Z",
           "freshnessDays": 365,
           "documentStatus": "current"
-        },
-        {
-          "id": "2aa00769d7ba2f40ed26",
-          "ruleId": "capacity-commitment",
-          "title": "Memory industry · HBF · DISCLOSED",
-          "source": "sandisk.com",
-          "sourceId": "sandisk-newsroom",
-          "sourceClass": "official",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-15",
-          "stage": "DISCLOSED",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-11-15",
-          "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
         },
         {
           "score": 1.75,
@@ -263,6 +249,22 @@
           "claimType": "verified-fact",
           "asOf": "2026-08-07",
           "excerpt": "SK hynix plans to proactively secure production infrastructure based on mid-to-long-term demand discussed with customers, while expanding actual production capacity in alignment with the timing of customer needs"
+        },
+        {
+          "id": "7c64b0051b9767050f5a",
+          "ruleId": "hbf-standardization-stage",
+          "feedId": "skhynix-hbf-open-standard",
+          "title": "SK hynix · HBF · STANDARDIZATION",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+          "publishedAt": "2026-08-04",
+          "stage": "STANDARDIZATION",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-04",
+          "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
         }
       ]
     },
@@ -275,10 +277,10 @@
       "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
       "status": "DECISION_READY",
       "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-      "latestSignal": "Memory industry · HBF · DISCLOSED",
+      "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
       "sourceStage": "DISCLOSED",
       "stage": "BUSINESS_CASE",
-      "confidence": "confirmed-primary",
+      "confidence": "verified-primary",
       "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
       "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
       "hypothesisStatus": "strategy-hypothesis",
@@ -309,21 +311,6 @@
       "trigger": "품질 Gate 통과 후 Memory Capacity 또는 Storage I/O가 지배 병목으로 확인",
       "killCriteria": "Recall·권한·P99 · 상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단",
       "evidence": [
-        {
-          "id": "2aa00769d7ba2f40ed26",
-          "ruleId": "capacity-commitment",
-          "title": "Memory industry · HBF · DISCLOSED",
-          "source": "sandisk.com",
-          "sourceId": "sandisk-newsroom",
-          "sourceClass": "official",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-15",
-          "stage": "DISCLOSED",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-11-15",
-          "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-        },
         {
           "score": 1.75,
           "chunkId": "1df456771be4d3e95adc",
@@ -384,6 +371,22 @@
           "sourceChangeDetectedAt": "2026-08-30T07:20:42.071Z",
           "freshnessDays": 180,
           "documentStatus": "retained-last-verified"
+        },
+        {
+          "id": "31aaf477ab2c38aa4a80",
+          "ruleId": "full-stack-memory-portfolio",
+          "feedId": "skhynix-dell-forum-2026",
+          "title": "SK hynix · AI Memory · DISCLOSED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/dtf-2026",
+          "publishedAt": "2026-08-26",
+          "stage": "DISCLOSED",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-26",
+          "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
         }
       ]
     },
@@ -396,15 +399,15 @@
       "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
       "status": "DECISION_READY",
       "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-      "latestSignal": "Memory industry · HBF · DISCLOSED",
-      "sourceStage": "DISCLOSED",
+      "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+      "sourceStage": "ANNOUNCED",
       "stage": "SCALE_GATE",
-      "confidence": "confirmed-primary",
+      "confidence": "verified-primary",
       "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
       "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       "hypothesisStatus": "strategy-hypothesis",
-      "officialFactCount": 8,
-      "marketEstimateCount": 0,
+      "officialFactCount": 7,
+      "marketEstimateCount": 1,
       "hypothesis": "서버 단품이 아니라 Useful AI Work / Total Cost와 Qualification / Time 기준으로 Rack Cell을 공동 최적화",
       "options": [
         "Retrofit",
@@ -431,21 +434,6 @@
       "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
       "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
       "evidence": [
-        {
-          "id": "2aa00769d7ba2f40ed26",
-          "ruleId": "capacity-commitment",
-          "title": "Memory industry · HBF · DISCLOSED",
-          "source": "sandisk.com",
-          "sourceId": "sandisk-newsroom",
-          "sourceClass": "official",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-15",
-          "stage": "DISCLOSED",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-11-15",
-          "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-        },
         {
           "score": 2.75,
           "chunkId": "fc68e5dafd7c14e3d39a",
@@ -509,6 +497,22 @@
           "sourceChangeDetectedAt": "2026-10-13T07:54:03.652Z",
           "freshnessDays": 365,
           "documentStatus": "current"
+        },
+        {
+          "id": "23573c07e31f7af6e053",
+          "ruleId": "partner-codesign",
+          "feedId": "skhynix-hbf-open-standard",
+          "title": "SK hynix · HBF · ANNOUNCED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+          "publishedAt": "2026-08-04",
+          "stage": "ANNOUNCED",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-04",
+          "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
         }
       ]
     }
@@ -597,12 +601,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+          "title": "대만 난야·윈본드, EUV 채택…한국 DRAM 패권에 도전",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-15",
-          "evidenceLevel": "Confirmed"
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261116PD210/dram-samsung-euv-winbond-sk-hynix.html",
+          "publishedAt": "2026-11-16",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -644,7 +648,7 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "메모리 위기 속에서 삼성의 1TB 990 SSD 가격이 GB당 19센트로 떨어졌음",
+          "title": "Samsung's 1TB 990 SSD drops to 19 cents per GB amid the memory crisis",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
           "source": "tomshardware.com",
           "url": "https://www.tomshardware.com/pc-components/samsungs-1tb-990-ssd-drops-to-19-cents-per-gb-amid-the-memory-crisis-grab-it-for-usd40-off",
@@ -692,12 +696,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "800V DC 아키텍처는 SiC 경쟁이 잠재적인 변수이기 때문에 GaN 전력 장치 수요를 촉진할 준비가 되어 있음",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261113PD249/gan-sic-power-solutions-competition-demand.html",
-          "publishedAt": "2026-11-15",
-          "evidenceLevel": "Reported"
+          "title": "Broadcom × Meta MTIA · 공식 Baseline",
+          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
+          "source": "Broadcom × Meta MTIA",
+          "url": "https://investors.broadcom.com/node/64236/pdf",
+          "publishedAt": "2026-11-16T08:39:03.778Z",
+          "evidenceLevel": "Official baseline"
         }
       }
     ],
@@ -739,8 +743,8 @@
       },
       "enabled": true
     },
-    "runId": "43789906616",
-    "generatedAt": "2026-11-16T02:38:06.424Z",
+    "runId": "43829054814",
+    "generatedAt": "2026-11-16T08:39:03.778Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "43789906616",
-  "generatedAt": "2026-11-16T02:38:06.424Z",
+  "runId": "43829054814",
+  "generatedAt": "2026-11-16T08:39:03.778Z",
   "coverage": {
     "companiesObserved": 33,
     "companiesWithDerivedDemand": 26,
-    "derivedRequirements": 89,
+    "derivedRequirements": 88,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -536,45 +536,36 @@
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "관측",
-          "firstSeen": "2026-11-14",
-          "lastSeen": "2026-11-14",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1elvj2e"
-          ],
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/11/14/ase-tech-holding-growth-accelerates-nvidia-spil-cowos-cpo-strategic-planning-new-segments/"
-        },
-        {
-          "technology": "CPO",
-          "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
-          "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
-          "productAxis": "System",
-          "stage": "SELECTIVE",
-          "gate": "Goodput/MW · Bytes/Task · 열관리 · 양산 복잡도 · 표준화",
-          "hold": "관측",
-          "firstSeen": "2026-11-14",
-          "lastSeen": "2026-11-14",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1elvj2e"
-          ],
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/11/14/ase-tech-holding-growth-accelerates-nvidia-spil-cowos-cpo-strategic-planning-new-segments/"
         }
       ]
     },
     "nvidia": {
       "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-08-11",
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 8,
+          "evidenceIds": [
+            "04sxe1v",
+            "0ou7eci",
+            "0fyqwvp",
+            "1nzsr90",
+            "1oqr8wc",
+            "1kz6kxx",
+            "0ykarzn",
+            "0kk6n1r"
+          ],
+          "evidence": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html"
+        },
         {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
@@ -629,30 +620,6 @@
           "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "지속",
-          "firstSeen": "2026-08-11",
-          "lastSeen": "2026-10-27",
-          "evidenceCount": 7,
-          "evidenceIds": [
-            "04sxe1v",
-            "0ou7eci",
-            "0fyqwvp",
-            "1nzsr90",
-            "1oqr8wc",
-            "1kz6kxx",
-            "0ykarzn"
-          ],
-          "evidence": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261027VL215/samsung-sk-hynix-hbm4-shipments-nvidia.html"
         },
         {
           "technology": "3nm",
@@ -801,8 +768,8 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-13",
-          "evidenceCount": 10,
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 11,
           "evidenceIds": [
             "0fyqwvp",
             "1nzsr90",
@@ -813,11 +780,12 @@
             "1kz6kxx",
             "0ykarzn",
             "0t4d89z",
-            "142i0pk"
+            "142i0pk",
+            "0kk6n1r"
           ],
-          "evidence": "SKHY, 삼성전자 칩 패키징 역량 확대로 HBM4 수율 70% 돌파",
+          "evidence": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261113VL217/sk-hynix-hbm4-production-packaging-samsung.html"
+          "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html"
         },
         {
           "technology": "3nm",
@@ -1653,8 +1621,8 @@
           "gate": "Energy/Task · 상호운용성",
           "hold": "지속",
           "firstSeen": "2026-10-17",
-          "lastSeen": "2026-11-12",
-          "evidenceCount": 7,
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 8,
           "evidenceIds": [
             "0x8jxps",
             "0pap1z3",
@@ -1662,11 +1630,30 @@
             "15uluy8",
             "0obal6a",
             "0g2gg4w",
-            "0mafc3j"
+            "0mafc3j",
+            "0spazn2"
           ],
-          "evidence": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
+          "evidence": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261111PD246/equipment-taiwan-materials-silicon-semiconductors.html"
+          "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html"
+        },
+        {
+          "technology": "CPO",
+          "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
+          "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
+          "productAxis": "System",
+          "stage": "SELECTIVE",
+          "gate": "Goodput/MW · Bytes/Task · 열관리 · 양산 복잡도 · 표준화",
+          "hold": "관측",
+          "firstSeen": "2026-11-16",
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0spazn2"
+          ],
+          "evidence": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html"
         }
       ]
     },
@@ -1884,7 +1871,7 @@
         "skhynix",
         "tesla"
       ],
-      "weight": 30
+      "weight": 31
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -2046,15 +2033,14 @@
       "technologies": [
         "CoWoS"
       ],
-      "accountCount": 5,
+      "accountCount": 4,
       "accounts": [
         "anthropic",
         "intel",
         "mediatek",
-        "nvidia",
-        "tsmc"
+        "nvidia"
       ],
-      "weight": 7
+      "weight": 6
     },
     {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",

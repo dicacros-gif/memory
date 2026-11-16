@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "43789906616",
-  "generatedAt": "2026-11-16T02:38:06.424Z",
+  "runId": "43829054814",
+  "generatedAt": "2026-11-16T08:39:03.778Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3826,13 +3826,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
-        },
-        {
-          "title": "AWS는 대규모 프로그램 컴파일 및 로컬 모델 로딩을 지원하기 위해 AgentCore 실행 환경을 확장. ​​",
-          "source": "ithome.com.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.ithome.com.tw/news/180503",
-          "date": "2026-11-13"
         }
       ],
       "sources": [
@@ -5220,18 +5213,7 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5381,14 +5363,9 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [
-          "대역폭"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5909,15 +5886,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Google TPU 8tx Pairs AMD EPYC Turin Hosts with Confidential Computing while TPU 8i Max Doubles Memory Bandwidth",
-          "source": "servethehome.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin",
-          "date": "2026-11-09"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -7111,10 +7080,29 @@
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 1,
-            "trend": "flat",
+            "trend": "up",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
+            ]
+          },
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -7218,12 +7206,16 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "용량",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-b",
+          "ai-n-d"
         ],
         "actions": [
           {
@@ -7827,7 +7819,14 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "In-depth: Who is behind New Matrix? Nvidia H200 probe casts spotlight on Tsinghua Unigroup chairman",
+          "url": "https://www.digitimes.com/news/a20261116PD208/tsinghua-unigroup-nvidia-chairman-beijing-investment.html",
+          "date": "2026-11-16",
+          "source": "digitimes.com",
+          "observedCount": 2
+        }
       },
       "signals": {
         "capex": [],
@@ -7858,13 +7857,13 @@
           {
             "key": "tech:HBM4",
             "label": "HBM4",
-            "headline": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
-            "url": "https://www.digitimes.com/news/a20261027VL215/samsung-sk-hynix-hbm4-shipments-nvidia.html",
+            "headline": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
+            "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html",
             "source": "digitimes.com",
-            "asOf": "2026-10-27",
+            "asOf": "2026-11-16",
             "firstSeen": "2026-08-11",
-            "lastSeen": "2026-10-27",
-            "seenCount": 7
+            "lastSeen": "2026-11-16",
+            "seenCount": 8
           },
           {
             "key": "tech:3nm",
@@ -8009,6 +8008,31 @@
       },
       "derivedDemand": [
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-08-11",
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 8,
+          "evidenceIds": [
+            "04sxe1v",
+            "0ou7eci",
+            "0fyqwvp",
+            "1nzsr90",
+            "1oqr8wc",
+            "1kz6kxx",
+            "0ykarzn",
+            "0kk6n1r"
+          ],
+          "evidence": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -8062,30 +8086,6 @@
           "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "지속",
-          "firstSeen": "2026-08-11",
-          "lastSeen": "2026-10-27",
-          "evidenceCount": 7,
-          "evidenceIds": [
-            "04sxe1v",
-            "0ou7eci",
-            "0fyqwvp",
-            "1nzsr90",
-            "1oqr8wc",
-            "1kz6kxx",
-            "0ykarzn"
-          ],
-          "evidence": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261027VL215/samsung-sk-hynix-hbm4-shipments-nvidia.html"
         },
         {
           "technology": "3nm",
@@ -8319,6 +8319,36 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:hbm4:dual-axis",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "HBM4 · 지속",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "painPoint": "NVIDIA · 학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "memoryRequirement": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "solution": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "economics": "프로그램별 ASP · Capacity/$",
+          "executionGate": "Time-to-qualification · Design Win",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html",
+            "asOf": "2026-11-16",
+            "count": 8
+          }
+        },
+        {
           "id": "nvidia:hbm4e:training-bandwidth",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -8380,36 +8410,6 @@
           }
         },
         {
-          "id": "nvidia:hbm4:dual-axis",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "HBM4 · 지속",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "painPoint": "NVIDIA · 학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
-          "memoryRequirement": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "solution": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
-          "products": [
-            "Custom HBM",
-            "AI-DRAM",
-            "AI-NAND"
-          ],
-          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
-          "economics": "프로그램별 ASP · Capacity/$",
-          "executionGate": "Time-to-qualification · Design Win",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "Samsung, SK Hynix eye 2Q27 shipments of 8-layer HBM4 to Nvidia",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261027VL215/samsung-sk-hynix-hbm4-shipments-nvidia.html",
-            "asOf": "2026-10-27",
-            "count": 7
-          }
-        },
-        {
           "id": "nvidia:3nm:inference-kv-cache",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -8462,14 +8462,15 @@
           {
             "name": "Jensen Huang.",
             "role": "CEO",
-            "seenCount": 1,
+            "seenCount": 2,
             "firstSeen": "2026-11-10",
-            "lastSeen": "2026-11-10",
-            "url": "https://www.digitimes.com/news/a20261110VL203/nvidia-samsung-investigation-sk-hynix-ceo.html",
-            "headline": "Nvidia 조사 연료로 인해 중국 칩 억제가 추진되어 삼성, SKHY에 대한 위험 증가",
+            "lastSeen": "2026-11-16",
+            "url": "https://www.digitimes.com/news/a20261116VL202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html",
+            "headline": "주간 뉴스 정리: 메모리 거인들이 보기 드문 동맹을 맺었습니다. 장비 용량 확보 경쟁",
             "source": "digitimes.com",
             "evidenceIds": [
-              "v2|jensen huang.|ceo|https://www.digitimes.com/news/a20261110vl203/nvidia-samsung-investigation-sk-hynix-ceo.html||2026-11-10|digitimes.com"
+              "v2|jensen huang.|ceo|https://www.digitimes.com/news/a20261110vl203/nvidia-samsung-investigation-sk-hynix-ceo.html||2026-11-10|digitimes.com",
+              "v2|jensen huang.|ceo|https://www.digitimes.com/news/a20261116vl202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html||2026-11-16|digitimes.com"
             ],
             "attributionVersion": 1
           }
@@ -8585,32 +8586,32 @@
           "date": "2026-07-25"
         },
         {
+          "title": "In-depth: Who is behind New Matrix? Nvidia H200 probe casts spotlight on Tsinghua Unigroup chairman",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261116pd208/tsinghua-unigroup-nvidia-chairman-beijing-investment.html",
+          "date": "2026-11-16"
+        },
+        {
+          "title": "주간 뉴스 정리: 메모리 거인들이 보기 드문 동맹을 맺었음 · 장비 용량 확보 경쟁",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261116vl202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html",
+          "date": "2026-11-16"
+        },
+        {
+          "title": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261116pd211/nvidia-technology-samsung-roadmap-ceo.html",
+          "date": "2026-11-16"
+        },
+        {
           "title": "엔비디아가 규정 준수 및 승계 문제에 직면함에 따라 동맹국들은 Jensen Huang의 복귀를 위해 집결",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261116vl201/nvidia-governance-jensen-huang.html",
           "date": "2026-11-16"
-        },
-        {
-          "title": "Bessent는 Nvidia에게 외부 CEO를 고용할 것을 촉구하고 10일 이내에 중국 칩 판매에 대한 답변을 요구",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261116vl208/nvidia-ceo-sales-revenue-earnings.html",
-          "date": "2026-11-16"
-        },
-        {
-          "title": "외국인 투자자들이 Huida 주가 회복의 핵심 포인트, 후계자, 재무 보고서 및 미국 규제 강도를 지적",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/11/16/foreign-investors-point-out-the-key-to-nvidias-stock-price-recovery",
-          "date": "2026-11-16"
-        },
-        {
-          "title": "대만, 칩 노동자들에게 470건의 사례를 언급하며 중국 내 구금 위험 경고",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261113pd217/nvidia-taiwan-ceo-jensen-huang-technology.html",
-          "date": "2026-11-15"
         }
       ],
       "sources": [
@@ -10508,7 +10509,17 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10532,7 +10543,9 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10628,13 +10641,24 @@
           {
             "key": "tech:Silicon Photonics",
             "label": "Silicon Photonics",
-            "headline": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
-            "url": "https://www.digitimes.com/news/a20261111PD246/equipment-taiwan-materials-silicon-semiconductors.html",
+            "headline": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+            "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-12",
+            "asOf": "2026-11-16",
             "firstSeen": "2026-10-17",
-            "lastSeen": "2026-11-12",
-            "seenCount": 7
+            "lastSeen": "2026-11-16",
+            "seenCount": 8
+          },
+          {
+            "key": "tech:CPO",
+            "label": "CPO",
+            "headline": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+            "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-16",
+            "firstSeen": "2026-11-16",
+            "lastSeen": "2026-11-16",
+            "seenCount": 1
           }
         ],
         "stances": []
@@ -10649,8 +10673,8 @@
           "gate": "Energy/Task · 상호운용성",
           "hold": "지속",
           "firstSeen": "2026-10-17",
-          "lastSeen": "2026-11-12",
-          "evidenceCount": 7,
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 8,
           "evidenceIds": [
             "0x8jxps",
             "0pap1z3",
@@ -10658,11 +10682,30 @@
             "15uluy8",
             "0obal6a",
             "0g2gg4w",
-            "0mafc3j"
+            "0mafc3j",
+            "0spazn2"
           ],
-          "evidence": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
+          "evidence": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261111PD246/equipment-taiwan-materials-silicon-semiconductors.html"
+          "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html"
+        },
+        {
+          "technology": "CPO",
+          "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
+          "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
+          "productAxis": "System",
+          "stage": "SELECTIVE",
+          "gate": "Goodput/MW · Bytes/Task · 열관리 · 양산 복잡도 · 표준화",
+          "hold": "관측",
+          "firstSeen": "2026-11-16",
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0spazn2"
+          ],
+          "evidence": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html"
         }
       ],
       "painPoints": [
@@ -10694,17 +10737,54 @@
           "executionGate": "Energy/Task · 상호운용성",
           "stage": "EXPLORE",
           "evidence": {
-            "title": "대만, 무어 이후 반도체 장비 격차 해소를 위해 학술 R&D 동원",
+            "title": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261111PD246/equipment-taiwan-materials-silicon-semiconductors.html",
-            "asOf": "2026-11-12",
-            "count": 7
+            "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html",
+            "asOf": "2026-11-16",
+            "count": 8
+          }
+        },
+        {
+          "id": "coherent:cpo:foundry-package",
+          "accountId": "coherent",
+          "account": "Coherent",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "CPO · 관측",
+          "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
+          "painPoint": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
+          "productAxis": "System",
+          "solution": "System와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "System"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Goodput/MW · Bytes/Task · 열관리 · 양산 복잡도 · 표준화",
+          "stage": "SELECTIVE",
+          "evidence": {
+            "title": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html",
+            "asOf": "2026-11-16",
+            "count": 1
           }
         }
       ],
       "org": {
         "people": [],
         "statements": [
+          {
+            "key": "s:chairman joshua tzeng said the company will anchor its medium- to long",
+            "text": "Chairman Joshua Tzeng said the company will anchor its medium- to long-term growth strategy in these three areas, with a focus on advanced packaging, silicon photonics (SiPh) and co-packaged optics (CPO).",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-16",
+            "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html",
+            "source": "digitimes.com"
+          },
           {
             "key": "s:tower semiconductor and innolight said their first jointly developed n",
             "text": "Tower Semiconductor and Innolight said their first jointly developed near-package optics (NPO) product, built using Tower's PH18M silicon photonics process, has entered early production at Tower's California facility in the US.",
@@ -10747,6 +10827,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
+        },
+        {
+          "title": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261116pd219/qisda-ace-pillar-automation-siph-cpo.html",
+          "date": "2026-11-16"
         }
       ],
       "sources": [
@@ -10883,7 +10970,18 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10922,7 +11020,9 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11121,7 +11221,7 @@
           "date": "2026-11-16",
           "source": "digitimes.com",
           "amount": "$500 million",
-          "observedCount": 1
+          "observedCount": 2
         }
       },
       "signals": {
@@ -11323,40 +11423,6 @@
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "관측",
-          "firstSeen": "2026-11-14",
-          "lastSeen": "2026-11-14",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1elvj2e"
-          ],
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/11/14/ase-tech-holding-growth-accelerates-nvidia-spil-cowos-cpo-strategic-planning-new-segments/"
-        },
-        {
-          "technology": "CPO",
-          "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
-          "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
-          "productAxis": "System",
-          "stage": "SELECTIVE",
-          "gate": "Goodput/MW · Bytes/Task · 열관리 · 양산 복잡도 · 표준화",
-          "hold": "관측",
-          "firstSeen": "2026-11-14",
-          "lastSeen": "2026-11-14",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1elvj2e"
-          ],
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/11/14/ase-tech-holding-growth-accelerates-nvidia-spil-cowos-cpo-strategic-planning-new-segments/"
         }
       ],
       "painPoints": [
@@ -11367,48 +11433,6 @@
         }
       ],
       "strategyOpportunities": [
-        {
-          "id": "tsmc:cowos:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "CoWoS · 관측",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "solution": "HBM · Package와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "HBM · Package"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "Package Capacity · Ramp 일정",
-          "stage": "SCALE"
-        },
-        {
-          "id": "tsmc:cpo:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "CPO · 관측",
-          "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
-          "painPoint": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
-          "productAxis": "System",
-          "solution": "System와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "System"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "Goodput/MW · Bytes/Task · 열관리 · 양산 복잡도 · 표준화",
-          "stage": "SELECTIVE"
-        },
         {
           "id": "tsmc:lpddr:foundry-package",
           "accountId": "tsmc",
@@ -11463,6 +11487,62 @@
             "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html",
             "asOf": "2026-10-26",
             "count": 9
+          }
+        },
+        {
+          "id": "tsmc:2nm:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "2nm · 지속",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "painPoint": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "solution": "Custom HBM와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "Custom HBM"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Interface Power · Base Die 공정",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
+            "source": "finance.technews.tw",
+            "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/",
+            "asOf": "2026-10-21",
+            "count": 5
+          }
+        },
+        {
+          "id": "tsmc:custom-hbm:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "Custom HBM · 반복",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "painPoint": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "solution": "Custom HBM와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "Custom HBM"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "NRE 회수 · 확정 물량 · Margin",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "asOf": "2026-10-19",
+            "count": 3
           }
         }
       ],
@@ -11562,6 +11642,13 @@
         "basis": "기준선"
       },
       "evidence": [
+        {
+          "title": "주간 뉴스 정리: 메모리 거인들이 보기 드문 동맹을 맺었음 · 장비 용량 확보 경쟁",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261116vl202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html",
+          "date": "2026-11-16"
+        },
         {
           "title": "TSMC의 새로운 5억 달러 규모의 사업부는 칩 공급업체에 투자가능",
           "source": "digitimes.com",
@@ -13419,13 +13506,13 @@
           {
             "key": "tech:HBM4",
             "label": "HBM4",
-            "headline": "SKHY, 삼성전자 칩 패키징 역량 확대로 HBM4 수율 70% 돌파",
-            "url": "https://www.digitimes.com/news/a20261113VL217/sk-hynix-hbm4-production-packaging-samsung.html",
+            "headline": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
+            "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-13",
+            "asOf": "2026-11-16",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-11-13",
-            "seenCount": 10
+            "lastSeen": "2026-11-16",
+            "seenCount": 11
           },
           {
             "key": "tech:3nm",
@@ -13575,8 +13662,8 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-13",
-          "evidenceCount": 10,
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 11,
           "evidenceIds": [
             "0fyqwvp",
             "1nzsr90",
@@ -13587,11 +13674,12 @@
             "1kz6kxx",
             "0ykarzn",
             "0t4d89z",
-            "142i0pk"
+            "142i0pk",
+            "0kk6n1r"
           ],
-          "evidence": "SKHY, 삼성전자 칩 패키징 역량 확대로 HBM4 수율 70% 돌파",
+          "evidence": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261113VL217/sk-hynix-hbm4-production-packaging-samsung.html"
+          "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html"
         },
         {
           "technology": "3nm",
@@ -14763,6 +14851,18 @@
         ],
         "stances": [
           {
+            "key": "stance:skhy, 국내 중소제조업체 경쟁력 강화 위해 반도체 테스팅센터 건립 계획",
+            "statement": "SKHY, 국내 중소제조업체 경쟁력 강화 위해 반도체 테스팅센터 건립 계획",
+            "verb": "계획",
+            "headline": "SKHY, 국내 중소제조업체 경쟁력 강화 위해 반도체 테스팅센터 건립 계획",
+            "url": "https://technews.tw/2026/11/16/sk-hynix-chip-testing-hub/",
+            "source": "technews.tw",
+            "asOf": "2026-11-16",
+            "firstSeen": "2026-11-16",
+            "lastSeen": "2026-11-16",
+            "seenCount": 1
+          },
+          {
             "key": "stance:삼성·skhy, 메모리 공급 확대 2028년으로 110조원 투자",
             "statement": "삼성·SKHY, 메모리 공급 확대 2028년으로 110조원 투자",
             "verb": "확대",
@@ -14808,18 +14908,6 @@
             "asOf": "2026-10-15",
             "firstSeen": "2026-10-15",
             "lastSeen": "2026-10-15",
-            "seenCount": 1
-          },
-          {
-            "key": "stance:sk hynix unveils low-power processor design for ssds",
-            "statement": "SK Hynix unveils low-power processor design for SSDs",
-            "verb": "unveils",
-            "headline": "SK Hynix unveils low-power processor design for SSDs",
-            "url": "https://www.digitimes.com/news/a20261013VL221/sk-hynix-ssd-processor-design-2026.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-13",
-            "firstSeen": "2026-10-13",
-            "lastSeen": "2026-10-13",
             "seenCount": 1
           }
         ]
