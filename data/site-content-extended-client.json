@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "43883033287",
-  "generatedAt": "2026-11-16T14:53:40.099Z",
-  "expiresAt": "2026-11-17T16:53:37.820Z",
+  "runId": "43949658884",
+  "generatedAt": "2026-11-16T20:51:05.714Z",
+  "expiresAt": "2026-11-17T22:51:03.644Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-16T14:52:11.037Z",
-    "runId": "43883033287",
+    "generatedAt": "2026-11-16T20:49:36.728Z",
+    "runId": "43949658884",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,42 +122,27 @@
     ],
     "eventTriggers": [
       {
-        "id": "4ebe56d0193e27bffd60",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "id": "dff57348873b43ac1df8",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
       },
       {
-        "id": "cb962258e635c8e42041",
+        "id": "eb4f168190781a3a450f",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "bb801949578112b95746",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
       },
       {
@@ -276,11 +261,24 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
+      },
+      {
+        "id": "fa5f7151388fbece7d36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-16T14:52:11.037Z",
+      "generatedAt": "2026-11-16T20:49:36.728Z",
       "stats": {
         "eligibleDocuments": 41,
         "structuredEvents": 39,
@@ -856,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,8 +1055,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
-            "lastUsefulObservationAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
+            "lastUsefulObservationAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-16T14:52:04.745Z",
+            "lastSuccessAt": "2026-11-16T20:49:31.798Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,7 +1324,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-16T14:52:11.037Z",
+          "updatedAt": "2026-11-16T20:49:36.728Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,7 +1454,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-16T14:52:11.037Z",
+          "updatedAt": "2026-11-16T20:49:36.728Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1527,7 +1525,7 @@
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
-              "documentStatus": "current"
+              "documentStatus": "retained-last-verified"
             },
             {
               "id": "7196f7790653c9406e26",
@@ -1586,9 +1584,9 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-16T14:52:11.037Z",
+          "updatedAt": "2026-11-16T20:49:36.728Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "News archive | Solidigm Newsroom",
+          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
           "confidence": "verified-primary",
@@ -1628,6 +1626,22 @@
           "evidence": [
             {
               "score": 1.75,
+              "chunkId": "ba719771b68a8c63f9b0",
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
+              "sourceId": "openai-infrastructure",
+              "feedId": "openai-jalapeno-2026",
+              "source": "OpenAI Infrastructure",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-16T20:49:36.728Z",
+              "sourceChangeDetectedAt": "2026-11-16T20:49:31.798Z",
+              "freshnessDays": 365,
+              "documentStatus": "current"
+            },
+            {
+              "score": 1.75,
               "chunkId": "a0e6463c36f708d6eb6e",
               "title": "News archive | Solidigm Newsroom",
               "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
@@ -1639,23 +1653,7 @@
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
-              "documentStatus": "current"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "1df456771be4d3e95adc",
-              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
-              "sourceId": "openai-infrastructure",
-              "feedId": "openai-jalapeno-2026",
-              "source": "OpenAI Infrastructure",
-              "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T21:11:50.020Z",
-              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
-              "freshnessDays": 365,
-              "documentStatus": "current"
+              "documentStatus": "retained-last-verified"
             },
             {
               "score": 1.75,
@@ -1666,21 +1664,6 @@
               "source": "news.solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW",
-              "publishedAt": "2026-08-29",
-              "indexedAt": "2026-08-30T07:22:51.493Z",
-              "sourceChangeDetectedAt": "2026-08-30T07:20:42.071Z",
-              "freshnessDays": 180,
-              "documentStatus": "retained-last-verified"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "9dfa2739bb72338dbf45",
-              "title": "세계적 수준의 SSD 데이터 스토리지 솔루션 | 솔리다임",
-              "excerpt": "World-Class SSD Data Storage Solutions | Solidigm Solidigm delivers class-leading SSD data storage solutions for the most demanding workloads. Empower your data center and AI with our solid-state drives",
-              "sourceId": "solidigm-newsroom",
-              "source": "solidigm.com",
-              "sourceClass": "official",
-              "url": "https://www.solidigm.com",
               "publishedAt": "2026-08-29",
               "indexedAt": "2026-08-30T07:22:51.493Z",
               "sourceChangeDetectedAt": "2026-08-30T07:20:42.071Z",
@@ -1702,6 +1685,21 @@
               "claimType": "verified-fact",
               "asOf": "2026-08-26",
               "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
+            },
+            {
+              "id": "7196f7790653c9406e26",
+              "ruleId": "hbf-standardization-stage",
+              "title": "Sandisk · HBF · STANDARDIZATION",
+              "source": "Trendforce",
+              "sourceId": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+              "publishedAt": "2026-08-14",
+              "stage": "STANDARDIZATION",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-14",
+              "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
             }
           ]
         },
@@ -1713,7 +1711,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-16T14:52:11.037Z",
+          "updatedAt": "2026-11-16T20:49:36.728Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1764,9 +1762,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T21:11:50.020Z",
-              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-16T20:49:36.728Z",
+              "sourceChangeDetectedAt": "2026-11-16T20:49:31.798Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1840,7 +1838,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 9,
-        "fresh": 6,
+        "fresh": 7,
         "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 1,
@@ -2101,8 +2099,8 @@
       "stats": {
         "documents": 155,
         "chunks": 600,
-        "added": 1,
-        "changed": 1,
+        "added": 0,
+        "changed": 2,
         "unchanged": 39,
         "retained": 114,
         "reindexed": 2
@@ -2274,9 +2272,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T21:11:50.020Z",
-              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-16T20:49:36.728Z",
+              "sourceChangeDetectedAt": "2026-11-16T20:49:31.798Z",
               "stale": false
             }
           ]
@@ -2301,8 +2299,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-16T08:37:38.194Z",
-              "sourceChangeDetectedAt": "2026-11-16T08:37:30.280Z",
+              "indexedAt": "2026-11-16T20:49:36.728Z",
+              "sourceChangeDetectedAt": "2026-11-16T20:49:31.798Z",
               "stale": false
             }
           ]
@@ -2315,13 +2313,13 @@
           "evidenceCount": 4,
           "citations": [
             {
-              "title": "News archive | Solidigm Newsroom",
-              "source": "news.solidigm.com",
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "source": "OpenAI Infrastructure",
               "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-12",
-              "indexedAt": "2026-11-16T14:52:11.037Z",
-              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-16T20:49:36.728Z",
+              "sourceChangeDetectedAt": "2026-11-16T20:49:31.798Z",
               "stale": false
             },
             {
@@ -2329,19 +2327,19 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-11",
-              "indexedAt": "2026-11-13T21:11:50.020Z",
-              "sourceChangeDetectedAt": "2026-11-13T21:11:45.741Z",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-16T20:49:36.728Z",
+              "sourceChangeDetectedAt": "2026-11-16T20:49:31.798Z",
               "stale": false
             },
             {
-              "title": "솔리다임 뉴스룸",
+              "title": "News archive | Solidigm Newsroom",
               "source": "news.solidigm.com",
               "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW",
-              "publishedAt": "2026-08-29",
-              "indexedAt": "2026-08-30T07:22:51.493Z",
-              "sourceChangeDetectedAt": "2026-08-30T07:20:42.071Z",
+              "url": "https://news.solidigm.com/en-WW/releases",
+              "publishedAt": "2026-11-12",
+              "indexedAt": "2026-11-16T14:52:11.037Z",
+              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "stale": true
             }
           ]
@@ -2486,7 +2484,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 92.2,
+      "score": 91.7,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2501,28 +2499,28 @@
         "coverageDrift": 0.2
       },
       "components": {
-        "contentAge": 97,
+        "contentAge": 96.8,
         "embeddingLag": 100,
-        "staleRetrievalRate": 73.1,
+        "staleRetrievalRate": 71.2,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 26.9,
+        "staleRetrievalRatePct": 28.8,
         "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
-        "activeDocumentCount": 23
+        "activeDocumentCount": 22
       },
       "coverage": {
         "currentPct": 95.9,
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-16T14:52:04.745Z",
-        "indexedAt": "2026-11-16T14:52:11.037Z"
+        "sourceChangeDetectedAt": "2026-11-16T20:49:31.798Z",
+        "indexedAt": "2026-11-16T20:49:36.728Z"
       },
-      "generatedAt": "2026-11-16T14:52:11.037Z"
+      "generatedAt": "2026-11-16T20:49:36.728Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2541,7 +2539,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-16T14:53:40.099Z",
+    "generatedAt": "2026-11-16T20:51:05.714Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -22496,7 +22494,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-16T14:53:40.099Z",
+        "updatedAt": "2026-11-16T20:51:05.714Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -39069,8 +39067,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -39098,23 +39096,13 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-16",
               "count": 0
             }
           ],
-          "latest": {
-            "id": "4a8103cc81e8a1ade8d5",
-            "title": "Neo4j’s rusty in-memory AI Agent graph database",
-            "text": "blocksandfiles.com aidemand neo4j’s rusty in-memory ai agent graph database graph database supplier neo4j’s relate is an in-memory database built in rust for ai agents and agentic systems. neo4j’s rusty in-memory ai agent graph database",
-            "source": "blocksandfiles.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
-            "date": "2026-11-13"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39234,8 +39222,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -39263,23 +39251,13 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-16",
               "count": 0
             }
           ],
-          "latest": {
-            "id": "0be479eea81fd3413d97",
-            "title": "News archive | Solidigm Newsroom",
-            "text": "news.solidigm.com nand news archive | solidigm newsroom co-ceo xin guo talks nand supply dynamics, the rise of the kv cache, and why storage has become a day-zero design decision for ai infrastructure. news archive | solidigm newsroom",
-            "source": "news.solidigm.com",
-            "sourceClass": "official",
-            "origin": "live-crawl",
-            "url": "https://news.solidigm.com/en-ww/releases",
-            "date": "2026-11-12"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39617,7 +39595,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-16T14:52:11.455Z",
+        "generatedAt": "2026-11-16T20:49:37.175Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39735,6 +39713,23 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
+        "title": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+        "summary": "Solidigm SSD 및 서비스에 대한 최신 드라이버, 보증, 기술 사양, FAQ, 추가 리소스를 찾아보세요 · 여기에서 지원을 받으세요",
+        "url": "https://www.solidigm.com/support-page.html",
+        "source": "solidigmtechnology.com",
+        "publishedAt": "2026-11-10",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 7
+      },
+      {
         "title": "주간 뉴스 정리: 메모리 거인들이 보기 드문 동맹을 맺었음 · 장비 용량 확보 경쟁",
         "summary": "This week's coverage (November 9 to November 15) focused on intensifying investment, supply constraints, and strategic repositioning across the semiconductor industry. Samsung, SK…",
         "url": "https://www.digitimes.com/news/a20261116VL202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html",
@@ -39809,23 +39804,6 @@
         "title": "대만 난야·윈본드, EUV 채택…한국 DRAM 패권에 도전",
         "summary": "삼성전자, SKHY, 마이크론은 고대역폭 메모리(HBM)와 서버 DRAM으로 생산능력을 전환해 기존 DRAM 공급을 줄이면서 Nanya Technology와 Winbond Electronics의 수주와 이익을 높이고 있음 · 대만 메모리 제조사들은 그 수익금을 극자외선(EUV) 노광 장비와 첨단 공정 개발에 투자하고 있…",
         "url": "https://www.digitimes.com/news/a20261116PD210/dram-samsung-euv-winbond-sk-hynix.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-16",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "Getac은 미국 선거가 국방 명령에 미치는 영향이 제한적이라고 보고 2027년 성장을 예측",
-        "summary": "Getac Holdings는 승인된 다년간 국방 계획을 인용하면서 민주당의 중간 선거 승리로 인해 미국 국방 관련 사업이 제한적으로 중단될 것으로 예상하고 있음 · 견고한 컴퓨터 제조업체인 이 회사는 또한 2027년에 두 자리 수의 출하량이 증가할 것으로 예상하고 있음 · 하지만 메모리 및 부품 비용 상승으로 인해 가전…",
-        "url": "https://www.digitimes.com/news/a20261116PD207/getac-2027-growth-disruption-business.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-16",
         "sourceClass": "authoritative-media",
@@ -40029,12 +40007,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-11-16T14:53:40.099Z",
-          "evidenceLevel": "Official baseline"
+          "title": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "solidigmtechnology.com",
+          "url": "https://www.solidigm.com/support-page.html",
+          "publishedAt": "2026-11-10",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -40081,7 +40059,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-16T14:53:40.099Z",
+          "publishedAt": "2026-11-16T20:51:05.714Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40124,8 +40102,8 @@
       },
       "enabled": true
     },
-    "runId": "43883033287",
-    "generatedAt": "2026-11-16T14:53:40.099Z",
+    "runId": "43949658884",
+    "generatedAt": "2026-11-16T20:51:05.714Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40463,8 +40441,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "43883033287",
-    "generatedAt": "2026-11-16T14:53:40.099Z",
+    "runId": "43949658884",
+    "generatedAt": "2026-11-16T20:51:05.714Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41236,8 +41214,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-16T14:53:40.099Z",
-    "runId": "43883033287"
+    "generatedAt": "2026-11-16T20:51:05.714Z",
+    "runId": "43949658884"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41478,12 +41456,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 92.2,
+        "freshnessScore": 91.7,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-16T14:52:11.037Z"
+        "indexedAt": "2026-11-16T20:49:36.728Z"
       }
     },
     "sources": [
@@ -41620,8 +41598,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-16T14:53:40.099Z",
-    "runId": "43883033287"
+    "generatedAt": "2026-11-16T20:51:05.714Z",
+    "runId": "43949658884"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41656,7 +41634,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 2,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -41787,9 +41765,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-16T14:53:40.099Z"
+          "publishedAt": "2026-11-16T20:51:05.714Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41895,6 +41873,7 @@
         "phase": "NEXT",
         "tabLabel": "Enterprise RAG",
         "title": "LLM Tech & Enterprise RAG Architecture",
+        "subtitle": "solidigmtechnology.com · 2026-11-10",
         "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "recommendation": "eSSD ATTACH",
         "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
@@ -41906,13 +41885,22 @@
         },
         "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
         "latest": {
-          "pending": true,
-          "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
-          "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-16T14:53:40.099Z"
+          "pending": false,
+          "title": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+          "summary": "Solidigm SSD 및 서비스에 대한 최신 드라이버, 보증, 기술 사양, FAQ, 추가 리소스를 찾아보세요 · 여기에서 지원을 받으세요",
+          "source": "solidigmtechnology.com",
+          "url": "https://www.solidigm.com/support-page.html",
+          "publishedAt": "2026-11-10",
+          "evidenceLevel": "Watch",
+          "sourceClass": "official"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 4,
         "signals": [
+          [
+            "Watch · OFFICIAL",
+            "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+            "Solidigm SSD 및 서비스에 대한 최신 드라이버, 보증, 기술 사양, FAQ, 추가 리소스를 찾아보세요 · 여기에서 지원을 받으세요"
+          ],
           [
             "EXECUTIVE DECISION",
             "eSSD를 AI 추론의 독립 성장축으로 운영",
@@ -41998,6 +41986,11 @@
         "useCase": "MODELED STRATEGY CASE · Enterprise RAG · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
         "sources": [
           [
+            "Watch",
+            "solidigmtechnology.com · 2026-11-10",
+            "https://www.solidigm.com/support-page.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42032,7 +42025,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-16T14:53:40.099Z",
+          "publishedAt": "2026-11-16T20:51:05.714Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42155,11 +42148,11 @@
           "pending": true,
           "title": "수요·고객",
           "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-16T14:53:40.099Z",
+          "publishedAt": "2026-11-16T20:51:05.714Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42281,9 +42274,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-16T14:53:40.099Z"
+          "publishedAt": "2026-11-16T20:51:05.714Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",

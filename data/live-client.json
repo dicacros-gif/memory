@@ -1,16 +1,17 @@
 {
   "schemaVersion": "4.0",
-  "runId": "43883033287",
-  "updatedAt": "2026-11-16T14:53:40.099Z",
-  "expiresAt": "2026-11-17T16:53:37.820Z",
+  "runId": "43949658884",
+  "updatedAt": "2026-11-16T20:51:05.714Z",
+  "expiresAt": "2026-11-17T22:51:03.644Z",
   "timezone": "Asia/Seoul",
   "stocks": {
     "samsung": {
       "symbol": "005930.KS",
-      "latestClose": 196800,
-      "prevClose": 206000,
-      "changePct": -4.47,
+      "latestClose": 206000,
+      "prevClose": 208000,
+      "changePct": -0.96,
       "points": [
+        210000,
         215500,
         218000,
         211500,
@@ -31,26 +32,26 @@
         198900,
         206000,
         208000,
-        206000,
-        196800
+        206000
       ],
       "currency": "KRW",
-      "asOf": "2026-11-16T00:00:00.000Z",
+      "asOf": "2026-11-13T00:00:00.000Z",
       "exchangeTimezoneName": "Asia/Seoul",
       "priceType": "completed-close",
       "sourceStatus": "current",
       "stale": false,
-      "ageDays": 0.6,
-      "quoteSource": "https://query2.finance.yahoo.com/v8/finance/chart/005930.KS?period1=1791382456&period2=1795011256&interval=1d&includePrePost=false&events=div%2Csplits&_=1794838456403",
+      "ageDays": 3.86,
+      "quoteSource": "https://query2.finance.yahoo.com/v8/finance/chart/005930.KS?period1=1791404949&period2=1795033749&interval=1d&includePrePost=false&events=div%2Csplits&_=1794860949498",
       "quoteCandidates": 2,
       "label": "삼성전자"
     },
     "skhynix": {
       "symbol": "000660.KS",
-      "latestClose": 1120000,
-      "prevClose": 1216000,
-      "changePct": -7.89,
+      "latestClose": 1216000,
+      "prevClose": 1254000,
+      "changePct": -3.03,
       "points": [
+        1262000,
         1272000,
         1277000,
         1223000,
@@ -71,17 +72,16 @@
         1212000,
         1277000,
         1254000,
-        1216000,
-        1120000
+        1216000
       ],
       "currency": "KRW",
-      "asOf": "2026-11-16T00:00:00.000Z",
+      "asOf": "2026-11-13T00:00:00.000Z",
       "exchangeTimezoneName": "Asia/Seoul",
       "priceType": "completed-close",
       "sourceStatus": "current",
       "stale": false,
-      "ageDays": 0.6,
-      "quoteSource": "https://query2.finance.yahoo.com/v8/finance/chart/000660.KS?period1=1791382720&period2=1795011520&interval=1d&includePrePost=false&events=div%2Csplits&_=1794838720047",
+      "ageDays": 3.86,
+      "quoteSource": "https://query2.finance.yahoo.com/v8/finance/chart/000660.KS?period1=1791405193&period2=1795033993&interval=1d&includePrePost=false&events=div%2Csplits&_=1794861193641",
       "quoteCandidates": 2,
       "label": "SKHY"
     },
@@ -120,16 +120,16 @@
       "priceType": "completed-close",
       "sourceStatus": "current",
       "stale": false,
-      "ageDays": 2.99,
-      "quoteSource": "https://query2.finance.yahoo.com/v8/finance/chart/MU?period1=1791382720&period2=1795011520&interval=1d&includePrePost=false&events=div%2Csplits&_=1794838720497",
+      "ageDays": 3.25,
+      "quoteSource": "https://query2.finance.yahoo.com/v8/finance/chart/MU?period1=1791405194&period2=1795033994&interval=1d&includePrePost=false&events=div%2Csplits&_=1794861194106",
       "quoteCandidates": 2,
       "label": "Micron"
     }
   },
   "quantBacktest": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-16T14:50:32.149Z",
-    "runId": "43883033287",
+    "generatedAt": "2026-11-16T20:48:13.496Z",
+    "runId": "43949658884",
     "coverage": {
       "1y": {
         "totalSeries": 170,
@@ -285,11 +285,11 @@
         }
       }
     },
-    "validatedAt": "2026-11-16T14:53:40.099Z",
-    "expiresAt": "2026-11-17T16:53:37.820Z"
+    "validatedAt": "2026-11-16T20:51:05.714Z",
+    "expiresAt": "2026-11-17T22:51:03.644Z"
   },
   "prices": {
-    "updatedAt": "2026-11-16T14:18:41.057Z",
+    "updatedAt": "2026-11-16T20:33:14.900Z",
     "source": "TrendForce Price Trends / DRAMeXchange public tables",
     "sections": [
       {
@@ -4034,8 +4034,91 @@
     ]
   },
   "startups": {
-    "updatedAt": "2026-11-16T14:19:04.763Z",
+    "updatedAt": "2026-11-16T20:33:39.358Z",
     "candidates": [
+      {
+        "id": "xcena",
+        "name": "XCENA",
+        "area": "CXL 기반 컴퓨테이셔널 메모리",
+        "stage": "Growth",
+        "geography": "Korea / US",
+        "fitScore": 88,
+        "thesis": "AI 추론 병목을 메모리 가까이에서 처리하는 CXL 모듈형 접근.",
+        "whyHynix": "HBM 이후의 CXL 메모리 확장·근접연산 제품 포트폴리오 옵션.",
+        "watch": "서버 OEM PoC, CXL 3.0 상호운용성, 메모리 모듈 공급 파트너십",
+        "queries": [
+          "XCENA CXL computational memory startup"
+        ],
+        "tags": [
+          "CXL",
+          "near-memory",
+          "AI inference"
+        ],
+        "score": 96,
+        "momentum": 8,
+        "status": "우선 검토",
+        "stats": {
+          "total": 2,
+          "total24h": 0,
+          "7d": 0,
+          "30d": 0,
+          "languages": {
+            "english": 2,
+            "japanese": 0,
+            "chinese": 0
+          }
+        },
+        "themes": [
+          {
+            "label": "CXL",
+            "count": 1
+          },
+          {
+            "label": "AI inference",
+            "count": 1
+          },
+          {
+            "label": "CXL",
+            "count": 1
+          }
+        ],
+        "recentNews": [
+          {
+            "title": "XCENA, OCP Global에서 AI 추론을 위한 CXL 메모리 혁신 선보여",
+            "originalTitle": "XCENA Showcases CXL Memory Innovations for AI Inference at OCP Global ...",
+            "sourceUrl": "https://www.businesswire.com/news/home/20261015300412/en/",
+            "source": "businesswire.com",
+            "date": "2026-10-15",
+            "language": "english",
+            "streamLanguage": "english",
+            "languageVerified": true,
+            "discoveryProvider": "bing-rss",
+            "translation": {
+              "title": {
+                "status": "verified",
+                "display": "translated"
+              }
+            },
+            "titleKo": "XCENA, OCP Global에서 AI 추론을 위한 CXL 메모리 혁신 선보여"
+          },
+          {
+            "title": "XCENA Raises $135M Series B to Accelerate Deployment of Memory-Centric ...",
+            "sourceUrl": "https://www.businesswire.com/news/home/20260529174707/en/XCENA-Raises-%24135M-Series-B-to-Accelerate-Deployment-of-Memory-Centric-Computing-Solutions",
+            "source": "businesswire.com",
+            "date": "2026-05-28",
+            "language": "english",
+            "streamLanguage": "english",
+            "languageVerified": true,
+            "discoveryProvider": "bing-rss",
+            "translation": {
+              "title": {
+                "status": "unverified",
+                "display": "source-original"
+              }
+            }
+          }
+        ]
+      },
       {
         "id": "celestial-ai",
         "name": "Celestial AI",
@@ -4077,13 +4160,49 @@
   "benchmarkSignals": {
     "schemaVersion": "2.0-live-observed-only",
     "mode": "live-observed-only",
-    "updatedAt": "2026-11-16T14:19:32.266Z",
+    "updatedAt": "2026-11-16T20:34:08.515Z",
     "themes": [
       {
         "id": "capacity",
         "label": "China Capacity",
-        "count": 2,
+        "count": 3,
         "items": [
+          {
+            "title": "CXMT DDR5 RAM: Price, Full Lineup, History & Where to Buy",
+            "sourceUrl": "https://originalpricing.com/cxmt-ddr5-ram-price/",
+            "source": "originalpricing.com",
+            "date": "2026-11-16",
+            "language": "english",
+            "streamLanguage": "english",
+            "languageVerified": true,
+            "discoveryProvider": "bing-rss",
+            "summaryOriginal": "CXMT DDR5 RAM starts at ~$422 for 32 GB kits. Full lineup covers speeds up to 8,000 MT/s across UDIMM, SODIMM, RDIMM, and more.",
+            "summarySource": "source-meta",
+            "origin": "live-crawl",
+            "observedThisRun": true,
+            "dataStatus": "live-observed",
+            "preservedSeed": false,
+            "crawledAt": "2026-11-16T20:33:40.865Z",
+            "summary": "CXMT DDR5 RAM starts at ~$422 for 32 GB kits. Full lineup covers speeds up to 8,000 MT/s across UDIMM, SODIMM, RDIMM, and more."
+          },
+          {
+            "title": "Products - CXMT",
+            "sourceUrl": "https://www.cxmt.com/en/product.html",
+            "source": "cxmt.com",
+            "date": "2026-11-16",
+            "language": "english",
+            "streamLanguage": "english",
+            "languageVerified": true,
+            "discoveryProvider": "bing-rss",
+            "summaryOriginal": "Our sales team always communicates with customers to understand and satisfy their needs. We strive to provide the best quality products. Please contact our sales team if you are interested in CXMT's products and services.",
+            "summarySource": "source-meta",
+            "origin": "live-crawl",
+            "observedThisRun": true,
+            "dataStatus": "live-observed",
+            "preservedSeed": false,
+            "crawledAt": "2026-11-16T20:33:40.865Z",
+            "summary": "Our sales team always communicates with customers to understand and satisfy their needs. We strive to provide the best quality products. Please contact our sales team if you are interested in CXMT's products and services."
+          },
           {
             "title": "YMTC Xtacking4.0: Breaking New Ground in 3D NAND Technology",
             "originalTitle": "YMTC Xtacking4.0: Breaking New Ground in 3D NAND Technology - TechInsights",
@@ -4099,31 +4218,71 @@
             "observedThisRun": true,
             "dataStatus": "live-observed",
             "preservedSeed": false,
-            "crawledAt": "2026-11-16T14:19:05.010Z",
+            "crawledAt": "2026-11-16T20:33:40.865Z",
             "summary": "Explore the latest advancements in YMTC's Xtacking4.0 (Gen5) 3D NAND technology, including innovations in storage density, speed, and efficiency. Discover how it compares to previous generations."
-          },
-          {
-            "title": "YMTC’s $4.9B IPO Reportedly Pushed to 1H27 Amid Market Rout; CXMT Doubles Down on Buybacks",
-            "originalTitle": "YMTC’s $4.9B IPO Reportedly Pushed to 1H27 Amid Market Rout; CXMT Doubles Down on Buybacks - TrendForce",
-            "source": "TrendForce",
-            "date": "2026-11-05",
-            "language": "english",
-            "streamLanguage": "english",
-            "languageVerified": true,
-            "sourceUrl": "https://www.trendforce.com/news/2026/11/05/news-chinese-nand-giant-ymtcs-4-9b-ipo-reportedly-pushed-to-1h27-amid-market-rout-cxmt-doubles-down-on-buybacks/",
-            "summaryOriginal": "China’s NAND giant YMTC has become the latest casualty of stock market turbulence, reportedly putting its Shanghai IPO on hold, according to Reuters . Initially eyeing a late-October or early-November launch, the company could now seek a listing in 1H27, depending on market conditions, sources said.",
-            "summarySource": "source-meta",
-            "origin": "live-crawl",
-            "observedThisRun": true,
-            "dataStatus": "live-observed",
-            "preservedSeed": false,
-            "crawledAt": "2026-11-16T14:19:05.010Z",
-            "summary": "China’s NAND giant YMTC has become the latest casualty of stock market turbulence, reportedly putting its Shanghai IPO on hold, according to Reuters . Initially eyeing a late-October or early-November launch, the company could now seek a listing in 1H27, depending on market conditions, sources said."
           }
         ]
+      },
+      {
+        "id": "packaging",
+        "label": "Advanced Packaging",
+        "count": 1,
+        "items": []
       }
     ],
     "stream": [
+      {
+        "title": "CXMT DDR5 RAM: 가격, 전체 라인업, 내역 및 구매처",
+        "originalTitle": "CXMT DDR5 RAM: Price, Full Lineup, History & Where to Buy",
+        "sourceUrl": "https://originalpricing.com/cxmt-ddr5-ram-price/",
+        "source": "originalpricing.com",
+        "date": "2026-11-16",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "discoveryProvider": "bing-rss",
+        "summaryOriginal": "CXMT DDR5 RAM starts at ~$422 for 32 GB kits. Full lineup covers speeds up to 8,000 MT/s across UDIMM, SODIMM, RDIMM, and more.",
+        "summarySource": "source-meta",
+        "origin": "live-crawl",
+        "observedThisRun": true,
+        "dataStatus": "live-observed",
+        "preservedSeed": false,
+        "crawledAt": "2026-11-16T20:33:40.865Z",
+        "theme": "capacity",
+        "translation": {
+          "title": {
+            "status": "verified",
+            "display": "translated"
+          }
+        },
+        "titleKo": "CXMT DDR5 RAM: 가격, 전체 라인업, 내역 및 구매처",
+        "summary": "CXMT DDR5 RAM starts at ~$422 for 32 GB kits. Full lineup covers speeds up to 8,000 MT/s across UDIMM, SODIMM, RDIMM, and more."
+      },
+      {
+        "title": "Products - CXMT",
+        "sourceUrl": "https://www.cxmt.com/en/product.html",
+        "source": "cxmt.com",
+        "date": "2026-11-16",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "discoveryProvider": "bing-rss",
+        "summaryOriginal": "Our sales team always communicates with customers to understand and satisfy their needs. We strive to provide the best quality products. Please contact our sales team if you are interested in CXMT's products and services.",
+        "summarySource": "source-meta",
+        "origin": "live-crawl",
+        "observedThisRun": true,
+        "dataStatus": "live-observed",
+        "preservedSeed": false,
+        "crawledAt": "2026-11-16T20:33:40.865Z",
+        "theme": "capacity",
+        "translation": {
+          "title": {
+            "status": "unverified",
+            "display": "source-original"
+          }
+        },
+        "summary": "Our sales team always communicates with customers to understand and satisfy their needs. We strive to provide the best quality products. Please contact our sales team if you are interested in CXMT's products and services."
+      },
       {
         "title": "YMTC Xtacking4.0: 3D NAND 기술의 새로운 지평을 열다 - TechInsights",
         "originalTitle": "YMTC Xtacking4.0: Breaking New Ground in 3D NAND Technology - TechInsights",
@@ -4139,7 +4298,7 @@
         "observedThisRun": true,
         "dataStatus": "live-observed",
         "preservedSeed": false,
-        "crawledAt": "2026-11-16T14:19:05.010Z",
+        "crawledAt": "2026-11-16T20:33:40.865Z",
         "theme": "capacity",
         "translation": {
           "title": {
@@ -4149,47 +4308,22 @@
         },
         "titleKo": "YMTC Xtacking4.0: 3D NAND 기술의 새로운 지평을 열다 - TechInsights",
         "summary": "Explore the latest advancements in YMTC's Xtacking4.0 (Gen5) 3D NAND technology, including innovations in storage density, speed, and efficiency. Discover how it compares to previous generations."
-      },
-      {
-        "title": "YMTC’s $4.9B IPO Reportedly Pushed to 1H27 Amid Market Rout; CXMT Doubles Down on Buybacks - TrendForce",
-        "originalTitle": "YMTC’s $4.9B IPO Reportedly Pushed to 1H27 Amid Market Rout; CXMT Doubles Down on Buybacks - TrendForce",
-        "source": "TrendForce",
-        "date": "2026-11-05",
-        "language": "english",
-        "streamLanguage": "english",
-        "languageVerified": true,
-        "sourceUrl": "https://www.trendforce.com/news/2026/11/05/news-chinese-nand-giant-ymtcs-4-9b-ipo-reportedly-pushed-to-1h27-amid-market-rout-cxmt-doubles-down-on-buybacks/",
-        "summaryOriginal": "China’s NAND giant YMTC has become the latest casualty of stock market turbulence, reportedly putting its Shanghai IPO on hold, according to Reuters . Initially eyeing a late-October or early-November launch, the company could now seek a listing in 1H27, depending on market conditions, sources said.",
-        "summarySource": "source-meta",
-        "origin": "live-crawl",
-        "observedThisRun": true,
-        "dataStatus": "live-observed",
-        "preservedSeed": false,
-        "crawledAt": "2026-11-16T14:19:05.010Z",
-        "theme": "capacity",
-        "translation": {
-          "title": {
-            "status": "unverified",
-            "display": "source-original"
-          }
-        },
-        "summary": "China’s NAND giant YMTC has become the latest casualty of stock market turbulence, reportedly putting its Shanghai IPO on hold, according to Reuters . Initially eyeing a late-October or early-November launch, the company could now seek a listing in 1H27, depending on market conditions, sources said."
       }
     ],
     "stats": {
-      "total": 2,
-      "total24h": 0,
-      "7d": 0,
-      "30d": 2,
+      "total": 4,
+      "total24h": 2,
+      "7d": 2,
+      "30d": 3,
       "languages": {
-        "english": 2,
+        "english": 4,
         "japanese": 0,
         "chinese": 0
       }
     }
   },
   "chinaInfra": {
-    "updatedAt": "2026-11-16T14:18:46.291Z",
+    "updatedAt": "2026-11-16T20:33:17.903Z",
     "sources": [
       {
         "id": "wuxi-bonded-zone",
@@ -4218,7 +4352,7 @@
           }
         ],
         "excerpt": "The State Council approved on July 11 an application to adjust the area of the Comprehensive Bonded Zone in the Wuxi National Hi-Tech District (WND).",
-        "crawledAt": "2026-11-16T14:18:40.253Z",
+        "crawledAt": "2026-11-16T20:33:13.768Z",
         "attempts": 1
       },
       {
@@ -4249,7 +4383,7 @@
           }
         ],
         "excerpt": "NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 - Fab License January 5, 2026 On September 2, 2025, the Department of Commerce, Bureau of Industry and Security (BIS) published a final rule “Revocation of Validated End-User Authorizations in the People's Republic of China” ( https://www.federalregister.gov/documents/2025/09/02/2025-",
-        "crawledAt": "2026-11-16T14:18:41.853Z",
+        "crawledAt": "2026-11-16T20:33:14.715Z",
         "attempts": 1
       },
       {
@@ -4280,7 +4414,7 @@
           }
         ],
         "excerpt": "January 22, 2026 /SemiMedia/ — SK hynix has completed the process upgrade at its Wuxi DRAM fab in China, moving from the 1z process to the more advanced 1a process. The Wuxi plant serves as a key production hub, accounting for 30% to 40% of the company’s overall DRAM output.&hellip;",
-        "crawledAt": "2026-11-16T14:18:45.313Z",
+        "crawledAt": "2026-11-16T20:33:17.240Z",
         "attempts": 1
       },
       {
@@ -4310,7 +4444,7 @@
             "hit": true
           }
         ],
-        "crawledAt": "2026-11-16T14:18:46.041Z",
+        "crawledAt": "2026-11-16T20:33:17.653Z",
         "attempts": 1
       }
     ],
@@ -4342,7 +4476,7 @@
           }
         ],
         "excerpt": "The State Council approved on July 11 an application to adjust the area of the Comprehensive Bonded Zone in the Wuxi National Hi-Tech District (WND).",
-        "crawledAt": "2026-11-16T14:18:40.253Z",
+        "crawledAt": "2026-11-16T20:33:13.768Z",
         "attempts": 1
       },
       {
@@ -4373,7 +4507,7 @@
           }
         ],
         "excerpt": "NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 NEW BIS LICENSE TYPE C79 - Fab License January 5, 2026 On September 2, 2025, the Department of Commerce, Bureau of Industry and Security (BIS) published a final rule “Revocation of Validated End-User Authorizations in the People's Republic of China” ( https://www.federalregister.gov/documents/2025/09/02/2025-",
-        "crawledAt": "2026-11-16T14:18:41.853Z",
+        "crawledAt": "2026-11-16T20:33:14.715Z",
         "attempts": 1
       },
       {
@@ -4404,7 +4538,7 @@
           }
         ],
         "excerpt": "January 22, 2026 /SemiMedia/ — SK hynix has completed the process upgrade at its Wuxi DRAM fab in China, moving from the 1z process to the more advanced 1a process. The Wuxi plant serves as a key production hub, accounting for 30% to 40% of the company’s overall DRAM output.&hellip;",
-        "crawledAt": "2026-11-16T14:18:45.313Z",
+        "crawledAt": "2026-11-16T20:33:17.240Z",
         "attempts": 1
       },
       {
@@ -4434,7 +4568,7 @@
             "hit": true
           }
         ],
-        "crawledAt": "2026-11-16T14:18:46.041Z",
+        "crawledAt": "2026-11-16T20:33:17.653Z",
         "attempts": 1
       }
     ],
@@ -4443,28 +4577,25 @@
   "communitySignals": {
     "schemaVersion": "2.0-live-observed-only",
     "mode": "live-observed-only",
-    "updatedAt": "2026-11-16T14:18:54.853Z",
-    "latestPublishedAt": "2026-11-16T12:35:00.000Z",
+    "updatedAt": "2026-11-16T20:33:28.089Z",
     "source": "Public Chinese forums · expert communities · public hiring listings · Bing Web Search RSS discovery",
-    "total": 7,
-    "recent30d": 1,
+    "total": 6,
+    "recent30d": 0,
     "historicalCount": 0,
-    "sourceCount": 2,
+    "sourceCount": 1,
     "typeCounts": {
-      "technology": 7
+      "technology": 6
     },
     "platformCounts": {
-      "cxmt-careers": 1,
       "servethehome": 6
     },
     "briefs": [
       {
         "id": "product-validation",
         "title": "제품·호환성 검증",
-        "count": 7,
-        "sourceCount": 2,
-        "recent30d": 1,
-        "latestAt": "2026-11-16T12:35:00.000Z",
+        "count": 6,
+        "sourceCount": 1,
+        "recent30d": 0,
         "signal": "DDR5 플랫폼 호환성과 NAND·eSSD 제품 노출을 구분해 관찰",
         "implication": "SKHY는 시연 성능보다 OEM 인증·가격·펌웨어·반복 수주가 붙는 시점을 경쟁 강도 상향 조건으로 사용",
         "validation": "OEM 인증 · ASP · 펌웨어 · 반품률 · 반복 수주"
@@ -4477,6 +4608,72 @@
       "itemCount": 63,
       "methodology": "curated seeds and previous-run continuity copies; excluded from live counts, briefs, quality thresholds, and quantitative drivers",
       "items": [
+        {
+          "id": "cn-59onyt",
+          "platformId": "cxmt-careers",
+          "platform": "CXMT 채용",
+          "sourceClass": "official-career",
+          "type": "technology",
+          "typeLabel": "기술·제품",
+          "title": "CXMT - Changxin 스토리지",
+          "titleKo": "CXMT - Changxin 스토리지",
+          "summaryOriginal": "长鑫存储是一家一体化存储器制造公司，专注于动态随机存取存储芯片 (DRAM)的设计、研发、生产和销售。 创立于2016年，长鑫存储总部位于安徽合肥，在国内外拥有多个研发中心和分支机构。 长鑫存储的技术团队拥有丰富的技术研发经验和创新能力，已推出多款DRAM商用产品，广泛应用于移动终端、电脑、服务器、虚拟现实和物联网等领域。 释放无限潜能，开启“芯”的未来! DRAM产业新的历史。 “芯”途璀璨，就等你来！ 允许长鑫科技在本浏览器中使用 Cookie 吗？ 长鑫科技集团股份有限公司使用Cookie，以提供、改进、保护并分析我们的服务。 严格必要Cookie是本网站正常运行所必需的。",
+          "summary": "Changxin Memory는 DRAM(Dynamic Random Access Memory Chip)의 설계, R&D, 생산 및 판매에 주력하는 통합 메모리 제조 회사입니다. 2016년에 설립된 Changxin Storage는 안후이성 허페이에 본사를 두고 있으며 국내외에 여러 R&D 센터와 지점을 보유하고 있습니다. Changxin Memory의 기술팀은 풍부한 기술 연구 개발 경험과 혁신 역량을 보유하고 있습니다. 모바일 단말기, 컴퓨터, 서버, 가상현실, 사물인터넷 등에 널리 사용되는 다양한 D램 상용 제품을 출시했다. 무한한 잠재력을 발휘하고 '코어'의 미래를 열어보세요! DRAM 산업의 새로운 역사. \"Xin\"의 미래는 밝습니다. 여러분을 기다리고 있습니다! Changxin Technology가 이 브라우저에서 쿠키를 사용하도록 허용합니까? Changxin Technology Group Co., Ltd.는 서비스를 제공, 개선, 보호 및 분석하기 위해 쿠키를 사용합니다. 이 웹사이트가 제대로 작동하려면 꼭 필요한 쿠키가 필요합니다.",
+          "insight": "사용자 기술 논쟁은 제품 인식과 병목의 약한 신호로만 사용하고 수율·성능 수치는 공식 자료로 교차 검증합니다.",
+          "validation": "공식 공시 · 설비 발주 · 고객 계약 · 동일 신호 반복 여부",
+          "link": "https://www.cxmt.com/",
+          "sourceUrl": "https://www.cxmt.com/",
+          "date": "2026-10-24",
+          "ts": 1794787200000,
+          "crawledAt": "2026-11-16T20:33:28.080Z",
+          "entities": [
+            "CXMT"
+          ],
+          "topics": [
+            "DRAM"
+          ],
+          "historical": false,
+          "importance": 0,
+          "evidenceLevel": "공개 채용",
+          "verification": "Public listing",
+          "score": 94,
+          "origin": "previous-run",
+          "observedThisRun": false,
+          "dataStatus": "reference-only",
+          "referenceOrigins": [
+            "previous-run"
+          ],
+          "translation": {
+            "title": {
+              "status": "verified",
+              "tokenMatchPct": 100,
+              "checkedTokens": 0,
+              "matchedTokens": 0,
+              "reasons": [],
+              "languageStatus": "verified",
+              "languageReasons": [],
+              "fidelityStatus": "verified",
+              "fidelityReasons": [],
+              "chineseUnitNormalization": false,
+              "cacheState": "verified",
+              "display": "translated"
+            },
+            "summary": {
+              "status": "verified",
+              "tokenMatchPct": 100,
+              "checkedTokens": 1,
+              "matchedTokens": 1,
+              "reasons": [],
+              "languageStatus": "verified",
+              "languageReasons": [],
+              "fidelityStatus": "verified",
+              "fidelityReasons": [],
+              "chineseUnitNormalization": false,
+              "cacheState": "verified",
+              "display": "translated"
+            }
+          }
+        },
         {
           "id": "cn-13t4srk",
           "platformId": "zhihu",
@@ -4494,7 +4691,7 @@
           "sourceUrl": "https://zhuanlan.zhihu.com/p/1953075799952451418",
           "date": "2026-10-28",
           "ts": 1793145600000,
-          "crawledAt": "2026-11-16T14:18:54.841Z",
+          "crawledAt": "2026-11-16T20:33:28.080Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -4547,72 +4744,6 @@
           }
         },
         {
-          "id": "cn-59onyt",
-          "platformId": "cxmt-careers",
-          "platform": "CXMT 채용",
-          "sourceClass": "official-career",
-          "type": "technology",
-          "typeLabel": "기술·제품",
-          "title": "CXMT - Changxin 스토리지",
-          "titleKo": "CXMT - Changxin 스토리지",
-          "summaryOriginal": "长鑫存储是一家一体化存储器制造公司，专注于动态随机存取存储芯片 (DRAM)的设计、研发、生产和销售。 创立于2016年，长鑫存储总部位于安徽合肥，在国内外拥有多个研发中心和分支机构。 长鑫存储的技术团队拥有丰富的技术研发经验和创新能力，已推出多款DRAM商用产品，广泛应用于移动终端、电脑、服务器、虚拟现实和物联网等领域。 释放无限潜能，开启“芯”的未来! DRAM产业新的历史。 “芯”途璀璨，就等你来！ 允许长鑫科技在本浏览器中使用 Cookie 吗？ 长鑫科技集团股份有限公司使用Cookie，以提供、改进、保护并分析我们的服务。 严格必要Cookie是本网站正常运行所必需的。",
-          "summary": "Changxin Memory는 DRAM(Dynamic Random Access Memory Chip)의 설계, R&D, 생산 및 판매에 주력하는 통합 메모리 제조 회사입니다. 2016년에 설립된 Changxin Storage는 안후이성 허페이에 본사를 두고 있으며 국내외에 여러 R&D 센터와 지점을 보유하고 있습니다. Changxin Memory의 기술팀은 풍부한 기술 연구 개발 경험과 혁신 역량을 보유하고 있습니다. 모바일 단말기, 컴퓨터, 서버, 가상현실, 사물인터넷 등에 널리 사용되는 다양한 D램 상용 제품을 출시했다. 무한한 잠재력을 발휘하고 '코어'의 미래를 열어보세요! DRAM 산업의 새로운 역사. \"Xin\"의 미래는 밝습니다. 여러분을 기다리고 있습니다! Changxin Technology가 이 브라우저에서 쿠키를 사용하도록 허용합니까? Changxin Technology Group Co., Ltd.는 서비스를 제공, 개선, 보호 및 분석하기 위해 쿠키를 사용합니다. 이 웹사이트가 제대로 작동하려면 꼭 필요한 쿠키가 필요합니다.",
-          "insight": "사용자 기술 논쟁은 제품 인식과 병목의 약한 신호로만 사용하고 수율·성능 수치는 공식 자료로 교차 검증합니다.",
-          "validation": "공식 공시 · 설비 발주 · 고객 계약 · 동일 신호 반복 여부",
-          "link": "https://www.cxmt.com/",
-          "sourceUrl": "https://www.cxmt.com/",
-          "date": "2026-10-24",
-          "ts": 1792800000000,
-          "crawledAt": "2026-11-16T14:18:54.841Z",
-          "entities": [
-            "CXMT"
-          ],
-          "topics": [
-            "DRAM"
-          ],
-          "historical": false,
-          "importance": 0,
-          "evidenceLevel": "공개 채용",
-          "verification": "Public listing",
-          "score": 92,
-          "origin": "previous-run",
-          "observedThisRun": false,
-          "dataStatus": "reference-only",
-          "referenceOrigins": [
-            "previous-run"
-          ],
-          "translation": {
-            "title": {
-              "status": "verified",
-              "tokenMatchPct": 100,
-              "checkedTokens": 0,
-              "matchedTokens": 0,
-              "reasons": [],
-              "languageStatus": "verified",
-              "languageReasons": [],
-              "fidelityStatus": "verified",
-              "fidelityReasons": [],
-              "chineseUnitNormalization": false,
-              "cacheState": "verified",
-              "display": "translated"
-            },
-            "summary": {
-              "status": "verified",
-              "tokenMatchPct": 100,
-              "checkedTokens": 1,
-              "matchedTokens": 1,
-              "reasons": [],
-              "languageStatus": "verified",
-              "languageReasons": [],
-              "fidelityStatus": "verified",
-              "fidelityReasons": [],
-              "chineseUnitNormalization": false,
-              "cacheState": "verified",
-              "display": "translated"
-            }
-          }
-        },
-        {
           "id": "cn-unyvmv",
           "platformId": "zhihu",
           "platform": "知乎",
@@ -4629,7 +4760,7 @@
           "sourceUrl": "https://zhuanlan.zhihu.com/p/2021562217162647317",
           "date": "2026-10-17",
           "ts": 1792195200000,
-          "crawledAt": "2026-11-16T14:18:54.841Z",
+          "crawledAt": "2026-11-16T20:33:28.080Z",
           "entities": [
             "CXMT"
           ],
@@ -4695,7 +4826,7 @@
           "sourceUrl": "https://zhuanlan.zhihu.com/p/2056884791174342337",
           "date": "2026-08-28",
           "ts": 1787875200000,
-          "crawledAt": "2026-11-16T14:18:54.841Z",
+          "crawledAt": "2026-11-16T20:33:28.080Z",
           "entities": [
             "CXMT"
           ],
@@ -4764,7 +4895,7 @@
           "observedAt": "2026-07-17",
           "period": "2026년 7월 17일 공개 확인",
           "ts": 1784246400000,
-          "crawledAt": "2026-11-16T14:18:54.842Z",
+          "crawledAt": "2026-11-16T20:33:28.081Z",
           "entities": [
             "CXMT"
           ],
@@ -4774,12 +4905,12 @@
           ],
           "historical": true,
           "importance": 94,
-          "evidenceLevel": "공개 채용",
-          "verification": "Listing signal",
-          "score": 94,
           "origin": "previous-run",
           "observedThisRun": false,
           "dataStatus": "reference-only",
+          "evidenceLevel": "공개 채용",
+          "verification": "Listing signal",
+          "score": 94,
           "referenceOrigins": [
             "curated-seed",
             "previous-run"
@@ -4834,7 +4965,7 @@
           "observedAt": "2026-07-17",
           "period": "2026년 7월 공개 확인",
           "ts": 1784246400000,
-          "crawledAt": "2026-11-16T14:18:54.843Z",
+          "crawledAt": "2026-11-16T20:33:28.081Z",
           "entities": [
             "CXMT"
           ],
@@ -4902,7 +5033,7 @@
           "sourceUrl": "https://xueqiu.com/2786522622/397346597",
           "date": "2026-06-29",
           "ts": 1782691200000,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -4971,7 +5102,7 @@
           "sourceUrl": "https://zhuanlan.zhihu.com/p/2046257095788574179",
           "date": "2026-06-05",
           "ts": 1780617600000,
-          "crawledAt": "2026-11-16T14:18:54.843Z",
+          "crawledAt": "2026-11-16T20:33:28.082Z",
           "entities": [
             "CXMT"
           ],
@@ -5039,7 +5170,7 @@
           "sourceUrl": "https://www.xueqiu.com/6600079272/390606880/408163672",
           "date": "2026-05-24",
           "ts": 1779580800000,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [
             "CXMT"
           ],
@@ -5106,7 +5237,7 @@
           "sourceUrl": "https://www.xueqiu.com/3668938448/389331999/407841840",
           "date": "2026-05-22",
           "ts": 1779408000000,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -5159,7 +5290,7 @@
           "sourceUrl": "https://www.xueqiu.com/4481940052/389654930/407619465",
           "date": "2026-05-20",
           "ts": 1779235200000,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [],
           "topics": [
             "장비·소재"
@@ -5208,7 +5339,7 @@
           "sourceUrl": "https://xueqiu.com/1980283165/386139941",
           "date": "2026-04-28",
           "ts": 1777334400000,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [],
           "topics": [
             "장비·소재"
@@ -5257,7 +5388,7 @@
           "sourceUrl": "https://www.zhihu.com/tardis/jm/ans/2031120811633927844",
           "date": "2026-04-24",
           "ts": 1776988800000,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [],
           "topics": [
             "DRAM",
@@ -5309,7 +5440,7 @@
           "date": "2026-04-23",
           "period": "2026년 4월 갱신",
           "ts": 1776902400000,
-          "crawledAt": "2026-11-16T14:18:54.844Z",
+          "crawledAt": "2026-11-16T20:33:28.082Z",
           "entities": [
             "CXMT"
           ],
@@ -5376,7 +5507,7 @@
           "sourceUrl": "https://www.zhaopin.com/jobdetail/CC604839930J40810641007.htm",
           "period": "공개 채용",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [
             "CXMT"
           ],
@@ -5445,7 +5576,7 @@
           "sourceUrl": "https://global.v2ex.com/t/983732",
           "period": "2023년 10월",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.849Z",
+          "crawledAt": "2026-11-16T20:33:28.086Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -5514,7 +5645,7 @@
           "link": "https://whxmc.zhiye.com/jobs",
           "sourceUrl": "https://whxmc.zhiye.com/jobs",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.845Z",
+          "crawledAt": "2026-11-16T20:33:28.083Z",
           "entities": [
             "XMC"
           ],
@@ -5581,7 +5712,7 @@
           "link": "https://cxmt.zhiye.com/",
           "sourceUrl": "https://cxmt.zhiye.com/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.845Z",
+          "crawledAt": "2026-11-16T20:33:28.083Z",
           "entities": [
             "CXMT"
           ],
@@ -5647,7 +5778,7 @@
           "link": "https://semiwiki.com/forum/threads/intel-ceo-hints-chipzilla%E2%80%99s-return-to-making-memory-as-he-teases-%E2%80%9Cnew-memory-architecture%E2%80%9D-3d-stacking-to-tackle-the-dram-wall.25707/post-102612",
           "sourceUrl": "https://semiwiki.com/forum/threads/intel-ceo-hints-chipzilla%E2%80%99s-return-to-making-memory-as-he-teases-%E2%80%9Cnew-memory-architecture%E2%80%9D-3d-stacking-to-tackle-the-dram-wall.25707/post-102612",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.846Z",
+          "crawledAt": "2026-11-16T20:33:28.083Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -5719,7 +5850,7 @@
           "link": "https://semiwiki.com/forum/threads/how-chinas-dram-maker-cxmt-caught-up-with-micron-without-euv.25596/",
           "sourceUrl": "https://semiwiki.com/forum/threads/how-chinas-dram-maker-cxmt-caught-up-with-micron-without-euv.25596/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.846Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -5797,7 +5928,7 @@
           "link": "https://semiwiki.com/forum/threads/dram-hbm-supply-demand-balance.25208/post-101180",
           "sourceUrl": "https://semiwiki.com/forum/threads/dram-hbm-supply-demand-balance.25208/post-101180",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.846Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -5865,7 +5996,7 @@
           "link": "https://semiwiki.com/forum/threads/wsj-why-the-memory-crunch-is-almost-impossible-to-solve.25348/post-101073",
           "sourceUrl": "https://semiwiki.com/forum/threads/wsj-why-the-memory-crunch-is-almost-impossible-to-solve.25348/post-101073",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.846Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -5932,7 +6063,7 @@
           "link": "https://semiwiki.com/forum/threads/corsair-is-now-using-chinese-dram-in-its-ddr5-kits-memory-prices-could-finally-drop.25150/",
           "sourceUrl": "https://semiwiki.com/forum/threads/corsair-is-now-using-chinese-dram-in-its-ddr5-kits-memory-prices-could-finally-drop.25150/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.846Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -6001,7 +6132,7 @@
           "link": "https://semiwiki.com/forum/threads/chip-talk-dram-faces-unprecedented-demand-3d-evolution-opens-a-new-chapter.25550/",
           "sourceUrl": "https://semiwiki.com/forum/threads/chip-talk-dram-faces-unprecedented-demand-3d-evolution-opens-a-new-chapter.25550/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.846Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT",
             "YMTC"
@@ -6073,7 +6204,7 @@
           "link": "https://whxmc.zhiye.com/campus/jobs",
           "sourceUrl": "https://whxmc.zhiye.com/campus/jobs",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.846Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "XMC"
           ],
@@ -6139,7 +6270,7 @@
           "link": "https://cxmt.zhiye.com/campus/detail",
           "sourceUrl": "https://cxmt.zhiye.com/campus/detail",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.847Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT"
           ],
@@ -6205,7 +6336,7 @@
           "link": "https://semiwiki.com/forum/threads/cxmt-4f%C2%B2-dram.26040/post-103777",
           "sourceUrl": "https://semiwiki.com/forum/threads/cxmt-4f%C2%B2-dram.26040/post-103777",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.847Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT"
           ],
@@ -6267,7 +6398,7 @@
           "link": "https://semiwiki.com/forum/threads/asml%E2%80%99s-strong-orders-signal-staying-power-for-the-ai-boom.26044/post-103891",
           "sourceUrl": "https://semiwiki.com/forum/threads/asml%E2%80%99s-strong-orders-signal-staying-power-for-the-ai-boom.26044/post-103891",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.847Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT"
           ],
@@ -6334,7 +6465,7 @@
           "link": "https://semiwiki.com/forum/threads/chinas-cxmt-says-new-memory-chip-platform-enters-mass-production.25919/",
           "sourceUrl": "https://semiwiki.com/forum/threads/chinas-cxmt-says-new-memory-chip-platform-enters-mass-production.25919/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.847Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "CXMT"
           ],
@@ -6411,7 +6542,7 @@
           "link": "https://semiwiki.com/forum/threads/kioxia%E2%80%99s-flash-for-dram-initiative-eyes-ai-workloads.25842/",
           "sourceUrl": "https://semiwiki.com/forum/threads/kioxia%E2%80%99s-flash-for-dram-initiative-eyes-ai-workloads.25842/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.847Z",
+          "crawledAt": "2026-11-16T20:33:28.084Z",
           "entities": [
             "YMTC"
           ],
@@ -6479,7 +6610,7 @@
           "link": "https://semiwiki.com/forum/threads/cxmt-announces-new-g5-platform-enters-mass-production.25915/",
           "sourceUrl": "https://semiwiki.com/forum/threads/cxmt-announces-new-g5-platform-enters-mass-production.25915/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.847Z",
+          "crawledAt": "2026-11-16T20:33:28.085Z",
           "entities": [
             "CXMT"
           ],
@@ -6556,7 +6687,7 @@
           "link": "https://semiwiki.com/forum/threads/apple-scrambles-for-dram-cxmt-reportedly-rejects-negotiations.25661/post-102335",
           "sourceUrl": "https://semiwiki.com/forum/threads/apple-scrambles-for-dram-cxmt-reportedly-rejects-negotiations.25661/post-102335",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.847Z",
+          "crawledAt": "2026-11-16T20:33:28.085Z",
           "entities": [
             "CXMT"
           ],
@@ -6622,7 +6753,7 @@
           "link": "https://semiwiki.com/forum/threads/is-sk-hynix-buying-intel%E2%80%99s-ohio-fab-korean-chipmaker-denies-report-%E2%80%94-now-all-eyes-are-on-earnings.25572/post-102248",
           "sourceUrl": "https://semiwiki.com/forum/threads/is-sk-hynix-buying-intel%E2%80%99s-ohio-fab-korean-chipmaker-denies-report-%E2%80%94-now-all-eyes-are-on-earnings.25572/post-102248",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.848Z",
+          "crawledAt": "2026-11-16T20:33:28.085Z",
           "entities": [
             "CXMT"
           ],
@@ -6688,7 +6819,7 @@
           "link": "https://semiwiki.com/forum/threads/how-to-break-the-memory-supercycle-or-is-it-even-possible.25515/post-101769",
           "sourceUrl": "https://semiwiki.com/forum/threads/how-to-break-the-memory-supercycle-or-is-it-even-possible.25515/post-101769",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.848Z",
+          "crawledAt": "2026-11-16T20:33:28.085Z",
           "entities": [
             "CXMT"
           ],
@@ -6765,7 +6896,7 @@
           "link": "https://semiwiki.com/forum/threads/memory-will-not-be-an-issue-in-5-years.25402/post-101366",
           "sourceUrl": "https://semiwiki.com/forum/threads/memory-will-not-be-an-issue-in-5-years.25402/post-101366",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.848Z",
+          "crawledAt": "2026-11-16T20:33:28.085Z",
           "entities": [
             "CXMT"
           ],
@@ -6831,7 +6962,7 @@
           "link": "https://semiwiki.com/forum/threads/exclusive-chinese-chipmaker-ymtc-plans-new-factories-amid-heightened-us-sino-trade-tensions-sources-say.24937/post-99176",
           "sourceUrl": "https://semiwiki.com/forum/threads/exclusive-chinese-chipmaker-ymtc-plans-new-factories-amid-heightened-us-sino-trade-tensions-sources-say.24937/post-99176",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.848Z",
+          "crawledAt": "2026-11-16T20:33:28.085Z",
           "entities": [
             "YMTC"
           ],
@@ -6897,7 +7028,7 @@
           "link": "https://forums.servethehome.com/index.php?threads/ymtc-xtacking-3d-nand-launched.21406/",
           "sourceUrl": "https://forums.servethehome.com/index.php?threads/ymtc-xtacking-3d-nand-launched.21406/",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.840Z",
+          "crawledAt": "2026-11-16T20:33:28.080Z",
           "entities": [
             "YMTC"
           ],
@@ -6948,7 +7079,7 @@
           "link": "https://www.eet-china.com/mp/a521899.html",
           "sourceUrl": "https://www.eet-china.com/mp/a521899.html",
           "ts": 0,
-          "crawledAt": "2026-11-16T14:18:54.848Z",
+          "crawledAt": "2026-11-16T20:33:28.085Z",
           "entities": [
             "CXMT"
           ],
@@ -7004,7 +7135,7 @@
     }
   },
   "facts": {
-    "generatedAt": "2026-11-16T14:50:11.426Z",
+    "generatedAt": "2026-11-16T20:47:43.490Z",
     "methodology": "event-stage-resolution-v1",
     "eventCount": 0,
     "currentFactCount": 0,
@@ -7012,7 +7143,7 @@
     "events": []
   },
   "intelligence": {
-    "generatedAt": "2026-11-16T14:50:32.042Z",
+    "generatedAt": "2026-11-16T20:48:13.395Z",
     "methodologyVersion": "4.0-source-provenance",
     "generation": {
       "method": "deterministic-template",
@@ -7021,11 +7152,11 @@
     },
     "validation": {
       "status": "OK",
-      "newsItems": 62,
-      "displayedNews": 62,
-      "directSources": 62,
+      "newsItems": 61,
+      "displayedNews": 61,
+      "directSources": 61,
       "directSourceRatio": 1,
-      "summarizedItems": 62,
+      "summarizedItems": 61,
       "summaryRatio": 1,
       "priceRows": 41,
       "briefCount": 5,
@@ -7035,13 +7166,13 @@
       {
         "id": "hbm",
         "label": "HBM·AI 서버",
-        "generatedAt": "2026-11-16T14:50:32.042Z",
+        "generatedAt": "2026-11-16T20:48:13.395Z",
         "generation": {
           "method": "deterministic-template",
           "llmUsed": false,
           "sourceEntailment": "not-applicable"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 2,
         "latest": {
           "title": "대만 난야·윈본드, EUV 채택…한국 DRAM 패권에 도전",
           "originalTitle": "Taiwan's Nanya and Winbond adopt EUV, challenging South Korean DRAM dominance",
@@ -7067,7 +7198,7 @@
       {
         "id": "dram",
         "label": "DRAM·범용 가격",
-        "generatedAt": "2026-11-16T14:50:32.042Z",
+        "generatedAt": "2026-11-16T20:48:13.395Z",
         "generation": {
           "method": "deterministic-template",
           "llmUsed": false,
@@ -7126,29 +7257,29 @@
       {
         "id": "nand",
         "label": "NAND·eSSD",
-        "generatedAt": "2026-11-16T14:50:32.042Z",
+        "generatedAt": "2026-11-16T20:48:13.395Z",
         "generation": {
           "method": "deterministic-template",
           "llmUsed": false,
           "sourceEntailment": "not-applicable"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 4,
         "latest": {
-          "title": "Chinese game developer Youzu lands US$214.6 million flash memory order",
-          "originalTitle": "Chinese game developer Youzu lands US$214.6 million flash memory order",
-          "summary": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in Novem...",
-          "summaryLanguage": "source-original",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261116PD229/flash-shenzhen-subsidiary-2026-revenue.html",
-          "publishedAt": "2026-11-16",
+          "title": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+          "originalTitle": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+          "summary": "Solidigm SSD 및 서비스에 대한 최신 드라이버, 보증, 기술 사양, FAQ, 추가 리소스를 찾아보세요. 여기에서 지원을 받으세요.",
+          "summaryLanguage": "ko",
+          "source": "solidigmtechnology.com",
+          "url": "https://www.solidigm.com/support-page.html",
+          "publishedAt": "2026-11-10",
           "language": "english",
-          "sourceType": "외신",
-          "claimType": "전망·추정",
+          "sourceType": "내부추정",
+          "claimType": "검증 대기",
           "evidenceLevel": "Watch",
-          "translationStatus": "unverified",
+          "translationStatus": "verified",
           "translationMatchPct": 100,
-          "provenanceId": "caaeecf1d863c95ce031",
-          "sourceClass": "authoritative-media"
+          "provenanceId": "dfa51d888c52a235d7e9",
+          "sourceClass": "official"
         },
         "price": {
           "item": "1TB-mSATA/M.2 TLC PCIe-Value Grade",
@@ -7176,14 +7307,14 @@
           "isProxy": false
         },
         "factReferences": [],
-        "insight": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in Novem... 1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않습니다.",
+        "insight": "Solidigm SSD 및 서비스에 대한 최신 드라이버, 보증, 기술 사양, FAQ, 추가 리소스를 찾아보세요. 여기에서 지원을 받으세요. 1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않습니다.",
         "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정합니다.",
         "reversalKpi": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인"
       },
       {
         "id": "china",
         "label": "중국 경쟁",
-        "generatedAt": "2026-11-16T14:50:32.042Z",
+        "generatedAt": "2026-11-16T20:48:13.395Z",
         "generation": {
           "method": "deterministic-template",
           "llmUsed": false,
@@ -7191,20 +7322,20 @@
         },
         "evidenceCount": 6,
         "latest": {
-          "title": "TCL CSOT unveils glass-core substrate prototypes as Chinese panel makers push into chip packaging",
-          "originalTitle": "TCL CSOT unveils glass-core substrate prototypes as Chinese panel makers push into chip packaging",
-          "summary": "TCL CSOT displayed three glass-core substrate prototypes for semiconductor packaging at its annual DTC 2026 event in Wuhan on November 13, joining BOE and other Chinese panel makers testing whether their glass-processing know-how can be turned into a chip-p...",
+          "title": "Chinese game developer Youzu lands US$214.6 million flash memory order",
+          "originalTitle": "Chinese game developer Youzu lands US$214.6 million flash memory order",
+          "summary": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in Novem...",
           "summaryLanguage": "source-original",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261116VL205/tcl-csot-glass-substrate-panel-packaging.html",
+          "url": "https://www.digitimes.com/news/a20261116PD229/flash-shenzhen-subsidiary-2026-revenue.html",
           "publishedAt": "2026-11-16",
           "language": "english",
           "sourceType": "외신",
-          "claimType": "보도됨(1차 미확인)",
-          "evidenceLevel": "Reported",
+          "claimType": "전망·추정",
+          "evidenceLevel": "Watch",
           "translationStatus": "unverified",
           "translationMatchPct": 100,
-          "provenanceId": "ecfeb617596c6a13f705",
+          "provenanceId": "caaeecf1d863c95ce031",
           "sourceClass": "authoritative-media"
         },
         "price": {
@@ -7219,12 +7350,12 @@
             "status": "verified",
             "rawPeriodChangePct": 191.76,
             "displayPeriodChangePct": 191.76,
-            "observedPoints": 122,
+            "observedPoints": 123,
             "spanDays": 103,
             "thresholdPct": 400,
             "reasons": []
           },
-          "observedPoints": 122,
+          "observedPoints": 123,
           "firstObservedAt": "2026-07-29T14:42:21.188Z",
           "lastUpdate": "2026-11-09 14:40 (GMT+8)",
           "sourceUrl": "https://www.trendforce.com/price/flash/flash_spot",
@@ -7233,20 +7364,20 @@
           "isProxy": true
         },
         "factReferences": [],
-        "insight": "TCL CSOT displayed three glass-core substrate prototypes for semiconductor packaging at its annual DTC 2026 event in Wuhan on November 13, joining BOE and other Chinese panel makers testing whether their glass-processing know-how can be turned into a chip-p... 512Gb TLC은 공개 누적 122개 관측에서 +191.76% 변동(직접 가격이 아닌 proxy)",
+        "insight": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in Novem... 512Gb TLC은 공개 누적 123개 관측에서 +191.76% 변동(직접 가격이 아닌 proxy)",
         "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
         "reversalKpi": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인"
       },
       {
         "id": "demand",
         "label": "수요·고객",
-        "generatedAt": "2026-11-16T14:50:32.042Z",
+        "generatedAt": "2026-11-16T20:48:13.395Z",
         "generation": {
           "method": "deterministic-template",
           "llmUsed": false,
           "sourceEntailment": "not-applicable"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "latest": {
           "title": "Memory costs top half of budget smartphone BOM in 3Q26",
           "originalTitle": "Memory costs top half of budget smartphone BOM in 3Q26",
@@ -7296,14 +7427,14 @@
       }
     ],
     "executive": [
-      "demand",
       "china",
+      "demand",
       "dram"
     ]
   },
   "brokerResearch": {
     "schemaVersion": "2.1",
-    "updatedAt": "2026-11-16T14:50:32.056Z",
+    "updatedAt": "2026-11-16T20:48:13.410Z",
     "methodology": "공개 원문 URL과 정확한 날짜가 확인된 증권사 공식 발간물·권위 매체 인용을 실행 간 누적하고 중복 URL만 병합함.",
     "institutions": [
       "Goldman Sachs",
@@ -7727,7 +7858,7 @@
     {
       "id": "aidemand",
       "label": "aidemand",
-      "count": 51,
+      "count": 49,
       "items": [
         {
           "title": "26년 3분기 예산 스마트폰 BOM의 메모리 비용 상위 절반",
@@ -7850,6 +7981,65 @@
           },
           "titleKo": "중국 게임 개발사 Youzu, 2억 1460만 달러 규모 플래시 메모리 수주",
           "summary": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in November 2026, marked Youzu's entry into memory distribution, although the company said the transaction was not expected to materially affect revenue or other financial data."
+        },
+        {
+          "title": "「세계 최초」직경 200mm의 단결정 다이아몬드를 개발",
+          "originalTitle": "「世界初」直径200mmの単結晶ダイヤモンドを開発 米新興",
+          "sourceUrl": "https://eetimes.itmedia.co.jp/ee/articles/2611/16/news062.html",
+          "source": "eetimes.itmedia.co.jp",
+          "date": "2026-11-16",
+          "category": "aidemand",
+          "language": "japanese",
+          "streamLanguage": "japanese",
+          "languageVerified": true,
+          "rssDescription": "米Diamond Foundryは、直径200mmの単結晶ダイヤモンドを開発したと発表した。同社によると、このサイズの単結晶ダイヤモンドの製造は世界初。半導体ウエハーと同じ直径を実現していて、AI半導体の放熱対策などへの応用が期待される。",
+          "discoveryProvider": "publisher-feed",
+          "discoveryQuery": "https://rss.itmedia.co.jp/rss/2.0/eetimes.xml",
+          "sourceCatalogId": "eetimes-japan-feed",
+          "summaryOriginal": "Diamond FoundrýAa200mm̒P_ChJƔ\\BЂɂƁÃTCY̒P_Ch̐͐EB̃EGn[ƓaĂāAAÎ̕M΍Ȃǂւ̉p҂B",
+          "summarySource": "source-meta",
+          "sourceCategory": "source-catalog",
+          "entities": [],
+          "meceAxis": "technology-product",
+          "verification": {
+            "id": "7db41576f729760afd20",
+            "status": "promoted",
+            "canonicalUrl": "https://eetimes.itmedia.co.jp/ee/articles/2611/16/news062.html",
+            "origin": "live-crawl",
+            "observedThisRun": true,
+            "sourceClass": "authoritative-media",
+            "freshness": "current",
+            "claimClass": "general-news",
+            "claimStage": "reported",
+            "claimType": "source-classified",
+            "structuredFactEligible": true,
+            "entities": [],
+            "meceAxis": "technology-product",
+            "checks": {
+              "directSource": true,
+              "canonicalUrl": true,
+              "language": true,
+              "sourceSummary": true,
+              "publishedDate": true,
+              "retention": true,
+              "moderation": true,
+              "duplicate": true,
+              "storyIdentity": true,
+              "claimBoundary": true
+            }
+          },
+          "translation": {
+            "title": {
+              "status": "verified",
+              "display": "translated"
+            },
+            "summary": {
+              "status": "verified",
+              "display": "translated"
+            }
+          },
+          "titleKo": "「세계 최초」직경 200mm의 단결정 다이아몬드를 개발",
+          "summary": "다이아몬드 주조업체(Diamond FoundrýAa200mm̒P_ChJτ\\BđɂτÃTCY̒P_Ch̐͐EB̃EGn[τaĂāAAÎ̕M΍Ԃاډ̉p҂B"
         },
         {
           "title": "SK Hynix's Trinity Fab aims to shorten suppliers' path to chip production",
@@ -8336,40 +8526,50 @@
           },
           "titleKo": "삼성전기, 세종 AI 서버용 ABF 기판공장 규모 확정",
           "summary": "Samsung Electro-Mechanics (Semco) has finalized the scale of its new semiconductor substrate plant for AI servers in Sejong, South Korea, which will have a total floor area of approximately 99,000 square meters. The company aims to shorten construction time and begin mass production in September 2028 to meet AI server demand from global technology companies."
-        },
+        }
+      ]
+    },
+    {
+      "id": "dram",
+      "label": "범용 DRAM · CXMT",
+      "count": 6,
+      "items": [
         {
-          "title": "Wingtech, Nexperia에 대한 네덜란드 법원의 통제에 맞서고 벌금 EUR300M 위험",
-          "originalTitle": "Wingtech fights Dutch court's grip on Nexperia, risks EUR300M in penalties",
-          "sourceUrl": "https://www.digitimes.com/news/a20261116VL212/nexperia-dutch-wingtech-legal-subsidiary.html",
-          "source": "digitimes.com",
+          "title": "CXMT DDR5 RAM: 가격, 전체 라인업, 내역 및 구매처",
+          "originalTitle": "CXMT DDR5 RAM: Price, Full Lineup, History & Where to Buy",
+          "sourceUrl": "https://originalpricing.com/cxmt-ddr5-ram-price/",
+          "source": "originalpricing.com",
           "date": "2026-11-16",
-          "category": "aidemand",
+          "category": "dram",
           "language": "english",
           "streamLanguage": "english",
           "languageVerified": true,
-          "rssDescription": "China's Wingtech Technology plans to appeal a Dutch court's latest interim ruling in its dispute over semiconductor subsidiary Nexperia, challenging restrictions on its operations and on its Chinese litigation, which carry potential penalties of up to EUR300 million (approx. US$350 million).",
-          "discoveryProvider": "publisher-feed",
-          "discoveryQuery": "https://www.digitimes.com/rss/daily.xml",
-          "sourceCatalogId": "digitimes-en-feed",
-          "summaryOriginal": "China's Wingtech Technology plans to appeal a Dutch court's latest interim ruling in its dispute over semiconductor subsidiary Nexperia, challenging restrictions on its operations and on its Chinese litigation, which carry potential penalties of up to EUR300 million (approx. US$350 million).",
+          "discoveryProvider": "bing-rss",
+          "discoveryQuery": "CXMT DDR5 server qualification customer contract",
+          "automationAccountIds": [],
+          "summaryOriginal": "CXMT DDR5 RAM starts at ~$422 for 32 GB kits. Full lineup covers speeds up to 8,000 MT/s across UDIMM, SODIMM, RDIMM, and more.",
           "summarySource": "source-meta",
-          "sourceCategory": "source-catalog",
-          "entities": [],
-          "meceAxis": "operations-talent",
+          "sourceCategory": "dram",
+          "entities": [
+            "cxmt"
+          ],
+          "meceAxis": "technology-product",
           "verification": {
-            "id": "1d81954366598b6daac4",
+            "id": "0501c97e7649a73b7255",
             "status": "promoted",
-            "canonicalUrl": "https://www.digitimes.com/news/a20261116vl212/nexperia-dutch-wingtech-legal-subsidiary.html",
+            "canonicalUrl": "https://originalpricing.com/cxmt-ddr5-ram-price",
             "origin": "live-crawl",
             "observedThisRun": true,
-            "sourceClass": "authoritative-media",
+            "sourceClass": "general-media",
             "freshness": "current",
             "claimClass": "general-news",
             "claimStage": "reported",
             "claimType": "source-classified",
             "structuredFactEligible": true,
-            "entities": [],
-            "meceAxis": "operations-talent",
+            "entities": [
+              "cxmt"
+            ],
+            "meceAxis": "technology-product",
             "checks": {
               "directSource": true,
               "canonicalUrl": true,
@@ -8393,16 +8593,69 @@
               "display": "translated"
             }
           },
-          "titleKo": "Wingtech, Nexperia에 대한 네덜란드 법원의 통제에 맞서고 벌금 EUR300M 위험",
-          "summary": "중국의 Wingtech Technology는 반도체 자회사 Nexperia에 대한 분쟁에서 네덜란드 법원의 최근 임시 판결에 항소하여 운영 제한과 최대 3억 유로(약 3억 5천만 달러)의 벌금이 부과될 수 있는 중국 소송에 대해 항소할 계획입니다."
-        }
-      ]
-    },
-    {
-      "id": "dram",
-      "label": "DRAM 중국어 권위 소스",
-      "count": 4,
-      "items": [
+          "titleKo": "CXMT DDR5 RAM: 가격, 전체 라인업, 내역 및 구매처",
+          "summary": "CXMT DDR5 RAM은 32GB 키트의 경우 ~$422부터 시작합니다. 전체 라인업은 UDIMM, SODIMM, RDIMM 등에서 최대 8,000MT/s의 속도를 포괄합니다."
+        },
+        {
+          "title": "Products - CXMT",
+          "sourceUrl": "https://www.cxmt.com/en/product.html",
+          "source": "cxmt.com",
+          "date": "2026-11-16",
+          "category": "dram",
+          "language": "english",
+          "streamLanguage": "english",
+          "languageVerified": true,
+          "discoveryProvider": "bing-rss",
+          "discoveryQuery": "CXMT DDR5 server qualification customer contract",
+          "automationAccountIds": [],
+          "summaryOriginal": "Our sales team always communicates with customers to understand and satisfy their needs. We strive to provide the best quality products. Please contact our sales team if you are interested in CXMT's products and services.",
+          "summarySource": "source-meta",
+          "sourceCategory": "dram",
+          "entities": [
+            "cxmt"
+          ],
+          "meceAxis": "technology-product",
+          "verification": {
+            "id": "90fe18d80108e0b59ad9",
+            "status": "promoted",
+            "canonicalUrl": "https://www.cxmt.com/en/product.html",
+            "origin": "live-crawl",
+            "observedThisRun": true,
+            "sourceClass": "general-media",
+            "freshness": "current",
+            "claimClass": "general-news",
+            "claimStage": "reported",
+            "claimType": "source-classified",
+            "structuredFactEligible": true,
+            "entities": [
+              "cxmt"
+            ],
+            "meceAxis": "technology-product",
+            "checks": {
+              "directSource": true,
+              "canonicalUrl": true,
+              "language": true,
+              "sourceSummary": true,
+              "publishedDate": true,
+              "retention": true,
+              "moderation": true,
+              "duplicate": true,
+              "storyIdentity": true,
+              "claimBoundary": true
+            }
+          },
+          "translation": {
+            "title": {
+              "status": "unverified",
+              "display": "source-original"
+            },
+            "summary": {
+              "status": "verified",
+              "display": "translated"
+            }
+          },
+          "summary": "우리 영업팀은 항상 고객과 소통하여 고객의 요구 사항을 이해하고 만족시킵니다. 우리는 최고의 품질의 제품을 제공하기 위해 노력합니다. CXMT의 제품과 서비스에 관심이 있으시면 영업팀에 문의해 주세요."
+        },
         {
           "title": "대만 난야·윈본드, EUV 채택…한국 DRAM 패권에 도전",
           "originalTitle": "Taiwan's Nanya and Winbond adopt EUV, challenging South Korean DRAM dominance",
@@ -8789,9 +9042,68 @@
       ]
     },
     {
+      "id": "nand",
+      "label": "AI-NAND · eSSD",
+      "count": 1,
+      "items": [
+        {
+          "title": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+          "sourceUrl": "https://www.solidigm.com/support-page.html",
+          "source": "solidigmtechnology.com",
+          "date": "2026-11-10",
+          "category": "nand",
+          "language": "english",
+          "streamLanguage": "english",
+          "languageVerified": true,
+          "discoveryProvider": "bing-rss",
+          "discoveryQuery": "Solidigm enterprise SSD QLC data center demand",
+          "automationAccountIds": [],
+          "summaryOriginal": "Find the latest drivers, warranties, technical specs, FAQs, and additional resources for Solidigm SSDs and services. Get support here.",
+          "summarySource": "source-meta",
+          "sourceCategory": "account-demand",
+          "entities": [],
+          "meceAxis": "demand-customers",
+          "verification": {
+            "id": "dfa51d888c52a235d7e9",
+            "status": "promoted",
+            "canonicalUrl": "https://www.solidigm.com/support-page.html",
+            "origin": "live-crawl",
+            "observedThisRun": true,
+            "sourceClass": "official",
+            "freshness": "current",
+            "claimClass": "general-news",
+            "claimStage": "reported",
+            "claimType": "source-classified",
+            "structuredFactEligible": true,
+            "entities": [],
+            "meceAxis": "demand-customers",
+            "checks": {
+              "directSource": true,
+              "canonicalUrl": true,
+              "language": true,
+              "sourceSummary": true,
+              "publishedDate": true,
+              "retention": true,
+              "moderation": true,
+              "duplicate": true,
+              "storyIdentity": true,
+              "claimBoundary": true
+            }
+          },
+          "translation": {
+            "summary": {
+              "status": "verified",
+              "display": "translated"
+            }
+          },
+          "summary": "Solidigm SSD 및 서비스에 대한 최신 드라이버, 보증, 기술 사양, FAQ, 추가 리소스를 찾아보세요. 여기에서 지원을 받으세요."
+        }
+      ]
+    },
+    {
       "id": "hbm",
-      "label": "Custom HBM · HBM4",
-      "count": 2,
+      "label": "hbm",
+      "count": 1,
       "items": [
         {
           "title": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
@@ -8857,111 +9169,12 @@
           },
           "titleKo": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
           "summary": "With Nvidia entering the post-Jensen Huang era, changes to its existing strategy and roadmap could force South Korea's semiconductor and battery industries to reassess their plans. Potential impacts include bottlenecks in negotiations over sixth-generation high-bandwidth memory (HBM4), tighter US controls on China, and new opportunities for Samsung Electronics' foundry business as major technology companies reduce their reliance on Nvidia."
-        },
-        {
-          "title": "Here's why HBM is coming for your PC's RAM - Tom's Hardware",
-          "sourceUrl": "https://www.tomshardware.com/pc-components/ram/hbm-is-eating-your-ram",
-          "source": "tomshardware.com",
-          "date": "2026-11-14",
-          "category": "hbm",
-          "language": "english",
-          "streamLanguage": "english",
-          "languageVerified": true,
-          "discoveryProvider": "bing-rss",
-          "discoveryQuery": "site:semiconductor.samsung.com/news-events (HBM OR CXL OR enterprise SSD OR AI memory)",
-          "automationAccountIds": [],
-          "summaryOriginal": "Surging prices, diverted wafer capacity, and multi-year delays in relief are pushing memory out of reach for consumers.",
-          "summarySource": "source-meta",
-          "sourceCategory": "catalog-samsung-semiconductor",
-          "entities": [],
-          "meceAxis": "supply-capacity",
-          "verification": {
-            "id": "ad9cc6507e5dbf56bf84",
-            "status": "promoted",
-            "canonicalUrl": "https://www.tomshardware.com/pc-components/ram/hbm-is-eating-your-ram",
-            "origin": "live-crawl",
-            "observedThisRun": true,
-            "sourceClass": "authoritative-media",
-            "freshness": "current",
-            "claimClass": "general-news",
-            "claimStage": "reported",
-            "claimType": "source-classified",
-            "structuredFactEligible": true,
-            "entities": [],
-            "meceAxis": "supply-capacity",
-            "checks": {
-              "directSource": true,
-              "canonicalUrl": true,
-              "language": true,
-              "sourceSummary": true,
-              "publishedDate": true,
-              "retention": true,
-              "moderation": true,
-              "duplicate": true,
-              "storyIdentity": true,
-              "claimBoundary": true
-            }
-          },
-          "summary": "Surging prices, diverted wafer capacity, and multi-year delays in relief are pushing memory out of reach for consumers."
-        }
-      ]
-    },
-    {
-      "id": "nand",
-      "label": "NAND 중국어 권위 소스",
-      "count": 1,
-      "items": [
-        {
-          "title": "News archive | Solidigm Newsroom",
-          "sourceUrl": "https://news.solidigm.com/en-WW/releases/",
-          "source": "news.solidigm.com",
-          "date": "2026-11-12",
-          "category": "nand",
-          "language": "english",
-          "streamLanguage": "english",
-          "languageVerified": true,
-          "discoveryProvider": "bing-rss",
-          "discoveryQuery": "Solidigm enterprise SSD QLC data center demand",
-          "automationAccountIds": [],
-          "summaryOriginal": "Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure.",
-          "summarySource": "source-meta",
-          "sourceCategory": "account-demand",
-          "entities": [],
-          "meceAxis": "demand-customers",
-          "verification": {
-            "id": "0be479eea81fd3413d97",
-            "status": "promoted",
-            "canonicalUrl": "https://news.solidigm.com/en-ww/releases",
-            "origin": "live-crawl",
-            "observedThisRun": true,
-            "sourceClass": "official",
-            "freshness": "current",
-            "claimClass": "general-news",
-            "claimStage": "reported",
-            "claimType": "source-classified",
-            "structuredFactEligible": true,
-            "entities": [],
-            "meceAxis": "demand-customers",
-            "checks": {
-              "directSource": true,
-              "canonicalUrl": true,
-              "language": true,
-              "sourceSummary": true,
-              "publishedDate": true,
-              "retention": true,
-              "moderation": true,
-              "duplicate": true,
-              "storyIdentity": true,
-              "claimBoundary": true
-            }
-          },
-          "summary": "Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure."
         }
       ]
     },
     {
       "id": "packaging",
-      "label": "packaging",
+      "label": "베이스 다이 · 패키징",
       "count": 1,
       "items": [
         {
@@ -9027,6 +9240,128 @@
     }
   ],
   "news": [
+    {
+      "title": "CXMT DDR5 RAM: 가격, 전체 라인업, 내역 및 구매처",
+      "originalTitle": "CXMT DDR5 RAM: Price, Full Lineup, History & Where to Buy",
+      "sourceUrl": "https://originalpricing.com/cxmt-ddr5-ram-price/",
+      "source": "originalpricing.com",
+      "date": "2026-11-16",
+      "category": "dram",
+      "language": "english",
+      "streamLanguage": "english",
+      "languageVerified": true,
+      "discoveryProvider": "bing-rss",
+      "discoveryQuery": "CXMT DDR5 server qualification customer contract",
+      "automationAccountIds": [],
+      "summaryOriginal": "CXMT DDR5 RAM starts at ~$422 for 32 GB kits. Full lineup covers speeds up to 8,000 MT/s across UDIMM, SODIMM, RDIMM, and more.",
+      "summarySource": "source-meta",
+      "sourceCategory": "dram",
+      "entities": [
+        "cxmt"
+      ],
+      "meceAxis": "technology-product",
+      "verification": {
+        "id": "0501c97e7649a73b7255",
+        "status": "promoted",
+        "canonicalUrl": "https://originalpricing.com/cxmt-ddr5-ram-price",
+        "origin": "live-crawl",
+        "observedThisRun": true,
+        "sourceClass": "general-media",
+        "freshness": "current",
+        "claimClass": "general-news",
+        "claimStage": "reported",
+        "claimType": "source-classified",
+        "structuredFactEligible": true,
+        "entities": [
+          "cxmt"
+        ],
+        "meceAxis": "technology-product",
+        "checks": {
+          "directSource": true,
+          "canonicalUrl": true,
+          "language": true,
+          "sourceSummary": true,
+          "publishedDate": true,
+          "retention": true,
+          "moderation": true,
+          "duplicate": true,
+          "storyIdentity": true,
+          "claimBoundary": true
+        }
+      },
+      "translation": {
+        "title": {
+          "status": "verified",
+          "display": "translated"
+        },
+        "summary": {
+          "status": "verified",
+          "display": "translated"
+        }
+      },
+      "titleKo": "CXMT DDR5 RAM: 가격, 전체 라인업, 내역 및 구매처",
+      "summary": "CXMT DDR5 RAM은 32GB 키트의 경우 ~$422부터 시작함. 전체 라인업은 UDIMM, SODIMM, RDIMM 등에서 최대 8,000MT/s의 속도를 포괄함"
+    },
+    {
+      "title": "Products - CXMT",
+      "sourceUrl": "https://www.cxmt.com/en/product.html",
+      "source": "cxmt.com",
+      "date": "2026-11-16",
+      "category": "dram",
+      "language": "english",
+      "streamLanguage": "english",
+      "languageVerified": true,
+      "discoveryProvider": "bing-rss",
+      "discoveryQuery": "CXMT DDR5 server qualification customer contract",
+      "automationAccountIds": [],
+      "summaryOriginal": "Our sales team always communicates with customers to understand and satisfy their needs. We strive to provide the best quality products. Please contact our sales team if you are interested in CXMT's products and services.",
+      "summarySource": "source-meta",
+      "sourceCategory": "dram",
+      "entities": [
+        "cxmt"
+      ],
+      "meceAxis": "technology-product",
+      "verification": {
+        "id": "90fe18d80108e0b59ad9",
+        "status": "promoted",
+        "canonicalUrl": "https://www.cxmt.com/en/product.html",
+        "origin": "live-crawl",
+        "observedThisRun": true,
+        "sourceClass": "general-media",
+        "freshness": "current",
+        "claimClass": "general-news",
+        "claimStage": "reported",
+        "claimType": "source-classified",
+        "structuredFactEligible": true,
+        "entities": [
+          "cxmt"
+        ],
+        "meceAxis": "technology-product",
+        "checks": {
+          "directSource": true,
+          "canonicalUrl": true,
+          "language": true,
+          "sourceSummary": true,
+          "publishedDate": true,
+          "retention": true,
+          "moderation": true,
+          "duplicate": true,
+          "storyIdentity": true,
+          "claimBoundary": true
+        }
+      },
+      "translation": {
+        "title": {
+          "status": "unverified",
+          "display": "source-original"
+        },
+        "summary": {
+          "status": "verified",
+          "display": "translated"
+        }
+      },
+      "summary": "우리 영업팀은 항상 고객과 소통하여 고객의 요구 사항을 이해하고 만족시킵니다. 우리는 최고의 품질의 제품을 제공하기 위해 노력함. CXMT의 제품과 서비스에 관심이 있으시면 영업팀에 문의해 주세요"
+    },
     {
       "title": "26년 3분기 예산 스마트폰 BOM의 메모리 비용 상위 절반",
       "originalTitle": "Memory costs top half of budget smartphone BOM in 3Q26",
@@ -9148,6 +9483,65 @@
       },
       "titleKo": "중국 게임 개발사 Youzu, 2억 1460만 달러 규모 플래시 메모리 수주",
       "summary": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in November 2026, marked Youzu's entry into memory distribution, although the company said the transaction was not expected to materially affect revenue or other financial data."
+    },
+    {
+      "title": "「세계 최초」직경 200mm의 단결정 다이아몬드를 개발",
+      "originalTitle": "「世界初」直径200mmの単結晶ダイヤモンドを開発 米新興",
+      "sourceUrl": "https://eetimes.itmedia.co.jp/ee/articles/2611/16/news062.html",
+      "source": "eetimes.itmedia.co.jp",
+      "date": "2026-11-16",
+      "category": "aidemand",
+      "language": "japanese",
+      "streamLanguage": "japanese",
+      "languageVerified": true,
+      "rssDescription": "米Diamond Foundryは、直径200mmの単結晶ダイヤモンドを開発したと発表した。同社によると、このサイズの単結晶ダイヤモンドの製造は世界初。半導体ウエハーと同じ直径を実現していて、AI半導体の放熱対策などへの応用が期待される。",
+      "discoveryProvider": "publisher-feed",
+      "discoveryQuery": "https://rss.itmedia.co.jp/rss/2.0/eetimes.xml",
+      "sourceCatalogId": "eetimes-japan-feed",
+      "summaryOriginal": "Diamond FoundrýAa200mm̒P_ChJƔ\\BЂɂƁÃTCY̒P_Ch̐͐EB̃EGn[ƓaĂāAAÎ̕M΍Ȃǂւ̉p҂B",
+      "summarySource": "source-meta",
+      "sourceCategory": "source-catalog",
+      "entities": [],
+      "meceAxis": "technology-product",
+      "verification": {
+        "id": "7db41576f729760afd20",
+        "status": "promoted",
+        "canonicalUrl": "https://eetimes.itmedia.co.jp/ee/articles/2611/16/news062.html",
+        "origin": "live-crawl",
+        "observedThisRun": true,
+        "sourceClass": "authoritative-media",
+        "freshness": "current",
+        "claimClass": "general-news",
+        "claimStage": "reported",
+        "claimType": "source-classified",
+        "structuredFactEligible": true,
+        "entities": [],
+        "meceAxis": "technology-product",
+        "checks": {
+          "directSource": true,
+          "canonicalUrl": true,
+          "language": true,
+          "sourceSummary": true,
+          "publishedDate": true,
+          "retention": true,
+          "moderation": true,
+          "duplicate": true,
+          "storyIdentity": true,
+          "claimBoundary": true
+        }
+      },
+      "translation": {
+        "title": {
+          "status": "verified",
+          "display": "translated"
+        },
+        "summary": {
+          "status": "verified",
+          "display": "translated"
+        }
+      },
+      "titleKo": "「세계 최초」직경 200mm의 단결정 다이아몬드를 개발",
+      "summary": "다이아몬드 주조업체(Diamond FoundrýAa200mm̒P_ChJτ\\BđɂτÃTCY̒P_Ch̐͐EB̃EGn[τaĂāAAÎ̕M΍Ԃاډ̉p҂B"
     },
     {
       "title": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
@@ -11035,52 +11429,6 @@
       "summary": "This does not mean that the defendants are guilty, though."
     },
     {
-      "title": "Here's why HBM is coming for your PC's RAM - Tom's Hardware",
-      "sourceUrl": "https://www.tomshardware.com/pc-components/ram/hbm-is-eating-your-ram",
-      "source": "tomshardware.com",
-      "date": "2026-11-14",
-      "category": "hbm",
-      "language": "english",
-      "streamLanguage": "english",
-      "languageVerified": true,
-      "discoveryProvider": "bing-rss",
-      "discoveryQuery": "site:semiconductor.samsung.com/news-events (HBM OR CXL OR enterprise SSD OR AI memory)",
-      "automationAccountIds": [],
-      "summaryOriginal": "Surging prices, diverted wafer capacity, and multi-year delays in relief are pushing memory out of reach for consumers.",
-      "summarySource": "source-meta",
-      "sourceCategory": "catalog-samsung-semiconductor",
-      "entities": [],
-      "meceAxis": "supply-capacity",
-      "verification": {
-        "id": "ad9cc6507e5dbf56bf84",
-        "status": "promoted",
-        "canonicalUrl": "https://www.tomshardware.com/pc-components/ram/hbm-is-eating-your-ram",
-        "origin": "live-crawl",
-        "observedThisRun": true,
-        "sourceClass": "authoritative-media",
-        "freshness": "current",
-        "claimClass": "general-news",
-        "claimStage": "reported",
-        "claimType": "source-classified",
-        "structuredFactEligible": true,
-        "entities": [],
-        "meceAxis": "supply-capacity",
-        "checks": {
-          "directSource": true,
-          "canonicalUrl": true,
-          "language": true,
-          "sourceSummary": true,
-          "publishedDate": true,
-          "retention": true,
-          "moderation": true,
-          "duplicate": true,
-          "storyIdentity": true,
-          "claimBoundary": true
-        }
-      },
-      "summary": "Surging prices, diverted wafer capacity, and multi-year delays in relief are pushing memory out of reach for consumers."
-    },
-    {
       "title": "Samsung's 1TB 990 SSD drops to 19 cents per GB amid the memory crisis",
       "sourceUrl": "https://www.tomshardware.com/pc-components/samsungs-1tb-990-ssd-drops-to-19-cents-per-gb-amid-the-memory-crisis-grab-it-for-usd40-off",
       "source": "tomshardware.com",
@@ -11233,56 +11581,10 @@
       "summary": "There are big claims and then there are BIG claims, and startup up Graphon Labs is making one of these; it says it is building the foundational infrastructure to help \"accelerate progress towards AGI\" and has raised $35 million to do it."
     },
     {
-      "title": "Neo4j’s rusty in-memory AI Agent graph database",
-      "sourceUrl": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
-      "source": "blocksandfiles.com",
-      "date": "2026-11-13",
-      "category": "aidemand",
-      "language": "english",
-      "streamLanguage": "english",
-      "languageVerified": true,
-      "discoveryProvider": "publisher-feed",
-      "discoveryQuery": "https://blocksandfiles.com/feed/",
-      "sourceCatalogId": "blocksandfiles-feed",
-      "summaryOriginal": "Graph database supplier Neo4j’s Relate is an in-memory database built in Rust for AI Agents and Agentic Systems.",
-      "summarySource": "source-meta",
-      "sourceCategory": "source-catalog",
-      "entities": [],
-      "meceAxis": "technology-product",
-      "verification": {
-        "id": "4a8103cc81e8a1ade8d5",
-        "status": "promoted",
-        "canonicalUrl": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
-        "origin": "live-crawl",
-        "observedThisRun": true,
-        "sourceClass": "authoritative-media",
-        "freshness": "current",
-        "claimClass": "general-news",
-        "claimStage": "reported",
-        "claimType": "source-classified",
-        "structuredFactEligible": true,
-        "entities": [],
-        "meceAxis": "technology-product",
-        "checks": {
-          "directSource": true,
-          "canonicalUrl": true,
-          "language": true,
-          "sourceSummary": true,
-          "publishedDate": true,
-          "retention": true,
-          "moderation": true,
-          "duplicate": true,
-          "storyIdentity": true,
-          "claimBoundary": true
-        }
-      },
-      "summary": "Graph database supplier Neo4j’s Relate is an in-memory database built in Rust for AI Agents and Agentic Systems."
-    },
-    {
-      "title": "News archive | Solidigm Newsroom",
-      "sourceUrl": "https://news.solidigm.com/en-WW/releases/",
-      "source": "news.solidigm.com",
-      "date": "2026-11-12",
+      "title": "Solidigm SSD Support Center: Drivers, Firmware & FAQs",
+      "sourceUrl": "https://www.solidigm.com/support-page.html",
+      "source": "solidigmtechnology.com",
+      "date": "2026-11-10",
       "category": "nand",
       "language": "english",
       "streamLanguage": "english",
@@ -11290,15 +11592,15 @@
       "discoveryProvider": "bing-rss",
       "discoveryQuery": "Solidigm enterprise SSD QLC data center demand",
       "automationAccountIds": [],
-      "summaryOriginal": "Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure.",
+      "summaryOriginal": "Find the latest drivers, warranties, technical specs, FAQs, and additional resources for Solidigm SSDs and services. Get support here.",
       "summarySource": "source-meta",
       "sourceCategory": "account-demand",
       "entities": [],
       "meceAxis": "demand-customers",
       "verification": {
-        "id": "0be479eea81fd3413d97",
+        "id": "dfa51d888c52a235d7e9",
         "status": "promoted",
-        "canonicalUrl": "https://news.solidigm.com/en-ww/releases",
+        "canonicalUrl": "https://www.solidigm.com/support-page.html",
         "origin": "live-crawl",
         "observedThisRun": true,
         "sourceClass": "official",
@@ -11322,53 +11624,13 @@
           "claimBoundary": true
         }
       },
-      "summary": "Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure."
-    },
-    {
-      "title": "Seagate combines dynamically cached SSD and HDD in single volume desktop drive",
-      "sourceUrl": "https://www.blocksandfiles.com/disk/2026/11/10/seagate-combines-dynamically-cached-ssd-and-hdd-in-single-volume-desktop-drive/5308782",
-      "source": "blocksandfiles.com",
-      "date": "2026-11-10",
-      "category": "aidemand",
-      "language": "english",
-      "streamLanguage": "english",
-      "languageVerified": true,
-      "discoveryProvider": "publisher-feed",
-      "discoveryQuery": "https://blocksandfiles.com/feed/",
-      "sourceCatalogId": "blocksandfiles-feed",
-      "summaryOriginal": "Seagate has a combined SD and hard disk external drive called the FireCuda Forge.",
-      "summarySource": "source-meta",
-      "sourceCategory": "source-catalog",
-      "entities": [],
-      "meceAxis": "technology-product",
-      "verification": {
-        "id": "1d331683fc79b0d8423f",
-        "status": "promoted",
-        "canonicalUrl": "https://www.blocksandfiles.com/disk/2026/11/10/seagate-combines-dynamically-cached-ssd-and-hdd-in-single-volume-desktop-drive/5308782",
-        "origin": "live-crawl",
-        "observedThisRun": true,
-        "sourceClass": "authoritative-media",
-        "freshness": "current",
-        "claimClass": "general-news",
-        "claimStage": "reported",
-        "claimType": "source-classified",
-        "structuredFactEligible": true,
-        "entities": [],
-        "meceAxis": "technology-product",
-        "checks": {
-          "directSource": true,
-          "canonicalUrl": true,
-          "language": true,
-          "sourceSummary": true,
-          "publishedDate": true,
-          "retention": true,
-          "moderation": true,
-          "duplicate": true,
-          "storyIdentity": true,
-          "claimBoundary": true
+      "translation": {
+        "summary": {
+          "status": "verified",
+          "display": "translated"
         }
       },
-      "summary": "Seagate has a combined SD and hard disk external drive called the FireCuda Forge."
+      "summary": "Solidigm SSD 및 서비스에 대한 최신 드라이버, 보증, 기술 사양, FAQ, 추가 리소스를 찾아보세요. 여기에서 지원을 받으세요"
     },
     {
       "title": "HPE puts storage to work on AI’s expensive memory problem",
@@ -11420,10 +11682,88 @@
   "referenceNews": {
     "schemaVersion": "1.0",
     "mode": "reference-only",
-    "generatedAt": "2026-11-16T14:50:11.426Z",
-    "itemCount": 1990,
+    "generatedAt": "2026-11-16T20:47:43.490Z",
+    "itemCount": 1996,
     "methodology": "cumulative English and Chinese article archive with curated seeds and prior verified runs; excluded from live evidence promotion, derived signals, and quality counts",
     "items": [
+      {
+        "title": "26년 3분기 예산 스마트폰 BOM의 메모리 비용 상위 절반",
+        "originalTitle": "Memory costs top half of budget smartphone BOM in 3Q26",
+        "sourceUrl": "https://www.digitimes.com/news/a20261116PD232/budget-bom-materials-demand-data.html",
+        "source": "digitimes.com",
+        "date": "2026-11-16",
+        "category": "aidemand",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "rssDescription": "Memory components accounted for 54% of the bill of materials (BOM) for budget smartphones in the third quarter of 2026, according to Counterpoint Technology Market Research data reported by South Korean publications Herald Business and Digital Daily . The increase was driven by stronger demand from artificial intelligence (AI) data centers, raising costs for smartphone makers and contributing to higher handset prices.",
+        "discoveryProvider": "publisher-feed",
+        "discoveryQuery": "https://www.digitimes.com/rss/daily.xml",
+        "sourceCatalogId": "digitimes-en-feed",
+        "summaryOriginal": "Memory components accounted for 54% of the bill of materials (BOM) for budget smartphones in the third quarter of 2026, according to Counterpoint Technology Market Research data reported by South Korean publications and . The increase was driven by stronger demand from artificial intelligence (AI) data centers, raising costs for smartphone makers and contributing to higher handset prices.",
+        "summarySource": "source-meta",
+        "sourceCategory": "source-catalog",
+        "entities": [
+          "intel"
+        ],
+        "meceAxis": "demand-customers",
+        "translation": {
+          "title": {
+            "status": "verified",
+            "display": "translated"
+          },
+          "summary": {
+            "status": "unverified",
+            "display": "translation-pending"
+          }
+        },
+        "titleKo": "26년 3분기 예산 스마트폰 BOM의 메모리 비용 상위 절반",
+        "summary": "Memory components accounted for 54% of the bill of materials (BOM) for budget smartphones in the third quarter of 2026, according to Counterpoint Technology Market Research data reported by South Korean publications and . The increase was driven by stronger demand from artificial intelligence (AI) data centers, raising costs for smartphone makers and contributing to higher handset prices.",
+        "continuityFallback": true,
+        "referenceOnly": true,
+        "referenceOrigin": "previous-verified-run",
+        "origin": "reference-archive",
+        "observedThisRun": false,
+        "dataStatus": "reference-only"
+      },
+      {
+        "title": "중국 게임 개발사 Youzu, 2억 1460만 달러 규모 플래시 메모리 수주",
+        "originalTitle": "Chinese game developer Youzu lands US$214.6 million flash memory order",
+        "sourceUrl": "https://www.digitimes.com/news/a20261116PD229/flash-shenzhen-subsidiary-2026-revenue.html",
+        "source": "digitimes.com",
+        "date": "2026-11-16",
+        "category": "aidemand",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "rssDescription": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in November 2026, marked Youzu's entry into memory distribution, although the company said the transaction was not expected to materially affect revenue or other financial data.",
+        "discoveryProvider": "publisher-feed",
+        "discoveryQuery": "https://www.digitimes.com/rss/daily.xml",
+        "sourceCatalogId": "digitimes-en-feed",
+        "summaryOriginal": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in November 2026, marked Youzu's entry into memory distribution, although the company said the transaction was not expected to materially affect revenue or other financial data.",
+        "summarySource": "source-meta",
+        "sourceCategory": "source-catalog",
+        "entities": [],
+        "meceAxis": "demand-customers",
+        "translation": {
+          "title": {
+            "status": "verified",
+            "display": "translated"
+          },
+          "summary": {
+            "status": "unverified",
+            "display": "translation-pending"
+          }
+        },
+        "titleKo": "중국 게임 개발사 Youzu, 2억 1460만 달러 규모 플래시 메모리 수주",
+        "summary": "Chinese game developer Youzu Interactive said on November 16 that its subsidiary, Shenzhen Zhichun Heying, had secured a CNY1.428 billion (US$214.6 million) flash memory order from an undisclosed customer. The two-year procurement agreement, signed in November 2026, marked Youzu's entry into memory distribution, although the company said the transaction was not expected to materially affect revenue or other financial data.",
+        "continuityFallback": true,
+        "referenceOnly": true,
+        "referenceOrigin": "previous-verified-run",
+        "origin": "reference-archive",
+        "observedThisRun": false,
+        "dataStatus": "reference-only"
+      },
       {
         "title": "SK Hynix's Trinity Fab aims to shorten suppliers' path to chip production",
         "sourceUrl": "https://www.digitimes.com/news/a20261116VL216/sk-hynix-production-trinity-equipment-cleanroom.html",
@@ -11561,43 +11901,6 @@
         },
         "titleKo": "Rapidus, 2027년 후반에 2nm 칩 양산 예정",
         "summary": "Rapidus President Atsuyoshi Koike said on November 13 that the Japanese semiconductor venture plans to begin mass production of 2nm chips in late 2027 or early 2028. The timeline provides a more specific target after reports raised concerns about delays in developing key SRAM technology.",
-        "continuityFallback": true,
-        "referenceOnly": true,
-        "referenceOrigin": "previous-verified-run",
-        "origin": "reference-archive",
-        "observedThisRun": false,
-        "dataStatus": "reference-only"
-      },
-      {
-        "title": "Newsroom - CXMT",
-        "sourceUrl": "https://www.cxmt.com/en/news.html",
-        "source": "cxmt.com",
-        "date": "2026-11-16",
-        "category": "dram",
-        "language": "english",
-        "streamLanguage": "english",
-        "languageVerified": true,
-        "discoveryProvider": "bing-rss",
-        "discoveryQuery": "CXMT DDR5 server qualification customer contract",
-        "automationAccountIds": [],
-        "summaryOriginal": "For media inquiries, please contact: info@cxmt.com For sales inquiries, please contact: Sales@cxmt.com",
-        "summarySource": "source-meta",
-        "sourceCategory": "dram",
-        "entities": [
-          "cxmt"
-        ],
-        "meceAxis": "technology-product",
-        "translation": {
-          "title": {
-            "status": "unverified",
-            "display": "source-original"
-          },
-          "summary": {
-            "status": "verified",
-            "display": "translated"
-          }
-        },
-        "summary": "미디어 문의는 info@cxmt.com으로 문의하세요. 판매 문의는 Sales@cxmt.com으로 문의하세요.",
         "continuityFallback": true,
         "referenceOnly": true,
         "referenceOrigin": "previous-verified-run",
@@ -11960,6 +12263,44 @@
         "dataStatus": "reference-only"
       },
       {
+        "title": "Getac은 미국 선거가 국방 명령에 미치는 영향이 제한적이라고 보고 2027년 성장을 예측합니다.",
+        "originalTitle": "Getac sees limited US election impact on defense orders, forecasts 2027 growth",
+        "sourceUrl": "https://www.digitimes.com/news/a20261116PD207/getac-2027-growth-disruption-business.html",
+        "source": "digitimes.com",
+        "date": "2026-11-16",
+        "category": "aidemand",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "rssDescription": "Getac Holdings expects limited disruption to its US defense-related business from the Democratic Party's midterm election victory, citing an approved multiyear defense plan. The rugged-computer maker also forecasts double-digit shipment growth in 2027, although elevated memory and component costs are expected to pressure consumer electronics and complicate its global margin performance.",
+        "discoveryProvider": "publisher-feed",
+        "discoveryQuery": "https://www.digitimes.com/rss/daily.xml",
+        "sourceCatalogId": "digitimes-en-feed",
+        "summaryOriginal": "Getac Holdings expects limited disruption to its US defense-related business from the Democratic Party's midterm election victory, citing an approved multiyear defense plan. The rugged-computer maker also forecasts double-digit shipment growth in 2027, although elevated memory and component costs are expected to pressure consumer electronics and complicate its global margin performance.",
+        "summarySource": "source-meta",
+        "sourceCategory": "source-catalog",
+        "entities": [],
+        "meceAxis": "demand-customers",
+        "translation": {
+          "title": {
+            "status": "verified",
+            "display": "translated"
+          },
+          "summary": {
+            "status": "verified",
+            "display": "translated"
+          }
+        },
+        "titleKo": "Getac은 미국 선거가 국방 명령에 미치는 영향이 제한적이라고 보고 2027년 성장을 예측합니다.",
+        "summary": "Getac Holdings는 승인된 다년간 국방 계획을 인용하면서 민주당의 중간 선거 승리로 인해 미국 국방 관련 사업이 제한적으로 중단될 것으로 예상하고 있습니다. 견고한 컴퓨터 제조업체인 이 회사는 또한 2027년에 두 자리 수의 출하량이 증가할 것으로 예상하고 있습니다. 하지만 메모리 및 부품 비용 상승으로 인해 가전 제품에 압박이 가해지고 글로벌 마진 성과가 복잡해질 것으로 예상됩니다.",
+        "continuityFallback": true,
+        "referenceOnly": true,
+        "referenceOrigin": "previous-verified-run",
+        "origin": "reference-archive",
+        "observedThisRun": false,
+        "dataStatus": "reference-only"
+      },
+      {
         "title": "주간 뉴스 정리: 메모리 거인들이 보기 드문 동맹을 맺었습니다. 장비 용량 확보 경쟁",
         "originalTitle": "Weekly news roundup: Memory giants forge rare alliance; race to secure equipment capacity",
         "sourceUrl": "https://www.digitimes.com/news/a20261116VL202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html",
@@ -12136,7 +12477,7 @@
         "discoveryProvider": "publisher-feed",
         "discoveryQuery": "https://www.digitimes.com/rss/daily.xml",
         "sourceCatalogId": "digitimes-en-feed",
-        "summaryOriginal": "Britain wants to strengthen its position in the global semiconductor industry, but one of its biggest obstacles begins long before companies attempt to recruit engineers: many young people barely recognize the industry as a career opportunity.",
+        "summaryOriginal": "UKESF CEO Stewart Edmondson discusses the UK–Taiwan Joint Skills Project 2026 in a DIGITIMES interview. Credit: Scarlett Yu",
         "summarySource": "source-meta",
         "sourceCategory": "source-catalog",
         "entities": [],
@@ -12152,7 +12493,7 @@
           }
         },
         "titleKo": "독점: 반도체 정체성이 없는 반도체 국가? 영국의 인재 딜레마는 졸업생 부족보다 더 심각하다",
-        "summary": "영국은 세계 반도체 산업에서 입지를 강화하기를 원하지만 가장 큰 장애물 중 하나는 기업이 엔지니어를 채용하기 훨씬 전에 시작됩니다. 많은 젊은이들이 이 산업을 직업 기회로 거의 인식하지 못합니다.",
+        "summary": "UKESF CEO Stewart Edmondson은 DIGITIMES 인터뷰에서 영국-대만 공동 기술 프로젝트 2026에 대해 논의합니다. 크레딧: Scarlett Yu",
         "continuityFallback": true,
         "referenceOnly": true,
         "referenceOrigin": "previous-verified-run",
@@ -12387,6 +12728,43 @@
         },
         "titleKo": "외국인 투자자들이 Huida 주가 회복의 핵심 포인트, 후계자, 재무 보고서 및 미국 규제 강도를 지적",
         "summary": "거대 반도체 기업 엔비디아(Nvidia)는 최근 심각한 시장 혼란을 겪었다. 엔비디아는 엔비디아 창업자이자 CEO인 젠슨 황(Jensen Huang)이 개인적인 관계 관련 보도로 사임한 후, 한때 대만 증시 동향을 포함해 글로벌 주식시장에도 영향을 미쳤던 기록적인 주간 최대 시가총액 증발에 돌입하고 있다. 주가가 매도 압력을 받고 있음에도 불구하고 시장 분석가들의 시장 전망에 대한 관심은 발표될 최신 재무 보고서 기대치와 승계 후보 및 정부 규제로 인한 장기적인 위험으로 바뀌었습니다.",
+        "continuityFallback": true,
+        "referenceOnly": true,
+        "referenceOrigin": "previous-verified-run",
+        "origin": "reference-archive",
+        "observedThisRun": false,
+        "dataStatus": "reference-only"
+      },
+      {
+        "title": "Newsroom - CXMT",
+        "sourceUrl": "https://www.cxmt.com/en/news.html",
+        "source": "cxmt.com",
+        "date": "2026-11-16",
+        "category": "dram",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "discoveryProvider": "bing-rss",
+        "discoveryQuery": "CXMT DDR5 server qualification customer contract",
+        "automationAccountIds": [],
+        "summaryOriginal": "For media inquiries, please contact: info@cxmt.com For sales inquiries, please contact: Sales@cxmt.com",
+        "summarySource": "source-meta",
+        "sourceCategory": "dram",
+        "entities": [
+          "cxmt"
+        ],
+        "meceAxis": "technology-product",
+        "translation": {
+          "title": {
+            "status": "unverified",
+            "display": "source-original"
+          },
+          "summary": {
+            "status": "verified",
+            "display": "translated"
+          }
+        },
+        "summary": "미디어 문의는 info@cxmt.com으로 문의하세요. 판매 문의는 Sales@cxmt.com으로 문의하세요.",
         "continuityFallback": true,
         "referenceOnly": true,
         "referenceOrigin": "previous-verified-run",
@@ -12933,6 +13311,43 @@
         "origin": "reference-archive",
         "observedThisRun": false,
         "dataStatus": "reference-only"
+      },
+      {
+        "title": "HBM이 PC의 RAM을 위해 등장하는 이유는 다음과 같습니다. - Tom's Hardware",
+        "originalTitle": "Here's why HBM is coming for your PC's RAM - Tom's Hardware",
+        "sourceUrl": "https://www.tomshardware.com/pc-components/ram/hbm-is-eating-your-ram",
+        "source": "tomshardware.com",
+        "date": "2026-11-14",
+        "category": "hbm",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "discoveryProvider": "bing-rss",
+        "discoveryQuery": "site:semiconductor.samsung.com/news-events (HBM OR CXL OR enterprise SSD OR AI memory)",
+        "automationAccountIds": [],
+        "summaryOriginal": "Surging prices, diverted wafer capacity, and multi-year delays in relief are pushing memory out of reach for consumers.",
+        "summarySource": "source-meta",
+        "sourceCategory": "catalog-samsung-semiconductor",
+        "entities": [],
+        "meceAxis": "supply-capacity",
+        "continuityFallback": true,
+        "referenceOnly": true,
+        "referenceOrigin": "previous-verified-run",
+        "origin": "reference-archive",
+        "observedThisRun": false,
+        "dataStatus": "reference-only",
+        "translation": {
+          "title": {
+            "status": "verified",
+            "display": "translated"
+          },
+          "summary": {
+            "status": "verified",
+            "display": "translated"
+          }
+        },
+        "titleKo": "HBM이 PC의 RAM을 위해 등장하는 이유는 다음과 같습니다. - Tom's Hardware",
+        "summary": "치솟는 가격, 전환된 웨이퍼 용량, 수년간의 구제 지연으로 인해 소비자가 메모리를 더 이상 사용할 수 없게 되었습니다."
       },
       {
         "title": "메모리 위기 속에서 삼성의 1TB 990 SSD 가격이 GB당 19센트로 떨어졌습니다.",
@@ -14366,6 +14781,43 @@
         "origin": "reference-archive",
         "observedThisRun": false,
         "dataStatus": "reference-only"
+      },
+      {
+        "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+        "originalTitle": "News archive | Solidigm Newsroom",
+        "sourceUrl": "https://news.solidigm.com/en-WW/releases/",
+        "source": "news.solidigm.com",
+        "date": "2026-11-12",
+        "category": "nand",
+        "language": "english",
+        "streamLanguage": "english",
+        "languageVerified": true,
+        "discoveryProvider": "bing-rss",
+        "discoveryQuery": "Solidigm enterprise SSD QLC data center demand",
+        "automationAccountIds": [],
+        "summaryOriginal": "Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure.",
+        "summarySource": "source-meta",
+        "sourceCategory": "account-demand",
+        "entities": [],
+        "meceAxis": "demand-customers",
+        "continuityFallback": true,
+        "referenceOnly": true,
+        "referenceOrigin": "previous-verified-run",
+        "origin": "reference-archive",
+        "observedThisRun": false,
+        "dataStatus": "reference-only",
+        "translation": {
+          "title": {
+            "status": "verified",
+            "display": "translated"
+          },
+          "summary": {
+            "status": "verified",
+            "display": "translated"
+          }
+        },
+        "titleKo": "뉴스 아카이브 | 솔리다임 뉴스룸",
+        "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명합니다."
       },
       {
         "title": "Jen-Hsun Huang의 사임이 확인되었으며 월스트리트 분석가들은 AMD의 성과와 향후 시장 성과에 대해 낙관하고 있습니다.",
@@ -65731,11 +66183,11 @@
       "count": 3
     },
     {
-      "term": "smartphone",
+      "term": "CXMT",
       "count": 2
     },
     {
-      "term": "3Q26",
+      "term": "Windows",
       "count": 2
     }
   ],
@@ -65746,22 +66198,12 @@
     {
       "step": "주가:삼성전자",
       "ok": true,
-      "msg": "196800 KRW (-4.47%) · 2026-11-16T00:00:00.000Z"
-    },
-    {
-      "step": "경쟁사:Samsung",
-      "ok": true,
-      "msg": "2건 / score 35"
+      "msg": "206000 KRW (-0.96%) · 2026-11-13T00:00:00.000Z"
     },
     {
       "step": "주가:SKHY",
       "ok": true,
-      "msg": "1120000 KRW (-7.89%) · 2026-11-16T00:00:00.000Z"
-    },
-    {
-      "step": "가격:DRAM",
-      "ok": true,
-      "msg": "4개 표"
+      "msg": "1216000 KRW (-3.03%) · 2026-11-13T00:00:00.000Z"
     },
     {
       "step": "중국Fab인프라:Wuxi bonded zone expansion",
@@ -65769,9 +66211,14 @@
       "msg": "4/4 markers · 1회 확인"
     },
     {
-      "step": "스타트업:Celestial AI",
+      "step": "스타트업:XCENA",
       "ok": true,
-      "msg": "1건 / score 92"
+      "msg": "2건 / score 96"
+    },
+    {
+      "step": "가격:DRAM",
+      "ok": true,
+      "msg": "4개 표"
     },
     {
       "step": "주가:Micron",
@@ -65779,14 +66226,19 @@
       "msg": "778.31 USD (-2.52%) · 2026-11-13T14:30:00.000Z"
     },
     {
+      "step": "중국Fab인프라:BIS VEU China fabs",
+      "ok": true,
+      "msg": "3/3 markers · 1회 확인"
+    },
+    {
       "step": "가격:NAND / Storage",
       "ok": true,
       "msg": "6개 표"
     },
     {
-      "step": "중국Fab인프라:BIS VEU China fabs",
+      "step": "스타트업:Celestial AI",
       "ok": true,
-      "msg": "3/3 markers · 1회 확인"
+      "msg": "1건 / score 92"
     },
     {
       "step": "중국Fab인프라:AES C79 former VEU fab license reporting",
@@ -65809,29 +66261,34 @@
       "msg": "공개 채널 확인"
     },
     {
-      "step": "경쟁사:Micron",
+      "step": "경쟁사:CXMT",
       "ok": true,
-      "msg": "1건 / score 32"
+      "msg": "4건 / score 47"
     },
     {
-      "step": "뉴스:Custom HBM · HBM4",
+      "step": "경쟁사:YMTC",
       "ok": true,
-      "msg": "3건"
+      "msg": "1건 / score 27"
+    },
+    {
+      "step": "뉴스:범용 DRAM · CXMT",
+      "ok": true,
+      "msg": "5건"
+    },
+    {
+      "step": "뉴스:AI-NAND · eSSD",
+      "ok": true,
+      "msg": "2건"
+    },
+    {
+      "step": "뉴스:베이스 다이 · 패키징",
+      "ok": true,
+      "msg": "2건"
     },
     {
       "step": "뉴스:수요처 계정 실적·CapEx·출하",
       "ok": true,
       "msg": "2건"
-    },
-    {
-      "step": "뉴스:Samsung Semiconductor · catalog",
-      "ok": true,
-      "msg": "1건"
-    },
-    {
-      "step": "뉴스:Kioxia Newsroom · catalog",
-      "ok": true,
-      "msg": "1건"
     },
     {
       "step": "발행처피드:TechNews 科技新報 · feed",
@@ -65869,11 +66326,6 @@
       "msg": "4건"
     },
     {
-      "step": "발행처피드:EE Times · feed",
-      "ok": true,
-      "msg": "1건"
-    },
-    {
       "step": "발행처피드:TrendForce News · feed",
       "ok": true,
       "msg": "13건"
@@ -65881,17 +66333,7 @@
     {
       "step": "발행처피드:Blocks & Files · feed",
       "ok": true,
-      "msg": "10건"
-    },
-    {
-      "step": "뉴스:DRAM 중국어 권위 소스",
-      "ok": true,
-      "msg": "1건"
-    },
-    {
-      "step": "뉴스:NAND 중국어 권위 소스",
-      "ok": true,
-      "msg": "1건"
+      "msg": "9건"
     },
     {
       "step": "뉴스원문요약",
@@ -65901,7 +66343,7 @@
     {
       "step": "가격히스토리",
       "ok": true,
-      "msg": "신규 포인트 검증 대기"
+      "msg": "변경 없음"
     },
     {
       "step": "TrendForce차트",
@@ -65909,34 +66351,24 @@
       "msg": "login_required:403 · 공개 테이블 일일 누적 사용"
     },
     {
-      "step": "가격백필:dramexchange-home·2022-11",
-      "ok": false,
-      "msg": "5개 스냅샷 · 목표월 0/29개 · 변경 12개"
-    },
-    {
-      "step": "가격백필:dramexchange-home·2022-09",
+      "step": "가격백필:dramexchange-home·2022-07",
       "ok": false,
       "msg": "3개 스냅샷 · 목표월 0/29개 · 변경 12개"
     },
     {
-      "step": "가격백필:dram·2022-08",
-      "ok": false,
-      "msg": "archive request timeout"
-    },
-    {
       "step": "가격백필:재시도캐시",
       "ok": true,
-      "msg": "최근 시도 132개 작업 건너뜀 (실패 7일 · 그 외 30일)"
+      "msg": "최근 시도 144개 작업 건너뜀 (실패 7일 · 그 외 30일)"
     },
     {
       "step": "가격백필:합계",
       "ok": true,
-      "msg": "아카이브 과거점 24개 병합"
+      "msg": "아카이브 과거점 12개 병합"
     },
     {
       "step": "market:SOX official",
       "ok": true,
-      "msg": "2026-11-16 · 9742.61"
+      "msg": "2026-11-16 · 9615.11"
     },
     {
       "step": "market:^SOX",
@@ -66391,12 +66823,12 @@
     {
       "step": "뉴스증거게이트",
       "ok": true,
-      "msg": "승격 62건 · 격리 4건"
+      "msg": "승격 61건 · 격리 5건"
     },
     {
       "step": "번역:KO",
       "ok": true,
-      "msg": "8건 신규 · 캐시 35건 · 요청 21회 · 품질게이트 폴백 95건"
+      "msg": "6건 신규 · 캐시 49건 · 요청 21회 · 품질게이트 폴백 91건"
     },
     {
       "step": "quant:FRED USD/KRW",
@@ -66406,7 +66838,7 @@
     {
       "step": "quant:FX USD/KRW",
       "ok": true,
-      "msg": "1334.9 (2026-11-16)"
+      "msg": "1335.26 (2026-11-16)"
     },
     {
       "step": "quant:FRED USD/TWD",
@@ -66421,12 +66853,12 @@
     {
       "step": "quant:AI NVIDIA",
       "ok": true,
-      "msg": "160.66 · 90d -26.8%"
+      "msg": "155.47 · 90d -29.17%"
     },
     {
       "step": "quant:AI AMD",
       "ok": true,
-      "msg": "521.91 · 90d 7.75%"
+      "msg": "505.35 · 90d 4.33%"
     },
     {
       "step": "quant:Micron EDGAR",
@@ -66436,7 +66868,7 @@
     {
       "step": "quant:TSMC history",
       "ok": true,
-      "msg": "공식 IR 월매출 12개월 · 부분 이력"
+      "msg": "IR archive unavailable · TWSE official current disclosure retained"
     },
     {
       "step": "quant:TSMC 월매출",
@@ -66481,7 +66913,7 @@
     {
       "step": "derived:account-signals",
       "ok": true,
-      "msg": "수요처 27개 전수 · 직접 근거 1개"
+      "msg": "수요처 27개 전수 · 직접 근거 미관측"
     },
     {
       "step": "derived:strategy-account-intelligence",
@@ -66492,6 +66924,36 @@
       "step": "derived:baseline-freshness",
       "ok": true,
       "msg": "기준 서술 175개 · 재검증 138개"
+    },
+    {
+      "step": "official:catalog-llm-serving-systems-research",
+      "ok": true,
+      "msg": "LLM Serving Systems Research 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-meta-mtia300-2026",
+      "ok": true,
+      "msg": "Meta MTIA 300 Architecture 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-broadcom-ai",
+      "ok": true,
+      "msg": "Broadcom AI Infrastructure 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-nvidia-nvl72-architecture",
+      "ok": true,
+      "msg": "NVIDIA NVL72 AI Factory Reference Architecture 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-nvidia-openai-investment",
+      "ok": false,
+      "msg": "HTTP 200 또는 본문 표식 불일치"
+    },
+    {
+      "step": "official:catalog-nvidia-blackwell-oem-ecosystem",
+      "ok": true,
+      "msg": "NVIDIA Blackwell · OEM and ODM Ecosystem 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-nvidia-dynamo",
@@ -66509,9 +66971,89 @@
       "msg": "Anthropic Compute Infrastructure 직접 연결 · 1회 확인"
     },
     {
+      "step": "official:catalog-openai-infrastructure",
+      "ok": true,
+      "msg": "OpenAI Infrastructure 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-ai-infra-org",
+      "ok": true,
+      "msg": "SK hynix AI Infra Organization 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-broadcom-partnership-2026",
+      "ok": true,
+      "msg": "SK hynix × Broadcom AI Chip Co-design 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-microsoft-partnership-2026",
+      "ok": true,
+      "msg": "SK hynix × Microsoft Maia 200 Collaboration Review 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-supermicro-aimx-2025",
+      "ok": true,
+      "msg": "SK hynix AiMX × Supermicro System Validation 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-nvidia-partnership-2026",
+      "ok": true,
+      "msg": "SK hynix × NVIDIA Multi-year Technology Partnership 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-vllm-kv-offloading",
+      "ok": true,
+      "msg": "vLLM KV Offloading 직접 연결 · 1회 확인"
+    },
+    {
       "step": "official:marvell-skhynix-cmmax-2026",
       "ok": true,
       "msg": "Marvell·SK hynix CMM-Ax CXL-PNM 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-sandisk-hbf-2026",
+      "ok": true,
+      "msg": "SK hynix × Sandisk HBF Consortium 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-foxconn-exploration-2026",
+      "ok": true,
+      "msg": "SK Group × Foxconn AI Infrastructure Exploration 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-vlsi-3d-dram-2025",
+      "ok": true,
+      "msg": "SK hynix Future DRAM Roadmap · 4F² VG and 3D DRAM 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-meta-partnership-2026",
+      "ok": true,
+      "msg": "SK hynix × Meta AI Memory Roadmap 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-nvidia-ai-cloud-2026",
+      "ok": true,
+      "msg": "SK Group × NVIDIA · AI Factories and Next-generation Memory 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-tsmc-partnership-2026",
+      "ok": true,
+      "msg": "SK hynix × TSMC HBM and Advanced Packaging 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-google-cloud-next26-tpu8",
+      "ok": true,
+      "msg": "Google Cloud Next 2026 TPU 8t and 8i 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:trendforce-memory-2026",
+      "ok": true,
+      "msg": "TrendForce 2026/2027 memory forecast 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-hpe-partnership-2026",
+      "ok": true,
+      "msg": "SK hynix × HPE Certified Server Memory 직접 연결 · 1회 확인"
     },
     {
       "step": "official:company-samsung-leadership",
@@ -66524,9 +67066,9 @@
       "msg": "Micron official leadership 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:company-amd-leadership",
+      "step": "official:wsts",
       "ok": true,
-      "msg": "AMD official leadership 직접 연결 · 1회 확인"
+      "msg": "WSTS forecast 직접 연결 · 1회 확인"
     },
     {
       "step": "official:trendforce-rubin-mix-2026",
@@ -66534,19 +67076,9 @@
       "msg": "TrendForce NVIDIA 2026 product mix 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:trendforce-memory-2026",
+      "step": "official:company-amd-leadership",
       "ok": true,
-      "msg": "TrendForce 2026/2027 memory forecast 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:trendforce-memory-price-3q26",
-      "ok": true,
-      "msg": "TrendForce 3Q26 DRAM and NAND contract prices 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:wsts",
-      "ok": true,
-      "msg": "WSTS forecast 직접 연결 · 1회 확인"
+      "msg": "AMD official leadership 직접 연결 · 1회 확인"
     },
     {
       "step": "official:company-asml-leadership",
@@ -66554,9 +67086,19 @@
       "msg": "ASML board of management 직접 연결 · 1회 확인"
     },
     {
+      "step": "official:trendforce-memory-price-3q26",
+      "ok": true,
+      "msg": "TrendForce 3Q26 DRAM and NAND contract prices 직접 연결 · 1회 확인"
+    },
+    {
       "step": "official:company-skhynix-leadership",
       "ok": true,
       "msg": "SK hynix official leadership 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:skhynix-ces-2026-ai-memory",
+      "ok": true,
+      "msg": "SK hynix CES 2026 AI memory portfolio 직접 연결 · 1회 확인"
     },
     {
       "step": "official:census-former-veu-c79",
@@ -66564,14 +67106,19 @@
       "msg": "Census former-VEU C79 license reporting 직접 연결 · 1회 확인"
     },
     {
+      "step": "official:company-naura-profile",
+      "ok": true,
+      "msg": "NAURA official company profile 직접 연결 · 1회 확인"
+    },
+    {
       "step": "official:sandisk-bics10-sampling",
       "ok": true,
       "msg": "Sandisk BiCS10 sampling 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:xmc-company-profile",
+      "step": "official:company-amec-profile",
       "ok": true,
-      "msg": "XMC official company classification 직접 연결 · 1회 확인"
+      "msg": "AMEC official company profile 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-nvidia-newsroom",
@@ -66579,54 +67126,9 @@
       "msg": "NVIDIA Vera Rubin Platform 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-broadcom-ai",
-      "ok": true,
-      "msg": "Broadcom AI Infrastructure 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-meta-mtia300-2026",
-      "ok": true,
-      "msg": "Meta MTIA 300 Architecture 직접 연결 · 1회 확인"
-    },
-    {
       "step": "official:catalog-oracle-ai-infrastructure",
       "ok": true,
       "msg": "Oracle Cloud Infrastructure AI 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-nvidia-blackwell-oem-ecosystem",
-      "ok": true,
-      "msg": "NVIDIA Blackwell · OEM and ODM Ecosystem 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-marvell-custom-asic",
-      "ok": true,
-      "msg": "Marvell Custom ASIC 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-marvell-skhynix-cmmax-2026",
-      "ok": true,
-      "msg": "Marvell × SK hynix CMM-Ax 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-spacex-ai-compute",
-      "ok": true,
-      "msg": "SpaceX STARMIND 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-marvell-custom-hbm",
-      "ok": true,
-      "msg": "Marvell Custom HBM Compute 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-google-cloud-next26-tpu8",
-      "ok": true,
-      "msg": "Google Cloud Next 2026 TPU 8t and 8i 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-dtf-2026",
-      "ok": true,
-      "msg": "SK hynix DTF 2026 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-microsoft-fy26-q3-capacity",
@@ -66634,39 +67136,9 @@
       "msg": "Microsoft FY2026 Q3 Earnings 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-skhynix-nvidia-partnership-2026",
+      "step": "official:xmc-company-profile",
       "ok": true,
-      "msg": "SK hynix × NVIDIA Multi-year Technology Partnership 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:sse-cxmt-final-offering",
-      "ok": true,
-      "msg": "SSE / China Daily CXMT final offering 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-broadcom-partnership-2026",
-      "ok": true,
-      "msg": "SK hynix × Broadcom AI Chip Co-design 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-google-cloud-tpu",
-      "ok": true,
-      "msg": "Google Cloud TPU 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-tsmc-partnership-2026",
-      "ok": true,
-      "msg": "SK hynix × TSMC HBM and Advanced Packaging 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-nvidia-ai-cloud-2026",
-      "ok": true,
-      "msg": "SK Group × NVIDIA · AI Factories and Next-generation Memory 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-microsoft-fy26-q4-capacity",
-      "ok": true,
-      "msg": "Microsoft FY2026 Q4 Earnings 직접 연결 · 1회 확인"
+      "msg": "XMC official company classification 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-nvidia-marvell-investment-2026",
@@ -66674,24 +67146,59 @@
       "msg": "NVIDIA–Marvell Strategic Partnership and Investment 직접 연결 · 1회 확인"
     },
     {
+      "step": "official:catalog-microsoft-fy26-q4-capacity",
+      "ok": true,
+      "msg": "Microsoft FY2026 Q4 Earnings 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-marvell-custom-hbm",
+      "ok": true,
+      "msg": "Marvell Custom HBM Compute 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-skhynix-dtf-2026",
+      "ok": true,
+      "msg": "SK hynix DTF 2026 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-spacex-ai-compute",
+      "ok": true,
+      "msg": "SpaceX STARMIND 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-google-cloud-tpu",
+      "ok": true,
+      "msg": "Google Cloud TPU 직접 연결 · 1회 확인"
+    },
+    {
       "step": "official:catalog-google-marvell-custom-silicon-2026",
       "ok": true,
       "msg": "Google–Marvell Custom Silicon Commercial Agreement 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-skhynix-hpe-partnership-2026",
+      "step": "official:catalog-marvell-skhynix-cmmax-2026",
       "ok": true,
-      "msg": "SK hynix × HPE Certified Server Memory 직접 연결 · 1회 확인"
+      "msg": "Marvell × SK hynix CMM-Ax 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-openai-stargate-korea-memory-2025",
-      "ok": true,
-      "msg": "OpenAI × SK hynix × Samsung Electronics · Stargate Korea Memory 직접 연결 · 1회 확인"
+      "step": "official:catalog-spacex-ai-prospectus-2026",
+      "ok": false,
+      "msg": "HTTP 200 또는 본문 표식 불일치"
     },
     {
-      "step": "official:catalog-openai-infrastructure",
+      "step": "official:catalog-openai-amd-6gw-2025",
       "ok": true,
-      "msg": "OpenAI Infrastructure 직접 연결 · 1회 확인"
+      "msg": "AMD × OpenAI 6GW Strategic Partnership 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:sse-cxmt-final-offering",
+      "ok": true,
+      "msg": "SSE / China Daily CXMT final offering 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:sse-cxmt-financials",
+      "ok": true,
+      "msg": "SSE / Global Times CXMT prospectus financials 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-openai-broadcom-10gw-2025",
@@ -66704,14 +67211,9 @@
       "msg": "OpenAI × Oracle · Stargate 4.5GW Partnership 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-openai-amd-6gw-2025",
+      "step": "official:catalog-marvell-custom-asic",
       "ok": true,
-      "msg": "AMD × OpenAI 6GW Strategic Partnership 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-sandisk-hbf-2026",
-      "ok": true,
-      "msg": "SK hynix × Sandisk HBF Consortium 직접 연결 · 1회 확인"
+      "msg": "Marvell Custom ASIC 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-wiwynn-nvidia-rubin-2026",
@@ -66719,99 +67221,9 @@
       "msg": "Wiwynn × NVIDIA · Vera Rubin NVL72 Readiness 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-skhynix-foxconn-exploration-2026",
+      "step": "official:catalog-openai-stargate-korea-memory-2025",
       "ok": true,
-      "msg": "SK Group × Foxconn AI Infrastructure Exploration 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-microsoft-partnership-2026",
-      "ok": true,
-      "msg": "SK hynix × Microsoft Maia 200 Collaboration Review 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:company-amec-profile",
-      "ok": true,
-      "msg": "AMEC official company profile 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-meta-partnership-2026",
-      "ok": true,
-      "msg": "SK hynix × Meta AI Memory Roadmap 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-supermicro-aimx-2025",
-      "ok": true,
-      "msg": "SK hynix AiMX × Supermicro System Validation 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-vlsi-3d-dram-2025",
-      "ok": true,
-      "msg": "SK hynix Future DRAM Roadmap · 4F² VG and 3D DRAM 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-anthropic-trainium",
-      "ok": true,
-      "msg": "Anthropic × AWS Trainium 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:sse-cxmt-financials",
-      "ok": true,
-      "msg": "SSE / Global Times CXMT prospectus financials 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-nvidia-openai-investment",
-      "ok": false,
-      "msg": "HTTP 200 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-alchip-aws-cloud-silicon-2026",
-      "ok": true,
-      "msg": "Alchip × AWS · Cloud-based Silicon Execution 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-microsoft-openai-2026",
-      "ok": true,
-      "msg": "Microsoft × OpenAI Partnership 2026 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-amazon-anthropic-2026",
-      "ok": true,
-      "msg": "Amazon × Anthropic Strategic Collaboration 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-nvidia-coherent-2026",
-      "ok": true,
-      "msg": "NVIDIA × Coherent Optics Partnership 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-anthropic-spacex-compute-2026",
-      "ok": true,
-      "msg": "Anthropic × SpaceX Compute Partnership 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-nvidia-coreweave-2026",
-      "ok": true,
-      "msg": "NVIDIA × CoreWeave AI Factories 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-anthropic-funding-2026",
-      "ok": true,
-      "msg": "Anthropic Series G 2026 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-skhynix-ai-infra-org",
-      "ok": true,
-      "msg": "SK hynix AI Infra Organization 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-llm-serving-systems-research",
-      "ok": true,
-      "msg": "LLM Serving Systems Research 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-vllm-kv-offloading",
-      "ok": true,
-      "msg": "vLLM KV Offloading 직접 연결 · 1회 확인"
+      "msg": "OpenAI × SK hynix × Samsung Electronics · Stargate Korea Memory 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-amazon-openai-2026",
@@ -66819,9 +67231,34 @@
       "msg": "Amazon × OpenAI Strategic Partnership 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-cxl-consortium",
+      "step": "official:catalog-anthropic-trainium",
       "ok": true,
-      "msg": "CXL Consortium 직접 연결 · 1회 확인"
+      "msg": "Anthropic × AWS Trainium 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-anthropic-funding-2026",
+      "ok": true,
+      "msg": "Anthropic Series G 2026 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-nvidia-coreweave-2026",
+      "ok": true,
+      "msg": "NVIDIA × CoreWeave AI Factories 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-nvidia-coherent-2026",
+      "ok": true,
+      "msg": "NVIDIA × Coherent Optics Partnership 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-microsoft-openai-2026",
+      "ok": true,
+      "msg": "Microsoft × OpenAI Partnership 2026 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-anthropic-spacex-compute-2026",
+      "ok": true,
+      "msg": "Anthropic × SpaceX Compute Partnership 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-anthropic-context-engineering",
@@ -66829,24 +67266,14 @@
       "msg": "Anthropic Context Engineering 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-nvidia-nvl72-architecture",
+      "step": "official:catalog-alchip-aws-cloud-silicon-2026",
       "ok": true,
-      "msg": "NVIDIA NVL72 AI Factory Reference Architecture 직접 연결 · 1회 확인"
+      "msg": "Alchip × AWS · Cloud-based Silicon Execution 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-kubernetes-kueue",
       "ok": true,
       "msg": "Kubernetes Kueue 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-spacex-ai-prospectus-2026",
-      "ok": false,
-      "msg": "HTTP 200 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-slurm-gres",
-      "ok": true,
-      "msg": "Slurm GPU Resource Scheduling 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-hbs-inference-research",
@@ -66859,14 +67286,14 @@
       "msg": "UCIe Consortium Specifications 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-guc-tsmc-apt-hbm4-2025",
+      "step": "official:catalog-cxl-consortium",
       "ok": true,
-      "msg": "GUC × TSMC · 2.5D/3D APT and HBM4 Platform 직접 연결 · 1회 확인"
+      "msg": "CXL Consortium 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-asus-nvidia-rubin-validation-2026",
+      "step": "official:catalog-slurm-gres",
       "ok": true,
-      "msg": "ASUS × NVIDIA · Vera Rubin NVL72 Rack Validation 직접 연결 · 1회 확인"
+      "msg": "Slurm GPU Resource Scheduling 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-nvidia-ai-networking",
@@ -66874,14 +67301,14 @@
       "msg": "NVIDIA AI Factory Networking 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-samsung-amd-ai-memory-2026",
+      "step": "official:catalog-samsung-broadcom-ai-memory-2026",
       "ok": true,
-      "msg": "Samsung · AMD 차세대 AI 메모리 전략 협력 직접 연결 · 1회 확인"
+      "msg": "Samsung · Broadcom 메모리·파운드리 전략 협력 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-micron-meta-lpddr5x-2026",
+      "step": "official:catalog-guc-tsmc-apt-hbm4-2025",
       "ok": true,
-      "msg": "Micron · Meta LPDDR5X 데이터센터 워크로드 검증 직접 연결 · 1회 확인"
+      "msg": "GUC × TSMC · 2.5D/3D APT and HBM4 Platform 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-micron-tsmc-hbm4e-base-die",
@@ -66889,19 +67316,39 @@
       "msg": "Micron · TSMC 3DFabric HBM3E CoWoS 에코시스템 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:micron-sixteen-sca",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
+      "step": "official:catalog-ibm-quantum-roadmap",
+      "ok": true,
+      "msg": "IBM Quantum Roadmap 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-micron-broadcom-pcie6-2025",
+      "step": "official:catalog-samsung-dell-cxl-2025",
       "ok": true,
-      "msg": "Micron · Broadcom PCIe Gen6 상호운용성 직접 연결 · 1회 확인"
+      "msg": "Samsung · Dell CXL 메모리 솔루션 검증 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-inventec-nvidia-rubin-2026",
+      "step": "official:catalog-amazon-anthropic-2026",
       "ok": true,
-      "msg": "Inventec × NVIDIA · Vera Rubin NVL72 Rack Platform 직접 연결 · 1회 확인"
+      "msg": "Amazon × Anthropic Strategic Collaboration 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-micron-meta-lpddr5x-2026",
+      "ok": true,
+      "msg": "Micron · Meta LPDDR5X 데이터센터 워크로드 검증 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-marvell-structera-interop",
+      "ok": true,
+      "msg": "Marvell Structera CXL 상호운용성 검증 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-samsung-amd-ai-memory-2026",
+      "ok": true,
+      "msg": "Samsung · AMD 차세대 AI 메모리 전략 협력 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-samsung-supermicro-cxl-2025",
+      "ok": true,
+      "msg": "Samsung · Supermicro CMM-B CXL 검증 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-samsung-nvidia-gtc-2026",
@@ -66909,9 +67356,14 @@
       "msg": "Samsung · NVIDIA GTC 2026 AI 메모리 협력 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:company-nvidia-leadership",
+      "step": "official:micron-sixteen-sca",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
+    },
+    {
+      "step": "official:catalog-skhynix-newsroom",
       "ok": true,
-      "msg": "NVIDIA official leadership 공식 대체 경로 · 3회 확인"
+      "msg": "SK hynix Newsroom 직접 연결 · 1회 확인"
     },
     {
       "step": "official:company-jcet-profile",
@@ -66919,9 +67371,14 @@
       "msg": "JCET official company and governance profile 공식 대체 경로 · 4회 확인"
     },
     {
-      "step": "official:skhynix-ces-2026-ai-memory",
+      "step": "official:catalog-purestorage-skhynix-qlc",
       "ok": true,
-      "msg": "SK hynix CES 2026 AI memory portfolio 직접 연결 · 1회 확인"
+      "msg": "Pure Storage × SK hynix QLC Collaboration 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-iea-energy-ai",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
     },
     {
       "step": "official:catalog-gigabyte-nvidia-rubin-2026",
@@ -66934,49 +67391,39 @@
       "msg": "HTTP 403 또는 본문 표식 불일치"
     },
     {
-      "step": "official:catalog-sia-market-data",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-samsung-broadcom-ai-memory-2026",
-      "ok": true,
-      "msg": "Samsung · Broadcom 메모리·파운드리 전략 협력 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-iea-energy-ai",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-marvell-structera-interop",
-      "ok": true,
-      "msg": "Marvell Structera CXL 상호운용성 검증 직접 연결 · 1회 확인"
-    },
-    {
       "step": "official:catalog-kubernetes-dra",
       "ok": true,
       "msg": "Kubernetes Dynamic Resource Allocation 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-skhynix-newsroom",
-      "ok": true,
-      "msg": "SK hynix Newsroom 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-ibm-quantum-roadmap",
-      "ok": true,
-      "msg": "IBM Quantum Roadmap 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-micron-amd-mi350-2025",
+      "step": "official:catalog-sia-market-data",
       "ok": false,
       "msg": "HTTP 403 또는 본문 표식 불일치"
     },
     {
-      "step": "official:catalog-micron-ssd-ecosystem-2025",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
+      "step": "official:catalog-asus-nvidia-rubin-validation-2026",
+      "ok": true,
+      "msg": "ASUS × NVIDIA · Vera Rubin NVL72 Rack Validation 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-inventec-nvidia-rubin-2026",
+      "ok": true,
+      "msg": "Inventec × NVIDIA · Vera Rubin NVL72 Rack Platform 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-samsung-semiconductor",
+      "ok": true,
+      "msg": "Samsung Semiconductor 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-micron-broadcom-pcie6-2025",
+      "ok": true,
+      "msg": "Micron · Broadcom PCIe Gen6 상호운용성 직접 연결 · 1회 확인"
+    },
+    {
+      "step": "official:catalog-imec-silicon-photonics",
+      "ok": true,
+      "msg": "imec Silicon Photonics 직접 연결 · 1회 확인"
     },
     {
       "step": "official:catalog-micron-dell-6600-ion-2026",
@@ -66989,24 +67436,29 @@
       "msg": "HTTP 403 또는 본문 표식 불일치"
     },
     {
+      "step": "official:catalog-micron-ssd-ecosystem-2025",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
+    },
+    {
+      "step": "official:catalog-micron-amd-mi350-2025",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
+    },
+    {
+      "step": "official:company-nvidia-leadership",
+      "ok": true,
+      "msg": "NVIDIA official leadership 공식 대체 경로 · 3회 확인"
+    },
+    {
+      "step": "official:catalog-samsung-qct-cxl-2024",
+      "ok": true,
+      "msg": "Samsung · QCT CXL 공동 정의 MOU 직접 연결 · 1회 확인"
+    },
+    {
       "step": "official:catalog-dell-xe9712-rack",
       "ok": false,
       "msg": "HTTP 403 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-dell-agentic-ai-2026",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-purestorage-skhynix-qlc",
-      "ok": true,
-      "msg": "Pure Storage × SK hynix QLC Collaboration 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-samsung-semiconductor",
-      "ok": true,
-      "msg": "Samsung Semiconductor 직접 연결 · 1회 확인"
     },
     {
       "step": "official:samsung-hbm4-roadmap",
@@ -67014,37 +67466,12 @@
       "msg": "Samsung HBM4 and Custom HBM roadmap 공식 대체 경로 · 2회 확인"
     },
     {
-      "step": "official:catalog-intel-glass-substrate",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-intel-advanced-packaging",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
-    },
-    {
       "step": "official:catalog-samsung-smrc",
       "ok": true,
       "msg": "Samsung Memory Research Center 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:micron-fq3-2026",
-      "ok": false,
-      "msg": "HTTP 403 또는 본문 표식 불일치"
-    },
-    {
-      "step": "official:catalog-imec-silicon-photonics",
-      "ok": true,
-      "msg": "imec Silicon Photonics 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:catalog-neuromorphic-computing-research",
-      "ok": true,
-      "msg": "Neuromorphic Computing at Scale 직접 연결 · 1회 확인"
-    },
-    {
-      "step": "official:counterpoint-dram-q1-2026",
+      "step": "official:catalog-dell-agentic-ai-2026",
       "ok": false,
       "msg": "HTTP 403 또는 본문 표식 불일치"
     },
@@ -67054,29 +67481,39 @@
       "msg": "Google Gemini Context Caching 직접 연결 · 1회 확인"
     },
     {
+      "step": "official:catalog-intel-advanced-packaging",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
+    },
+    {
+      "step": "official:catalog-intel-glass-substrate",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
+    },
+    {
+      "step": "official:micron-fq3-2026",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
+    },
+    {
       "step": "official:catalog-photonic-computing-research",
       "ok": true,
       "msg": "Large-Scale Photonic Accelerator Research 직접 연결 · 1회 확인"
     },
     {
-      "step": "official:catalog-samsung-supermicro-cxl-2025",
-      "ok": true,
-      "msg": "Samsung · Supermicro CMM-B CXL 검증 직접 연결 · 1회 확인"
+      "step": "official:counterpoint-dram-q1-2026",
+      "ok": false,
+      "msg": "HTTP 403 또는 본문 표식 불일치"
     },
     {
-      "step": "official:catalog-samsung-qct-cxl-2024",
+      "step": "official:catalog-neuromorphic-computing-research",
       "ok": true,
-      "msg": "Samsung · QCT CXL 공동 정의 MOU 직접 연결 · 1회 확인"
+      "msg": "Neuromorphic Computing at Scale 직접 연결 · 1회 확인"
     },
     {
       "step": "official:company-smic-profile",
       "ok": true,
       "msg": "SMIC official company profile 공식 대체 경로 · 7회 확인"
-    },
-    {
-      "step": "official:catalog-samsung-dell-cxl-2025",
-      "ok": true,
-      "msg": "Samsung · Dell CXL 메모리 솔루션 검증 직접 연결 · 1회 확인"
     },
     {
       "step": "official:company-tsmc-leadership",
@@ -67092,11 +67529,6 @@
       "step": "official:catalog-broadcom-meta-mtia",
       "ok": false,
       "msg": "The operation was aborted due to timeout"
-    },
-    {
-      "step": "official:company-naura-profile",
-      "ok": true,
-      "msg": "NAURA official company profile 공식 대체 경로 · 4회 확인"
     },
     {
       "step": "official:company-broadcom-leadership",
@@ -67116,7 +67548,7 @@
   ],
   "quality": {
     "status": "verified",
-    "verifiedAt": "2026-11-16T14:53:40.099Z",
+    "verifiedAt": "2026-11-16T20:51:05.714Z",
     "methodologyVersion": "4.0-source-provenance",
     "checks": [
       {
@@ -67130,14 +67562,14 @@
         "id": "news_total",
         "critical": true,
         "passed": true,
-        "observed": 62,
+        "observed": 61,
         "threshold": 24
       },
       {
         "id": "news_english",
         "critical": true,
         "passed": true,
-        "observed": 44,
+        "observed": 43,
         "threshold": 6
       },
       {
@@ -67172,28 +67604,28 @@
         "id": "news_live_only",
         "critical": true,
         "passed": true,
-        "observed": 62,
-        "threshold": 62
+        "observed": 61,
+        "threshold": 61
       },
       {
         "id": "news_current",
         "critical": true,
         "passed": true,
-        "observed": 62,
+        "observed": 61,
         "threshold": 12
       },
       {
         "id": "news_observed_this_run",
         "critical": true,
         "passed": true,
-        "observed": 62,
+        "observed": 61,
         "threshold": 12
       },
       {
         "id": "news_observed_english",
         "critical": true,
         "passed": true,
-        "observed": 44,
+        "observed": 43,
         "threshold": 6
       },
       {
@@ -67214,22 +67646,22 @@
         "id": "community_signals",
         "critical": true,
         "passed": true,
-        "observed": 7,
+        "observed": 6,
         "threshold": 5
       },
       {
         "id": "community_live_only",
         "critical": true,
         "passed": true,
-        "observed": 7,
-        "threshold": 7
+        "observed": 6,
+        "threshold": 6
       },
       {
         "id": "benchmark_live_only",
         "critical": true,
         "passed": true,
-        "observed": 2,
-        "threshold": 2
+        "observed": 4,
+        "threshold": 4
       },
       {
         "id": "decision_briefs",
@@ -67306,24 +67738,24 @@
     "failedChecks": [],
     "metrics": {
       "priceRows": 41,
-      "newsItems": 62,
-      "englishNews": 44,
+      "newsItems": 61,
+      "englishNews": 43,
       "chineseNews": 7,
       "directSourceRatio": 1,
       "summaryRatio": 1,
       "provenanceCoverage": 1,
-      "liveOnlyNews": 62,
-      "currentNews": 62,
-      "observedThisRunNews": 62,
-      "observedThisRunEnglish": 44,
+      "liveOnlyNews": 61,
+      "currentNews": 61,
+      "observedThisRunNews": 61,
+      "observedThisRunEnglish": 43,
       "observedThisRunChinese": 7,
-      "quarantinedNews": 4,
+      "quarantinedNews": 5,
       "duplicateCount": 0,
-      "communitySignals": 7,
+      "communitySignals": 6,
       "communityReferenceSignals": 63,
-      "benchmarkSignals": 2,
+      "benchmarkSignals": 4,
       "benchmarkReferenceSignals": 8,
-      "benchmarkDiscoverySignals": 2,
+      "benchmarkDiscoverySignals": 6,
       "decisionBriefs": 5,
       "factEvents": 0,
       "sourceChannels": 9,
@@ -67340,11 +67772,11 @@
       "peerStocks": 3
     },
     "channels": {
-      "prices": "2026-11-16T14:18:41.057Z",
-      "news": "2026-11-16T14:53:40.099Z",
-      "community": "2026-11-16T14:18:54.853Z",
-      "brokerResearch": "2026-11-16T14:50:32.056Z",
-      "markets": "2026-11-16T14:49:28.284Z"
+      "prices": "2026-11-16T20:33:14.900Z",
+      "news": "2026-11-16T20:51:05.714Z",
+      "community": "2026-11-16T20:33:28.089Z",
+      "brokerResearch": "2026-11-16T20:48:13.410Z",
+      "markets": "2026-11-16T20:46:58.235Z"
     }
   },
   "clientArtifact": true
