@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44098571004",
-  "generatedAt": "2026-11-17T14:19:20.295Z",
+  "runId": "44163009984",
+  "generatedAt": "2026-11-17T20:08:50.814Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3236,17 +3236,26 @@
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 1,
-            "trend": "up",
+            "trend": "down",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
             ]
           },
           {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
-            "trend": "up",
+            "trend": "flat",
             "productIds": [
               "custom-hbm"
             ]
@@ -3255,7 +3264,7 @@
             "id": "logic-boundary",
             "label": "로직 경계",
             "mentions": 1,
-            "trend": "up",
+            "trend": "flat",
             "productIds": [
               "custom-hbm"
             ]
@@ -3366,13 +3375,14 @@
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
         "painSignals": [
           "대역폭",
-          "패키징·파운드리",
-          "로직 경계"
+          "전력·열",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -3760,13 +3770,13 @@
           {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
-            "headline": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
-            "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/",
-            "source": "electronicsweekly.com",
-            "asOf": "2026-10-19",
+            "headline": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+            "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia/",
+            "source": "troy-technical.com",
+            "asOf": "2026-11-11",
             "firstSeen": "2026-10-19",
-            "lastSeen": "2026-10-19",
-            "seenCount": 2
+            "lastSeen": "2026-11-11",
+            "seenCount": 3
           }
         ],
         "stances": [
@@ -3839,15 +3849,16 @@
           "gate": "NRE 회수 · 확정 물량 · Margin",
           "hold": "반복",
           "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-11",
+          "evidenceCount": 3,
           "evidenceIds": [
             "106hb70",
-            "1rv9k1i"
+            "1rv9k1i",
+            "17u79ag"
           ],
-          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
-          "source": "electronicsweekly.com",
-          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
+          "evidence": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia/"
         }
       ],
       "painPoints": [
@@ -3941,11 +3952,18 @@
           "date": "2026-05-20"
         },
         {
-          "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-          "date": "2026-11-17"
+          "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+          "date": "2026-11-11"
+        },
+        {
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -7342,6 +7360,15 @@
             "productIds": [
               "custom-hbm"
             ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-o"
+            ]
           }
         ],
         "supplierRelations": [
@@ -8114,7 +8141,7 @@
             "asOf": "2026-11-17",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-11-17",
-            "seenCount": 4
+            "seenCount": 5
           },
           {
             "key": "tech:NVL72",
@@ -8237,6 +8264,28 @@
       },
       "derivedDemand": [
         {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "지속",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "0d63qpl",
+            "106hb70",
+            "1rv9k1i",
+            "0bpoiza",
+            "17u79ag"
+          ],
+          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -8338,27 +8387,6 @@
           "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "반복",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-11-17",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "0d63qpl",
-            "106hb70",
-            "1rv9k1i",
-            "0bpoiza"
-          ],
-          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
         },
         {
           "technology": "NVL72",
@@ -8555,7 +8583,7 @@
           "layer": "end-customer",
           "status": "validated",
           "statusLabel": "반복 근거",
-          "signal": "Custom HBM · 반복",
+          "signal": "Custom HBM · 지속",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
           "memoryRequirement": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -8575,7 +8603,7 @@
             "source": "digitimes.com",
             "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html",
             "asOf": "2026-11-17",
-            "count": 4
+            "count": 5
           }
         },
         {
@@ -11193,16 +11221,6 @@
         ],
         "painAxes": [
           {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 2,
@@ -11218,6 +11236,16 @@
             "trend": "up",
             "productIds": [
               "custom-hbm"
+            ]
+          },
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
             ]
           }
         ],
@@ -11260,9 +11288,9 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "대역폭",
           "패키징·파운드리",
-          "로직 경계"
+          "로직 경계",
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -11896,11 +11924,11 @@
           "date": "2026-11-17"
         },
         {
-          "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-          "date": "2026-11-17"
+          "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -12931,6 +12959,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:Custom HBM",
+            "label": "Custom HBM",
+            "headline": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+            "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia/",
+            "source": "troy-technical.com",
+            "asOf": "2026-11-11",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-11-11",
+            "seenCount": 2
+          },
+          {
             "key": "tech:CXL",
             "label": "CXL",
             "headline": "Dynamo 및 Liqid CXL 공유 메모리를 사용하여 KV 캐시 메모리 벽 깨기",
@@ -12975,17 +13014,6 @@
             "seenCount": 1
           },
           {
-            "key": "tech:Custom HBM",
-            "label": "Custom HBM",
-            "headline": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
-            "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/",
-            "source": "electronicsweekly.com",
-            "asOf": "2026-10-19",
-            "firstSeen": "2026-10-19",
-            "lastSeen": "2026-10-19",
-            "seenCount": 1
-          },
-          {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
             "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
@@ -13024,6 +13052,25 @@
         ]
       },
       "derivedDemand": [
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-11-11",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "106hb70",
+            "17u79ag"
+          ],
+          "evidence": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia/"
+        },
         {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
@@ -13138,24 +13185,6 @@
           "evidence": "BOS, LG, HANA Micron, 한국 자동차 칩렛 개발에 협력",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261022VL211/micron-automotive-bos-lg-electronics-lg.html"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "관측",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "106hb70"
-          ],
-          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
-          "source": "electronicsweekly.com",
-          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
         },
         {
           "technology": "Vera Rubin",

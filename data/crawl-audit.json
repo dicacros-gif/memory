@@ -1,63 +1,64 @@
 {
   "schemaVersion": "1.0",
-  "runId": "44098571004",
-  "generatedAt": "2026-11-17T14:19:20.295Z",
+  "runId": "44163009984",
+  "generatedAt": "2026-11-17T20:08:50.814Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
-    "news": 63,
+    "news": 55,
     "priceRows": 41,
-    "communitySignals": 7,
-    "benchmarkSignals": 5,
-    "intelligenceBriefs": 6,
+    "communitySignals": 8,
+    "benchmarkSignals": 3,
+    "intelligenceBriefs": 5,
     "factEvents": 0,
     "sourceChannels": 9
   },
   "referenceOnly": {
-    "news": 2039,
+    "news": 2046,
     "communitySignals": 63,
     "benchmarkSignals": 8,
     "benchmarkDiscoveries": 4
   },
   "quarantined": {
-    "news": 4,
+    "news": 7,
     "reasonCounts": {
-      "retail_deal": 2,
-      "source_summary_missing": 2,
-      "source_not_observed_this_run": 2
+      "source_summary_missing": 5,
+      "source_not_observed_this_run": 4,
+      "retail_deal": 2
     }
   },
   "sourceClasses": {
-    "authoritative-media": 61,
-    "official": 1,
-    "general-media": 1
+    "general-media": 3,
+    "authoritative-media": 49,
+    "official": 2,
+    "research": 1
   },
   "origins": {
-    "live-crawl": 63
+    "live-crawl": 55
   },
   "translation": {
-    "verified": 46,
-    "unverified": 16,
-    "attempted": 62,
-    "sourceOriginal": 16,
+    "verified": 44,
+    "unverified": 17,
+    "attempted": 61,
+    "sourceOriginal": 17,
     "selfHealing": {
       "retryPolicy": "unverified rows are not cached and are retried first on the next run",
-      "requests": 18,
+      "requests": 16,
       "retries": 0,
-      "cacheHits": 51,
-      "translated": 15,
-      "qualityRejected": 77,
+      "cacheHits": 60,
+      "translated": 2,
+      "qualityRejected": 74,
       "markerFallbacks": 0,
-      "batches": 18,
+      "batches": 16,
       "singleFallbackRequests": 0,
       "rateLimited": 0,
       "transientFailures": 0,
       "networkErrors": 0,
       "nonRetryableFailures": 0,
       "deadlineSkipped": 0,
-      "pending": 77
+      "pending": 74
     },
-    "averageTokenMatchPct": 87.1
+    "averageTokenMatchPct": 83.6
   },
   "priceVerification": {
     "sourceCount": 0,
@@ -73,33 +74,37 @@
     "discoveryQueries": 117,
     "healthChecks": 94,
     "connectedHealthChecks": 78,
-    "observedSources": 9,
-    "freshObservedSources": 6,
-    "staleObservedSources": 3,
+    "observedSources": 11,
+    "freshObservedSources": 7,
+    "staleObservedSources": 4,
     "staleSourceIds": [
       "blocksandfiles-feed",
       "ithome-tw-feed",
-      "solidot-feed"
+      "solidot-feed",
+      "trendforce-news-feed"
     ],
-    "observationCoveragePct": 6.1,
+    "observationCoveragePct": 7.5,
     "officialConfigured": 123,
-    "officialObserved": 1,
-    "officialFreshObserved": 1,
+    "officialObserved": 2,
+    "officialFreshObserved": 2,
     "observedSourceIds": [
       "blocksandfiles-feed",
       "digitimes-en-feed",
       "eetimes-japan-feed",
       "ithome-tw-feed",
       "micron-meta-lpddr5x-2026",
+      "sandisk-newsroom",
       "solidot-feed",
       "technews-tw-feed",
       "technews-tw-finance-feed",
-      "tomshardware-feed"
+      "tomshardware-feed",
+      "trendforce-news-feed"
     ],
     "freshSourceIds": [
       "digitimes-en-feed",
       "eetimes-japan-feed",
       "micron-meta-lpddr5x-2026",
+      "sandisk-newsroom",
       "technews-tw-feed",
       "technews-tw-finance-feed",
       "tomshardware-feed"
@@ -114,8 +119,9 @@
       "industry-research": 11
     },
     "observedByTier": {
-      "primary-company": 1,
-      "authoritative-media": 8
+      "primary-company": 2,
+      "authoritative-media": 8,
+      "industry-research": 1
     },
     "roleCoverage": {
       "technology": 108,
@@ -442,11 +448,11 @@
     }
   },
   "channelAsOf": {
-    "prices": "2026-11-17T14:10:44.441Z",
-    "news": "2026-11-17T14:19:20.295Z",
-    "community": "2026-11-17T14:11:00.728Z",
-    "brokerResearch": "2026-11-17T14:16:44.091Z",
-    "markets": "2026-11-17T14:15:36.745Z"
+    "prices": "2026-11-17T20:00:21.212Z",
+    "news": "2026-11-17T20:08:50.814Z",
+    "community": "2026-11-17T20:00:34.454Z",
+    "brokerResearch": "2026-11-17T20:06:01.487Z",
+    "markets": "2026-11-17T20:04:56.909Z"
   },
   "checks": [
     {
@@ -460,14 +466,14 @@
       "id": "news_total",
       "critical": true,
       "passed": true,
-      "observed": 63,
+      "observed": 55,
       "threshold": 24
     },
     {
       "id": "news_english",
       "critical": true,
       "passed": true,
-      "observed": 39,
+      "observed": 31,
       "threshold": 6
     },
     {
@@ -502,28 +508,28 @@
       "id": "news_live_only",
       "critical": true,
       "passed": true,
-      "observed": 63,
-      "threshold": 63
+      "observed": 55,
+      "threshold": 55
     },
     {
       "id": "news_current",
       "critical": true,
       "passed": true,
-      "observed": 63,
+      "observed": 55,
       "threshold": 12
     },
     {
       "id": "news_observed_this_run",
       "critical": true,
       "passed": true,
-      "observed": 63,
+      "observed": 55,
       "threshold": 12
     },
     {
       "id": "news_observed_english",
       "critical": true,
       "passed": true,
-      "observed": 39,
+      "observed": 31,
       "threshold": 6
     },
     {
@@ -544,28 +550,28 @@
       "id": "community_signals",
       "critical": true,
       "passed": true,
-      "observed": 7,
+      "observed": 8,
       "threshold": 5
     },
     {
       "id": "community_live_only",
       "critical": true,
       "passed": true,
-      "observed": 7,
-      "threshold": 7
+      "observed": 8,
+      "threshold": 8
     },
     {
       "id": "benchmark_live_only",
       "critical": true,
       "passed": true,
-      "observed": 5,
-      "threshold": 5
+      "observed": 3,
+      "threshold": 3
     },
     {
       "id": "decision_briefs",
       "critical": true,
       "passed": true,
-      "observed": 6,
+      "observed": 5,
       "threshold": 3
     },
     {
@@ -600,7 +606,7 @@
       "id": "source_catalog_observed",
       "critical": false,
       "passed": true,
-      "observed": 9,
+      "observed": 11,
       "threshold": 4
     },
     {

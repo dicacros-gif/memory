@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "44098571004",
-  "generatedAt": "2026-11-17T14:19:20.295Z",
-  "expiresAt": "2026-11-18T16:19:18.203Z",
+  "runId": "44163009984",
+  "generatedAt": "2026-11-17T20:08:50.814Z",
+  "expiresAt": "2026-11-18T22:08:48.820Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-17T14:17:51.117Z",
-    "runId": "44098571004",
+    "generatedAt": "2026-11-17T20:07:22.736Z",
+    "runId": "44163009984",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,67 +122,17 @@
     ],
     "eventTriggers": [
       {
-        "id": "ef4f4bada83053274964",
+        "id": "300a8cc24c1bb1b3ce28",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "f97587331c1188cd87ab",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "4145557fa838bfe07b23",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "dff57348873b43ac1df8",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "llm-serving-systems-research",
-        "source": "LLM Serving Systems Research",
-        "sourceClass": "research",
-        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
-        "url": "https://arxiv.org/abs/2309.06180",
-        "changed": true
-      },
-      {
-        "id": "eb4f168190781a3a450f",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "llm-serving-systems-research",
-        "source": "LLM Serving Systems Research",
-        "sourceClass": "research",
-        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
-        "url": "https://arxiv.org/abs/2309.06180",
-        "changed": true
+        "sourceId": "sandisk-newsroom",
+        "source": "sandisk.com",
+        "sourceClass": "official",
+        "title": "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
+        "url": "https://www.sandisk.com/topics/ssd/what-is-qlc",
+        "publishedAt": "2026-11-17",
+        "changed": false
       },
       {
         "id": "2266a646bb77612184af",
@@ -195,6 +145,19 @@
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
         "publishedAt": "2026-11-12",
+        "changed": false
+      },
+      {
+        "id": "bf76442ee4c2af564b68",
+        "ruleId": "foundry-concentration",
+        "label": "Logic Base-Die Foundry Dependency",
+        "priority": "quarterly",
+        "sourceId": "trendforce-news-feed",
+        "source": "trendforce.com",
+        "sourceClass": "research",
+        "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+        "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+        "publishedAt": "2026-10-19",
         "changed": false
       },
       {
@@ -274,17 +237,56 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
+      },
+      {
+        "id": "03d1894ebe386b1c4d1d",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
+        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+        "publishedAt": "2026-08-04",
+        "changed": false
+      },
+      {
+        "id": "d68f89e9a3676800c266",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "fa5f7151388fbece7d36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-17T14:17:51.117Z",
+      "generatedAt": "2026-11-17T20:07:22.736Z",
       "stats": {
-        "eligibleDocuments": 41,
-        "structuredEvents": 39,
+        "eligibleDocuments": 43,
+        "structuredEvents": 40,
         "verifiedEvents": 34,
-        "currentStages": 33,
-        "newEvents": 0,
+        "currentStages": 34,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -445,6 +447,37 @@
           "claimType": "verified-fact",
           "asOf": "2026-06-18",
           "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
+          "id": "0fc2456f9ccadfbfba14",
+          "ruleId": "foundry-concentration",
+          "eventType": "supply-risk",
+          "label": "Logic Base-Die Foundry Dependency",
+          "entity": {
+            "id": "sk-hynix",
+            "label": "SK hynix"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "ANNOUNCED",
+            "rank": 30
+          },
+          "metrics": [],
+          "evidenceSpan": "A new report from Seoul Economic Daily lends further weight to this strategy, revealing that NVIDIA has asked Samsung, SK hynix and Micron to adopt TSMC’s 3nm process for the base dies of its NVHBM, unveiled in August",
+          "source": "trendforce.com",
+          "sourceId": "trendforce-news-feed",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+          "publishedAt": "2026-10-19",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-10-19",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
@@ -760,37 +793,6 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
-        },
-        {
-          "id": "2bba443d461375820020",
-          "ruleId": "memory-centric-compute",
-          "eventType": "memory-centric-architecture",
-          "label": "PIM · CXL Pooling · 3D Stacked DRAM",
-          "entity": {
-            "id": "sk-hynix",
-            "label": "SK hynix"
-          },
-          "product": {
-            "id": "ai-memory",
-            "label": "AI Memory"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [],
-          "evidenceSpan": "Utilizing hybrid bonding technology that connects chips without bumps, SoIC widens data processing bandwidth and reduces chip size, making it an essential technology for next generation AI semiconductor production",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
-          "sourceClass": "official",
-          "sourceUrl": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
-          "publishedAt": "2026-04-23",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-04-23",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
         }
       ]
     },
@@ -825,7 +827,7 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 155,
-        "structuredEvents": 39,
+        "structuredEvents": 40,
         "verifiedEvents": 34,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
@@ -854,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -866,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -878,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1008,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1054,9 +1056,9 @@
             "latencyClass": "knowledge",
             "refreshMode": "poll",
             "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "attempts": 2,
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1067,8 +1069,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1081,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1092,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1104,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1116,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1127,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1139,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1161,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1173,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1184,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1196,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1207,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1219,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1231,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1243,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1255,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1267,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1279,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
-            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
+            "lastUsefulObservationAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastSuccessAt": "2026-11-17T20:07:17.026Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1324,12 +1326,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T14:17:51.117Z",
+          "updatedAt": "2026-11-17T20:07:22.736Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
-          "sourceStage": "COMMERCIAL_SHIPMENT",
+          "latestSignal": "SK hynix · AI Memory · ANNOUNCED",
+          "sourceStage": "ANNOUNCED",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "verified-primary",
+          "confidence": "research-observed",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1359,12 +1361,27 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 8,
-          "officialFactCount": 6,
-          "marketEstimateCount": 2,
-          "independentSources": 3,
-          "primaryEvidence": 6,
+          "officialFactCount": 5,
+          "marketEstimateCount": 3,
+          "independentSources": 4,
+          "primaryEvidence": 5,
           "verifiedClaims": 11,
           "evidence": [
+            {
+              "id": "0fc2456f9ccadfbfba14",
+              "ruleId": "foundry-concentration",
+              "title": "SK hynix · AI Memory · ANNOUNCED",
+              "source": "trendforce.com",
+              "sourceId": "trendforce-news-feed",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+              "publishedAt": "2026-10-19",
+              "stage": "ANNOUNCED",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-10-19",
+              "excerpt": "A new report from Seoul Economic Daily lends further weight to this strategy, revealing that NVIDIA has asked Samsung, SK hynix and Micron to adopt TSMC’s 3nm process for the base dies of its NVHBM, unveiled in August"
+            },
             {
               "score": 3.5,
               "chunkId": "d7f64e9d77146b39d4c7",
@@ -1427,22 +1444,6 @@
               "claimType": "verified-fact",
               "asOf": "2026-07-29",
               "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
-            },
-            {
-              "id": "9d6f0424120480932e3c",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-nvidia-partnership-2026",
-              "title": "SK hynix · AI Memory · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-              "publishedAt": "2026-07-25",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-07-25",
-              "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
             }
           ]
         },
@@ -1454,7 +1455,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T14:17:51.117Z",
+          "updatedAt": "2026-11-17T20:07:22.736Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "News archive | Solidigm Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1515,7 +1516,7 @@
               "score": 2.75,
               "chunkId": "470b2a7feb8871e434b2",
               "title": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
-              "excerpt": "nment, home appliance, and semiconductor products Galaxy Z Fold8 Ultra and Z Fold8... 2026.10.29 Samsung Electronics Announces Third Quarter 2026 Results Quarterly revenue of KRW 195.3 trillion, operating profit at KRW 107.4 trillion SEOUL, Korea – Oct. 29, 2026 – Samsung Electronics Co., Ltd",
+              "excerpt": "nment, home appliance, and semiconductor products Galaxy Z Fold8 Ultra and Z Fold8... 2026.10.29 Samsung Electronics Announces Third Quarter 2026 Results Quarterly revenue of KRW 195.3 trillion, operating profit at KRW 107.4 trillion SEOUL, Korea – Oct. 29, 2026 – Samsung Electronics Co., Ltd. today reported... Techno…",
               "sourceId": "samsung-semiconductor",
               "feedId": "samsung-hbm4-stage",
               "source": "Samsung Semiconductor",
@@ -1584,7 +1585,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T14:17:51.117Z",
+          "updatedAt": "2026-11-17T20:07:22.736Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1626,7 +1627,7 @@
           "evidence": [
             {
               "score": 1.75,
-              "chunkId": "34c1f1956aac940759ef",
+              "chunkId": "9c135afa6759c1ac74ba",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
               "sourceId": "openai-infrastructure",
@@ -1634,9 +1635,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-17T02:39:40.491Z",
-              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
+              "publishedAt": "2026-11-17",
+              "indexedAt": "2026-11-17T20:07:22.736Z",
+              "sourceChangeDetectedAt": "2026-11-17T20:07:17.026Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1711,7 +1712,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T14:17:51.117Z",
+          "updatedAt": "2026-11-17T20:07:22.736Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1762,9 +1763,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-17T02:39:40.491Z",
-              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
+              "publishedAt": "2026-11-17",
+              "indexedAt": "2026-11-17T20:07:22.736Z",
+              "sourceChangeDetectedAt": "2026-11-17T20:07:17.026Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1837,12 +1838,12 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 9,
-        "fresh": 6,
-        "observationRatePct": 6.1,
+        "observed": 11,
+        "fresh": 7,
+        "observationRatePct": 7.5,
         "officialConfigured": 123,
-        "officialObserved": 1,
-        "officialFresh": 1,
+        "officialObserved": 2,
+        "officialFresh": 2,
         "targetPct": 90
       }
     },
@@ -2100,10 +2101,10 @@
         "documents": 155,
         "chunks": 600,
         "added": 0,
-        "changed": 3,
-        "unchanged": 38,
-        "retained": 114,
-        "reindexed": 3
+        "changed": 1,
+        "unchanged": 42,
+        "retained": 112,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -2272,9 +2273,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-17T02:39:40.491Z",
-              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
+              "publishedAt": "2026-11-17",
+              "indexedAt": "2026-11-17T20:07:22.736Z",
+              "sourceChangeDetectedAt": "2026-11-17T20:07:17.026Z",
               "stale": false
             }
           ]
@@ -2317,9 +2318,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-17T02:39:40.491Z",
-              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
+              "publishedAt": "2026-11-17",
+              "indexedAt": "2026-11-17T20:07:22.736Z",
+              "sourceChangeDetectedAt": "2026-11-17T20:07:17.026Z",
               "stale": false
             },
             {
@@ -2327,9 +2328,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-17T02:39:40.491Z",
-              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
+              "publishedAt": "2026-11-17",
+              "indexedAt": "2026-11-17T20:07:22.736Z",
+              "sourceChangeDetectedAt": "2026-11-17T20:07:17.026Z",
               "stale": false
             },
             {
@@ -2517,10 +2518,10 @@
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-17T14:17:45.961Z",
-        "indexedAt": "2026-11-17T14:17:51.117Z"
+        "sourceChangeDetectedAt": "2026-11-17T20:07:17.026Z",
+        "indexedAt": "2026-11-17T20:07:22.736Z"
       },
-      "generatedAt": "2026-11-17T14:17:51.117Z"
+      "generatedAt": "2026-11-17T20:07:22.736Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2539,7 +2540,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-17T14:19:20.295Z",
+    "generatedAt": "2026-11-17T20:08:50.814Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4284,8 +4285,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4302,7 +4303,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-10-26",
@@ -4314,11 +4315,11 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-11-16",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -4360,26 +4361,83 @@
                   },
                   {
                     "week": "2026-11-09",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-11-16",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
+                "trend": "down",
+                "delta": -1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "c80e001f0162826b8680",
-                  "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                  "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                  "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
+                  "id": "cc708e1cfbc39b04ced7",
+                  "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                  "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
                   "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                  "date": "2026-11-17"
+                  "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                  "date": "2026-11-11"
+                }
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-11-16",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "cc708e1cfbc39b04ced7",
+                  "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                  "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                  "date": "2026-11-11"
                 }
               },
               {
@@ -4407,7 +4465,7 @@
                   },
                   {
                     "week": "2026-10-19",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-10-26",
@@ -4423,22 +4481,21 @@
                   },
                   {
                     "week": "2026-11-16",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
+                "trend": "flat",
+                "delta": 0,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "c80e001f0162826b8680",
-                  "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                  "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                  "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
+                  "id": "d11c438434e9776103d7",
+                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                  "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
+                  "source": "trendforce.com",
+                  "sourceClass": "research",
                   "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                  "date": "2026-11-17"
+                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                  "date": "2026-10-19"
                 }
               },
               {
@@ -4466,67 +4523,7 @@
                   },
                   {
                     "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-16",
                     "count": 1
-                  }
-                ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "c80e001f0162826b8680",
-                  "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                  "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                  "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                  "date": "2026-11-17"
-                }
-              },
-              {
-                "id": "capacity",
-                "index": "2",
-                "label": "용량",
-                "accent": "#3E7198",
-                "productIds": [
-                  "ai-d-b",
-                  "ai-n-d"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
                   },
                   {
                     "week": "2026-10-26",
@@ -4547,15 +4544,26 @@
                 ],
                 "trend": "flat",
                 "delta": 0,
-                "risingTwoWeeks": false
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "d11c438434e9776103d7",
+                  "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                  "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
+                  "source": "trendforce.com",
+                  "sourceClass": "research",
+                  "origin": "live-crawl",
+                  "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                  "date": "2026-10-19"
+                }
               },
               {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
+                "id": "capacity",
+                "index": "2",
+                "label": "용량",
+                "accent": "#3E7198",
                 "productIds": [
-                  "ai-d-o"
+                  "ai-d-b",
+                  "ai-n-d"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -4786,11 +4794,18 @@
             },
             "evidenceStream": [
               {
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
+              },
+              {
+                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                "source": "trendforce.com",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                "date": "2026-10-19"
               }
             ],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
@@ -5511,8 +5526,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 6,
-            "sourceCount": 2,
+            "mentions": 7,
+            "sourceCount": 4,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5529,7 +5544,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-10-26",
@@ -5541,11 +5556,11 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-11-16",
-                "count": 6
+                "count": 5
               }
             ],
             "painAxes": [
@@ -5559,7 +5574,7 @@
                   "ai-n-b"
                 ],
                 "mentions": 3,
-                "sourceCount": 1,
+                "sourceCount": 2,
                 "weekly": [
                   {
                     "week": "2026-09-28",
@@ -5587,16 +5602,16 @@
                   },
                   {
                     "week": "2026-11-09",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-11-16",
-                    "count": 3
+                    "count": 2
                   }
                 ],
                 "trend": "up",
-                "delta": 3,
-                "risingTwoWeeks": false,
+                "delta": 1,
+                "risingTwoWeeks": true,
                 "latest": {
                   "id": "2277c765697b275fac48",
                   "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
@@ -5618,7 +5633,7 @@
                   "custom-hbm"
                 ],
                 "mentions": 2,
-                "sourceCount": 1,
+                "sourceCount": 2,
                 "weekly": [
                   {
                     "week": "2026-09-28",
@@ -5634,7 +5649,7 @@
                   },
                   {
                     "week": "2026-10-19",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-10-26",
@@ -5650,11 +5665,11 @@
                   },
                   {
                     "week": "2026-11-16",
-                    "count": 2
+                    "count": 1
                   }
                 ],
                 "trend": "up",
-                "delta": 2,
+                "delta": 1,
                 "risingTwoWeeks": false,
                 "latest": {
                   "id": "8a2e5eaa9d036763ecc6",
@@ -5677,6 +5692,65 @@
                   "custom-hbm"
                 ],
                 "mentions": 2,
+                "sourceCount": 2,
+                "weekly": [
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-16",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "8a2e5eaa9d036763ecc6",
+                  "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+                  "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
+                  "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
+                  "date": "2026-11-17"
+                }
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 1,
                 "sourceCount": 1,
                 "weekly": [
                   {
@@ -5705,26 +5779,25 @@
                   },
                   {
                     "week": "2026-11-09",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-11-16",
-                    "count": 2
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 2,
+                "trend": "down",
+                "delta": -1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "8a2e5eaa9d036763ecc6",
-                  "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
-                  "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
-                  "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
+                  "id": "cc708e1cfbc39b04ced7",
+                  "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                  "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
                   "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
-                  "date": "2026-11-17"
+                  "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                  "date": "2026-11-11"
                 }
               },
               {
@@ -5735,54 +5808,6 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-16",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -10117,13 +10142,13 @@
                   "mentions": 1
                 },
                 {
-                  "id": "package-foundry",
-                  "label": "패키징·파운드리",
+                  "id": "power-thermal",
+                  "label": "전력·열",
                   "mentions": 1
                 },
                 {
-                  "id": "logic-boundary",
-                  "label": "로직 경계",
+                  "id": "package-foundry",
+                  "label": "패키징·파운드리",
                   "mentions": 1
                 }
               ]
@@ -10677,13 +10702,13 @@
                 "mentions": 1
               },
               {
-                "id": "package-foundry",
-                "label": "패키징·파운드리",
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 1
               },
               {
-                "id": "logic-boundary",
-                "label": "로직 경계",
+                "id": "package-foundry",
+                "label": "패키징·파운드리",
                 "mentions": 1
               }
             ]
@@ -10729,13 +10754,13 @@
                 "mentions": 1
               },
               {
-                "id": "package-foundry",
-                "label": "패키징·파운드리",
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 1
               },
               {
-                "id": "logic-boundary",
-                "label": "로직 경계",
+                "id": "package-foundry",
+                "label": "패키징·파운드리",
                 "mentions": 1
               }
             ]
@@ -11218,8 +11243,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 6,
-          "sourceCount": 2,
+          "mentions": 7,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11236,7 +11261,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-26",
@@ -11248,11 +11273,11 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-16",
-              "count": 6
+              "count": 5
             }
           ],
           "painAxes": [
@@ -11266,7 +11291,7 @@
                 "ai-n-b"
               ],
               "mentions": 3,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -11294,16 +11319,16 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 3
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 3,
-              "risingTwoWeeks": false,
+              "delta": 1,
+              "risingTwoWeeks": true,
               "latest": {
                 "id": "2277c765697b275fac48",
                 "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
@@ -11325,7 +11350,7 @@
                 "custom-hbm"
               ],
               "mentions": 2,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -11341,7 +11366,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -11357,11 +11382,11 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 1
                 }
               ],
               "trend": "up",
-              "delta": 2,
+              "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
                 "id": "8a2e5eaa9d036763ecc6",
@@ -11384,6 +11409,65 @@
                 "custom-hbm"
               ],
               "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "8a2e5eaa9d036763ecc6",
+                "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+                "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
+                "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
+                "date": "2026-11-17"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
               "sourceCount": 1,
               "weekly": [
                 {
@@ -11412,26 +11496,25 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 2,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "8a2e5eaa9d036763ecc6",
-                "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
-                "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
-                "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
               }
             },
             {
@@ -11442,54 +11525,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -13722,8 +13757,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13740,7 +13775,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-26",
@@ -13752,11 +13787,11 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -13798,26 +13833,83 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
               }
             },
             {
@@ -13845,7 +13937,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -13861,22 +13953,21 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "flat",
+              "delta": 0,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "d11c438434e9776103d7",
+                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
+                "source": "trendforce.com",
+                "sourceClass": "research",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                "date": "2026-10-19"
               }
             },
             {
@@ -13904,67 +13995,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
                   "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
-              }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
                 },
                 {
                   "week": "2026-10-26",
@@ -13985,15 +14016,26 @@
               ],
               "trend": "flat",
               "delta": 0,
-              "risingTwoWeeks": false
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "d11c438434e9776103d7",
+                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
+                "source": "trendforce.com",
+                "sourceClass": "research",
+                "origin": "live-crawl",
+                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                "date": "2026-10-19"
+              }
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "ai-d-o"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -14224,11 +14266,18 @@
           },
           "evidenceStream": [
             {
-              "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-              "date": "2026-11-17"
+              "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+              "date": "2026-11-11"
+            },
+            {
+              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+              "source": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+              "date": "2026-10-19"
             }
           ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
@@ -20630,7 +20679,7 @@
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
           "mentions": 4,
-          "sourceCount": 1,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20647,7 +20696,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-26",
@@ -20663,70 +20712,10 @@
             },
             {
               "week": "2026-11-16",
-              "count": 4
+              "count": 3
             }
           ],
           "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 2,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 2
-                }
-              ],
-              "trend": "up",
-              "delta": 2,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "8a2e5eaa9d036763ecc6",
-                "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
-                "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
-                "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
-                "date": "2026-11-17"
-              }
-            },
             {
               "id": "package-foundry",
               "index": "4",
@@ -20736,7 +20725,7 @@
                 "custom-hbm"
               ],
               "mentions": 2,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -20752,7 +20741,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -20768,11 +20757,11 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 1
                 }
               ],
               "trend": "up",
-              "delta": 2,
+              "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
                 "id": "8a2e5eaa9d036763ecc6",
@@ -20795,6 +20784,66 @@
                 "custom-hbm"
               ],
               "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "8a2e5eaa9d036763ecc6",
+                "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+                "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
+                "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
+                "date": "2026-11-17"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
               "sourceCount": 1,
               "weekly": [
                 {
@@ -20827,11 +20876,11 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 1
                 }
               ],
               "trend": "up",
-              "delta": 2,
+              "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
                 "id": "8a2e5eaa9d036763ecc6",
@@ -21152,11 +21201,11 @@
               "date": "2026-11-17"
             },
             {
-              "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-              "date": "2026-11-17"
+              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+              "source": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+              "date": "2026-10-19"
             }
           ],
           "chipStage": "공식 플랫폼",
@@ -22748,7 +22797,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-17T14:19:20.295Z",
+        "updatedAt": "2026-11-17T20:08:50.814Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23518,13 +23567,13 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                  "date": "2026-11-17"
+                  "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                  "source": "troy-technical.com",
+                  "sourceClass": "general-media",
+                  "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                  "date": "2026-11-11"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 2,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -25018,13 +25067,13 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-              "date": "2026-11-17"
+              "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+              "date": "2026-11-11"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 2,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -28083,7 +28132,7 @@
                 "ai-n-b"
               ],
               "mentions": 3,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -28111,16 +28160,16 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 3
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 3,
-              "risingTwoWeeks": false,
+              "delta": 1,
+              "risingTwoWeeks": true,
               "latest": {
                 "id": "2277c765697b275fac48",
                 "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
@@ -28142,7 +28191,7 @@
                 "custom-hbm"
               ],
               "mentions": 2,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -28158,7 +28207,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -28174,11 +28223,11 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 1
                 }
               ],
               "trend": "up",
-              "delta": 2,
+              "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
                 "id": "8a2e5eaa9d036763ecc6",
@@ -28201,7 +28250,7 @@
                 "custom-hbm"
               ],
               "mentions": 2,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -28217,7 +28266,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -28233,11 +28282,11 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 1
                 }
               ],
               "trend": "up",
-              "delta": 2,
+              "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
                 "id": "8a2e5eaa9d036763ecc6",
@@ -28263,7 +28312,43 @@
           ],
           "dealEvents": [],
           "supplierAlerts": [],
-          "whatChanged": [],
+          "whatChanged": [
+            {
+              "id": "pain-rise:nvidia:bandwidth:2026-11-16",
+              "accountId": "nvidia",
+              "axisId": "bandwidth",
+              "label": "대역폭",
+              "asOf": "2026-11-16",
+              "weekly": [
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 2
+                }
+              ],
+              "latest": {
+                "id": "2277c765697b275fac48",
+                "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
+                "summary": "SK Hynix generated more than 60% of its revenue from the US in the first nine months of 2026, with sales to its presumed largest customer, Nvidia, doubling from a year earlier. Strong demand for high-bandwidth memory (HBM) and conventional memory chips has sharply increased the South Korean chipmaker's exposure to American technology companies",
+                "text": "digitimes.com hbm sk hynix's us revenue tops 60%, exposing nvidia's growing weight in ai memory sales sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies. skhy 미국 매출 60% 돌파, 엔비디아의 ai 메모리 매출 비중 확대 sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261117vl211/sk-hynix-memory-nvidia-revenue-sales-2026.html",
+                "date": "2026-11-17"
+              },
+              "kind": "pain-rise",
+              "headline": "nvidia · 대역폭 신호 상승",
+              "isNew": true
+            }
+          ],
           "evidence": [
             {
               "title": "Jensen Huang의 Nvidia 퇴출로 AI 하드웨어 표준에 불확실성이 가중됨에 따라 대만은 저렴한 AI 추구를 촉구",
@@ -28425,26 +28510,83 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
               }
             },
             {
@@ -28472,7 +28614,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -28488,81 +28630,21 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "flat",
+              "delta": 0,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "d11c438434e9776103d7",
+                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
+                "source": "trendforce.com",
+                "sourceClass": "research",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
-              }
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                "date": "2026-10-19"
               }
             }
           ],
@@ -28573,18 +28655,26 @@
           },
           "recommendedProductIds": [
             "custom-hbm",
-            "ai-n-b"
+            "ai-n-b",
+            "ai-d-o"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-              "date": "2026-11-17"
+              "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+              "date": "2026-11-11"
+            },
+            {
+              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+              "source": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+              "date": "2026-10-19"
             }
           ]
         },
@@ -29011,8 +29101,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 6,
-          "sourceCount": 2,
+          "mentions": 7,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -29029,7 +29119,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-26",
@@ -29041,11 +29131,11 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-16",
-              "count": 6
+              "count": 5
             }
           ],
           "painAxes": [
@@ -29059,7 +29149,7 @@
                 "ai-n-b"
               ],
               "mentions": 3,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -29087,16 +29177,16 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 3
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 3,
-              "risingTwoWeeks": false,
+              "delta": 1,
+              "risingTwoWeeks": true,
               "latest": {
                 "id": "2277c765697b275fac48",
                 "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
@@ -29118,7 +29208,7 @@
                 "custom-hbm"
               ],
               "mentions": 2,
-              "sourceCount": 1,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -29134,7 +29224,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -29150,11 +29240,11 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 1
                 }
               ],
               "trend": "up",
-              "delta": 2,
+              "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
                 "id": "8a2e5eaa9d036763ecc6",
@@ -29177,6 +29267,65 @@
                 "custom-hbm"
               ],
               "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "8a2e5eaa9d036763ecc6",
+                "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+                "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
+                "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
+                "date": "2026-11-17"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
               "sourceCount": 1,
               "weekly": [
                 {
@@ -29205,26 +29354,25 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 2
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 2,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "8a2e5eaa9d036763ecc6",
-                "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
-                "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
-                "text": "digitimes.com hbm samsung develops custom hbm for meta, adopts 2nm process samsung electronics is reportedly developing custom high-bandwidth memory (hbm) for meta's self-designed ai chips, with plans to use samsung foundry's 2nm process for the base die. the company is also preparing custom hbm base dies using tsmc processes for nvidia, according to south korean media. 삼성, 메타용 맞춤형 hbm 개발, 2nm 공정 채택 삼성전자는 메타가 자체 설계한 ai 칩용 맞춤형 고대역폭 메모리(hbm)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 nvidia용 tsmc 공정을 사용하여 맞춤형 hbm 베이스 다이를 준비하고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
               }
             },
             {
@@ -29235,54 +29383,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -31515,8 +31615,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -31533,7 +31633,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-26",
@@ -31545,11 +31645,11 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -31591,26 +31691,83 @@
                 },
                 {
                   "week": "2026-11-09",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 1
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "cc708e1cfbc39b04ced7",
+                "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+                "text": "troy-technical.com hbm nvhbm: micron’s bandwidth and power specs for nvidia micron technology announced its custom hbm product, nvhbm, developed for nvidia, will utilize outsourced base dies. nvid nvhbm: micron’s bandwidth and power specs for nvidia",
+                "source": "troy-technical.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+                "date": "2026-11-11"
               }
             },
             {
@@ -31638,7 +31795,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-26",
@@ -31654,22 +31811,21 @@
                 },
                 {
                   "week": "2026-11-16",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "flat",
+              "delta": 0,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
+                "id": "d11c438434e9776103d7",
+                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
+                "source": "trendforce.com",
+                "sourceClass": "research",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
+                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                "date": "2026-10-19"
               }
             },
             {
@@ -31697,67 +31853,7 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
                   "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "c80e001f0162826b8680",
-                "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-                "summary": "AI 칩의 고대역폭 메모리(HBM)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · SemiWiki의 분석에 따르면 Nvidia의 Nvidia HBM(NVHBM) 아키텍처 개발은 HBM 성능뿐만 아니라 HBM 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "text": "digitimes.com packaging tsmc 3nm enters hbm as nvhbm reshapes base-die competition demand for high-bandwidth memory (hbm) in ai chips is driving continued technological advances. according to analysis by semiwiki, nvidia's development of the nvidia hbm (nvhbm) architecture could reshape not only hbm performance but also the division of labor across the hbm supply chain, extending competition beyond memory makers to base-die manufacturing. nvhbm이 베이스 다이 경쟁을 재편하면서 tsmc 3nm가 hbm에 진출 ai 칩의 고대역폭 메모리(hbm)에 대한 수요는 지속적인 기술 발전을 주도하고 있음 · semiwiki의 분석에 따르면 nvidia의 nvidia hbm(nvhbm) 아키텍처 개발은 hbm 성능뿐만 아니라 hbm 공급망 전반의 노동 분할을 재편하여 경쟁을 메모리 제조업체를 넘어 베이스 다이 제조로 확대가능",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-                "date": "2026-11-17"
-              }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
                 },
                 {
                   "week": "2026-10-26",
@@ -31778,15 +31874,26 @@
               ],
               "trend": "flat",
               "delta": 0,
-              "risingTwoWeeks": false
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "d11c438434e9776103d7",
+                "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+                "text": "trendforce.com hbm nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ... as previously reported by zdnet in september, samsung is pursuing a dual-track strategy for custom hbm, tapping both its own foundry and rival tsmc for base die production. a new report from seoul economic daily lends further weight to this strategy, revealing that nvidia has asked samsung, sk hynix and micron to adopt tsmc’s 3nm process for the base dies of its nvhbm, unveiled in august. nvidia reportedly pushes tsmc 3nm nvhbm base dies for samsung ...",
+                "source": "trendforce.com",
+                "sourceClass": "research",
+                "origin": "live-crawl",
+                "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+                "date": "2026-10-19"
+              }
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "ai-d-o"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -32017,11 +32124,18 @@
           },
           "evidenceStream": [
             {
-              "title": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261117pd221/tsmc-3nm-hbm-competition-nvidia.html",
-              "date": "2026-11-17"
+              "title": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
+              "source": "troy-technical.com",
+              "sourceClass": "general-media",
+              "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia",
+              "date": "2026-11-11"
+            },
+            {
+              "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+              "source": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up",
+              "date": "2026-10-19"
             }
           ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
@@ -39196,8 +39310,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "accountIds": [],
           "weekly": [
             {
@@ -39230,24 +39344,46 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "834a2a8828e48b1a50a8",
-            "title": "Bharat Semi는 AI 지원 이미지 센서 개발을 위해 2,400만 달러를 모금",
-            "summary": "인도의 반도체 스타트업 Bharat Semi는 Info Edge Group, South Park Commons 및 Indus Bridge Ventures가 주도하는 시드 펀딩에서 2,400만 달러를 모금 · 이 투자는 회사가 전 세계적으로 스마트 홈, 산업 자동화, 감시, 드론 및 항공우주 애플리케이션을 위한 2027년 생산을 목표로 하고 있기 때문에 AI 지원 이미지 센서 개발, 엔지니어링 확장 및 국제적 성장을 지원할 것",
-            "text": "digitimes.com aidemand bharat semi raises us$24 million to develop ai-enabled image sensors indian semiconductor startup bharat semi has raised us$24 million in seed funding led by info edge group, south park commons, and indus bridge ventures. the investment will support developing ai-enabled image sensors, expanding engineering, and international growth, as the company targets 2027 production for smart home, industrial automation, surveillance, drone, and aerospace applications worldwide. bharat semi는 ai 지원 이미지 센서 개발을 위해 2,400만 달러를 모금 · 인도의 반도체 스타트업 bharat semi는 info edge group, south park commons 및 indus bridge ventures가 주도하는 시드 펀딩에서 2,400만 달러를 모금 · 이 투자는 회사가 전 세계적으로 스마트 홈, 산업 자동화, 감시, 드론 및 항공우주 애플리케이션을 위한 2027년 생산을 목표로 하고 있기 때문에 ai 지원 이미지 센서 개발, 엔지니어링 확장 및 국제적 성장을 지원할 것",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261117pr200/startup-funding-surveillance-edge-design.html",
-            "date": "2026-11-17"
-          },
           "promotionStatus": "monitoring"
         }
       ],
-      "painAlerts": [],
+      "painAlerts": [
+        {
+          "id": "pain-rise:nvidia:bandwidth:2026-11-16",
+          "accountId": "nvidia",
+          "axisId": "bandwidth",
+          "label": "대역폭",
+          "asOf": "2026-11-16",
+          "weekly": [
+            {
+              "week": "2026-11-02",
+              "count": 0
+            },
+            {
+              "week": "2026-11-09",
+              "count": 1
+            },
+            {
+              "week": "2026-11-16",
+              "count": 2
+            }
+          ],
+          "latest": {
+            "id": "2277c765697b275fac48",
+            "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
+            "summary": "SK Hynix generated more than 60% of its revenue from the US in the first nine months of 2026, with sales to its presumed largest customer, Nvidia, doubling from a year earlier. Strong demand for high-bandwidth memory (HBM) and conventional memory chips has sharply increased the South Korean chipmaker's exposure to American technology companies",
+            "text": "digitimes.com hbm sk hynix's us revenue tops 60%, exposing nvidia's growing weight in ai memory sales sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies. skhy 미국 매출 60% 돌파, 엔비디아의 ai 메모리 매출 비중 확대 sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261117vl211/sk-hynix-memory-nvidia-revenue-sales-2026.html",
+            "date": "2026-11-17"
+          }
+        }
+      ],
       "generationCandidates": [],
       "technologyOpportunities": [
         {
@@ -39362,8 +39498,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -39371,7 +39507,7 @@
             },
             {
               "week": "2026-10-05",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-12",
@@ -39398,16 +39534,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "2026-10-11:71",
-            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
-            "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
-            "source": "trendforce.com",
-            "sourceClass": "news",
-            "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-11"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39999,8 +40125,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -40020,7 +40146,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-02",
@@ -40035,16 +40161,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "6ae2322489bbfd9d7d4d",
-            "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
-            "source": "blocksandfiles.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-            "date": "2026-10-26"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -40382,12 +40498,88 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-17T14:17:51.576Z",
-        "items": [],
-        "newItems": [],
-        "newCount": 0,
-        "recentIds": [],
-        "counts": {}
+        "generatedAt": "2026-11-17T20:07:23.177Z",
+        "items": [
+          {
+            "id": "pain-rise:nvidia:bandwidth:2026-11-16",
+            "accountId": "nvidia",
+            "axisId": "bandwidth",
+            "label": "대역폭",
+            "asOf": "2026-11-16",
+            "weekly": [
+              {
+                "week": "2026-11-02",
+                "count": 0
+              },
+              {
+                "week": "2026-11-09",
+                "count": 1
+              },
+              {
+                "week": "2026-11-16",
+                "count": 2
+              }
+            ],
+            "latest": {
+              "id": "2277c765697b275fac48",
+              "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
+              "summary": "SK Hynix generated more than 60% of its revenue from the US in the first nine months of 2026, with sales to its presumed largest customer, Nvidia, doubling from a year earlier. Strong demand for high-bandwidth memory (HBM) and conventional memory chips has sharply increased the South Korean chipmaker's exposure to American technology companies",
+              "text": "digitimes.com hbm sk hynix's us revenue tops 60%, exposing nvidia's growing weight in ai memory sales sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies. skhy 미국 매출 60% 돌파, 엔비디아의 ai 메모리 매출 비중 확대 sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "origin": "live-crawl",
+              "url": "https://www.digitimes.com/news/a20261117vl211/sk-hynix-memory-nvidia-revenue-sales-2026.html",
+              "date": "2026-11-17"
+            },
+            "kind": "pain-rise",
+            "headline": "nvidia · 대역폭 신호 상승",
+            "isNew": true
+          }
+        ],
+        "newItems": [
+          {
+            "id": "pain-rise:nvidia:bandwidth:2026-11-16",
+            "accountId": "nvidia",
+            "axisId": "bandwidth",
+            "label": "대역폭",
+            "asOf": "2026-11-16",
+            "weekly": [
+              {
+                "week": "2026-11-02",
+                "count": 0
+              },
+              {
+                "week": "2026-11-09",
+                "count": 1
+              },
+              {
+                "week": "2026-11-16",
+                "count": 2
+              }
+            ],
+            "latest": {
+              "id": "2277c765697b275fac48",
+              "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
+              "summary": "SK Hynix generated more than 60% of its revenue from the US in the first nine months of 2026, with sales to its presumed largest customer, Nvidia, doubling from a year earlier. Strong demand for high-bandwidth memory (HBM) and conventional memory chips has sharply increased the South Korean chipmaker's exposure to American technology companies",
+              "text": "digitimes.com hbm sk hynix's us revenue tops 60%, exposing nvidia's growing weight in ai memory sales sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies. skhy 미국 매출 60% 돌파, 엔비디아의 ai 메모리 매출 비중 확대 sk hynix generated more than 60% of its revenue from the us in the first nine months of 2026, with sales to its presumed largest customer, nvidia, doubling from a year earlier. strong demand for high-bandwidth memory (hbm) and conventional memory chips has sharply increased the south korean chipmaker's exposure to american technology companies",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "origin": "live-crawl",
+              "url": "https://www.digitimes.com/news/a20261117vl211/sk-hynix-memory-nvidia-revenue-sales-2026.html",
+              "date": "2026-11-17"
+            },
+            "kind": "pain-rise",
+            "headline": "nvidia · 대역폭 신호 상승",
+            "isNew": true
+          }
+        ],
+        "newCount": 1,
+        "recentIds": [
+          "pain-rise:nvidia:bandwidth:2026-11-16"
+        ],
+        "counts": {
+          "pain-rise": 1
+        }
       },
       "roadmap90d": [
         {
@@ -40500,24 +40692,37 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-26",
-        "sourceClass": "authoritative-media",
+        "title": "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
+        "summary": "신뢰성 저하 없이 고용량, 강력한 성능, 향상된 효율성을 제공하는 8세대 BiCS NAND로 구동되는 Sandisk QLC SSD를 만나보세요",
+        "url": "https://www.sandisk.com/topics/ssd/what-is-qlc",
+        "source": "sandisk.com",
+        "publishedAt": "2026-11-17",
+        "sourceClass": "official",
         "evidenceLevel": "Watch",
         "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
-        "ageDays": 23
+        "ageDays": 1
+      },
+      {
+        "title": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
+        "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up/",
+        "source": "trendforce.com",
+        "publishedAt": "2026-10-19",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 30
       },
       {
         "title": "Phison Pascari X201P 15.36TB SSD 리뷰: AI 및 수집 서버를 위한 빠른 PCIe 5.0 쓰기 성능",
@@ -40574,23 +40779,6 @@
         "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
         "summary": "Taiwan's semiconductor supply chain generally saw strong growth in October, driven mainly by AI and advanced-process demand. TSMC's revenue for that month rose nearly 60% year-ove…",
         "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-17",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "Nvidia 너머의 HBM: Samsung이 Jensen의 퇴장으로 가장 많은 이익을 얻는 이유",
-        "summary": "Nvidia CEO Jensen Huang이 사임함에 따라 시장 관찰자들은 AI 칩 환경이 Nvidia의 거의 독점에서 점차 벗어나고 HBM 수요가 Google 및 AMD와 같은 Nvidia가 아닌 구매자 쪽으로 옮겨갈 것으로 예상 · 분석가들은 소위 이 상황에서 다음과 같이 제안",
-        "url": "https://www.digitimes.com/news/a20261117PD239/nvidia-samsung-hbm-market-amd.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-17",
         "sourceClass": "authoritative-media",
@@ -40747,10 +40935,10 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Daxin은 2030년까지 반도체 소재 매출의 절반 이상을 목표로 하고 있음",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261117PD213/materials-revenue-daxin-demand-2026.html",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html",
           "publishedAt": "2026-11-17",
           "evidenceLevel": "Reported"
         }
@@ -40794,12 +40982,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "삼성베트남, 테스트 공장과 함께 NAND 패키징 라인 계획",
+          "title": "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261117PD208/samsung-nand-packaging-plant-hbm.html",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/topics/ssd/what-is-qlc",
           "publishedAt": "2026-11-17",
-          "evidenceLevel": "Reported"
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -40842,12 +41030,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Broadcom × Meta MTIA · 공식 Baseline",
-          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
-          "source": "Broadcom × Meta MTIA",
-          "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-17T14:19:20.295Z",
-          "evidenceLevel": "Official baseline"
+          "title": "Daxin은 2030년까지 반도체 소재 매출의 절반 이상을 목표로 하고 있음",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD213/materials-revenue-daxin-demand-2026.html",
+          "publishedAt": "2026-11-17",
+          "evidenceLevel": "Reported"
         }
       }
     ],
@@ -40889,8 +41077,8 @@
       },
       "enabled": true
     },
-    "runId": "44098571004",
-    "generatedAt": "2026-11-17T14:19:20.295Z",
+    "runId": "44163009984",
+    "generatedAt": "2026-11-17T20:08:50.814Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -41228,8 +41416,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "44098571004",
-    "generatedAt": "2026-11-17T14:19:20.295Z",
+    "runId": "44163009984",
+    "generatedAt": "2026-11-17T20:08:50.814Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41928,7 +42116,7 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "monitoring"
+        "status": "fresh"
       }
     ],
     "signals": [],
@@ -41953,9 +42141,9 @@
         "id": "data",
         "label": "DATA / STORAGE",
         "configured": 6,
-        "observed": 0,
-        "fresh": 0,
-        "status": "coverage-gap"
+        "observed": 1,
+        "fresh": 1,
+        "status": "fresh"
       },
       {
         "id": "orchestration",
@@ -41992,7 +42180,7 @@
     ],
     "automation": {
       "status": "SOURCE-CONNECTED",
-      "activePillars": 0,
+      "activePillars": 1,
       "totalPillars": 7,
       "activeWorkloads": 6,
       "promotedWorkloads": 0,
@@ -42001,8 +42189,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-17T14:19:20.295Z",
-    "runId": "44098571004"
+    "generatedAt": "2026-11-17T20:08:50.814Z",
+    "runId": "44163009984"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -42248,7 +42436,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-17T14:17:51.117Z"
+        "indexedAt": "2026-11-17T20:07:22.736Z"
       }
     },
     "sources": [
@@ -42381,12 +42569,12 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "monitoring"
+        "status": "fresh"
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-17T14:19:20.295Z",
-    "runId": "44098571004"
+    "generatedAt": "2026-11-17T20:08:50.814Z",
+    "runId": "44163009984"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -42400,6 +42588,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
+        "subtitle": "digitimes.com · 2026-11-17",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -42411,15 +42600,22 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "pending": true,
-          "title": "HBM·AI 서버",
-          "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-17T14:19:20.295Z",
-          "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "pending": false,
+          "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html",
+          "publishedAt": "2026-11-17",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 7,
         "signals": [
+          [
+            "Reported · AUTHORITATIVE-MEDIA",
+            "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+            "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음"
+          ],
           [
             "EXECUTIVE DECISION",
             "검증된 Ramp와 Custom Co-Design을 분리 운영",
@@ -42505,6 +42701,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
+            "Reported",
+            "digitimes.com · 2026-11-17",
+            "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42539,9 +42740,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-17T14:19:20.295Z"
+          "publishedAt": "2026-11-17T20:08:50.814Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42647,6 +42848,7 @@
         "phase": "NEXT",
         "tabLabel": "Enterprise RAG",
         "title": "LLM Tech & Enterprise RAG Architecture",
+        "subtitle": "sandisk.com · 2026-11-17",
         "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "recommendation": "eSSD ATTACH",
         "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
@@ -42658,13 +42860,22 @@
         },
         "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
         "latest": {
-          "pending": true,
-          "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
-          "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-17T14:19:20.295Z"
+          "pending": false,
+          "title": "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
+          "summary": "신뢰성 저하 없이 고용량, 강력한 성능, 향상된 효율성을 제공하는 8세대 BiCS NAND로 구동되는 Sandisk QLC SSD를 만나보세요",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/topics/ssd/what-is-qlc",
+          "publishedAt": "2026-11-17",
+          "evidenceLevel": "Watch",
+          "sourceClass": "official"
         },
         "evidenceCount": 9,
         "signals": [
+          [
+            "Watch · OFFICIAL",
+            "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
+            "신뢰성 저하 없이 고용량, 강력한 성능, 향상된 효율성을 제공하는 8세대 BiCS NAND로 구동되는 Sandisk QLC SSD를 만나보세요"
+          ],
           [
             "EXECUTIVE DECISION",
             "eSSD를 AI 추론의 독립 성장축으로 운영",
@@ -42750,6 +42961,11 @@
         "useCase": "MODELED STRATEGY CASE · Enterprise RAG · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
         "sources": [
           [
+            "Watch",
+            "sandisk.com · 2026-11-17",
+            "https://www.sandisk.com/topics/ssd/what-is-qlc"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42784,11 +43000,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-17T14:19:20.295Z",
+          "publishedAt": "2026-11-17T20:08:50.814Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42914,7 +43130,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -43046,9 +43262,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-17T14:19:20.295Z"
+          "publishedAt": "2026-11-17T20:08:50.814Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
