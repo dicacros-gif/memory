@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "44044725689",
-  "generatedAt": "2026-11-17T08:29:45.696Z",
-  "expiresAt": "2026-11-18T10:29:43.341Z",
+  "runId": "44098571004",
+  "generatedAt": "2026-11-17T14:19:20.295Z",
+  "expiresAt": "2026-11-18T16:19:18.203Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-17T08:28:16.547Z",
-    "runId": "44044725689",
+    "generatedAt": "2026-11-17T14:17:51.117Z",
+    "runId": "44098571004",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,7 +122,46 @@
     ],
     "eventTriggers": [
       {
-        "id": "d64fbf603ababbadf9db",
+        "id": "ef4f4bada83053274964",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "f97587331c1188cd87ab",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "4145557fa838bfe07b23",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "dff57348873b43ac1df8",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -134,7 +173,7 @@
         "changed": true
       },
       {
-        "id": "f2244202b7970aae5354",
+        "id": "eb4f168190781a3a450f",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -144,19 +183,6 @@
         "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
         "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
-      },
-      {
-        "id": "385b5b41ab6e4924c46c",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "sandisk-newsroom",
-        "source": "sandisk.com",
-        "sourceClass": "official",
-        "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "publishedAt": "2026-11-16",
-        "changed": false
       },
       {
         "id": "2266a646bb77612184af",
@@ -248,43 +274,17 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "03d1894ebe386b1c4d1d",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "d68f89e9a3676800c266",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-17T08:28:16.547Z",
+      "generatedAt": "2026-11-17T14:17:51.117Z",
       "stats": {
-        "eligibleDocuments": 42,
-        "structuredEvents": 40,
-        "verifiedEvents": 35,
-        "currentStages": 34,
-        "newEvents": 1,
+        "eligibleDocuments": 41,
+        "structuredEvents": 39,
+        "verifiedEvents": 34,
+        "currentStages": 33,
+        "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
@@ -604,39 +604,6 @@
           "isCurrentStage": true
         },
         {
-          "id": "c11af809335be55f8373",
-          "ruleId": "capacity-commitment",
-          "eventType": "commercial-commitment",
-          "label": "CapEx·Capacity·장기 물량",
-          "entity": {
-            "id": "industry",
-            "label": "Memory industry"
-          },
-          "product": {
-            "id": "hbf",
-            "label": "HBF"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [
-            "2.2%"
-          ],
-          "evidenceSpan": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support",
-          "source": "sandisk.com",
-          "sourceId": "sandisk-newsroom",
-          "sourceClass": "official",
-          "sourceUrl": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-16",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-11-16",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
           "id": "31aaf477ab2c38aa4a80",
           "ruleId": "full-stack-memory-portfolio",
           "eventType": "strategy-portfolio",
@@ -793,6 +760,37 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
+        },
+        {
+          "id": "2bba443d461375820020",
+          "ruleId": "memory-centric-compute",
+          "eventType": "memory-centric-architecture",
+          "label": "PIM · CXL Pooling · 3D Stacked DRAM",
+          "entity": {
+            "id": "sk-hynix",
+            "label": "SK hynix"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [],
+          "evidenceSpan": "Utilizing hybrid bonding technology that connects chips without bumps, SoIC widens data processing bandwidth and reduces chip size, making it an essential technology for next generation AI semiconductor production",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "sourceUrl": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
+          "publishedAt": "2026-04-23",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-04-23",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
         }
       ]
     },
@@ -827,8 +825,8 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 155,
-        "structuredEvents": 40,
-        "verifiedEvents": 35,
+        "structuredEvents": 39,
+        "verifiedEvents": 34,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
@@ -856,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,8 +1055,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
-            "lastUsefulObservationAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
+            "lastUsefulObservationAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-17T08:28:13.289Z",
+            "lastSuccessAt": "2026-11-17T14:17:45.961Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,12 +1324,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T08:28:16.547Z",
+          "updatedAt": "2026-11-17T14:17:51.117Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
+          "sourceStage": "COMMERCIAL_SHIPMENT",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1363,25 +1361,10 @@
           "evidenceCount": 8,
           "officialFactCount": 6,
           "marketEstimateCount": 2,
-          "independentSources": 4,
+          "independentSources": 3,
           "primaryEvidence": 6,
-          "verifiedClaims": 12,
+          "verifiedClaims": 11,
           "evidence": [
-            {
-              "id": "c11af809335be55f8373",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-11-16",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-11-16",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
             {
               "score": 3.5,
               "chunkId": "d7f64e9d77146b39d4c7",
@@ -1444,6 +1427,22 @@
               "claimType": "verified-fact",
               "asOf": "2026-07-29",
               "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
+            },
+            {
+              "id": "9d6f0424120480932e3c",
+              "ruleId": "partner-codesign",
+              "feedId": "skhynix-nvidia-partnership-2026",
+              "title": "SK hynix · AI Memory · ANNOUNCED",
+              "source": "SK hynix Newsroom",
+              "sourceId": "skhynix-newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+              "publishedAt": "2026-07-25",
+              "stage": "ANNOUNCED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-07-25",
+              "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
             }
           ]
         },
@@ -1455,12 +1454,12 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T08:28:16.547Z",
+          "updatedAt": "2026-11-17T14:17:51.117Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "News archive | Solidigm Newsroom",
+          "sourceStage": "COMMERCIAL_SHIPMENT",
           "stage": "ARCHITECTURE_BENCHMARK",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1493,25 +1492,10 @@
           "evidenceCount": 8,
           "officialFactCount": 6,
           "marketEstimateCount": 2,
-          "independentSources": 6,
+          "independentSources": 5,
           "primaryEvidence": 6,
-          "verifiedClaims": 8,
+          "verifiedClaims": 7,
           "evidence": [
-            {
-              "id": "c11af809335be55f8373",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-11-16",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-11-16",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
             {
               "score": 1.75,
               "chunkId": "a0e6463c36f708d6eb6e",
@@ -1525,21 +1509,21 @@
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
-              "documentStatus": "current"
+              "documentStatus": "retained-last-verified"
             },
             {
               "score": 2.75,
-              "chunkId": "5f582d5eeacc212e644c",
+              "chunkId": "470b2a7feb8871e434b2",
               "title": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
-              "excerpt": "nment, home appliance, and semiconductor products Galaxy Z Fold8 Ultra and Z Fold8... 2026.10.29 Samsung Electronics Announces Third Quarter 2026 Results Quarterly revenue of KRW 195.3 trillion, operating profit at KRW 107.4 trillion SEOUL, Korea – Oct. 29, 2026 – Samsung Electronics Co., Ltd. today reported... Techno…",
+              "excerpt": "nment, home appliance, and semiconductor products Galaxy Z Fold8 Ultra and Z Fold8... 2026.10.29 Samsung Electronics Announces Third Quarter 2026 Results Quarterly revenue of KRW 195.3 trillion, operating profit at KRW 107.4 trillion SEOUL, Korea – Oct. 29, 2026 – Samsung Electronics Co., Ltd",
               "sourceId": "samsung-semiconductor",
               "feedId": "samsung-hbm4-stage",
               "source": "Samsung Semiconductor",
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-16T08:37:38.194Z",
-              "sourceChangeDetectedAt": "2026-11-16T08:37:30.280Z",
+              "indexedAt": "2026-11-17T14:17:51.117Z",
+              "sourceChangeDetectedAt": "2026-11-17T14:17:45.961Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1573,6 +1557,22 @@
               "claimType": "verified-fact",
               "asOf": "2026-08-07",
               "excerpt": "SK hynix plans to proactively secure production infrastructure based on mid-to-long-term demand discussed with customers, while expanding actual production capacity in alignment with the timing of customer needs"
+            },
+            {
+              "id": "7c64b0051b9767050f5a",
+              "ruleId": "hbf-standardization-stage",
+              "feedId": "skhynix-hbf-open-standard",
+              "title": "SK hynix · HBF · STANDARDIZATION",
+              "source": "SK hynix Newsroom",
+              "sourceId": "skhynix-newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+              "publishedAt": "2026-08-04",
+              "stage": "STANDARDIZATION",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-08-04",
+              "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
             }
           ]
         },
@@ -1584,12 +1584,12 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T08:28:16.547Z",
+          "updatedAt": "2026-11-17T14:17:51.117Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
           "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1620,40 +1620,10 @@
           "evidenceCount": 8,
           "officialFactCount": 7,
           "marketEstimateCount": 1,
-          "independentSources": 6,
+          "independentSources": 5,
           "primaryEvidence": 7,
-          "verifiedClaims": 11,
+          "verifiedClaims": 10,
           "evidence": [
-            {
-              "id": "c11af809335be55f8373",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-11-16",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-11-16",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "a0e6463c36f708d6eb6e",
-              "title": "News archive | Solidigm Newsroom",
-              "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
-              "sourceId": "solidigm-newsroom",
-              "source": "news.solidigm.com",
-              "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-16T14:52:11.037Z",
-              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
-              "freshnessDays": 180,
-              "documentStatus": "current"
-            },
             {
               "score": 1.75,
               "chunkId": "34c1f1956aac940759ef",
@@ -1669,6 +1639,21 @@
               "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
               "freshnessDays": 365,
               "documentStatus": "current"
+            },
+            {
+              "score": 1.75,
+              "chunkId": "a0e6463c36f708d6eb6e",
+              "title": "News archive | Solidigm Newsroom",
+              "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
+              "sourceId": "solidigm-newsroom",
+              "source": "news.solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW/releases",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-16T14:52:11.037Z",
+              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
+              "freshnessDays": 180,
+              "documentStatus": "retained-last-verified"
             },
             {
               "score": 1.75,
@@ -1700,6 +1685,21 @@
               "claimType": "verified-fact",
               "asOf": "2026-08-26",
               "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
+            },
+            {
+              "id": "7196f7790653c9406e26",
+              "ruleId": "hbf-standardization-stage",
+              "title": "Sandisk · HBF · STANDARDIZATION",
+              "source": "Trendforce",
+              "sourceId": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+              "publishedAt": "2026-08-14",
+              "stage": "STANDARDIZATION",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-14",
+              "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
             }
           ]
         },
@@ -1711,12 +1711,12 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-17T08:28:16.547Z",
+          "updatedAt": "2026-11-17T14:17:51.117Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+          "sourceStage": "ANNOUNCED",
           "stage": "SCALE_GATE",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1746,27 +1746,12 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "officialFactCount": 8,
-          "marketEstimateCount": 0,
+          "officialFactCount": 7,
+          "marketEstimateCount": 1,
           "independentSources": 4,
-          "primaryEvidence": 8,
-          "verifiedClaims": 13,
+          "primaryEvidence": 7,
+          "verifiedClaims": 12,
           "evidence": [
-            {
-              "id": "c11af809335be55f8373",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-11-16",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-11-16",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
             {
               "score": 2.75,
               "chunkId": "e9338b77f001c4b7083c",
@@ -1830,18 +1815,34 @@
               "sourceChangeDetectedAt": "2026-10-13T07:54:03.652Z",
               "freshnessDays": 365,
               "documentStatus": "current"
+            },
+            {
+              "id": "23573c07e31f7af6e053",
+              "ruleId": "partner-codesign",
+              "feedId": "skhynix-hbf-open-standard",
+              "title": "SK hynix · HBF · ANNOUNCED",
+              "source": "SK hynix Newsroom",
+              "sourceId": "skhynix-newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+              "publishedAt": "2026-08-04",
+              "stage": "ANNOUNCED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-08-04",
+              "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
             }
           ]
         }
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 10,
+        "observed": 9,
         "fresh": 6,
-        "observationRatePct": 6.8,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
-        "officialObserved": 2,
-        "officialFresh": 2,
+        "officialObserved": 1,
+        "officialFresh": 1,
         "targetPct": 90
       }
     },
@@ -2099,10 +2100,10 @@
         "documents": 155,
         "chunks": 600,
         "added": 0,
-        "changed": 1,
-        "unchanged": 41,
-        "retained": 113,
-        "reindexed": 1
+        "changed": 3,
+        "unchanged": 38,
+        "retained": 114,
+        "reindexed": 3
       },
       "packs": [
         {
@@ -2298,8 +2299,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-17T08:28:16.547Z",
-              "sourceChangeDetectedAt": "2026-11-17T08:28:13.289Z",
+              "indexedAt": "2026-11-17T14:17:51.117Z",
+              "sourceChangeDetectedAt": "2026-11-17T14:17:45.961Z",
               "stale": false
             }
           ]
@@ -2312,6 +2313,26 @@
           "evidenceCount": 4,
           "citations": [
             {
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "source": "OpenAI Infrastructure",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-17T02:39:40.491Z",
+              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
+              "stale": false
+            },
+            {
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "source": "OpenAI Infrastructure",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-11-16",
+              "indexedAt": "2026-11-17T02:39:40.491Z",
+              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
+              "stale": false
+            },
+            {
               "title": "News archive | Solidigm Newsroom",
               "source": "news.solidigm.com",
               "sourceClass": "official",
@@ -2319,27 +2340,7 @@
               "publishedAt": "2026-11-16",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
-              "stale": false
-            },
-            {
-              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "source": "OpenAI Infrastructure",
-              "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-17T02:39:40.491Z",
-              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
-              "stale": false
-            },
-            {
-              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "source": "OpenAI Infrastructure",
-              "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-17T02:39:40.491Z",
-              "sourceChangeDetectedAt": "2026-11-17T02:39:31.292Z",
-              "stale": false
+              "stale": true
             }
           ]
         },
@@ -2366,8 +2367,8 @@
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-16T08:37:38.194Z",
-              "sourceChangeDetectedAt": "2026-11-16T08:37:30.280Z",
+              "indexedAt": "2026-11-17T14:17:51.117Z",
+              "sourceChangeDetectedAt": "2026-11-17T14:17:45.961Z",
               "stale": false
             },
             {
@@ -2473,8 +2474,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-11-16T14:52:11.037Z",
-              "sourceChangeDetectedAt": "2026-11-16T14:52:04.745Z",
+              "indexedAt": "2026-11-17T14:17:51.117Z",
+              "sourceChangeDetectedAt": "2026-11-17T14:17:45.961Z",
               "stale": false
             }
           ]
@@ -2483,7 +2484,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 92.6,
+      "score": 91.7,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2500,11 +2501,11 @@
       "components": {
         "contentAge": 96.8,
         "embeddingLag": 100,
-        "staleRetrievalRate": 75,
+        "staleRetrievalRate": 71.2,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 25,
+        "staleRetrievalRatePct": 28.8,
         "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
@@ -2516,10 +2517,10 @@
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-17T08:28:13.289Z",
-        "indexedAt": "2026-11-17T08:28:16.547Z"
+        "sourceChangeDetectedAt": "2026-11-17T14:17:45.961Z",
+        "indexedAt": "2026-11-17T14:17:51.117Z"
       },
-      "generatedAt": "2026-11-17T08:28:16.547Z"
+      "generatedAt": "2026-11-17T14:17:51.117Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2538,7 +2539,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-17T08:29:45.696Z",
+    "generatedAt": "2026-11-17T14:19:20.295Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5510,8 +5511,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 7,
-            "sourceCount": 3,
+            "mentions": 6,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5532,7 +5533,7 @@
               },
               {
                 "week": "2026-10-26",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-11-02",
@@ -5557,8 +5558,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 4,
-                "sourceCount": 2,
+                "mentions": 3,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-09-28",
@@ -5578,7 +5579,7 @@
                   },
                   {
                     "week": "2026-10-26",
-                    "count": 1
+                    "count": 0
                   },
                   {
                     "week": "2026-11-02",
@@ -11217,8 +11218,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 7,
-          "sourceCount": 3,
+          "mentions": 6,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11239,7 +11240,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-02",
@@ -11264,8 +11265,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 4,
-              "sourceCount": 2,
+              "mentions": 3,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -11285,7 +11286,7 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-11-02",
@@ -20628,7 +20629,7 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 3,
+          "mentions": 4,
           "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -20662,7 +20663,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -21129,6 +21130,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
+              "date": "2026-11-17"
+            },
             {
               "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
               "source": "digitimes.com",
@@ -21711,8 +21719,8 @@
             "url": "https://www.morganstanley.com/research"
           },
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -21745,7 +21753,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -22178,7 +22186,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
+              "date": "2026-11-17"
+            }
+          ],
           "chipStage": "브로커 추정",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22732,7 +22748,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-17T08:29:45.696Z",
+        "updatedAt": "2026-11-17T14:19:20.295Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -24081,7 +24097,14 @@
                 "servesAccounts": [
                   "Amazon AWS"
                 ],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
+                  "date": "2026-11-17"
+                },
+                "evidenceCount": 1,
                 "accent": "#28618b",
                 "source": {
                   "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
@@ -24168,13 +24191,13 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+                  "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
+                  "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
                   "date": "2026-11-17"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 4,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -25511,13 +25534,13 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+              "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261117pd225/samsung-hbm-meta-2nm-nvidia.html",
+              "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
               "date": "2026-11-17"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 4,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -25554,7 +25577,14 @@
             "servesAccounts": [
               "Amazon AWS"
             ],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
+              "date": "2026-11-17"
+            },
+            "evidenceCount": 1,
             "accent": "#28618b",
             "source": {
               "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
@@ -28052,8 +28082,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 4,
-              "sourceCount": 2,
+              "mentions": 3,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -28073,7 +28103,7 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-11-02",
@@ -28981,8 +29011,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 7,
-          "sourceCount": 3,
+          "mentions": 6,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -29003,7 +29033,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-02",
@@ -29028,8 +29058,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 4,
-              "sourceCount": 2,
+              "mentions": 3,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-28",
@@ -29049,7 +29079,7 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-11-02",
@@ -39245,8 +39275,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -39278,23 +39308,22 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "latest": {
-            "id": "265af9ba5e1220b53072",
-            "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
-            "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-            "text": "sandisk.com nand scaling the memory wall: behind sandisk’s high bandwidth flash for ai ... high bandwidth flash (hbf)—a new form of nand—delivers performance within 2.2% of unlimited-capacity hbm, while offering a significant increase in memory capacity—unlocking ai services that traditional hbm simply can’t support. powered by sandisk’s cba (cmos directly bonded to array) technology, hbf sets a new standard for high-bandwidth memory, combining exceptional speed, density, and energy efficiency in a single architecture. scaling the memory wall: behind sandisk’s high bandwidth flash for ai ... 새로운 형태의 nand인 고대역폭 플래시(hbf)는 무제한 용량 hbm의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 hbm이 지원할 수 없는 ai 서비스를 제공 · sandisk의 cba(cmos direct bonded to array) 기술로 구동되는 hbf는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-            "source": "sandisk.com",
-            "sourceClass": "official",
+            "id": "71c6c146bfd88a3b9643",
+            "title": "Same fab, different paths: Kioxia and Sandisk diverge on HBF",
+            "text": "blocksandfiles.com nand same fab, different paths: kioxia and sandisk diverge on hbf nand fab joint-venture (jv) partners kioxia and sandisk have differing views on the sk hynix-led high-bandwidth flash (hbf) initiative, with sandisk supporting it and kioxia so far neutral and staking out an alternative architectural position. same fab, different paths: kioxia and sandisk diverge on hbf",
+            "source": "blocksandfiles.com",
+            "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "date": "2026-11-16"
+            "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
+            "date": "2026-11-03"
           },
-          "status": "opportunity-candidate",
-          "evidenceStatus": "cross-checked",
-          "evidenceLabel": "2-SOURCE SIGNAL",
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
           "translation": {
             "ruleId": "HBF",
             "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
@@ -39303,12 +39332,6 @@
             "stage": "POC",
             "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
             "status": "approved-rule"
-          },
-          "source": {
-            "name": "sandisk.com",
-            "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "asOf": "2026-11-16",
-            "sourceClass": "official"
           }
         },
         {
@@ -39339,8 +39362,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -39348,7 +39371,7 @@
             },
             {
               "week": "2026-10-05",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-12",
@@ -39375,6 +39398,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "2026-10-11:71",
+            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
+            "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
+            "source": "trendforce.com",
+            "sourceClass": "news",
+            "origin": "live-crawl",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
+            "date": "2026-10-11"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39966,8 +39999,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -39999,22 +40032,22 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "latest": {
-            "id": "0be479eea81fd3413d97",
-            "title": "News archive | Solidigm Newsroom",
-            "text": "news.solidigm.com nand news archive | solidigm newsroom co-ceo xin guo talks nand supply dynamics, the rise of the kv cache, and why storage has become a day-zero design decision for ai infrastructure. news archive | solidigm newsroom",
-            "source": "news.solidigm.com",
-            "sourceClass": "official",
+            "id": "6ae2322489bbfd9d7d4d",
+            "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
+            "source": "blocksandfiles.com",
+            "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://news.solidigm.com/en-ww/releases",
-            "date": "2026-11-16"
+            "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+            "date": "2026-10-26"
           },
-          "status": "opportunity-candidate",
-          "evidenceStatus": "cross-checked",
-          "evidenceLabel": "2-SOURCE SIGNAL",
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
           "translation": {
             "ruleId": "Long Context",
             "systemShift": "컨텍스트 길이 증가가 용량 요구를 선형 이상으로 밀어올림",
@@ -40023,12 +40056,6 @@
             "stage": "POC",
             "gate": "Capacity/$ · TTFT",
             "status": "approved-rule"
-          },
-          "source": {
-            "name": "news.solidigm.com",
-            "url": "https://news.solidigm.com/en-ww/releases",
-            "asOf": "2026-11-16",
-            "sourceClass": "official"
           }
         },
         {
@@ -40342,199 +40369,11 @@
       "horizonPortfolio": [
         {
           "horizon": "H1",
-          "items": [
-            {
-              "id": "long-context-kv",
-              "label": "LONG CONTEXT · KV CACHE",
-              "horizon": "H1",
-              "aliases": [
-                "long context",
-                "long-context",
-                "KV cache",
-                "context caching",
-                "prefix cache",
-                "롱 컨텍스트"
-              ],
-              "memoryMapKeys": [
-                "Long Context",
-                "KV Cache",
-                "Context Caching"
-              ],
-              "painAxisIds": [
-                "capacity",
-                "bandwidth"
-              ],
-              "productIds": [
-                "custom-hbm",
-                "ai-d-b",
-                "ai-d-e"
-              ],
-              "promotionRule": {
-                "minMentions": 2,
-                "minSources": 2
-              },
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 1
-                }
-              ],
-              "latest": {
-                "id": "0be479eea81fd3413d97",
-                "title": "News archive | Solidigm Newsroom",
-                "text": "news.solidigm.com nand news archive | solidigm newsroom co-ceo xin guo talks nand supply dynamics, the rise of the kv cache, and why storage has become a day-zero design decision for ai infrastructure. news archive | solidigm newsroom",
-                "source": "news.solidigm.com",
-                "sourceClass": "official",
-                "origin": "live-crawl",
-                "url": "https://news.solidigm.com/en-ww/releases",
-                "date": "2026-11-16"
-              },
-              "status": "opportunity-candidate",
-              "evidenceStatus": "cross-checked",
-              "evidenceLabel": "2-SOURCE SIGNAL",
-              "translation": {
-                "ruleId": "Long Context",
-                "systemShift": "컨텍스트 길이 증가가 용량 요구를 선형 이상으로 밀어올림",
-                "memoryNeed": "CPU DRAM 또는 새로운 Memory Tier",
-                "productAxis": "AI-DRAM · CXL · AI-NAND",
-                "stage": "POC",
-                "gate": "Capacity/$ · TTFT",
-                "status": "approved-rule"
-              },
-              "source": {
-                "name": "news.solidigm.com",
-                "url": "https://news.solidigm.com/en-ww/releases",
-                "asOf": "2026-11-16",
-                "sourceClass": "official"
-              }
-            }
-          ]
+          "items": []
         },
         {
           "horizon": "H2",
-          "items": [
-            {
-              "id": "hbf-hbs",
-              "label": "HBF · HBS",
-              "horizon": "H2",
-              "aliases": [
-                "HBF",
-                "HBS",
-                "high bandwidth flash",
-                "high bandwidth storage"
-              ],
-              "memoryMapKeys": [
-                "HBF"
-              ],
-              "painAxisIds": [
-                "capacity",
-                "bandwidth"
-              ],
-              "productIds": [
-                "ai-n-b",
-                "ai-n-d"
-              ],
-              "promotionRule": {
-                "minMentions": 2,
-                "minSources": 2
-              },
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 1
-                }
-              ],
-              "latest": {
-                "id": "265af9ba5e1220b53072",
-                "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
-                "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-                "text": "sandisk.com nand scaling the memory wall: behind sandisk’s high bandwidth flash for ai ... high bandwidth flash (hbf)—a new form of nand—delivers performance within 2.2% of unlimited-capacity hbm, while offering a significant increase in memory capacity—unlocking ai services that traditional hbm simply can’t support. powered by sandisk’s cba (cmos directly bonded to array) technology, hbf sets a new standard for high-bandwidth memory, combining exceptional speed, density, and energy efficiency in a single architecture. scaling the memory wall: behind sandisk’s high bandwidth flash for ai ... 새로운 형태의 nand인 고대역폭 플래시(hbf)는 무제한 용량 hbm의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 hbm이 지원할 수 없는 ai 서비스를 제공 · sandisk의 cba(cmos direct bonded to array) 기술로 구동되는 hbf는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-                "source": "sandisk.com",
-                "sourceClass": "official",
-                "origin": "live-crawl",
-                "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-                "date": "2026-11-16"
-              },
-              "status": "opportunity-candidate",
-              "evidenceStatus": "cross-checked",
-              "evidenceLabel": "2-SOURCE SIGNAL",
-              "translation": {
-                "ruleId": "HBF",
-                "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
-                "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-                "productAxis": "AI-NAND",
-                "stage": "POC",
-                "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-                "status": "approved-rule"
-              },
-              "source": {
-                "name": "sandisk.com",
-                "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-                "asOf": "2026-11-16",
-                "sourceClass": "official"
-              }
-            }
-          ]
+          "items": []
         },
         {
           "horizon": "H3",
@@ -40543,55 +40382,12 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-17T08:28:16.981Z",
-        "items": [
-          {
-            "id": "opportunity:hbf-hbs:2026-11-16:https-www-sandisk-com-company-newsroom-blogs-2025-scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "kind": "opportunity-candidate",
-            "headline": "HBF · HBS · H2 기회 후보",
-            "asOf": "2026-11-16",
-            "source": "sandisk.com",
-            "sourceUrl": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "isNew": true
-          },
-          {
-            "id": "opportunity:long-context-kv:2026-11-16:https-news-solidigm-com-en-ww-releases",
-            "kind": "opportunity-candidate",
-            "headline": "LONG CONTEXT · KV CACHE · H1 기회 후보",
-            "asOf": "2026-11-16",
-            "source": "news.solidigm.com",
-            "sourceUrl": "https://news.solidigm.com/en-ww/releases",
-            "isNew": true
-          }
-        ],
-        "newItems": [
-          {
-            "id": "opportunity:hbf-hbs:2026-11-16:https-www-sandisk-com-company-newsroom-blogs-2025-scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "kind": "opportunity-candidate",
-            "headline": "HBF · HBS · H2 기회 후보",
-            "asOf": "2026-11-16",
-            "source": "sandisk.com",
-            "sourceUrl": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "isNew": true
-          },
-          {
-            "id": "opportunity:long-context-kv:2026-11-16:https-news-solidigm-com-en-ww-releases",
-            "kind": "opportunity-candidate",
-            "headline": "LONG CONTEXT · KV CACHE · H1 기회 후보",
-            "asOf": "2026-11-16",
-            "source": "news.solidigm.com",
-            "sourceUrl": "https://news.solidigm.com/en-ww/releases",
-            "isNew": true
-          }
-        ],
-        "newCount": 2,
-        "recentIds": [
-          "opportunity:hbf-hbs:2026-11-16:https-www-sandisk-com-company-newsroom-blogs-2025-scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "opportunity:long-context-kv:2026-11-16:https-news-solidigm-com-en-ww-releases"
-        ],
-        "counts": {
-          "opportunity-candidate": 2
-        }
+        "generatedAt": "2026-11-17T14:17:51.576Z",
+        "items": [],
+        "newItems": [],
+        "newCount": 0,
+        "recentIds": [],
+        "counts": {}
       },
       "roadmap90d": [
         {
@@ -40669,10 +40465,10 @@
         "evidence": {
           "status": "official-fact",
           "label": "공식 확인",
-          "stage": "공개",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "asOf": "2026-11-16"
+          "stage": "상업 출하",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/en/q2-2026-business-results",
+          "asOf": "2026-07-29"
         }
       },
       {
@@ -40704,23 +40500,6 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
-        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도,…",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "source": "sandisk.com",
-        "publishedAt": "2026-11-16",
-        "sourceClass": "official",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
         "title": "DapuStor's KV Cache NVMe SSD offload explainer",
         "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
         "source": "blocksandfiles.com",
@@ -40738,7 +40517,75 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 22
+        "ageDays": 23
+      },
+      {
+        "title": "Phison Pascari X201P 15.36TB SSD 리뷰: AI 및 수집 서버를 위한 빠른 PCIe 5.0 쓰기 성능",
+        "summary": "이 1개의 DWPD U.2 드라이브는 12GB/s에 도달하고 이를 유지가능",
+        "url": "https://www.tomshardware.com/pc-components/ssds/phison-pascari-x201p-15-36tb-ssd-review",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-11-17",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "엔터프라이즈 SSD를 테스트하는 방법",
+        "summary": "당사의 기업 및 데이터 센터 SSD 리뷰는 최고의 날뿐만 아니라 실제 서비스에서 드라이브의 성능을 보여줌",
+        "url": "https://www.tomshardware.com/pc-components/ssds/how-we-test-enterprise-ssds-our-new-test-suite-pushes-enterprise-and-data-center-ssds-to-their-limits",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-11-17",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "삼성베트남, 테스트 공장과 함께 NAND 패키징 라인 계획",
+        "summary": "삼성전자는 2030년까지 베트남에 낸드플래시 패키징 시설을 증설해 기존 계획된 반도체 테스트 공장을 넘어 통합 원스톱 백엔드 제조 기지를 구축하는 방안을 검토 중이다 · 이번 조치로 인해 원자재 NAND 백엔드 처리가 해외로 이전되어 한국의 자원과 HBM과 같은 고부가가치 반도체 생산 능력이 확보될 것",
+        "url": "https://www.digitimes.com/news/a20261117PD208/samsung-nand-packaging-plant-hbm.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-17",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+        "summary": "Taiwan's semiconductor supply chain generally saw strong growth in October, driven mainly by AI and advanced-process demand. TSMC's revenue for that month rose nearly 60% year-ove…",
+        "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-17",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
       },
       {
         "title": "Nvidia 너머의 HBM: Samsung이 Jensen의 퇴장으로 가장 많은 이익을 얻는 이유",
@@ -40755,41 +40602,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
-        "summary": "SK Hynix generated more than 60% of its revenue from the US in the first nine months of 2026, with sales to its presumed largest customer, Nvidia, doubling from a year earlier. St…",
-        "url": "https://www.digitimes.com/news/a20261117VL211/sk-hynix-memory-nvidia-revenue-sales-2026.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-17",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
-        "summary": "삼성전자는 메타가 자체 설계한 AI 칩용 맞춤형 고대역폭 메모리(HBM)를 개발 중인 것으로 알려졌으며, 베이스 다이에는 삼성 파운드리의 2nm 공정을 사용할 계획이다 · 한국 언론에 따르면 이 회사는 또한 Nvidia용 TSMC 공정을 사용하여 맞춤형 HBM 베이스 다이를 준비하고 있음",
-        "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-17",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       }
     ],
     "reportPolicy": {
@@ -40981,12 +40794,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
+          "title": "삼성베트남, 테스트 공장과 함께 NAND 패키징 라인 계획",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-16",
-          "evidenceLevel": "Confirmed"
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD208/samsung-nand-packaging-plant-hbm.html",
+          "publishedAt": "2026-11-17",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -41033,7 +40846,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-17T08:29:45.696Z",
+          "publishedAt": "2026-11-17T14:19:20.295Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -41076,8 +40889,8 @@
       },
       "enabled": true
     },
-    "runId": "44044725689",
-    "generatedAt": "2026-11-17T08:29:45.696Z",
+    "runId": "44098571004",
+    "generatedAt": "2026-11-17T14:19:20.295Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -41415,8 +41228,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "44044725689",
-    "generatedAt": "2026-11-17T08:29:45.696Z",
+    "runId": "44098571004",
+    "generatedAt": "2026-11-17T14:19:20.295Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -42115,24 +41928,10 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
-    "signals": [
-      {
-        "id": "sandisk-newsroom-data-2026-11-16",
-        "pillar": "data",
-        "pillarLabel": "DATA / STORAGE",
-        "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
-        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-        "source": "Sandisk Newsroom",
-        "sourceId": "sandisk-newsroom",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "publishedAt": "2026-11-16",
-        "evidenceLevel": "Watch",
-        "sourceClass": "official"
-      }
-    ],
+    "signals": [],
     "pillarCoverage": [
       {
         "id": "facility",
@@ -42154,9 +41953,9 @@
         "id": "data",
         "label": "DATA / STORAGE",
         "configured": 6,
-        "observed": 1,
-        "fresh": 1,
-        "status": "fresh"
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
       },
       {
         "id": "orchestration",
@@ -42193,7 +41992,7 @@
     ],
     "automation": {
       "status": "SOURCE-CONNECTED",
-      "activePillars": 1,
+      "activePillars": 0,
       "totalPillars": 7,
       "activeWorkloads": 6,
       "promotedWorkloads": 0,
@@ -42202,8 +42001,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-17T08:29:45.696Z",
-    "runId": "44044725689"
+    "generatedAt": "2026-11-17T14:19:20.295Z",
+    "runId": "44098571004"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -42444,12 +42243,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 92.6,
+        "freshnessScore": 91.7,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-17T08:28:16.547Z"
+        "indexedAt": "2026-11-17T14:17:51.117Z"
       }
     },
     "sources": [
@@ -42582,12 +42381,12 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-17T08:29:45.696Z",
-    "runId": "44044725689"
+    "generatedAt": "2026-11-17T14:19:20.295Z",
+    "runId": "44098571004"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -42615,7 +42414,7 @@
           "pending": true,
           "title": "HBM·AI 서버",
           "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-11-17T08:29:45.696Z",
+          "publishedAt": "2026-11-17T14:19:20.295Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42740,7 +42539,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-17T08:29:45.696Z"
+          "publishedAt": "2026-11-17T14:19:20.295Z"
         },
         "evidenceCount": 9,
         "signals": [
@@ -42862,9 +42661,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-17T08:29:45.696Z"
+          "publishedAt": "2026-11-17T14:19:20.295Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42985,7 +42784,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-17T08:29:45.696Z",
+          "publishedAt": "2026-11-17T14:19:20.295Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -43247,7 +43046,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-17T08:29:45.696Z"
+          "publishedAt": "2026-11-17T14:19:20.295Z"
         },
         "evidenceCount": 9,
         "signals": [

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44044725689",
-  "generatedAt": "2026-11-17T08:29:45.696Z",
+  "runId": "44098571004",
+  "generatedAt": "2026-11-17T14:19:20.295Z",
   "coverage": {
-    "companiesObserved": 34,
-    "companiesWithDerivedDemand": 27,
-    "derivedRequirements": 91,
+    "companiesObserved": 35,
+    "companiesWithDerivedDemand": 28,
+    "derivedRequirements": 92,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -487,18 +487,19 @@
           "gate": "Interface Power · Base Die 공정",
           "hold": "지속",
           "firstSeen": "2026-09-15",
-          "lastSeen": "2026-10-21",
-          "evidenceCount": 5,
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 6,
           "evidenceIds": [
             "1uhvy0c",
             "1d7b4dv",
             "1g3fqr2",
             "01hmtol",
-            "0lvnfym"
+            "0lvnfym",
+            "02op6lb"
           ],
-          "evidence": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/"
+          "evidence": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html"
         },
         {
           "technology": "Custom HBM",
@@ -1913,6 +1914,28 @@
           "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
         }
       ]
+    },
+    "alchip": {
+      "requirements": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-11-17",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "02op6lb"
+          ],
+          "evidence": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1938,6 +1961,28 @@
         "tesla"
       ],
       "weight": 32
+    },
+    {
+      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "Interface Power · Base Die 공정",
+      "technologies": [
+        "2nm"
+      ],
+      "accountCount": 9,
+      "accounts": [
+        "alchip",
+        "apple",
+        "broadcom",
+        "ibm",
+        "imec",
+        "mediatek",
+        "meta",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 19
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -1980,27 +2025,6 @@
         "tsmc"
       ],
       "weight": 19
-    },
-    {
-      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "Interface Power · Base Die 공정",
-      "technologies": [
-        "2nm"
-      ],
-      "accountCount": 8,
-      "accounts": [
-        "apple",
-        "broadcom",
-        "ibm",
-        "imec",
-        "mediatek",
-        "meta",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 17
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
