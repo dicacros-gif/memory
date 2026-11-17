@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44002489197",
-  "generatedAt": "2026-11-17T02:41:02.389Z",
+  "runId": "44044725689",
+  "generatedAt": "2026-11-17T08:29:45.696Z",
   "coverage": {
-    "companiesObserved": 33,
-    "companiesWithDerivedDemand": 26,
-    "derivedRequirements": 89,
+    "companiesObserved": 34,
+    "companiesWithDerivedDemand": 27,
+    "derivedRequirements": 91,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -235,18 +235,19 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-13",
-          "evidenceCount": 5,
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 6,
           "evidenceIds": [
             "0fyqwvp",
             "026p40z",
             "1kz6kxx",
             "0ykarzn",
-            "0t4d89z"
+            "0t4d89z",
+            "0x1uyey"
           ],
-          "evidence": "SKHY, 삼성전자 칩 패키징 역량 확대로 HBM4 수율 70% 돌파",
+          "evidence": "SK Hynix readies back-end equipment orders to add HBM4 capacity at Cheongju P&T6",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261113VL217/sk-hynix-hbm4-production-packaging-samsung.html"
+          "url": "https://www.digitimes.com/news/a20261117VL200/sk-hynix-equipment-hbm4-capacity-hbm.html"
         },
         {
           "technology": "eSSD",
@@ -459,8 +460,8 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "지속",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-26",
-          "evidenceCount": 9,
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 10,
           "evidenceIds": [
             "0wd2d4f",
             "0o0ayvo",
@@ -470,11 +471,12 @@
             "106hb70",
             "1ar8pkx",
             "0roiupr",
-            "01jl2rz"
+            "01jl2rz",
+            "0r8jdnc"
           ],
-          "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
+          "evidence": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
+          "url": "https://www.digitimes.com/news/a20261117PD221/tsmc-3nm-hbm-competition-nvidia.html"
         },
         {
           "technology": "2nm",
@@ -499,6 +501,27 @@
           "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/"
         },
         {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 4,
+          "evidenceIds": [
+            "0d63qpl",
+            "106hb70",
+            "01jl2rz",
+            "0bpoiza"
+          ],
+          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
+        },
+        {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
           "memoryNeed": "저전력 우선의 메모리 구성",
@@ -516,26 +539,6 @@
           "evidence": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "반복",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "0d63qpl",
-            "106hb70",
-            "01jl2rz"
-          ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         }
       ]
     },
@@ -653,16 +656,17 @@
           "gate": "NRE 회수 · 확정 물량 · Margin",
           "hold": "반복",
           "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 3,
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0d63qpl",
             "106hb70",
-            "1rv9k1i"
+            "1rv9k1i",
+            "0bpoiza"
           ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
         },
         {
           "technology": "NVL72",
@@ -760,6 +764,51 @@
     "samsung": {
       "requirements": [
         {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "지속",
+          "firstSeen": "2026-08-17",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 6,
+          "evidenceIds": [
+            "1jg216o",
+            "1m9xw6m",
+            "17fxubs",
+            "196yd6d",
+            "1u8znlv",
+            "0bpoiza"
+          ],
+          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "0m4djqm",
+            "0d63qpl",
+            "106hb70",
+            "01jl2rz",
+            "0bpoiza"
+          ],
+          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -811,28 +860,6 @@
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
-          "technology": "2nm",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "Interface Power · Base Die 공정",
-          "hold": "지속",
-          "firstSeen": "2026-08-17",
-          "lastSeen": "2026-10-23",
-          "evidenceCount": 5,
-          "evidenceIds": [
-            "1jg216o",
-            "1m9xw6m",
-            "17fxubs",
-            "196yd6d",
-            "1u8znlv"
-          ],
-          "evidence": "삼성은 텍사스 현장이 2nm 출력 한도에 가까워짐에 따라 첫 번째 Taylor 팹에 대한 최종 도구를 주문한 것으로 알려졌습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261023VL219/samsung-texas-2nm-fab.html"
-        },
-        {
           "technology": "eSSD",
           "systemShift": "데이터 로딩이 가속기 활용률을 제한",
           "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
@@ -871,27 +898,6 @@
           "evidence": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
           "source": "trendforce.com",
           "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13/"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "반복",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "0m4djqm",
-            "0d63qpl",
-            "106hb70",
-            "01jl2rz"
-          ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "PIM",
@@ -1324,6 +1330,28 @@
     "aws": {
       "requirements": [
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "지속",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "1x2je9l",
+            "106hb70",
+            "1ar8pkx",
+            "01jl2rz",
+            "0r8jdnc"
+          ],
+          "evidence": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD221/tsmc-3nm-hbm-competition-nvidia.html"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -1345,27 +1373,6 @@
           "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "반복",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-21",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "1x2je9l",
-            "106hb70",
-            "1ar8pkx",
-            "01jl2rz"
-          ],
-          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
         },
         {
           "technology": "Custom HBM",
@@ -1439,8 +1446,8 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-28",
-          "lastSeen": "2026-11-15",
-          "evidenceCount": 10,
+          "lastSeen": "2026-11-16",
+          "evidenceCount": 11,
           "evidenceIds": [
             "0fv1za0",
             "1etr26h",
@@ -1451,9 +1458,10 @@
             "0m6lf6k",
             "0ibt6bu",
             "1t0k2ik",
-            "0hmnpt6"
+            "0hmnpt6",
+            "0hco447"
           ],
-          "evidence": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+          "evidence": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
           "source": "sandisk.com",
           "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai"
         },
@@ -1865,6 +1873,46 @@
           "url": "https://www.digitimes.com/news/a20261104VL218/nand-flash-manufacturing-capacity-wafer-sandisk.html"
         }
       ]
+    },
+    "meta": {
+      "requirements": [
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "관측",
+          "firstSeen": "2026-11-17",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0bpoiza"
+          ],
+          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
+        },
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-11-17",
+          "lastSeen": "2026-11-17",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0bpoiza"
+          ],
+          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1889,7 +1937,7 @@
         "skhynix",
         "tesla"
       ],
-      "weight": 31
+      "weight": 32
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -1910,7 +1958,7 @@
         "skhynix",
         "tsmc"
       ],
-      "weight": 29
+      "weight": 30
     },
     {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -1920,17 +1968,18 @@
       "technologies": [
         "Custom HBM"
       ],
-      "accountCount": 7,
+      "accountCount": 8,
       "accounts": [
         "aws",
         "intel",
+        "meta",
         "micron",
         "nvidia",
         "samsung",
         "skhynix",
         "tsmc"
       ],
-      "weight": 15
+      "weight": 19
     },
     {
       "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -1940,17 +1989,18 @@
       "technologies": [
         "2nm"
       ],
-      "accountCount": 7,
+      "accountCount": 8,
       "accounts": [
         "apple",
         "broadcom",
         "ibm",
         "imec",
         "mediatek",
+        "meta",
         "samsung",
         "tsmc"
       ],
-      "weight": 15
+      "weight": 17
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
