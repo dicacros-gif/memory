@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "43949658884",
-  "generatedAt": "2026-11-16T20:51:05.714Z",
+  "runId": "44002489197",
+  "generatedAt": "2026-11-17T02:41:02.389Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -532,7 +532,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 108
+        "ageDays": 109
       }
     },
     {
@@ -782,7 +782,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -1480,7 +1480,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -1764,7 +1764,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -1883,7 +1883,18 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1947,9 +1958,14 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2453,7 +2469,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Marvell은 빠르면 2027년에 캐비닛 시스템 광학 상호 연결을 혁신하기 위해 광 메모리 메시 아키텍처를 출시",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/11/17/marvell-develops-a-mesh-architecture-for-photonic-memory",
+          "date": "2026-11-16"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2519,7 +2543,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -3019,7 +3043,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -3901,7 +3925,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -4463,7 +4487,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -4859,7 +4883,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 131
+        "ageDays": 132
       }
     },
     {
@@ -5095,7 +5119,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -5965,7 +5989,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -6419,7 +6443,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -6956,7 +6980,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -7080,29 +7104,10 @@
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 1,
-            "trend": "up",
+            "trend": "flat",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
-            ]
-          },
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           }
         ],
@@ -7206,16 +7211,12 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
-          "용량",
-          "패키징·파운드리"
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b",
-          "ai-d-b",
-          "ai-n-d"
+          "ai-n-b"
         ],
         "actions": [
           {
@@ -7819,14 +7820,7 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "In-depth: Who is behind New Matrix? Nvidia H200 probe casts spotlight on Tsinghua Unigroup chairman",
-          "url": "https://www.digitimes.com/news/a20261116PD208/tsinghua-unigroup-nvidia-chairman-beijing-investment.html",
-          "date": "2026-11-16",
-          "source": "digitimes.com",
-          "observedCount": 2
-        }
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -8586,32 +8580,32 @@
           "date": "2026-07-25"
         },
         {
-          "title": "In-depth: Who is behind New Matrix? Nvidia H200 probe casts spotlight on Tsinghua Unigroup chairman",
-          "source": "digitimes.com",
+          "title": "Huida, AI 자금 조달 및 신용 보증 계획 재검토, CEO 대행, 채무 불이행 위험 줄이기 위해 브레이크 밟아",
+          "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261116pd208/tsinghua-unigroup-nvidia-chairman-beijing-investment.html",
+          "url": "https://finance.technews.tw/2026/11/17/nvidia-reassesses-ai-financing-and-credit-guarantee-program",
           "date": "2026-11-16"
         },
         {
-          "title": "주간 뉴스 정리: 메모리 거인들이 보기 드문 동맹을 맺었음 · 장비 용량 확보 경쟁",
-          "source": "digitimes.com",
+          "title": "Huida 이사회는 Huang Renxun의 복귀 아이디어에 전혀 관심이 없음 · 현재 초점은 내부 조사와 재정 교정에 있음",
+          "source": "technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261116vl202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html",
+          "url": "https://technews.tw/2026/11/17/nvidias-board-of-directors-has-absolutely-no-interest-in-huang-jen-hsuns-idea-of-%e2%80%8b%e2%80%8breturning",
           "date": "2026-11-16"
         },
         {
-          "title": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
-          "source": "digitimes.com",
+          "title": "외국인 투자자들이 Huida 주가 회복의 핵심 포인트, 후계자, 재무 보고서 및 미국 규제 강도를 지적",
+          "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261116pd211/nvidia-technology-samsung-roadmap-ceo.html",
+          "url": "https://finance.technews.tw/2026/11/16/foreign-investors-point-out-the-key-to-nvidias-stock-price-recovery",
           "date": "2026-11-16"
         },
         {
-          "title": "Allies rally for Jensen Huang&rsquo;s return as Nvidia faces compliance and succession questions",
-          "source": "digitimes.com",
+          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261116vl201/nvidia-governance-jensen-huang.html",
-          "date": "2026-11-16"
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "date": "2026-10-26"
         }
       ],
       "sources": [
@@ -8766,7 +8760,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 34
+        "ageDays": 35
       }
     },
     {
@@ -9457,7 +9451,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -9735,7 +9729,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 67
+        "ageDays": 68
       }
     },
     {
@@ -10068,7 +10062,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "머스크와 삼성, 협력 심화, 삼성 텍사스 공장에서 스페이스X용 칩 생산 루머",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/11/17/elon-musk-samsung-chips",
+          "date": "2026-11-17"
+        }
+      ],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -10096,7 +10098,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -10396,7 +10398,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -10849,7 +10851,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -10970,18 +10972,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -11020,9 +11011,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11186,7 +11175,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "$500 million",
+        "capex": "선단 공정·CoWoS 캐파 대규모 증설",
         "plan": "로직·패키징 동시 확장",
         "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
         "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
@@ -11209,20 +11198,8 @@
             "observedAt": "2026-09-14"
           }
         ],
-        "capexBasis": "관측",
-        "capexHeadline": "TSMC의 새로운 5억 달러 규모의 사업부는 칩 공급업체에 투자할 수 있습니다.",
-        "capexUrl": "https://www.digitimes.com/news/a20261113VL236/tsmc-investment-manufacturing-openai-development.html",
-        "capexAsOf": "2026-11-16",
-        "capexBaseline": "선단 공정·CoWoS 캐파 대규모 증설",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "TSMC의 새로운 5억 달러 규모의 사업부는 칩 공급업체에 투자할 수 있습니다.",
-          "url": "https://www.digitimes.com/news/a20261113VL236/tsmc-investment-manufacturing-openai-development.html",
-          "date": "2026-11-16",
-          "source": "digitimes.com",
-          "amount": "$500 million",
-          "observedCount": 2
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -11641,22 +11618,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "주간 뉴스 정리: 메모리 거인들이 보기 드문 동맹을 맺었음 · 장비 용량 확보 경쟁",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261116vl202/weekly-news-roundup-dram-investment-micron-samsung-sk-hynix-2026.html",
-          "date": "2026-11-16"
-        },
-        {
-          "title": "TSMC의 새로운 5억 달러 규모의 사업부는 칩 공급업체에 투자가능",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261113vl236/tsmc-investment-manufacturing-openai-development.html",
-          "date": "2026-11-16"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -11693,7 +11655,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 34
+        "ageDays": 35
       }
     },
     {
@@ -12233,7 +12195,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -13076,7 +13038,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 34
+        "ageDays": 35
       }
     },
     {
@@ -14046,7 +14008,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 39
+        "ageDays": 40
       }
     },
     {
@@ -15341,7 +15303,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 34
+        "ageDays": 35
       }
     },
     {
@@ -15776,7 +15738,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -16007,7 +15969,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -16251,7 +16213,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -16570,7 +16532,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 97
+        "ageDays": 98
       }
     },
     {
@@ -16817,7 +16779,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -17045,7 +17007,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 174
+        "ageDays": 175
       }
     },
     {
@@ -17255,7 +17217,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 245
+        "ageDays": 246
       }
     },
     {
@@ -17508,7 +17470,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -17787,7 +17749,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 168
+        "ageDays": 169
       }
     },
     {
@@ -18010,7 +17972,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 108
+        "ageDays": 109
       }
     },
     {
@@ -18312,7 +18274,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 34
+        "ageDays": 35
       }
     },
     {
@@ -18536,7 +18498,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 108
+        "ageDays": 109
       }
     },
     {
@@ -18745,7 +18707,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 108
+        "ageDays": 109
       }
     },
     {
@@ -18987,7 +18949,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 108
+        "ageDays": 109
       }
     }
   ],
