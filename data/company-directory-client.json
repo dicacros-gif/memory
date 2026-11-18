@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44258903440",
-  "generatedAt": "2026-11-18T07:40:19.651Z",
+  "runId": "44311314801",
+  "generatedAt": "2026-11-18T13:27:12.430Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3934,7 +3934,7 @@
           "date": "2026-05-20"
         },
         {
-          "title": "HBM을 디자인하는 사람은 누구인가요? Nvidia의 NVHBM 아키텍처는 질문을 훨씬 더 복잡하게 만듦",
+          "title": "Who designs HBM? Nvidia's NVHBM architecture makes the question far more complex",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261117pd247/hbm-samsung-dram-nvidia-testing.html",
@@ -7116,15 +7116,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "공개 근거",
-          "source": "Microsoft Official Blog",
-          "sourceClass": "public",
-          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-          "date": "2026-01-26"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -7282,6 +7274,15 @@
         ],
         "painAxes": [
           {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 3,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 2,
@@ -7292,18 +7293,9 @@
             ]
           },
           {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
             "id": "capacity",
             "label": "용량",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "ai-d-b",
@@ -7420,8 +7412,8 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
           "패키징·파운드리",
+          "대역폭",
           "용량"
         ],
         "riskSignals": [],
@@ -8807,6 +8799,20 @@
           "date": "2026-07-25"
         },
         {
+          "title": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261118vl226/nvidia-hbm-memory-2028.html",
+          "date": "2026-11-18"
+        },
+        {
+          "title": "Foxconn은 차세대 GPU, 네트워킹 플랫폼 전반에 걸쳐 Nvidia와의 협력을 강화",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261118pd249/foxconn-nvidia-gpu-manufacturing-shipments.html",
+          "date": "2026-11-18"
+        },
+        {
           "title": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
@@ -8814,17 +8820,10 @@
           "date": "2026-11-18"
         },
         {
-          "title": "HBM을 디자인하는 사람은 누구인가요? Nvidia의 NVHBM 아키텍처는 질문을 훨씬 더 복잡하게 만듦",
+          "title": "Who designs HBM? Nvidia's NVHBM architecture makes the question far more complex",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261117pd247/hbm-samsung-dram-nvidia-testing.html",
-          "date": "2026-11-18"
-        },
-        {
-          "title": "중국이 Nvidia GPU에서 벗어나 AI 칩 공급망의 한계를 테스트함",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118pd218/nvidia-ai-chip-data-center-chips-software.html",
           "date": "2026-11-18"
         }
       ],
@@ -10723,7 +10722,27 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10747,7 +10766,10 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [],
+        "painSignals": [
+          "용량",
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10843,13 +10865,13 @@
           {
             "key": "tech:Silicon Photonics",
             "label": "Silicon Photonics",
-            "headline": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
-            "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html",
+            "headline": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
+            "url": "https://www.digitimes.com/news/a20261118PD253/taiwan-mask-growth-photonics-14-inch-capacity.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-16",
+            "asOf": "2026-11-18",
             "firstSeen": "2026-10-17",
-            "lastSeen": "2026-11-16",
-            "seenCount": 8
+            "lastSeen": "2026-11-18",
+            "seenCount": 9
           },
           {
             "key": "tech:CPO",
@@ -10875,8 +10897,8 @@
           "gate": "Energy/Task · 상호운용성",
           "hold": "지속",
           "firstSeen": "2026-10-17",
-          "lastSeen": "2026-11-16",
-          "evidenceCount": 8,
+          "lastSeen": "2026-11-18",
+          "evidenceCount": 9,
           "evidenceIds": [
             "0x8jxps",
             "0pap1z3",
@@ -10885,11 +10907,12 @@
             "0obal6a",
             "0g2gg4w",
             "0mafc3j",
-            "0spazn2"
+            "0spazn2",
+            "1tz1p8c"
           ],
-          "evidence": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+          "evidence": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html"
+          "url": "https://www.digitimes.com/news/a20261118PD253/taiwan-mask-growth-photonics-14-inch-capacity.html"
         },
         {
           "technology": "CPO",
@@ -10939,11 +10962,11 @@
           "executionGate": "Energy/Task · 상호운용성",
           "stage": "EXPLORE",
           "evidence": {
-            "title": "Qisda 계열사 Ace Pillar, 반도체 및 AI 자동화 추진을 심화하여 웨이퍼 재생 및 SiPh로 확장",
+            "title": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261116PD219/qisda-ace-pillar-automation-siph-cpo.html",
-            "asOf": "2026-11-16",
-            "count": 8
+            "url": "https://www.digitimes.com/news/a20261118PD253/taiwan-mask-growth-photonics-14-inch-capacity.html",
+            "asOf": "2026-11-18",
+            "count": 9
           }
         },
         {
@@ -11029,6 +11052,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
+        },
+        {
+          "title": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261118pd253/taiwan-mask-growth-photonics-14-inch-capacity.html",
+          "date": "2026-11-18"
         }
       ],
       "sources": [
@@ -11169,7 +11199,7 @@
           {
             "id": "package-foundry",
             "label": "패키징·파운드리",
-            "mentions": 2,
+            "mentions": 4,
             "trend": "up",
             "productIds": [
               "custom-hbm"
@@ -11178,7 +11208,7 @@
           {
             "id": "capacity",
             "label": "용량",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "ai-d-b",
@@ -11455,6 +11485,17 @@
             "seenCount": 4
           },
           {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-18",
+            "firstSeen": "2026-11-18",
+            "lastSeen": "2026-11-18",
+            "seenCount": 2
+          },
+          {
             "key": "tech:LPDDR",
             "label": "LPDDR",
             "headline": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
@@ -11464,17 +11505,6 @@
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-10-28",
             "seenCount": 2
-          },
-          {
-            "key": "tech:CoWoS",
-            "label": "CoWoS",
-            "headline": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
-            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
-            "source": "digitimes.com",
-            "asOf": "2026-11-18",
-            "firstSeen": "2026-11-18",
-            "lastSeen": "2026-11-18",
-            "seenCount": 1
           }
         ],
         "stances": [
@@ -11592,6 +11622,25 @@
           "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html"
         },
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "반복",
+          "firstSeen": "2026-11-18",
+          "lastSeen": "2026-11-18",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "14nkqu2",
+            "1tz1p8c"
+          ],
+          "evidence": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html"
+        },
+        {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -11630,24 +11679,6 @@
           "evidence": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "관측",
-          "firstSeen": "2026-11-18",
-          "lastSeen": "2026-11-18",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "14nkqu2"
-          ],
-          "evidence": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html"
         }
       ],
       "painPoints": [
@@ -11665,7 +11696,7 @@
           "layer": "foundry-package",
           "status": "watch",
           "statusLabel": "추가 검증",
-          "signal": "CoWoS · 관측",
+          "signal": "CoWoS · 반복",
           "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
           "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
           "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -11683,7 +11714,7 @@
             "source": "digitimes.com",
             "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
             "asOf": "2026-11-18",
-            "count": 1
+            "count": 2
           }
         },
         {
@@ -11868,6 +11899,20 @@
       },
       "evidence": [
         {
+          "title": "Foxconn은 차세대 GPU, 네트워킹 플랫폼 전반에 걸쳐 Nvidia와의 협력을 강화",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261118pd249/foxconn-nvidia-gpu-manufacturing-shipments.html",
+          "date": "2026-11-18"
+        },
+        {
+          "title": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261118pd253/taiwan-mask-growth-photonics-14-inch-capacity.html",
+          "date": "2026-11-18"
+        },
+        {
           "title": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
@@ -11875,7 +11920,7 @@
           "date": "2026-11-18"
         },
         {
-          "title": "해설: SMIC, 다른 규모로 삼성에 접근",
+          "title": "Commentary: SMIC closes in on Samsung with a different kind of scale",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261118vl206/smic-samsung-revenue-market-2025.html",
