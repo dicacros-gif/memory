@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44217528290",
-  "generatedAt": "2026-11-18T01:54:33.516Z",
+  "runId": "44258903440",
+  "generatedAt": "2026-11-18T07:40:19.651Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -829,15 +829,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
-          "date": "2026-11-17"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -3231,7 +3223,36 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3335,9 +3356,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3904,6 +3932,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "HBM을 디자인하는 사람은 누구인가요? Nvidia의 NVHBM 아키텍처는 질문을 훨씬 더 복잡하게 만듦",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261117pd247/hbm-samsung-dram-nvidia-testing.html",
+          "date": "2026-11-18"
         }
       ],
       "sources": [
@@ -4730,7 +4765,9 @@
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
         "painSignals": [],
-        "riskSignals": [],
+        "riskSignals": [
+          "가격 정책"
+        ],
         "recommendedProducts": [],
         "actions": [
           {
@@ -4892,7 +4929,15 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "애플, 삼성전자와 장기 DRAM 계약에 가까워진 것으로 알려짐",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261118vl213/apple-dram-samsung-price-2027.html",
+          "date": "2026-11-18"
+        }
+      ],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -5713,7 +5758,14 @@
         },
         "asOf": "2026-08-27",
         "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "AI 스토리지 붐에도 NAND 현물 가격이 20% 하락한 이유",
+          "url": "https://www.digitimes.com/news/a20261118PD228/nand-nand-flash-2026-pc-demand.html",
+          "date": "2026-11-18",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -5964,15 +6016,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Nvidia 너머의 HBM: Samsung이 Jensen의 퇴장으로 가장 많은 이익을 얻는 이유",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261117pd239/nvidia-samsung-hbm-market-amd.html",
-          "date": "2026-11-17"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -7072,7 +7116,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "공개 근거",
+          "source": "Microsoft Official Blog",
+          "sourceClass": "public",
+          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+          "date": "2026-01-26"
+        }
+      ],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -7232,11 +7284,39 @@
           {
             "id": "bandwidth",
             "label": "대역폭",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -7340,12 +7420,16 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "패키징·파운드리",
+          "용량"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-b",
+          "ai-n-d"
         ],
         "actions": [
           {
@@ -8011,6 +8095,17 @@
             "seenCount": 5
           },
           {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-18",
+            "firstSeen": "2026-10-27",
+            "lastSeen": "2026-11-18",
+            "seenCount": 2
+          },
+          {
             "key": "tech:NVL72",
             "label": "NVL72",
             "headline": "NVIDIA는 Groq 3 LPX가 본격 생산에 들어갔다고 발표했으며, Nebius가 이를 최초로 채택했습니다_뉴스 - CFM 플래시 메모리 시장",
@@ -8030,17 +8125,6 @@
             "asOf": "2026-11-02",
             "firstSeen": "2026-11-02",
             "lastSeen": "2026-11-02",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:CoWoS",
-            "label": "CoWoS",
-            "headline": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌습니다.",
-            "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-            "source": "tomshardware.com",
-            "asOf": "2026-10-27",
-            "firstSeen": "2026-10-27",
-            "lastSeen": "2026-10-27",
             "seenCount": 1
           },
           {
@@ -8256,6 +8340,25 @@
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "반복",
+          "firstSeen": "2026-10-27",
+          "lastSeen": "2026-11-18",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "08hf09d",
+            "14nkqu2"
+          ],
+          "evidence": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html"
+        },
+        {
           "technology": "NVL72",
           "systemShift": "랙이 단일 설계 단위가 되며 구성이 표준화",
           "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
@@ -8291,24 +8394,6 @@
           "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "관측",
-          "firstSeen": "2026-10-27",
-          "lastSeen": "2026-10-27",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "08hf09d"
-          ],
-          "evidence": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌습니다.",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months"
         },
         {
           "technology": "LPDDR",
@@ -8444,6 +8529,37 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:cowos:training-bandwidth",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "CoWoS · 반복",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "painPoint": "NVIDIA · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "economics": "Bandwidth/$ · 스텝당 시간",
+          "executionGate": "Package Capacity · Ramp 일정",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
+            "asOf": "2026-11-18",
+            "count": 2
+          }
+        },
+        {
           "id": "nvidia:custom-hbm:inference-kv-cache",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -8532,36 +8648,6 @@
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
             "asOf": "2026-11-08",
             "count": 9
-          }
-        },
-        {
-          "id": "nvidia:vera-rubin:inference-kv-cache",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "Vera Rubin · 지속",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
-          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
-          "products": [
-            "Custom HBM",
-            "CXL 메모리 풀링",
-            "고용량 eSSD"
-          ],
-          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
-          "economics": "$/query · Capacity/$",
-          "executionGate": "Goodput/W · Package Capacity",
-          "stage": "QUALIFY",
-          "evidence": {
-            "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
-            "asOf": "2026-11-02",
-            "count": 12
           }
         }
       ],
@@ -8721,32 +8807,25 @@
           "date": "2026-07-25"
         },
         {
-          "title": "황런쉰의 복귀는 저지됐고, 휘이다 이사회 의장은 복직 가능성을 거부한다는 입장을 밝혔다",
-          "source": "technews.tw",
+          "title": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+          "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/11/18/jensen-huangs-return-journey-was-blocked",
+          "url": "https://www.digitimes.com/news/a20261118pd239/nvidia-spil-packaging-capacity.html",
           "date": "2026-11-18"
         },
         {
-          "title": "Jensen Huang의 Nvidia 퇴출로 AI 하드웨어 표준에 불확실성이 가중됨에 따라 대만은 저렴한 AI 추구를 촉구",
+          "title": "HBM을 디자인하는 사람은 누구인가요? Nvidia의 NVHBM 아키텍처는 질문을 훨씬 더 복잡하게 만듦",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261116pd238/taiwan-nvidia-jensen-huang-affordable-edge-ai-hardware.html",
-          "date": "2026-11-17"
+          "url": "https://www.digitimes.com/news/a20261117pd247/hbm-samsung-dram-nvidia-testing.html",
+          "date": "2026-11-18"
         },
         {
-          "title": "Nvidia 너머의 HBM: Samsung이 Jensen의 퇴장으로 가장 많은 이익을 얻는 이유",
+          "title": "중국이 Nvidia GPU에서 벗어나 AI 칩 공급망의 한계를 테스트함",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261117pd239/nvidia-samsung-hbm-market-amd.html",
-          "date": "2026-11-17"
-        },
-        {
-          "title": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261117vl211/sk-hynix-memory-nvidia-revenue-sales-2026.html",
-          "date": "2026-11-17"
+          "url": "https://www.digitimes.com/news/a20261118pd218/nvidia-ai-chip-data-center-chips-software.html",
+          "date": "2026-11-18"
         }
       ],
       "sources": [
@@ -11086,7 +11165,27 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -11125,7 +11224,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "용량"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11362,6 +11464,17 @@
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-10-28",
             "seenCount": 2
+          },
+          {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-18",
+            "firstSeen": "2026-11-18",
+            "lastSeen": "2026-11-18",
+            "seenCount": 1
           }
         ],
         "stances": [
@@ -11517,6 +11630,24 @@
           "evidence": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-11-18",
+          "lastSeen": "2026-11-18",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "14nkqu2"
+          ],
+          "evidence": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html"
         }
       ],
       "painPoints": [
@@ -11527,6 +11658,34 @@
         }
       ],
       "strategyOpportunities": [
+        {
+          "id": "tsmc:cowos:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "CoWoS · 관측",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "solution": "HBM · Package와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "HBM · Package"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Package Capacity · Ramp 일정",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
+            "asOf": "2026-11-18",
+            "count": 1
+          }
+        },
         {
           "id": "tsmc:3nm:foundry-package",
           "accountId": "tsmc",
@@ -11609,34 +11768,6 @@
             "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html",
             "asOf": "2026-11-17",
             "count": 4
-          }
-        },
-        {
-          "id": "tsmc:lpddr:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "LPDDR · 반복",
-          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
-          "painPoint": "엣지와 온디바이스 추론이 별도 수요축으로 분리가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "저전력 우선의 메모리 구성",
-          "productAxis": "AI-NAND · LPDDR",
-          "solution": "AI-NAND · LPDDR와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "AI-NAND · LPDDR"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "Performance/W · 규격 채택",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html",
-            "asOf": "2026-10-28",
-            "count": 2
           }
         }
       ],
@@ -11737,18 +11868,18 @@
       },
       "evidence": [
         {
-          "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
+          "title": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261117vl216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
-          "date": "2026-11-17"
+          "url": "https://www.digitimes.com/news/a20261118pd239/nvidia-spil-packaging-capacity.html",
+          "date": "2026-11-18"
         },
         {
-          "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-          "source": "TrendForce",
-          "sourceClass": "news",
-          "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-          "date": "2026-11-11"
+          "title": "해설: SMIC, 다른 규모로 삼성에 접근",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261118vl206/smic-samsung-revenue-market-2025.html",
+          "date": "2026-11-18"
         }
       ],
       "sources": [
@@ -13601,13 +13732,13 @@
           {
             "key": "tech:HBM4",
             "label": "HBM4",
-            "headline": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
-            "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html",
+            "headline": "HBM을 디자인하는 사람은 누구인가요? Nvidia의 NVHBM 아키텍처는 질문을 훨씬 더 복잡하게 만듭니다.",
+            "url": "https://www.digitimes.com/news/a20261117PD247/hbm-samsung-dram-nvidia-testing.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-16",
+            "asOf": "2026-11-18",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-11-16",
-            "seenCount": 11
+            "lastSeen": "2026-11-18",
+            "seenCount": 12
           },
           {
             "key": "tech:2nm",
@@ -13674,6 +13805,17 @@
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-08-26",
             "seenCount": 2
+          },
+          {
+            "key": "tech:HBM5",
+            "label": "HBM5",
+            "headline": "Samsung reportedly plans three-track DRAM roadmap for HBM5",
+            "url": "https://www.digitimes.com/news/a20261118VL214/samsung-dram-roadmap-wafer.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-18",
+            "firstSeen": "2026-11-18",
+            "lastSeen": "2026-11-18",
+            "seenCount": 1
           },
           {
             "key": "tech:HBF",
@@ -13749,6 +13891,35 @@
       },
       "derivedDemand": [
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-11-18",
+          "evidenceCount": 12,
+          "evidenceIds": [
+            "0fyqwvp",
+            "1nzsr90",
+            "0ugn5gr",
+            "00jdp68",
+            "0u6njrs",
+            "1s4egs8",
+            "1kz6kxx",
+            "0ykarzn",
+            "0t4d89z",
+            "142i0pk",
+            "0kk6n1r",
+            "1ovbmhj"
+          ],
+          "evidence": "HBM을 디자인하는 사람은 누구인가요? Nvidia의 NVHBM 아키텍처는 질문을 훨씬 더 복잡하게 만듭니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261117PD247/hbm-samsung-dram-nvidia-testing.html"
+        },
+        {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
           "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -13792,34 +13963,6 @@
           "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "지속",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-16",
-          "evidenceCount": 11,
-          "evidenceIds": [
-            "0fyqwvp",
-            "1nzsr90",
-            "0ugn5gr",
-            "00jdp68",
-            "0u6njrs",
-            "1s4egs8",
-            "1kz6kxx",
-            "0ykarzn",
-            "0t4d89z",
-            "142i0pk",
-            "0kk6n1r"
-          ],
-          "evidence": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html"
         },
         {
           "technology": "3nm",
@@ -13902,6 +14045,24 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "HBM5",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "stage": "EXPLORE",
+          "gate": "Architecture Freeze 전 공동 정의",
+          "hold": "관측",
+          "firstSeen": "2026-11-18",
+          "lastSeen": "2026-11-18",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1dl19to"
+          ],
+          "evidence": "Samsung reportedly plans three-track DRAM roadmap for HBM5",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261118VL214/samsung-dram-roadmap-wafer.html"
         },
         {
           "technology": "HBF",
