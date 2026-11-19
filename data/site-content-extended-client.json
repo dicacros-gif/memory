@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "44472869975",
-  "generatedAt": "2026-11-19T06:48:58.068Z",
-  "expiresAt": "2026-11-20T08:48:55.791Z",
+  "runId": "44523038300",
+  "generatedAt": "2026-11-19T12:36:41.195Z",
+  "expiresAt": "2026-11-20T14:36:39.836Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-19T06:47:29.476Z",
-    "runId": "44472869975",
+    "generatedAt": "2026-11-19T12:35:18.893Z",
+    "runId": "44523038300",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,7 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "b69dd78822b6012888cd",
+        "id": "de7e2690661468ccf4a2",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
@@ -135,7 +135,7 @@
         "changed": true
       },
       {
-        "id": "f686c25f9f33385954d2",
+        "id": "10facbeac9ecf4e7e284",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -148,7 +148,7 @@
         "changed": true
       },
       {
-        "id": "baaac27104f817ccc044",
+        "id": "18b75c28e9c9de76500f",
         "ruleId": "contract-structure",
         "label": "LTA · Prepayment · Committed Volume",
         "priority": "immediate",
@@ -280,47 +280,16 @@
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-19T06:47:29.476Z",
+      "generatedAt": "2026-11-19T12:35:18.893Z",
       "stats": {
-        "eligibleDocuments": 40,
-        "structuredEvents": 39,
-        "verifiedEvents": 34,
-        "currentStages": 33,
+        "eligibleDocuments": 41,
+        "structuredEvents": 38,
+        "verifiedEvents": 33,
+        "currentStages": 32,
         "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
-        {
-          "id": "f758cb91cb3bbbd7c2b5",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "google",
-            "label": "Google"
-          },
-          "product": {
-            "id": "tpu",
-            "label": "TPU"
-          },
-          "stage": {
-            "id": "PLATFORM_ADOPTION",
-            "rank": 80
-          },
-          "metrics": [],
-          "evidenceSpan": "vLLM TPU (Serving): vLLM TPU is now powered by tpu-inference , an expressive and powerful new hardware plugin that unifies JAX and PyTorch under a single lowering path – meaning both frameworks are translated to optimized TPU code through one common, shared backend",
-          "source": "Google Cloud TPU",
-          "sourceId": "google-cloud-tpu",
-          "sourceClass": "official",
-          "sourceUrl": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-          "publishedAt": "2025-11-06",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2025-11-06",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
         {
           "id": "3baccbc6165bf453265f",
           "ruleId": "hbm4-production-stage",
@@ -793,6 +762,40 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
+        },
+        {
+          "id": "463cdf3a25b0e315775d",
+          "ruleId": "customer-silicon-roadmap",
+          "eventType": "customer-roadmap",
+          "label": "Customer Silicon · Memory Requirement",
+          "entity": {
+            "id": "industry",
+            "label": "Memory industry"
+          },
+          "product": {
+            "id": "maia",
+            "label": "Maia"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [
+            "216 GB",
+            "7 TB/s"
+          ],
+          "evidenceSpan": "Maia 200 is an AI inference powerhouse: an accelerator built on TSMC’s 3nm process with native FP8/FP4 tensor cores, a redesigned memory system with 216GB HBM3e at 7 TB/s and 272MB of on-chip SRAM, plus data movement engines that keep massive models fed, fast and highly utilized",
+          "source": "Microsoft Official Blog",
+          "sourceId": "microsoft-ai-infra",
+          "sourceClass": "official",
+          "sourceUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+          "publishedAt": "2026-01-26",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-01-26",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
         }
       ]
     },
@@ -827,17 +830,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 155,
-        "structuredEvents": 39,
-        "verifiedEvents": 34,
+        "structuredEvents": 38,
+        "verifiedEvents": 33,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
         "observed": 36,
-        "useful": 29,
+        "useful": 28,
         "observationRatePct": 87.8,
-        "usefulYieldPct": 80.6,
+        "usefulYieldPct": 77.8,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -856,8 +859,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +871,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +883,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +894,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +906,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +918,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +930,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +941,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +953,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +965,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +977,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +989,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +1001,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1013,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1025,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1037,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1048,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,8 +1060,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1072,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1084,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1095,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1107,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1119,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,10 +1130,9 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "meta-mtia-roadmap",
@@ -1139,8 +1141,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1163,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1175,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1186,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1198,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1209,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1221,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1233,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1245,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1257,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1269,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1281,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
-            "lastUsefulObservationAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
+            "lastUsefulObservationAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1293,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-19T06:47:24.587Z",
+            "lastSuccessAt": "2026-11-19T12:35:15.759Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,7 +1328,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-19T06:47:29.476Z",
+          "updatedAt": "2026-11-19T12:35:18.893Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,9 +1458,9 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-19T06:47:29.476Z",
+          "updatedAt": "2026-11-19T12:35:18.893Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-          "latestSignal": "News archive | Solidigm Newsroom",
+          "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
           "stage": "ARCHITECTURE_BENCHMARK",
           "confidence": "verified-primary",
@@ -1501,17 +1503,17 @@
             {
               "score": 1.75,
               "chunkId": "a0e6463c36f708d6eb6e",
-              "title": "News archive | Solidigm Newsroom",
+              "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
               "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
               "sourceId": "solidigm-newsroom",
               "source": "news.solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-16",
+              "publishedAt": "2026-11-18",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
-              "documentStatus": "retained-last-verified"
+              "documentStatus": "current"
             },
             {
               "score": 2.75,
@@ -1586,9 +1588,9 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-19T06:47:29.476Z",
+          "updatedAt": "2026-11-19T12:35:18.893Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+          "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
           "confidence": "verified-primary",
@@ -1628,6 +1630,21 @@
           "evidence": [
             {
               "score": 1.75,
+              "chunkId": "a0e6463c36f708d6eb6e",
+              "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+              "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
+              "sourceId": "solidigm-newsroom",
+              "source": "news.solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW/releases",
+              "publishedAt": "2026-11-18",
+              "indexedAt": "2026-11-16T14:52:11.037Z",
+              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
+              "freshnessDays": 180,
+              "documentStatus": "current"
+            },
+            {
+              "score": 1.75,
               "chunkId": "72e5a01d3cd2ecbffcf3",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
@@ -1641,21 +1658,6 @@
               "sourceChangeDetectedAt": "2026-11-18T19:12:39.017Z",
               "freshnessDays": 365,
               "documentStatus": "current"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "a0e6463c36f708d6eb6e",
-              "title": "News archive | Solidigm Newsroom",
-              "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
-              "sourceId": "solidigm-newsroom",
-              "source": "news.solidigm.com",
-              "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-16",
-              "indexedAt": "2026-11-16T14:52:11.037Z",
-              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
-              "freshnessDays": 180,
-              "documentStatus": "retained-last-verified"
             },
             {
               "score": 1.75,
@@ -1713,7 +1715,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-19T06:47:29.476Z",
+          "updatedAt": "2026-11-19T12:35:18.893Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1839,12 +1841,12 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 6,
-        "fresh": 3,
-        "observationRatePct": 4.1,
+        "observed": 8,
+        "fresh": 6,
+        "observationRatePct": 5.4,
         "officialConfigured": 123,
-        "officialObserved": 0,
-        "officialFresh": 0,
+        "officialObserved": 1,
+        "officialFresh": 1,
         "targetPct": 90
       }
     },
@@ -2100,12 +2102,12 @@
       "mode": "incremental-extractive",
       "stats": {
         "documents": 155,
-        "chunks": 600,
+        "chunks": 588,
         "added": 0,
-        "changed": 1,
+        "changed": 2,
         "unchanged": 39,
-        "retained": 115,
-        "reindexed": 1
+        "retained": 114,
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2278,6 +2280,16 @@
               "indexedAt": "2026-11-18T19:12:44.177Z",
               "sourceChangeDetectedAt": "2026-11-18T19:12:39.017Z",
               "stale": false
+            },
+            {
+              "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+              "source": "SK hynix Newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/dtf-2026",
+              "publishedAt": "2026-08-26",
+              "indexedAt": "2026-10-29T00:46:40.399Z",
+              "sourceChangeDetectedAt": "2026-10-29T00:46:37.187Z",
+              "stale": false
             }
           ]
         },
@@ -2315,34 +2327,34 @@
           "evidenceCount": 4,
           "citations": [
             {
-              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "source": "OpenAI Infrastructure",
-              "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-18",
-              "indexedAt": "2026-11-18T19:12:44.177Z",
-              "sourceChangeDetectedAt": "2026-11-18T19:12:39.017Z",
-              "stale": false
-            },
-            {
-              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "source": "OpenAI Infrastructure",
-              "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-18",
-              "indexedAt": "2026-11-18T19:12:44.177Z",
-              "sourceChangeDetectedAt": "2026-11-18T19:12:39.017Z",
-              "stale": false
-            },
-            {
-              "title": "News archive | Solidigm Newsroom",
+              "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
               "source": "news.solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-16",
+              "publishedAt": "2026-11-18",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
-              "stale": true
+              "stale": false
+            },
+            {
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "source": "OpenAI Infrastructure",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-11-18",
+              "indexedAt": "2026-11-18T19:12:44.177Z",
+              "sourceChangeDetectedAt": "2026-11-18T19:12:39.017Z",
+              "stale": false
+            },
+            {
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "source": "OpenAI Infrastructure",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-11-18",
+              "indexedAt": "2026-11-18T19:12:44.177Z",
+              "sourceChangeDetectedAt": "2026-11-18T19:12:39.017Z",
+              "stale": false
             }
           ]
         },
@@ -2476,8 +2488,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-11-19T06:47:29.476Z",
-              "sourceChangeDetectedAt": "2026-11-19T06:47:24.587Z",
+              "indexedAt": "2026-11-19T12:35:18.893Z",
+              "sourceChangeDetectedAt": "2026-11-19T12:35:15.759Z",
               "stale": false
             }
           ]
@@ -2486,7 +2498,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.7,
+      "score": 93.1,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2503,26 +2515,26 @@
       "components": {
         "contentAge": 96.8,
         "embeddingLag": 100,
-        "staleRetrievalRate": 71.2,
+        "staleRetrievalRate": 76.9,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 28.8,
+        "staleRetrievalRatePct": 23.1,
         "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
-        "activeDocumentCount": 22
+        "activeDocumentCount": 21
       },
       "coverage": {
         "currentPct": 95.9,
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-19T06:47:24.587Z",
-        "indexedAt": "2026-11-19T06:47:29.476Z"
+        "sourceChangeDetectedAt": "2026-11-19T12:35:15.759Z",
+        "indexedAt": "2026-11-19T12:35:18.893Z"
       },
-      "generatedAt": "2026-11-19T06:47:29.476Z"
+      "generatedAt": "2026-11-19T12:35:18.893Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2532,7 +2544,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 87.1,
+        "freshDocumentPct": 87.7,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2541,7 +2553,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-19T06:48:58.068Z",
+    "generatedAt": "2026-11-19T12:36:41.195Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3109,12 +3121,10 @@
               "Google TPU Ironwood"
             ],
             "evidence": {
-              "status": "official-fact",
-              "label": "공식 확인",
-              "stage": "플랫폼 채택",
+              "status": "official-monitoring",
+              "label": "OFFICIAL",
               "source": "Google Cloud TPU",
-              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-              "asOf": "2025-11-06"
+              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -3694,10 +3704,12 @@
               "Microsoft Maia HBM"
             ],
             "evidence": {
-              "status": "official-monitoring",
-              "label": "OFFICIAL",
+              "status": "official-fact",
+              "label": "공식 확인",
+              "stage": "공개",
               "source": "Microsoft Official Blog",
-              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+              "asOf": "2026-01-26"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -5483,8 +5495,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 8,
-            "sourceCount": 4,
+            "mentions": 6,
+            "sourceCount": 3,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5517,7 +5529,7 @@
               },
               {
                 "week": "2026-11-16",
-                "count": 7
+                "count": 5
               }
             ],
             "painAxes": [
@@ -5571,9 +5583,8 @@
                 "risingTwoWeeks": false,
                 "latest": {
                   "id": "56e508143b0db85864bc",
-                  "title": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
-                  "summary": "다년간의 메모리 조달 계약으로 인해 AI 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 Nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
-                  "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. 엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다 · 다년간의 메모리 조달 계약으로 인해 ai 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
+                  "title": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
+                  "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. nvidia's fiscal 2028 supply commitments more than double to us$203 billion",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
                   "origin": "live-crawl",
@@ -5981,13 +5992,6 @@
                 "date": "2026-11-19"
               },
               {
-                "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-                "source": "finance.technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-                "date": "2026-11-19"
-              },
-              {
                 "title": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔음",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
@@ -5995,11 +5999,18 @@
                 "date": "2026-11-19"
               },
               {
-                "title": "휴이다, 군 사기 안정 위해 12월 급여 및 형평성 인상 예정",
-                "source": "finance.technews.tw",
+                "title": "논평: Jensen Huang이 떠난 후 Nvidia의 자율 주행 야망은 중요한 시험에 직면",
+                "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/11/19/nvidia-stabilizes-morale",
-                "date": "2026-11-19"
+                "url": "https://www.digitimes.com/news/a20261118pd245/autonomous-driving-jensen-huang-automotive-automakers-vehicle.html",
+                "date": "2026-11-18"
+              },
+              {
+                "title": "Nvidia GeForce 드라이버 버그로 인해 SSD가 시간당 최대 30GB의 쓰기 성능을 발휘하는 것으로 알려졌음",
+                "source": "tomshardware.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.tomshardware.com/pc-components/gpu-drivers/nvidia-geforce-driver-bug-reportedly-hammers-ssds-with-up-to-30gb-of-writes-per-hour-users-trace-massive-idle-wear-to-background-service-newer-driver-reportedly-still-affected",
+                "date": "2026-11-18"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -7466,12 +7477,10 @@
               "Google TPU Ironwood"
             ],
             "evidence": {
-              "status": "official-fact",
-              "label": "공식 확인",
-              "stage": "플랫폼 채택",
+              "status": "official-monitoring",
+              "label": "OFFICIAL",
               "source": "Google Cloud TPU",
-              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-              "asOf": "2025-11-06"
+              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -11135,8 +11144,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 8,
-          "sourceCount": 4,
+          "mentions": 6,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11169,7 +11178,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 7
+              "count": 5
             }
           ],
           "painAxes": [
@@ -11223,9 +11232,8 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "56e508143b0db85864bc",
-                "title": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
-                "summary": "다년간의 메모리 조달 계약으로 인해 AI 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 Nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
-                "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. 엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다 · 다년간의 메모리 조달 계약으로 인해 ai 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
+                "title": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
+                "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. nvidia's fiscal 2028 supply commitments more than double to us$203 billion",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -11633,13 +11641,6 @@
               "date": "2026-11-19"
             },
             {
-              "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-              "date": "2026-11-19"
-            },
-            {
               "title": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
@@ -11647,11 +11648,18 @@
               "date": "2026-11-19"
             },
             {
-              "title": "휴이다, 군 사기 안정 위해 12월 급여 및 형평성 인상 예정",
-              "source": "finance.technews.tw",
+              "title": "논평: Jensen Huang이 떠난 후 Nvidia의 자율 주행 야망은 중요한 시험에 직면",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/nvidia-stabilizes-morale",
-              "date": "2026-11-19"
+              "url": "https://www.digitimes.com/news/a20261118pd245/autonomous-driving-jensen-huang-automotive-automakers-vehicle.html",
+              "date": "2026-11-18"
+            },
+            {
+              "title": "Nvidia GeForce 드라이버 버그로 인해 SSD가 시간당 최대 30GB의 쓰기 성능을 발휘하는 것으로 알려졌음",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/gpu-drivers/nvidia-geforce-driver-bug-reportedly-hammers-ssds-with-up-to-30gb-of-writes-per-hour-users-trace-massive-idle-wear-to-background-service-newer-driver-reportedly-still-affected",
+              "date": "2026-11-18"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -12451,12 +12459,10 @@
             "Google TPU Ironwood"
           ],
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
-            "stage": "플랫폼 채택",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Google Cloud TPU",
-            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-            "asOf": "2025-11-06"
+            "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -13036,10 +13042,12 @@
             "Microsoft Maia HBM"
           ],
           "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
+            "status": "official-fact",
+            "label": "공식 확인",
+            "stage": "공개",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+            "asOf": "2026-01-26"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -15985,8 +15993,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -16019,7 +16027,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -16452,15 +16460,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-              "date": "2026-11-19"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Segment · Colossus 운영",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -22593,7 +22593,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-19T06:48:58.068Z",
+        "updatedAt": "2026-11-19T12:36:41.195Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23267,7 +23267,7 @@
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
                 "source": {
                   "name": "Google Cloud TPU",
-                  "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
+                  "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
                 },
                 "relationCount": 4
               },
@@ -23302,7 +23302,7 @@
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
                   "name": "Microsoft Official Blog",
-                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
                 },
                 "relationCount": 3
               },
@@ -23497,14 +23497,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-                  "source": "finance.technews.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-                  "date": "2026-11-19"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#9FCECA",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
                 "source": {
@@ -24767,7 +24760,7 @@
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
             "source": {
               "name": "Google Cloud TPU",
-              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
+              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
             },
             "relationCount": 4
           },
@@ -24802,7 +24795,7 @@
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
               "name": "Microsoft Official Blog",
-              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
             },
             "relationCount": 3
           },
@@ -24997,14 +24990,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-              "date": "2026-11-19"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#9FCECA",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
             "source": {
@@ -27968,9 +27954,8 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "56e508143b0db85864bc",
-                "title": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
-                "summary": "다년간의 메모리 조달 계약으로 인해 AI 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 Nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
-                "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. 엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다 · 다년간의 메모리 조달 계약으로 인해 ai 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
+                "title": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
+                "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. nvidia's fiscal 2028 supply commitments more than double to us$203 billion",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28057,7 +28042,7 @@
               "source": "digitimes.com",
               "sourceUrl": "https://www.digitimes.com/news/a20261118vl226/nvidia-hbm-memory-2028.html",
               "asOf": "2026-11-18",
-              "evidenceSpan": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+              "evidenceSpan": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
               "id": "deal:nvidia:capacity-commitment:2026-11-18:https-www-digitimes-com-news-a20261118vl226-nvidia-hbm-memory-2028-html"
             }
           ],
@@ -28071,10 +28056,10 @@
               "source": "digitimes.com",
               "sourceUrl": "https://www.digitimes.com/news/a20261118vl226/nvidia-hbm-memory-2028.html",
               "asOf": "2026-11-18",
-              "evidenceSpan": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+              "evidenceSpan": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
               "id": "deal:nvidia:capacity-commitment:2026-11-18:https-www-digitimes-com-news-a20261118vl226-nvidia-hbm-memory-2028-html",
               "kind": "deal-event",
-              "headline": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+              "headline": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
               "isNew": false
             }
           ],
@@ -28087,13 +28072,6 @@
               "date": "2026-11-19"
             },
             {
-              "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-              "date": "2026-11-19"
-            },
-            {
               "title": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
@@ -28101,11 +28079,18 @@
               "date": "2026-11-19"
             },
             {
-              "title": "휴이다, 군 사기 안정 위해 12월 급여 및 형평성 인상 예정",
-              "source": "finance.technews.tw",
+              "title": "논평: Jensen Huang이 떠난 후 Nvidia의 자율 주행 야망은 중요한 시험에 직면",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/nvidia-stabilizes-morale",
-              "date": "2026-11-19"
+              "url": "https://www.digitimes.com/news/a20261118pd245/autonomous-driving-jensen-huang-automotive-automakers-vehicle.html",
+              "date": "2026-11-18"
+            },
+            {
+              "title": "Nvidia GeForce 드라이버 버그로 인해 SSD가 시간당 최대 30GB의 쓰기 성능을 발휘하는 것으로 알려졌음",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/gpu-drivers/nvidia-geforce-driver-bug-reportedly-hammers-ssds-with-up-to-30gb-of-writes-per-hour-users-trace-massive-idle-wear-to-background-service-newer-driver-reportedly-still-affected",
+              "date": "2026-11-18"
             }
           ]
         },
@@ -28342,15 +28327,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-              "date": "2026-11-19"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "apple",
@@ -28587,8 +28564,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 8,
-          "sourceCount": 4,
+          "mentions": 6,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28621,7 +28598,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 7
+              "count": 5
             }
           ],
           "painAxes": [
@@ -28675,9 +28652,8 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "56e508143b0db85864bc",
-                "title": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
-                "summary": "다년간의 메모리 조달 계약으로 인해 AI 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 Nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
-                "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. 엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다 · 다년간의 메모리 조달 계약으로 인해 ai 칩 제조업체의 향후 구매 의무가 급격히 증가함에 따라 2028 회계연도에 대한 nvidia의 공급 및 용량 약속은 지난 분기에 두 배 이상 증가한 2,030억 달러에 달했음",
+                "title": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
+                "text": "digitimes.com aidemand nvidia's fiscal 2028 supply commitments more than double to us$203 billion nvidia's supply and capacity commitments for fiscal 2028 more than doubled to us$203 billion over the past quarter, as multi-year memory procurement agreements drove a sharp increase in the ai chipmaker's future purchasing obligations. nvidia's fiscal 2028 supply commitments more than double to us$203 billion",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -29085,13 +29061,6 @@
               "date": "2026-11-19"
             },
             {
-              "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-              "date": "2026-11-19"
-            },
-            {
               "title": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
@@ -29099,11 +29068,18 @@
               "date": "2026-11-19"
             },
             {
-              "title": "휴이다, 군 사기 안정 위해 12월 급여 및 형평성 인상 예정",
-              "source": "finance.technews.tw",
+              "title": "논평: Jensen Huang이 떠난 후 Nvidia의 자율 주행 야망은 중요한 시험에 직면",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/nvidia-stabilizes-morale",
-              "date": "2026-11-19"
+              "url": "https://www.digitimes.com/news/a20261118pd245/autonomous-driving-jensen-huang-automotive-automakers-vehicle.html",
+              "date": "2026-11-18"
+            },
+            {
+              "title": "Nvidia GeForce 드라이버 버그로 인해 SSD가 시간당 최대 30GB의 쓰기 성능을 발휘하는 것으로 알려졌음",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/gpu-drivers/nvidia-geforce-driver-bug-reportedly-hammers-ssds-with-up-to-30gb-of-writes-per-hour-users-trace-massive-idle-wear-to-background-service-newer-driver-reportedly-still-affected",
+              "date": "2026-11-18"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -29903,12 +29879,10 @@
             "Google TPU Ironwood"
           ],
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
-            "stage": "플랫폼 채택",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Google Cloud TPU",
-            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-            "asOf": "2025-11-06"
+            "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -30488,10 +30462,12 @@
             "Microsoft Maia HBM"
           ],
           "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
+            "status": "official-fact",
+            "label": "공식 확인",
+            "stage": "공개",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+            "asOf": "2026-01-26"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -33437,8 +33413,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -33471,7 +33447,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -33904,15 +33880,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-              "date": "2026-11-19"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Segment · Colossus 운영",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -37074,7 +37042,7 @@
             "source": "digitimes.com",
             "sourceUrl": "https://www.digitimes.com/news/a20261118vl226/nvidia-hbm-memory-2028.html",
             "asOf": "2026-11-18",
-            "evidenceSpan": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+            "evidenceSpan": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
             "id": "deal:nvidia:capacity-commitment:2026-11-18:https-www-digitimes-com-news-a20261118vl226-nvidia-hbm-memory-2028-html"
           }
         ],
@@ -39535,8 +39503,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -39568,9 +39536,20 @@
             },
             {
               "week": "2026-11-16",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "0be479eea81fd3413d97",
+            "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+            "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+            "text": "news.solidigm.com nand news archive | solidigm newsroom co-ceo xin guo talks nand supply dynamics, the rise of the kv cache, and why storage has become a day-zero design decision for ai infrastructure. 뉴스 아카이브 | 솔리다임 뉴스룸 공동 ceo인 xin guo는 nand 공급 역학, kv 캐시의 증가, 스토리지가 ai 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+            "source": "news.solidigm.com",
+            "sourceClass": "official",
+            "origin": "live-crawl",
+            "url": "https://news.solidigm.com/en-ww/releases",
+            "date": "2026-11-18"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39908,7 +39887,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-19T06:47:29.891Z",
+        "generatedAt": "2026-11-19T12:35:19.136Z",
         "items": [
           {
             "accountId": "nvidia",
@@ -39918,10 +39897,10 @@
             "source": "digitimes.com",
             "sourceUrl": "https://www.digitimes.com/news/a20261118vl226/nvidia-hbm-memory-2028.html",
             "asOf": "2026-11-18",
-            "evidenceSpan": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+            "evidenceSpan": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
             "id": "deal:nvidia:capacity-commitment:2026-11-18:https-www-digitimes-com-news-a20261118vl226-nvidia-hbm-memory-2028-html",
             "kind": "deal-event",
-            "headline": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+            "headline": "Nvidia's fiscal 2028 supply commitments more than double to US$203 billion",
             "isNew": false
           }
         ],
@@ -40045,6 +40024,23 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
+        "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+        "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+        "url": "https://news.solidigm.com/en-WW/releases/",
+        "source": "news.solidigm.com",
+        "publishedAt": "2026-11-18",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
         "title": "SemiFive, PFN 스택 DRAM은 HBM 대안으로 로직에 직접 연결",
         "summary": "한국의 SemiFive와 일본의 Preferred Networks(PFN)는 기존 2.5D 패키지에 사용되는 병렬 프로세서 및 HBM 레이아웃에 대한 대안을 제공하는 로직 다이 바로 위에 DRAM을 쌓는 AI 추론 칩을 개발하고 있음",
         "url": "https://www.digitimes.com/news/a20261119VL212/pfn-dram-design-hbm-processor.html",
@@ -40063,13 +40059,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
-        "title": "분석: CXMT는 엔터프라이즈 및 장치 시장이 트윈 엔진으로 등장함에 따라 엣지 AI가 메모리 성장을 주도할 것으로 보고 있음",
-        "summary": "ChangXin Memory Technologies (CXMT) held an earnings briefing on November 17, during which company director and president Cao Kanyu outlined the outlook for enterprise, edge-devic…",
-        "url": "https://www.digitimes.com/news/a20261119PD211/cxmt-ddr5-earnings-demand-growth.html",
-        "source": "digitimes.com",
+        "title": "Silicon Motion은 2028년까지 출시될 예정인 SM8466 PCIe 6.0 SSD 컨트롤러를 시연 · 컨트롤러는 향상된 서비스 품질을 자랑하며 샘플 출시가 임박",
+        "summary": "Silicon Motion의 SM8466이 마침내 녹화되었으며 2027~2028년에 시장에 출시될 예정",
+        "url": "https://www.tomshardware.com/pc-components/ssds/silicon-motion-demos-sm8466-pcie-6-0-ssd-controller-expected-to-ship-by-2028-controller-boasts-improved-quality-of-service-samples-imminent",
+        "source": "tomshardware.com",
         "publishedAt": "2026-11-19",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -40080,13 +40076,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
-        "title": "Google은 HBM 직접 구매로 Broadcom을 우회하려고 합니다",
-        "summary": "Google은 MediaTek으로 개발된 AI 칩용 고대역폭 메모리(HBM)를 직접 구매하여 잠재적으로 수십억 달러의 조달 비용을 절감하고 삼성전자, SKHY, 마이크론 테크놀로지가 주요 고객과의 협상 방식을 변화시킬 방안을 모색하고 있음",
-        "url": "https://www.digitimes.com/news/a20261119VL217/google-hbm-broadcom-mediatek-2027.html",
-        "source": "digitimes.com",
+        "title": "게이밍 PC를 위한 4TB Samsung 990 Pro SSD 업그레이드로 36% 할인을 받으세요 · 이제 GB당 단 17.5센트에 불과",
+        "summary": "게임 및 생산성을 위한 빠른 속도의 대규모 용량 업그레이드",
+        "url": "https://www.tomshardware.com/pc-components/ssds/save-36-percent-on-this-4tb-samsung-990-pro-ssd-upgrade-for-your-gaming-pc-now-just-17-5-cents-per-gb-our-top-gen-4-drive-recommendation-is-now-usd100-cheaper-than-last-week",
+        "source": "tomshardware.com",
         "publishedAt": "2026-11-19",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -40097,13 +40093,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
-        "title": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
-        "summary": "Cyient Semiconductors는 GlobalFoundries로부터 1,000만 달러 규모의 전략적 지분 투자를 승인하여 인도 회사가 주요 반도체 제조업체와 더욱 가까워졌음 · 이번 거래는 맞춤형 ASIC 역량을 확장하고, 실리콘 개발을 가속화하며, 웨이퍼 공급 보장을 개선하는 동시에 글로벌 반도체 가치 사슬에서…",
-        "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html",
-        "source": "digitimes.com",
+        "title": "Micron의 싱가포르 HBM 첨단 패키징 공장의 첫 번째 기계가 배치되어 2027년 초에 생산을 시작할 것으로 예상",
+        "summary": "미국의 대표적인 메모리 제조사 마이크론 테크놀로지(Micron Technology, Inc.)가 19일 싱가포르 고대역폭메모리(HBM) 첨단 패키징 공장에서 첫 번째 기계 입주식을 갖고 첫 번째 공정 장비를 공장 클린룸으로 옮겼다 · 새로운 공장은 이전에 기계 설치에 필요한 핵심 인프라를 완료 · 이번에 첫 번째 기계의…",
+        "url": "https://finance.technews.tw/2026/11/19/micron-singapore-hbm-advanced-packaging-plant-installs-first-machine/",
+        "source": "finance.technews.tw",
         "publishedAt": "2026-11-19",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -40114,13 +40110,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
-        "title": "난야(Nanya)와 마크로닉스(Macronix), 우미인(Miin Wu) 회장이 공급을 승인하면서 자동차 메모리 분야에서 협력",
-        "summary": "지속적인 메모리 공급 부족 속에서 대만 메모리 칩 제조업체들은 자동차 공급망에서 핵심 위치를 확보하기 위해 공격적으로 움직이고 있음 · Nanya Technology와 Macronix International은 차량 내 인포테인먼트 및 텔레매틱스 시스템용 eMCP(임베디드 멀티칩 패키지) 솔루션을 공동으로 출시하기 위해…",
-        "url": "https://www.digitimes.com/news/a20261118PD256/automotive-nand-dram-capacity-flash.html",
-        "source": "digitimes.com",
+        "title": "DDR6 RAM은 4배의 DDR5 기본 대역폭을 제공하면서 44% 감소 · JEDEC는 슬롯당 최대 1테라바이트의 용량을 갖춘 12.8GT/s 모듈을 선보임",
+        "summary": "곧 출시될 DDR6 메모리는 모듈 길이를 133mm에서 74mm로 줄이면서 DDR5의 기본 전송 속도의 두 배 이상인 12.8GT/s로 시작",
+        "url": "https://www.tomshardware.com/pc-components/ram/ddr6-ram-shrinks-by-44-percent-while-delivering-4x-ddr5s-baseline-bandwidth-jedec-previews-12-8-gt-s-modules-with-up-to-1-terabyte-of-capacity-per-slot",
+        "source": "tomshardware.com",
         "publishedAt": "2026-11-19",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -40131,24 +40127,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "MJC는 2030년 메모리 프로브 카드 격차를 주시하고 삼성에 용량을 추가",
-        "summary": "일본 프로브 카드 제조사 마이크로닉스 재팬(MJC)이 AI 붐이 메모리 칩 수요를 견인함에 따라 기존 생산 능력 이상의 확장을 고려하고 있음 · 회사는 삼성전자를 비롯한 주요 칩 제조사들의 생산능력 수요에 대비하기 위해 새 공장을 건설할 부지를 물색하고 있는 것으로 알려졌다",
-        "url": "https://www.digitimes.com/news/a20261118PD236/probe-card-capacity-samsung-2030-plant.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-19",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       }
     ],
     "reportPolicy": {
@@ -40340,12 +40319,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "난야(Nanya)와 마크로닉스(Macronix), 우미인(Miin Wu) 회장이 공급을 승인하면서 자동차 메모리 분야에서 협력",
-          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261118PD256/automotive-nand-dram-capacity-flash.html",
-          "publishedAt": "2026-11-19",
-          "evidenceLevel": "Reported"
+          "title": "SK hynix Newsroom · 공식 Baseline",
+          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/",
+          "publishedAt": "2026-11-19T12:36:41.195Z",
+          "evidenceLevel": "Official baseline"
         }
       },
       {
@@ -40435,8 +40414,8 @@
       },
       "enabled": true
     },
-    "runId": "44472869975",
-    "generatedAt": "2026-11-19T06:48:58.068Z",
+    "runId": "44523038300",
+    "generatedAt": "2026-11-19T12:36:41.195Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40774,8 +40753,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "44472869975",
-    "generatedAt": "2026-11-19T06:48:58.068Z",
+    "runId": "44523038300",
+    "generatedAt": "2026-11-19T12:36:41.195Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41547,8 +41526,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-19T06:48:58.068Z",
-    "runId": "44472869975"
+    "generatedAt": "2026-11-19T12:36:41.195Z",
+    "runId": "44523038300"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41789,12 +41768,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.7,
+        "freshnessScore": 93.1,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-19T06:47:29.476Z"
+        "indexedAt": "2026-11-19T12:35:18.893Z"
       }
     },
     "sources": [
@@ -41931,8 +41910,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-19T06:48:58.068Z",
-    "runId": "44472869975"
+    "generatedAt": "2026-11-19T12:36:41.195Z",
+    "runId": "44523038300"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41967,7 +41946,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 7,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -42105,7 +42084,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 8,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -42235,9 +42214,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-19T06:48:58.068Z"
+          "publishedAt": "2026-11-19T12:36:41.195Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 14,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42358,11 +42337,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-19T06:48:58.068Z",
+          "publishedAt": "2026-11-19T12:36:41.195Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42488,7 +42467,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 8,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -42620,9 +42599,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-19T06:48:58.068Z"
+          "publishedAt": "2026-11-19T12:36:41.195Z"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 8,
         "signals": [
           [
             "EXECUTIVE DECISION",
