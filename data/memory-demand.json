@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44431578364",
-  "generatedAt": "2026-11-19T01:01:04.194Z",
+  "runId": "44472869975",
+  "generatedAt": "2026-11-19T06:48:58.068Z",
   "coverage": {
     "companiesObserved": 35,
     "companiesWithDerivedDemand": 28,
@@ -566,6 +566,36 @@
     "nvidia": {
       "requirements": [
         {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-11-19",
+          "evidenceCount": 13,
+          "evidenceIds": [
+            "08iqtvf",
+            "0xdn73e",
+            "0eo2g57",
+            "04sxe1v",
+            "0n8cn38",
+            "0ou7eci",
+            "0lkhab0",
+            "0l6w3jy",
+            "12or9ee",
+            "159mikh",
+            "0ykarzn",
+            "1kuwkdb",
+            "1ua8cte"
+          ],
+          "evidence": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261119PD210/cooling-demand-ai-chip-development-roadmap.html"
+        },
+        {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -637,35 +667,6 @@
           "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "지속",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-11-02",
-          "evidenceCount": 12,
-          "evidenceIds": [
-            "08iqtvf",
-            "0xdn73e",
-            "0eo2g57",
-            "04sxe1v",
-            "0n8cn38",
-            "0ou7eci",
-            "0lkhab0",
-            "0l6w3jy",
-            "12or9ee",
-            "159mikh",
-            "0ykarzn",
-            "1kuwkdb"
-          ],
-          "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
         },
         {
           "technology": "3nm",
@@ -1242,15 +1243,16 @@
           "gate": "LTA · 확정 물량",
           "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-16",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-19",
+          "evidenceCount": 3,
           "evidenceIds": [
             "0fbbj5x",
-            "0zzl5r2"
+            "0zzl5r2",
+            "1pc13m4"
           ],
-          "evidence": "AI server tracker: semiconductor testing and design services rally on compute demand",
+          "evidence": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
+          "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html"
         },
         {
           "technology": "CXL",

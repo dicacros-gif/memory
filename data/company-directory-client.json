@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44431578364",
-  "generatedAt": "2026-11-19T01:01:04.194Z",
+  "runId": "44472869975",
+  "generatedAt": "2026-11-19T06:48:58.068Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -968,7 +968,18 @@
             "sourceId": "broadcom-ai"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -1046,7 +1057,9 @@
       },
       "executiveLens": {
         "question": "3자 Co-Design · Package Yield · NRE",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -1471,7 +1484,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google은 HBM 직접 구매로 Broadcom을 우회하려고 합니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261119vl217/google-hbm-broadcom-mediatek-2027.html",
+          "date": "2026-11-19"
+        }
+      ],
       "sources": [
         {
           "id": "broadcom-ai",
@@ -1951,7 +1972,17 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2015,9 +2046,13 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2270,7 +2305,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
+        "capex": "$10 million",
         "plan": "하이퍼스케일러 XPU 요구를 복합 기술로 대응",
         "comment": "Custom HBM · Stack 최대 33%↑·Interface Power 최대 70%↓ · 3개 Memory Supplier 병렬 협력",
         "memoryRead": "CMM-Ax는 PIM이 아닌 CXL 기반 PNM · KV Cache Offload 실증",
@@ -2280,13 +2315,36 @@
           "converts": "용량 33%↑와 인터페이스 전력 70%↓를 동시에 요구해 공동 설계 없이는 충족 불가",
           "window": "Base Die 단계 · 커스텀 HBM과 CXL 모듈을 한 제안으로 묶을 수 있는 구간"
         },
-        "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "capexBasis": "관측",
+        "capexHeadline": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
+        "capexUrl": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html",
+        "capexAsOf": "2026-11-19",
+        "capexBaseline": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
+          "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html",
+          "date": "2026-11-19",
+          "source": "digitimes.com",
+          "amount": "$10 million",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
         "quotes": [],
         "tech": [
+          {
+            "key": "tech:Custom ASIC",
+            "label": "Custom ASIC",
+            "headline": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
+            "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-19",
+            "firstSeen": "2026-10-14",
+            "lastSeen": "2026-11-19",
+            "seenCount": 3
+          },
           {
             "key": "tech:CXL",
             "label": "CXL",
@@ -2297,17 +2355,6 @@
             "firstSeen": "2026-08-24",
             "lastSeen": "2026-10-13",
             "seenCount": 3
-          },
-          {
-            "key": "tech:Custom ASIC",
-            "label": "Custom ASIC",
-            "headline": "AI server tracker: semiconductor testing and design services rally on compute demand",
-            "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-16",
-            "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-16",
-            "seenCount": 2
           }
         ],
         "stances": [
@@ -2335,15 +2382,16 @@
           "gate": "LTA · 확정 물량",
           "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-16",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-19",
+          "evidenceCount": 3,
           "evidenceIds": [
             "0fbbj5x",
-            "0zzl5r2"
+            "0zzl5r2",
+            "1pc13m4"
           ],
-          "evidence": "AI server tracker: semiconductor testing and design services rally on compute demand",
+          "evidence": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
+          "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html"
         },
         {
           "technology": "CXL",
@@ -2376,11 +2424,11 @@
             "family": "Hyperscaler ASIC",
             "memoryProfile": "설계사와 최종 사용자를 분리해 접근",
             "relation": "자체 설계",
-            "seenCount": 2,
+            "seenCount": 3,
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-16",
-            "headline": "AI server tracker: semiconductor testing and design services rally on compute demand",
-            "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
+            "lastSeen": "2026-11-19",
+            "headline": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
+            "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html"
           }
         ],
         "coversTraining": true,
@@ -2418,11 +2466,11 @@
           "executionGate": "LTA · 확정 물량",
           "stage": "QUALIFY",
           "evidence": {
-            "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
+            "title": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-            "asOf": "2026-10-16",
-            "count": 2
+            "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html",
+            "asOf": "2026-11-19",
+            "count": 3
           }
         },
         {
@@ -2521,7 +2569,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261119pr200/investment-globalfoundries-silicon-development-design.html",
+          "date": "2026-11-19"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2695,7 +2751,18 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2725,7 +2792,9 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -3066,7 +3135,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google은 HBM 직접 구매로 Broadcom을 우회하려고 합니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261119vl217/google-hbm-broadcom-mediatek-2027.html",
+          "date": "2026-11-19"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -5283,7 +5360,18 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5433,9 +5521,14 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5956,7 +6049,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google은 HBM 직접 구매로 Broadcom을 우회하려고 합니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261119vl217/google-hbm-broadcom-mediatek-2027.html",
+          "date": "2026-11-19"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -7224,12 +7325,12 @@
             ]
           },
           {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
+            "id": "power-thermal",
+            "label": "전력·열",
             "mentions": 1,
             "trend": "up",
             "productIds": [
-              "custom-hbm"
+              "ai-d-o"
             ]
           }
         ],
@@ -7334,13 +7435,13 @@
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
           "용량",
-          "패키징·파운드리"
+          "전력·열"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "ai-d-b",
           "ai-n-d",
-          "custom-hbm"
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -7944,7 +8045,14 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "미국 칩 규제에 앞서 Alibaba와 Alice Huang을 연결하는 Nvidia의 역할로 Megaspeed 조사가 심화됩니다.",
+          "url": "https://www.digitimes.com/news/a20261119VL218/nvidia-alibaba-sales-technology-2022.html",
+          "date": "2026-11-19",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -7953,13 +8061,13 @@
           {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
-            "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
+            "headline": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261119PD210/cooling-demand-ai-chip-development-roadmap.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-02",
+            "asOf": "2026-11-19",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-11-02",
-            "seenCount": 12
+            "lastSeen": "2026-11-19",
+            "seenCount": 13
           },
           {
             "key": "tech:HBM4E",
@@ -8063,6 +8171,18 @@
         ],
         "stances": [
           {
+            "key": "stance:nvidia의 리더십 개편으로 ai 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "statement": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "verb": "밝혔",
+            "headline": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261119PD210/cooling-demand-ai-chip-development-roadmap.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-19",
+            "firstSeen": "2026-11-19",
+            "lastSeen": "2026-11-19",
+            "seenCount": 1
+          },
+          {
             "key": "stance:skhy 미국 매출 60% 돌파, 엔비디아의 ai 메모리 매출 비중 확대",
             "statement": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
             "verb": "확대",
@@ -8109,22 +8229,40 @@
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-19",
             "seenCount": 1
-          },
-          {
-            "key": "stance:삼성전자·skhy, 하반기 엔비디아에 8단 hbm4 메모리 공급 늘릴 계획",
-            "statement": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
-            "verb": "계획",
-            "headline": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
-            "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml",
-            "source": "新浪财经",
-            "asOf": "2026-08-26",
-            "firstSeen": "2026-08-26",
-            "lastSeen": "2026-08-26",
-            "seenCount": 1
           }
         ]
       },
       "derivedDemand": [
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-11-19",
+          "evidenceCount": 13,
+          "evidenceIds": [
+            "08iqtvf",
+            "0xdn73e",
+            "0eo2g57",
+            "04sxe1v",
+            "0n8cn38",
+            "0ou7eci",
+            "0lkhab0",
+            "0l6w3jy",
+            "12or9ee",
+            "159mikh",
+            "0ykarzn",
+            "1kuwkdb",
+            "1ua8cte"
+          ],
+          "evidence": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261119PD210/cooling-demand-ai-chip-development-roadmap.html"
+        },
         {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
@@ -8197,35 +8335,6 @@
           "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "지속",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-11-02",
-          "evidenceCount": 12,
-          "evidenceIds": [
-            "08iqtvf",
-            "0xdn73e",
-            "0eo2g57",
-            "04sxe1v",
-            "0n8cn38",
-            "0ou7eci",
-            "0lkhab0",
-            "0l6w3jy",
-            "12or9ee",
-            "159mikh",
-            "0ykarzn",
-            "1kuwkdb"
-          ],
-          "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
         },
         {
           "technology": "3nm",
@@ -8353,11 +8462,11 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "자체 설계",
-            "seenCount": 10,
+            "seenCount": 11,
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-11-02",
-            "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
+            "lastSeen": "2026-11-19",
+            "headline": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261119PD210/cooling-demand-ai-chip-development-roadmap.html"
           },
           {
             "program": "Blackwell",
@@ -8439,6 +8548,36 @@
         }
       ],
       "strategyOpportunities": [
+        {
+          "id": "nvidia:vera-rubin:inference-kv-cache",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "Vera Rubin · 지속",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "economics": "$/query · Capacity/$",
+          "executionGate": "Goodput/W · Package Capacity",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261119PD210/cooling-demand-ai-chip-development-roadmap.html",
+            "asOf": "2026-11-19",
+            "count": 13
+          }
+        },
         {
           "id": "nvidia:cowos:training-bandwidth",
           "accountId": "nvidia",
@@ -8529,37 +8668,6 @@
             "asOf": "2026-11-16",
             "count": 8
           }
-        },
-        {
-          "id": "nvidia:hbm4e:training-bandwidth",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "HBM4E · 지속",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "painPoint": "NVIDIA · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
-          "memoryRequirement": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
-          "products": [
-            "HBM4",
-            "HBM4E",
-            "iHBM 열관리",
-            "Hybrid Bonding · R&D"
-          ],
-          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
-          "economics": "Bandwidth/$ · 스텝당 시간",
-          "executionGate": "Thermal · Yield · Qualification Schedule",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-            "source": "troy-technical.com",
-            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
-            "asOf": "2026-11-08",
-            "count": 9
-          }
         }
       ],
       "org": {
@@ -8600,6 +8708,15 @@
         ],
         "statements": [
           {
+            "key": "s:nvidia의 리더십 개편으로 ai 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "text": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-19",
+            "url": "https://www.digitimes.com/news/a20261119PD210/cooling-demand-ai-chip-development-roadmap.html",
+            "source": "digitimes.com"
+          },
+          {
             "key": "s:amid nvidia founder jensen huang’s resignation as ceo, taiwan's nstc m",
             "text": "Amid Nvidia founder Jensen Huang’s resignation as CEO, Taiwan's NSTC Minister Cheng-wen Wu stated that Taiwan must focus on AI hardware standards and developing affordable AI products.",
             "kind": "보도",
@@ -8634,15 +8751,6 @@
             "date": "2026-11-03",
             "url": "https://www.digitimes.com/news/a20261103PD217/data-npu-ip-efficiency-nvidia.html",
             "source": "digitimes.com"
-          },
-          {
-            "key": "s:nvidia ceo jen-hsun huang은 최근 메모리 반도체 공급 과잉에 대한 시장 우려에 대한 자신의 견해를 밝혔습니",
-            "text": "NVIDIA CEO Jen-Hsun Huang은 최근 메모리 반도체 공급 과잉에 대한 시장 우려에 대한 자신의 견해를 밝혔습니다.",
-            "kind": "보도",
-            "attributionVersion": 1,
-            "date": "2026-10-23",
-            "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029/",
-            "source": "technews.tw"
           }
         ]
       },
@@ -8718,32 +8826,32 @@
           "date": "2026-07-25"
         },
         {
-          "title": "논평: Jensen Huang이 떠난 후 Nvidia의 자율 주행 야망은 중요한 시험에 직면",
+          "title": "미국 칩 규제에 앞서 Alibaba와 Alice Huang을 연결하는 Nvidia의 역할로 Megaspeed 조사가 심화",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118pd245/autonomous-driving-jensen-huang-automotive-automakers-vehicle.html",
-          "date": "2026-11-18"
+          "url": "https://www.digitimes.com/news/a20261119vl218/nvidia-alibaba-sales-technology-2022.html",
+          "date": "2026-11-19"
         },
         {
-          "title": "Nvidia GeForce 드라이버 버그로 인해 SSD가 시간당 최대 30GB의 쓰기 성능을 발휘하는 것으로 알려졌음",
-          "source": "tomshardware.com",
+          "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
+          "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.tomshardware.com/pc-components/gpu-drivers/nvidia-geforce-driver-bug-reportedly-hammers-ssds-with-up-to-30gb-of-writes-per-hour-users-trace-massive-idle-wear-to-background-service-newer-driver-reportedly-still-affected",
-          "date": "2026-11-18"
+          "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
+          "date": "2026-11-19"
         },
         {
-          "title": "엔비디아의 2028 회계연도 공급 약속은 두 배 이상인 2,030억 달러에 이릅니다",
+          "title": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔음",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118vl226/nvidia-hbm-memory-2028.html",
-          "date": "2026-11-18"
+          "url": "https://www.digitimes.com/news/a20261119pd210/cooling-demand-ai-chip-development-roadmap.html",
+          "date": "2026-11-19"
         },
         {
-          "title": "Foxconn은 차세대 GPU, 네트워킹 플랫폼 전반에 걸쳐 Nvidia와의 협력을 강화",
-          "source": "digitimes.com",
+          "title": "휴이다, 군 사기 안정 위해 12월 급여 및 형평성 인상 예정",
+          "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118pd249/foxconn-nvidia-gpu-manufacturing-shipments.html",
-          "date": "2026-11-18"
+          "url": "https://finance.technews.tw/2026/11/19/nvidia-stabilizes-morale",
+          "date": "2026-11-19"
         }
       ],
       "sources": [
@@ -10200,7 +10308,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
+          "date": "2026-11-19"
+        }
+      ],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -10641,27 +10757,7 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10685,10 +10781,7 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [
-          "용량",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10971,13 +11064,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
-        },
-        {
-          "title": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118pd253/taiwan-mask-growth-photonics-14-inch-capacity.html",
-          "date": "2026-11-18"
         }
       ],
       "sources": [
@@ -11114,27 +11200,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -11173,10 +11239,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "패키징·파운드리",
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11340,7 +11403,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "선단 공정·CoWoS 캐파 대규모 증설",
+        "capex": "$3 billion",
         "plan": "로직·패키징 동시 확장",
         "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
         "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
@@ -11363,8 +11426,20 @@
             "observedAt": "2026-09-14"
           }
         ],
-        "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "capexBasis": "관측",
+        "capexHeadline": "Lam Research의 대만 R&D 확장은 TSMC와 함께 더 빠른 칩 개발을 목표로 합니다.",
+        "capexUrl": "https://www.digitimes.com/news/a20261118PD254/lam-research-taiwan-development-tsmc-expansion.html",
+        "capexAsOf": "2026-11-19",
+        "capexBaseline": "선단 공정·CoWoS 캐파 대규모 증설",
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "Lam Research의 대만 R&D 확장은 TSMC와 함께 더 빠른 칩 개발을 목표로 합니다.",
+          "url": "https://www.digitimes.com/news/a20261118PD254/lam-research-taiwan-development-tsmc-expansion.html",
+          "date": "2026-11-19",
+          "source": "digitimes.com",
+          "amount": "$3 billion",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -11818,18 +11893,11 @@
       },
       "evidence": [
         {
-          "title": "Foxconn은 차세대 GPU, 네트워킹 플랫폼 전반에 걸쳐 Nvidia와의 협력을 강화",
+          "title": "Lam Research의 대만 R&D 확장은 TSMC와 함께 더 빠른 칩 개발을 목표로 합니다",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118pd249/foxconn-nvidia-gpu-manufacturing-shipments.html",
-          "date": "2026-11-18"
-        },
-        {
-          "title": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118pd253/taiwan-mask-growth-photonics-14-inch-capacity.html",
-          "date": "2026-11-18"
+          "url": "https://www.digitimes.com/news/a20261118pd254/lam-research-taiwan-development-tsmc-expansion.html",
+          "date": "2026-11-19"
         },
         {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
