@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44682468150",
-  "generatedAt": "2026-11-20T05:55:55.009Z",
+  "runId": "44727731210",
+  "generatedAt": "2026-11-20T11:41:33.951Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3070,6 +3070,13 @@
       },
       "evidence": [
         {
+          "title": "황의 퇴임 이후 AI 공급업체들이 꾸준한 주문을 보고하면서 대만 시장은 6.23% 급락",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261120vl220/taiwan-nvidia-tsmc-design-ai-server.html",
+          "date": "2026-11-20"
+        },
+        {
           "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었음",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
@@ -3906,13 +3913,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
-        },
-        {
-          "title": "Solidigm™ P41 Plus Series 2TB PCIe GEN 4 NVMe 4.0 x4 M.2 ... - Amazon",
-          "source": "amazon.com",
-          "sourceClass": "general-media",
-          "url": "https://www.amazon.com/solidigmtm-internal-solid-state-ssdpfknu020tzx1/dp/b0b9855vgs",
-          "date": "2026-11-19"
         }
       ],
       "sources": [
@@ -11120,7 +11120,27 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -11159,7 +11179,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "용량",
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11389,13 +11412,13 @@
           {
             "key": "tech:CoWoS",
             "label": "CoWoS",
-            "headline": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
-            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
+            "headline": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
+            "url": "https://www.digitimes.com/news/a20261119PD201/packaging-chips-growth-supply-chain-capacity.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-18",
+            "asOf": "2026-11-20",
             "firstSeen": "2026-11-18",
-            "lastSeen": "2026-11-18",
-            "seenCount": 2
+            "lastSeen": "2026-11-20",
+            "seenCount": 3
           },
           {
             "key": "tech:LPDDR",
@@ -11532,15 +11555,16 @@
           "gate": "Package Capacity · Ramp 일정",
           "hold": "반복",
           "firstSeen": "2026-11-18",
-          "lastSeen": "2026-11-18",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 3,
           "evidenceIds": [
             "14nkqu2",
-            "1tz1p8c"
+            "1tz1p8c",
+            "17kbgdy"
           ],
-          "evidence": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+          "evidence": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html"
+          "url": "https://www.digitimes.com/news/a20261119PD201/packaging-chips-growth-supply-chain-capacity.html"
         },
         {
           "technology": "Custom HBM",
@@ -11612,11 +11636,11 @@
           "executionGate": "Package Capacity · Ramp 일정",
           "stage": "SCALE",
           "evidence": {
-            "title": "Nvidia, SPIL sign multibillion-dollar deal to triple advanced packaging capacity by 2029",
+            "title": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261118PD239/nvidia-spil-packaging-capacity.html",
-            "asOf": "2026-11-18",
-            "count": 2
+            "url": "https://www.digitimes.com/news/a20261119PD201/packaging-chips-growth-supply-chain-capacity.html",
+            "asOf": "2026-11-20",
+            "count": 3
           }
         },
         {
@@ -11708,6 +11732,15 @@
         "people": [],
         "statements": [
           {
+            "key": "s:tsmc says it will comply with new us rule that strips chinese chip des",
+            "text": "TSMC says it will comply with new US rule that strips Chinese chip designers of a key exemption",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-20",
+            "url": "https://www.digitimes.com/news/a20261120VL218/tsmc-taiwan-chips-communications-samsung.html",
+            "source": "digitimes.com"
+          },
+          {
             "key": "s:이와 관련해 메모리 대기업 윈본드 일렉트로닉스의 자오유준 회장은 패밀리데이 인터뷰에서 현 단계에서 tsmc가 3d d램에 투자",
             "text": "이와 관련해 메모리 대기업 윈본드 일렉트로닉스의 자오유준 회장은 패밀리데이 인터뷰에서 현 단계에서 TSMC가 3D D램에 투자할 가능성은 높지 않다고 개인적인 평가를 했다고 직설적으로 밝혔다.",
             "kind": "보도",
@@ -11742,15 +11775,6 @@
             "date": "2026-10-22",
             "url": "https://technews.tw/2026/10/22/nvidia-customized-hbm-experts-predict-new-competitive-moat/",
             "source": "technews.tw"
-          },
-          {
-            "key": "s:ai chip scaling shifts into 3d, with performance per watt the new benc",
-            "text": "AI chip scaling shifts into 3D, with performance per watt the new benchmark, says former TSMC VP",
-            "kind": "보도",
-            "attributionVersion": 1,
-            "date": "2026-10-21",
-            "url": "https://www.digitimes.com/news/a20261021PD223/performance-3d-tsmc-demand-design.html",
-            "source": "digitimes.com"
           }
         ]
       },
@@ -11800,6 +11824,27 @@
         "basis": "기준선"
       },
       "evidence": [
+        {
+          "title": "황의 퇴임 이후 AI 공급업체들이 꾸준한 주문을 보고하면서 대만 시장은 6.23% 급락",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261120vl220/taiwan-nvidia-tsmc-design-ai-server.html",
+          "date": "2026-11-20"
+        },
+        {
+          "title": "TSMC는 중국 칩 설계자의 주요 면제를 박탈하는 새로운 미국 규정을 준수할 것이라고 밝혔음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261120vl218/tsmc-taiwan-chips-communications-samsung.html",
+          "date": "2026-11-20"
+        },
+        {
+          "title": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261119pd201/packaging-chips-growth-supply-chain-capacity.html",
+          "date": "2026-11-20"
+        },
         {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
           "source": "TrendForce",
