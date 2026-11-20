@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44584491388",
-  "generatedAt": "2026-11-19T18:22:25.559Z",
+  "runId": "44641383340",
+  "generatedAt": "2026-11-20T00:08:11.740Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -532,7 +532,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 111
+        "ageDays": 112
       }
     },
     {
@@ -850,7 +850,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -968,18 +968,7 @@
             "sourceId": "broadcom-ai"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -1057,9 +1046,7 @@
       },
       "executiveLens": {
         "question": "3자 Co-Design · Package Yield · NRE",
-        "painSignals": [
-          "대역폭"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -1484,15 +1471,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Google은 HBM 직접 구매로 Broadcom을 우회하려고 합니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261119vl217/google-hbm-broadcom-mediatek-2027.html",
-          "date": "2026-11-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "broadcom-ai",
@@ -1569,7 +1548,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 78
+        "ageDays": 79
       }
     },
     {
@@ -1853,7 +1832,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -1972,17 +1951,7 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2046,13 +2015,9 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2305,7 +2270,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "$10 million",
+        "capex": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
         "plan": "하이퍼스케일러 XPU 요구를 복합 기술로 대응",
         "comment": "Custom HBM · Stack 최대 33%↑·Interface Power 최대 70%↓ · 3개 Memory Supplier 병렬 협력",
         "memoryRead": "CMM-Ax는 PIM이 아닌 CXL 기반 PNM · KV Cache Offload 실증",
@@ -2315,20 +2280,8 @@
           "converts": "용량 33%↑와 인터페이스 전력 70%↓를 동시에 요구해 공동 설계 없이는 충족 불가",
           "window": "Base Die 단계 · 커스텀 HBM과 CXL 모듈을 한 제안으로 묶을 수 있는 구간"
         },
-        "capexBasis": "관측",
-        "capexHeadline": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
-        "capexUrl": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html",
-        "capexAsOf": "2026-11-19",
-        "capexBaseline": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
-          "url": "https://www.digitimes.com/news/a20261119PR200/investment-globalfoundries-silicon-development-design.html",
-          "date": "2026-11-19",
-          "source": "digitimes.com",
-          "amount": "$10 million",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -2569,15 +2522,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "GlobalFoundries invests US$10 million in India-based Cyient Semiconductors",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261119pr200/investment-globalfoundries-silicon-development-design.html",
-          "date": "2026-11-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2643,7 +2588,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -2751,18 +2696,7 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2792,9 +2726,7 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [
-          "대역폭"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -3135,15 +3067,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "Google은 HBM 직접 구매로 Broadcom을 우회하려고 합니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261119vl217/google-hbm-broadcom-mediatek-2027.html",
-          "date": "2026-11-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -3164,7 +3088,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -4048,7 +3972,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -4610,7 +4534,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -5006,7 +4930,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 134
+        "ageDays": 135
       }
     },
     {
@@ -5242,7 +5166,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -5360,18 +5284,7 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5521,14 +5434,9 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [
-          "대역폭"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -6049,15 +5957,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Google은 HBM 직접 구매로 Broadcom을 우회하려고 합니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261119vl217/google-hbm-broadcom-mediatek-2027.html",
-          "date": "2026-11-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -6136,7 +6036,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -6657,7 +6557,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -7157,7 +7057,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "공개 근거",
+          "source": "Microsoft Official Blog",
+          "sourceClass": "public",
+          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+          "date": "2026-01-26"
+        }
+      ],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -7194,7 +7102,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -7313,27 +7221,7 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -7433,16 +7321,9 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [
-          "용량",
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d",
-          "ai-d-o"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8045,14 +7926,7 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "미국 칩 규제에 앞서 Alibaba와 Alice Huang을 연결하는 Nvidia의 역할로 Megaspeed 조사가 심화됩니다.",
-          "url": "https://www.digitimes.com/news/a20261119VL218/nvidia-alibaba-sales-technology-2022.html",
-          "date": "2026-11-19",
-          "source": "digitimes.com",
-          "observedCount": 1
-        }
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -8826,24 +8700,10 @@
           "date": "2026-07-25"
         },
         {
-          "title": "미국 칩 규제에 앞서 Alibaba와 Alice Huang을 연결하는 Nvidia의 역할로 Megaspeed 조사가 심화",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261119vl218/nvidia-alibaba-sales-technology-2022.html",
-          "date": "2026-11-19"
-        },
-        {
           "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
           "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
           "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-          "date": "2026-11-19"
-        },
-        {
-          "title": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261119pd210/cooling-demand-ai-chip-development-roadmap.html",
           "date": "2026-11-19"
         },
         {
@@ -8852,6 +8712,20 @@
           "sourceClass": "authoritative-media",
           "url": "https://finance.technews.tw/2026/11/19/nvidia-stabilizes-morale",
           "date": "2026-11-19"
+        },
+        {
+          "title": "Nvidia GeForce 드라이버 버그로 인해 SSD가 시간당 최대 30GB의 쓰기 성능을 발휘하는 것으로 알려졌음",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/pc-components/gpu-drivers/nvidia-geforce-driver-bug-reportedly-hammers-ssds-with-up-to-30gb-of-writes-per-hour-users-trace-massive-idle-wear-to-background-service-newer-driver-reportedly-still-affected",
+          "date": "2026-11-18"
+        },
+        {
+          "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+          "source": "TrendForce",
+          "sourceClass": "news",
+          "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+          "date": "2026-11-11"
         }
       ],
       "sources": [
@@ -9006,7 +8880,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 37
+        "ageDays": 38
       }
     },
     {
@@ -9697,7 +9571,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -9975,7 +9849,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 70
+        "ageDays": 71
       }
     },
     {
@@ -10310,6 +10184,13 @@
       },
       "evidence": [
         {
+          "title": "삼성, SpaceX 사업 목표로 오스틴 칩 공장 개편",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261119vl223/samsung-austin-plant-spacex-business.html",
+          "date": "2026-11-19"
+        },
+        {
           "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
           "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
@@ -10344,7 +10225,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -10644,7 +10525,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 84
+        "ageDays": 85
       }
     },
     {
@@ -11079,7 +10960,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -11403,7 +11284,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "$3 billion",
+        "capex": "선단 공정·CoWoS 캐파 대규모 증설",
         "plan": "로직·패키징 동시 확장",
         "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
         "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
@@ -11426,20 +11307,8 @@
             "observedAt": "2026-09-14"
           }
         ],
-        "capexBasis": "관측",
-        "capexHeadline": "Lam Research의 대만 R&D 확장은 TSMC와 함께 더 빠른 칩 개발을 목표로 합니다.",
-        "capexUrl": "https://www.digitimes.com/news/a20261118PD254/lam-research-taiwan-development-tsmc-expansion.html",
-        "capexAsOf": "2026-11-19",
-        "capexBaseline": "선단 공정·CoWoS 캐파 대규모 증설",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "Lam Research의 대만 R&D 확장은 TSMC와 함께 더 빠른 칩 개발을 목표로 합니다.",
-          "url": "https://www.digitimes.com/news/a20261118PD254/lam-research-taiwan-development-tsmc-expansion.html",
-          "date": "2026-11-19",
-          "source": "digitimes.com",
-          "amount": "$3 billion",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -11893,13 +11762,6 @@
       },
       "evidence": [
         {
-          "title": "Lam Research의 대만 R&D 확장은 TSMC와 함께 더 빠른 칩 개발을 목표로 합니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261118pd254/lam-research-taiwan-development-tsmc-expansion.html",
-          "date": "2026-11-19"
-        },
-        {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
           "source": "TrendForce",
           "sourceClass": "news",
@@ -11943,7 +11805,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 37
+        "ageDays": 38
       }
     },
     {
@@ -12483,7 +12345,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -13339,7 +13201,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 37
+        "ageDays": 38
       }
     },
     {
@@ -14341,7 +14203,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 42
+        "ageDays": 43
       }
     },
     {
@@ -15638,7 +15500,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 37
+        "ageDays": 38
       }
     },
     {
@@ -16073,7 +15935,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 71
+        "ageDays": 72
       }
     },
     {
@@ -16304,7 +16166,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 78
+        "ageDays": 79
       }
     },
     {
@@ -16548,7 +16410,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -16867,7 +16729,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 100
+        "ageDays": 101
       }
     },
     {
@@ -17124,7 +16986,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -17352,7 +17214,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 177
+        "ageDays": 178
       }
     },
     {
@@ -17562,7 +17424,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 248
+        "ageDays": 249
       }
     },
     {
@@ -17815,7 +17677,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -18094,7 +17956,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 171
+        "ageDays": 172
       }
     },
     {
@@ -18317,7 +18179,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 111
+        "ageDays": 112
       }
     },
     {
@@ -18619,7 +18481,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 37
+        "ageDays": 38
       }
     },
     {
@@ -18843,7 +18705,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 111
+        "ageDays": 112
       }
     },
     {
@@ -19052,7 +18914,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 111
+        "ageDays": 112
       }
     },
     {
@@ -19294,7 +19156,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 111
+        "ageDays": 112
       }
     }
   ],
