@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44641383340",
-  "generatedAt": "2026-11-20T00:08:11.740Z",
+  "runId": "44682468150",
+  "generatedAt": "2026-11-20T05:55:55.009Z",
   "coverage": {
     "companiesObserved": 35,
     "companiesWithDerivedDemand": 28,
-    "derivedRequirements": 94,
+    "derivedRequirements": 95,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -300,6 +300,25 @@
           "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
         },
         {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "105urmn",
+            "0f0korr"
+          ],
+          "evidence": "SK Hynix reportedly plans to buy HBM bonding tools from Besi",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120VL212/sk-hynix-hbm-equipment-dutch-production.html"
+        },
+        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -393,24 +412,6 @@
           "evidence": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
           "source": "trendforce.com",
           "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up/"
-        },
-        {
-          "technology": "Hybrid Bonding",
-          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
-          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
-          "productAxis": "HBM",
-          "stage": "QUALIFY",
-          "gate": "Thermal · Yield",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "105urmn"
-          ],
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "source": "Tom's Hardware",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
         },
         {
           "technology": "CPO",
@@ -730,6 +731,24 @@
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
         },
         {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-11-20",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0hbrljh"
+          ],
+          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+        },
+        {
           "technology": "SOCAMM",
           "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
           "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
@@ -885,6 +904,25 @@
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1szic36",
+            "1b8r01x"
+          ],
+          "evidence": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html"
+        },
+        {
           "technology": "eSSD",
           "systemShift": "데이터 로딩이 가속기 활용률을 제한",
           "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
@@ -944,6 +982,24 @@
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
         },
         {
+          "technology": "SOCAMM",
+          "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
+          "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
+          "productAxis": "AI-DRAM",
+          "stage": "QUALIFY",
+          "gate": "규격 채택 · Capacity/$",
+          "hold": "관측",
+          "firstSeen": "2026-11-20",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1b8r01x"
+          ],
+          "evidence": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html"
+        },
+        {
           "technology": "HBM5",
           "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
           "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
@@ -996,42 +1052,6 @@
           "evidence": "CXL Memory - Samsung Semiconductor Global",
           "source": "semiconductor.samsung.com",
           "url": "https://semiconductor.samsung.com/cxl-memory/"
-        },
-        {
-          "technology": "LPDDR",
-          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
-          "memoryNeed": "저전력 우선의 메모리 구성",
-          "productAxis": "AI-NAND · LPDDR",
-          "stage": "SCALE",
-          "gate": "Performance/W · 규격 채택",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1szic36"
-          ],
-          "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "관측",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "08iqtvf"
-          ],
-          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
         }
       ]
     },
@@ -1560,6 +1580,25 @@
     "mediatek": {
       "requirements": [
         {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "반복",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1ukcxli",
+            "0hbrljh"
+          ],
+          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+        },
+        {
           "technology": "CoWoS",
           "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
           "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -1576,24 +1615,6 @@
           "evidence": "급증하는 AI 수요로 인해 CoWoS는 골칫거리가 됩니다. MediaTek 부사장은 패키징 용량 확보가 최우선 과제라고 밝혔습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261108PD200/mediatek-cowos-packaging-demand-capacity.html"
-        },
-        {
-          "technology": "TPU",
-          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
-          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "세대별 물량 동기화율",
-          "hold": "관측",
-          "firstSeen": "2026-10-20",
-          "lastSeen": "2026-10-20",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1ukcxli"
-          ],
-          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
         },
         {
           "technology": "2nm",
@@ -1648,16 +1669,17 @@
           "gate": "세대별 물량 동기화율",
           "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-11-09",
-          "evidenceCount": 3,
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0oaaau5",
             "1ukcxli",
-            "174ftfs"
+            "174ftfs",
+            "0hbrljh"
           ],
-          "evidence": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
+          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
         }
       ]
     },
@@ -2111,24 +2133,6 @@
       "weight": 19
     },
     {
-      "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-      "productAxis": "HBM · System",
-      "stage": "QUALIFY",
-      "gate": "Goodput/W · Package Capacity",
-      "technologies": [
-        "Vera Rubin"
-      ],
-      "accountCount": 5,
-      "accounts": [
-        "amd",
-        "micron",
-        "nvidia",
-        "samsung",
-        "skhynix"
-      ],
-      "weight": 13
-    },
-    {
       "memoryNeed": "저전력 우선의 메모리 구성",
       "productAxis": "AI-NAND · LPDDR",
       "stage": "SCALE",
@@ -2144,7 +2148,7 @@
         "samsung",
         "tsmc"
       ],
-      "weight": 12
+      "weight": 13
     },
     {
       "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -2183,6 +2187,40 @@
       "weight": 8
     },
     {
+      "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+      "productAxis": "HBM · System",
+      "stage": "QUALIFY",
+      "gate": "Goodput/W · Package Capacity",
+      "technologies": [
+        "Vera Rubin"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "amd",
+        "micron",
+        "nvidia",
+        "skhynix"
+      ],
+      "weight": 12
+    },
+    {
+      "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "세대별 물량 동기화율",
+      "technologies": [
+        "TPU"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "amd",
+        "google",
+        "mediatek",
+        "nvidia"
+      ],
+      "weight": 8
+    },
+    {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
       "productAxis": "AI-NAND",
       "stage": "SCALE",
@@ -2197,22 +2235,6 @@
         "solidigm"
       ],
       "weight": 10
-    },
-    {
-      "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "세대별 물량 동기화율",
-      "technologies": [
-        "TPU"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "amd",
-        "google",
-        "mediatek"
-      ],
-      "weight": 5
     }
   ]
 }

@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "44641383340",
-  "generatedAt": "2026-11-20T00:08:11.740Z",
+  "runId": "44682468150",
+  "generatedAt": "2026-11-20T05:55:55.009Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2820,6 +2820,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:TPU",
+            "label": "TPU",
+            "headline": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-20",
+            "firstSeen": "2026-10-20",
+            "lastSeen": "2026-11-20",
+            "seenCount": 2
+          },
+          {
             "key": "tech:CoWoS",
             "label": "CoWoS",
             "headline": "급증하는 AI 수요로 인해 CoWoS는 골칫거리가 됩니다. MediaTek 부사장은 패키징 용량 확보가 최우선 과제라고 밝혔습니다.",
@@ -2828,17 +2839,6 @@
             "asOf": "2026-11-09",
             "firstSeen": "2026-11-09",
             "lastSeen": "2026-11-09",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:TPU",
-            "label": "TPU",
-            "headline": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-20",
-            "firstSeen": "2026-10-20",
-            "lastSeen": "2026-10-20",
             "seenCount": 1
           },
           {
@@ -2870,6 +2870,25 @@
       },
       "derivedDemand": [
         {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "반복",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1ukcxli",
+            "0hbrljh"
+          ],
+          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+        },
+        {
           "technology": "CoWoS",
           "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
           "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -2886,24 +2905,6 @@
           "evidence": "급증하는 AI 수요로 인해 CoWoS는 골칫거리가 됩니다. MediaTek 부사장은 패키징 용량 확보가 최우선 과제라고 밝혔습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261108PD200/mediatek-cowos-packaging-demand-capacity.html"
-        },
-        {
-          "technology": "TPU",
-          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
-          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "세대별 물량 동기화율",
-          "hold": "관측",
-          "firstSeen": "2026-10-20",
-          "lastSeen": "2026-10-20",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1ukcxli"
-          ],
-          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
         },
         {
           "technology": "2nm",
@@ -2933,6 +2934,34 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "mediatek:tpu:asic-partner",
+          "accountId": "mediatek",
+          "account": "MediaTek",
+          "layer": "asic-partner",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "TPU · 반복",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "painPoint": "자체 실리콘 세대 Ramp가 외부 조달과 병행에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
+          "memoryRequirement": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "solution": "HBM 공동설계 · 인터페이스·전력·열 Requirement Lock",
+          "products": [
+            "HBM"
+          ],
+          "newBiz": "Custom Silicon·Memory 공동설계 Design Win",
+          "economics": "NRE 회수 · Qualification Lead Time · Design Win",
+          "executionGate": "세대별 물량 동기화율",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
+            "asOf": "2026-11-20",
+            "count": 2
+          }
+        },
+        {
           "id": "mediatek:cowos:asic-partner",
           "accountId": "mediatek",
           "account": "MediaTek",
@@ -2957,34 +2986,6 @@
             "source": "digitimes.com",
             "url": "https://www.digitimes.com/news/a20261108PD200/mediatek-cowos-packaging-demand-capacity.html",
             "asOf": "2026-11-09",
-            "count": 1
-          }
-        },
-        {
-          "id": "mediatek:tpu:asic-partner",
-          "accountId": "mediatek",
-          "account": "MediaTek",
-          "layer": "asic-partner",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "TPU · 관측",
-          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
-          "painPoint": "자체 실리콘 세대 Ramp가 외부 조달과 병행에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
-          "memoryRequirement": "세대 일정에 동기화된 Capacity와 Package",
-          "productAxis": "HBM",
-          "solution": "HBM 공동설계 · 인터페이스·전력·열 Requirement Lock",
-          "products": [
-            "HBM"
-          ],
-          "newBiz": "Custom Silicon·Memory 공동설계 Design Win",
-          "economics": "NRE 회수 · Qualification Lead Time · Design Win",
-          "executionGate": "세대별 물량 동기화율",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
-            "asOf": "2026-10-20",
             "count": 1
           }
         },
@@ -3067,7 +3068,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
+          "date": "2026-11-20"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -3897,6 +3906,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "Solidigm™ P41 Plus Series 2TB PCIe GEN 4 NVMe 4.0 x4 M.2 ... - Amazon",
+          "source": "amazon.com",
+          "sourceClass": "general-media",
+          "url": "https://www.amazon.com/solidigmtm-internal-solid-state-ssdpfknu020tzx1/dp/b0b9855vgs",
+          "date": "2026-11-19"
         }
       ],
       "sources": [
@@ -5715,13 +5731,13 @@
           {
             "key": "tech:TPU",
             "label": "TPU",
-            "headline": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
-            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
-            "source": "servethehome.com",
-            "asOf": "2026-11-09",
+            "headline": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-20",
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-11-09",
-            "seenCount": 3
+            "lastSeen": "2026-11-20",
+            "seenCount": 4
           }
         ],
         "stances": []
@@ -5736,16 +5752,17 @@
           "gate": "세대별 물량 동기화율",
           "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-11-09",
-          "evidenceCount": 3,
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0oaaau5",
             "1ukcxli",
-            "174ftfs"
+            "174ftfs",
+            "0hbrljh"
           ],
-          "evidence": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
+          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
         }
       ],
       "silicon": {
@@ -5758,11 +5775,11 @@
             "family": "Google TPU",
             "memoryProfile": "세대 Ramp가 HBM 물량의 선행 지표",
             "relation": "자체 설계",
-            "seenCount": 3,
+            "seenCount": 4,
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-11-09",
-            "headline": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
-            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/"
+            "lastSeen": "2026-11-20",
+            "headline": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
           }
         ],
         "coversTraining": true,
@@ -5840,11 +5857,11 @@
           "executionGate": "세대별 물량 동기화율",
           "stage": "SCALE",
           "evidence": {
-            "title": "Google TPU 8tx는 AMD EPYC Turin 호스트와 기밀 컴퓨팅을 결합하고 TPU 8i Max는 메모리 대역폭을 두 배로 늘립니다.",
-            "source": "servethehome.com",
-            "url": "https://www.servethehome.com/google-tpu-8tx-8i-max-amd-epyc-turin/",
-            "asOf": "2026-11-09",
-            "count": 3
+            "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
+            "asOf": "2026-11-20",
+            "count": 4
           }
         }
       ],
@@ -5957,7 +5974,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
+          "date": "2026-11-20"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -7057,15 +7082,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "공개 근거",
-          "source": "Microsoft Official Blog",
-          "sourceClass": "public",
-          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-          "date": "2026-01-26"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -8010,6 +8027,17 @@
             "seenCount": 2
           },
           {
+            "key": "tech:TPU",
+            "label": "TPU",
+            "headline": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-20",
+            "firstSeen": "2026-11-20",
+            "lastSeen": "2026-11-20",
+            "seenCount": 1
+          },
+          {
             "key": "tech:SOCAMM",
             "label": "SOCAMM",
             "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
@@ -8270,6 +8298,24 @@
           "evidence": "NVIDIA는 Groq 3 LPX가 본격 생산에 들어갔다고 발표했으며, Nebius가 이를 최초로 채택했습니다_뉴스 - CFM 플래시 메모리 시장",
           "source": "CFM闪存市场",
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
+        },
+        {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-11-20",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0hbrljh"
+          ],
+          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
         },
         {
           "technology": "SOCAMM",
@@ -8700,21 +8746,21 @@
           "date": "2026-07-25"
         },
         {
-          "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-          "source": "finance.technews.tw",
+          "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었음",
+          "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
-          "date": "2026-11-19"
+          "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
+          "date": "2026-11-20"
         },
         {
-          "title": "휴이다, 군 사기 안정 위해 12월 급여 및 형평성 인상 예정",
-          "source": "finance.technews.tw",
+          "title": "분석: Jensen의 퇴사 이후 AI 데이터 센터 붐의 세 가지 전환점이 예상",
+          "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/11/19/nvidia-stabilizes-morale",
-          "date": "2026-11-19"
+          "url": "https://www.digitimes.com/news/a20261120pd203/data-center-investment-jensen-huang-ceo-supply-chain.html",
+          "date": "2026-11-20"
         },
         {
-          "title": "Nvidia GeForce 드라이버 버그로 인해 SSD가 시간당 최대 30GB의 쓰기 성능을 발휘하는 것으로 알려졌음",
+          "title": "Nvidia GeForce driver bug reportedly hammers SSDs with up to 30GB of writes per hour",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/pc-components/gpu-drivers/nvidia-geforce-driver-bug-reportedly-hammers-ssds-with-up-to-30gb-of-writes-per-hour-users-trace-massive-idle-wear-to-background-service-newer-driver-reportedly-still-affected",
@@ -10188,13 +10234,6 @@
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261119vl223/samsung-austin-plant-spacex-business.html",
-          "date": "2026-11-19"
-        },
-        {
-          "title": "머스크는 황런순(Huang Renxun)을 지지하며 그를 역사상 가장 재능 있는 CEO라고 부르며 누구도 그를 대신불가",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/11/19/musk-strongly-supports-jensen-huang",
           "date": "2026-11-19"
         }
       ],
@@ -13695,6 +13734,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:LPDDR",
+            "label": "LPDDR",
+            "headline": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
+            "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-20",
+            "firstSeen": "2026-08-26",
+            "lastSeen": "2026-11-20",
+            "seenCount": 2
+          },
+          {
             "key": "tech:PIM",
             "label": "PIM",
             "headline": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
@@ -13704,6 +13754,17 @@
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-08-26",
             "seenCount": 2
+          },
+          {
+            "key": "tech:SOCAMM",
+            "label": "SOCAMM",
+            "headline": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
+            "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-20",
+            "firstSeen": "2026-11-20",
+            "lastSeen": "2026-11-20",
+            "seenCount": 1
           },
           {
             "key": "tech:HBM5",
@@ -13736,28 +13797,6 @@
             "asOf": "2026-08-27",
             "firstSeen": "2026-08-27",
             "lastSeen": "2026-08-27",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:LPDDR",
-            "label": "LPDDR",
-            "headline": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
-            "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml",
-            "source": "新浪财经",
-            "asOf": "2026-08-26",
-            "firstSeen": "2026-08-26",
-            "lastSeen": "2026-08-26",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:Vera Rubin",
-            "label": "Vera Rubin",
-            "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/",
-            "source": "TrendForce",
-            "asOf": "2026-08-25",
-            "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
             "seenCount": 1
           }
         ],
@@ -13887,6 +13926,25 @@
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1szic36",
+            "1b8r01x"
+          ],
+          "evidence": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html"
+        },
+        {
           "technology": "eSSD",
           "systemShift": "데이터 로딩이 가속기 활용률을 제한",
           "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
@@ -13946,6 +14004,24 @@
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
         },
         {
+          "technology": "SOCAMM",
+          "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
+          "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
+          "productAxis": "AI-DRAM",
+          "stage": "QUALIFY",
+          "gate": "규격 채택 · Capacity/$",
+          "hold": "관측",
+          "firstSeen": "2026-11-20",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1b8r01x"
+          ],
+          "evidence": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html"
+        },
+        {
           "technology": "HBM5",
           "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
           "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
@@ -13998,42 +14074,6 @@
           "evidence": "CXL Memory - Samsung Semiconductor Global",
           "source": "semiconductor.samsung.com",
           "url": "https://semiconductor.samsung.com/cxl-memory/"
-        },
-        {
-          "technology": "LPDDR",
-          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
-          "memoryNeed": "저전력 우선의 메모리 구성",
-          "productAxis": "AI-NAND · LPDDR",
-          "stage": "SCALE",
-          "gate": "Performance/W · 규격 채택",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1szic36"
-          ],
-          "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "관측",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "08iqtvf"
-          ],
-          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
         }
       ],
       "painPoints": [
@@ -14929,6 +14969,17 @@
             "seenCount": 4
           },
           {
+            "key": "tech:Hybrid Bonding",
+            "label": "Hybrid Bonding",
+            "headline": "SK Hynix reportedly plans to buy HBM bonding tools from Besi",
+            "url": "https://www.digitimes.com/news/a20261120VL212/sk-hynix-hbm-equipment-dutch-production.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-20",
+            "firstSeen": "2026-08-24",
+            "lastSeen": "2026-11-20",
+            "seenCount": 2
+          },
+          {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
             "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
@@ -14973,17 +15024,6 @@
             "seenCount": 1
           },
           {
-            "key": "tech:Hybrid Bonding",
-            "label": "Hybrid Bonding",
-            "headline": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-            "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
-            "source": "Tom's Hardware",
-            "asOf": "2026-08-24",
-            "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-24",
-            "seenCount": 1
-          },
-          {
             "key": "tech:CPO",
             "label": "CPO",
             "headline": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
@@ -15007,6 +15047,18 @@
           }
         ],
         "stances": [
+          {
+            "key": "stance:sk hynix reportedly plans to buy hbm bonding tools from besi",
+            "statement": "SK Hynix reportedly plans to buy HBM bonding tools from Besi",
+            "verb": "plans",
+            "headline": "SK Hynix reportedly plans to buy HBM bonding tools from Besi",
+            "url": "https://www.digitimes.com/news/a20261120VL212/sk-hynix-hbm-equipment-dutch-production.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-20",
+            "firstSeen": "2026-11-20",
+            "lastSeen": "2026-11-20",
+            "seenCount": 1
+          },
           {
             "key": "stance:skhy 미국 매출 60% 돌파, 엔비디아의 ai 메모리 매출 비중 확대",
             "statement": "SKHY 미국 매출 60% 돌파, 엔비디아의 AI 메모리 매출 비중 확대",
@@ -15053,18 +15105,6 @@
             "asOf": "2026-10-22",
             "firstSeen": "2026-10-22",
             "lastSeen": "2026-10-22",
-            "seenCount": 1
-          },
-          {
-            "key": "stance:ai 메모리 수요 증가로 삼성·skhy 2027년 전망",
-            "statement": "AI 메모리 수요 증가로 삼성·SKHY 2027년 전망",
-            "verb": "전망",
-            "headline": "AI 메모리 수요 증가로 삼성·SKHY 2027년 전망",
-            "url": "https://www.digitimes.com/news/a20261019PD201/demand-2027-samsung-sk-hynix-outlook.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-19",
-            "firstSeen": "2026-10-19",
-            "lastSeen": "2026-10-19",
             "seenCount": 1
           }
         ]
@@ -15142,6 +15182,25 @@
           "evidence": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
+        },
+        {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-11-20",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "105urmn",
+            "0f0korr"
+          ],
+          "evidence": "SK Hynix reportedly plans to buy HBM bonding tools from Besi",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261120VL212/sk-hynix-hbm-equipment-dutch-production.html"
         },
         {
           "technology": "Vera Rubin",
@@ -15239,24 +15298,6 @@
           "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up/"
         },
         {
-          "technology": "Hybrid Bonding",
-          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
-          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
-          "productAxis": "HBM",
-          "stage": "QUALIFY",
-          "gate": "Thermal · Yield",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "105urmn"
-          ],
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "source": "Tom's Hardware",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
-        },
-        {
           "technology": "CPO",
           "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
           "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
@@ -15303,6 +15344,15 @@
       "org": {
         "people": [],
         "statements": [
+          {
+            "key": "s:sk hynix reportedly plans to buy hbm bonding tools from besi",
+            "text": "SK Hynix reportedly plans to buy HBM bonding tools from Besi",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-20",
+            "url": "https://www.digitimes.com/news/a20261120VL212/sk-hynix-hbm-equipment-dutch-production.html",
+            "source": "digitimes.com"
+          },
           {
             "key": "s:us chip curbs on china complicate sk hynix's us$45 billion nand plan",
             "text": "US chip curbs on China complicate SK Hynix's US$45 billion NAND plan",
