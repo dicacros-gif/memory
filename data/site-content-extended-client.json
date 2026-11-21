@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "44867865757",
-  "generatedAt": "2026-11-21T05:05:47.650Z",
-  "expiresAt": "2026-11-22T07:05:45.395Z",
+  "runId": "44895194731",
+  "generatedAt": "2026-11-21T10:52:28.360Z",
+  "expiresAt": "2026-11-22T12:52:26.972Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-21T05:04:19.038Z",
-    "runId": "44867865757",
+    "generatedAt": "2026-11-21T10:51:04.497Z",
+    "runId": "44895194731",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -121,6 +121,30 @@
       }
     ],
     "eventTriggers": [
+      {
+        "id": "d64fbf603ababbadf9db",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
+      {
+        "id": "f2244202b7970aae5354",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
       {
         "id": "2266a646bb77612184af",
         "ruleId": "earnings-release",
@@ -250,43 +274,17 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "7df22d66ea27105523e8",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-21T05:04:19.038Z",
+      "generatedAt": "2026-11-21T10:51:04.497Z",
       "stats": {
-        "eligibleDocuments": 39,
-        "structuredEvents": 37,
-        "verifiedEvents": 32,
-        "currentStages": 31,
-        "newEvents": 0,
+        "eligibleDocuments": 40,
+        "structuredEvents": 38,
+        "verifiedEvents": 33,
+        "currentStages": 32,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -827,17 +825,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 155,
-        "structuredEvents": 37,
-        "verifiedEvents": 32,
+        "structuredEvents": 38,
+        "verifiedEvents": 33,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 35,
-        "useful": 28,
-        "observationRatePct": 85.4,
-        "usefulYieldPct": 80,
+        "observed": 36,
+        "useful": 29,
+        "observationRatePct": 87.8,
+        "usefulYieldPct": 80.6,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -856,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1010,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,10 +1053,12 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "usefulObservation": false,
-            "eventYield": 0
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
+            "usefulObservation": true,
+            "eventYield": 1
           },
           {
             "id": "llm-serving-systems-research",
@@ -1067,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
-            "lastUsefulObservationAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
+            "lastUsefulObservationAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T05:04:07.617Z",
+            "lastSuccessAt": "2026-11-21T10:50:42.730Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1324,7 +1324,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T05:04:19.038Z",
+          "updatedAt": "2026-11-21T10:51:04.497Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1454,7 +1454,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T05:04:19.038Z",
+          "updatedAt": "2026-11-21T10:51:04.497Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1498,17 +1498,17 @@
           "evidence": [
             {
               "score": 2.75,
-              "chunkId": "dde2a099f12eb02653bd",
+              "chunkId": "4ef23d2df6864070bfa6",
               "title": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
-              "excerpt": ": Next-Generation Memory for the Data Movement Era Part 1 explored how HBM has evolved to supply data to AI chips. Today, as inference, reasoning, long-context processing, and agentic AI expand, AI systems... Technology 2026.10.28 Part 1. The Evolution of AI and AI Chips - and the HBM That Powers Them As AI becomes ca…",
+              "excerpt": ": Next-Generation Memory for the Data Movement Era Part 1 explored how HBM has evolved to supply data to AI chips. Today, as inference, reasoning, long-context processing, and agentic AI expand, AI systems... Technology 2026.10.28 Part 1. The Evolution of AI and AI Chips - and the HBM That Pow",
               "sourceId": "samsung-semiconductor",
               "feedId": "samsung-hbm4-stage",
               "source": "Samsung Semiconductor",
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-11-20",
-              "indexedAt": "2026-11-20T05:54:32.561Z",
-              "sourceChangeDetectedAt": "2026-11-20T05:54:29.390Z",
+              "indexedAt": "2026-11-21T10:51:04.497Z",
+              "sourceChangeDetectedAt": "2026-11-21T10:50:42.730Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1584,7 +1584,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T05:04:19.038Z",
+          "updatedAt": "2026-11-21T10:51:04.497Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1711,7 +1711,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T05:04:19.038Z",
+          "updatedAt": "2026-11-21T10:51:04.497Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1838,7 +1838,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 8,
-        "fresh": 0,
+        "fresh": 1,
         "observationRatePct": 5.4,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -1959,7 +1959,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2100,10 +2100,10 @@
         "documents": 155,
         "chunks": 600,
         "added": 0,
-        "changed": 0,
-        "unchanged": 39,
-        "retained": 116,
-        "reindexed": 0
+        "changed": 2,
+        "unchanged": 38,
+        "retained": 115,
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2299,8 +2299,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-20T23:15:47.932Z",
-              "sourceChangeDetectedAt": "2026-11-20T23:15:44.104Z",
+              "indexedAt": "2026-11-21T10:51:04.497Z",
+              "sourceChangeDetectedAt": "2026-11-21T10:50:42.730Z",
               "stale": false
             }
           ]
@@ -2367,8 +2367,8 @@
               "sourceClass": "official",
               "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
               "publishedAt": "2026-11-20",
-              "indexedAt": "2026-11-20T05:54:32.561Z",
-              "sourceChangeDetectedAt": "2026-11-20T05:54:29.390Z",
+              "indexedAt": "2026-11-21T10:51:04.497Z",
+              "sourceChangeDetectedAt": "2026-11-21T10:50:42.730Z",
               "stale": false
             },
             {
@@ -2486,21 +2486,21 @@
       },
       "diagnostics": {
         "staleRetrievalRatePct": 28.8,
-        "feedCoveragePct": 85.4,
+        "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 95.1,
+        "currentPct": 95.9,
         "previousPct": 95.1
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-20T23:15:44.104Z",
-        "indexedAt": "2026-11-20T23:15:47.932Z"
+        "sourceChangeDetectedAt": "2026-11-21T10:50:42.730Z",
+        "indexedAt": "2026-11-21T10:51:04.497Z"
       },
-      "generatedAt": "2026-11-21T05:04:19.038Z"
+      "generatedAt": "2026-11-21T10:51:04.497Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2519,7 +2519,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-21T05:05:47.650Z",
+    "generatedAt": "2026-11-21T10:52:28.360Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5450,7 +5450,7 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 4,
+            "mentions": 3,
             "sourceCount": 3,
             "officialEvidenceCount": 0,
             "weekly": [
@@ -5484,7 +5484,7 @@
               },
               {
                 "week": "2026-11-16",
-                "count": 3
+                "count": 2
               }
             ],
             "painAxes": [
@@ -5923,13 +5923,6 @@
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
-                "date": "2026-11-20"
-              },
-              {
-                "title": "분석: Jensen의 퇴사 이후 AI 데이터 센터 붐의 세 가지 전환점이 예상",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261120pd203/data-center-investment-jensen-huang-ceo-supply-chain.html",
                 "date": "2026-11-20"
               },
               {
@@ -11050,7 +11043,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
+          "mentions": 3,
           "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -11084,7 +11077,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 3
+              "count": 2
             }
           ],
           "painAxes": [
@@ -11523,13 +11516,6 @@
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
-              "date": "2026-11-20"
-            },
-            {
-              "title": "분석: Jensen의 퇴사 이후 AI 데이터 센터 붐의 세 가지 전환점이 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261120pd203/data-center-investment-jensen-huang-ceo-supply-chain.html",
               "date": "2026-11-20"
             },
             {
@@ -15867,8 +15853,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -15901,7 +15887,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -16334,15 +16320,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Samsung retools Austin chip plant to target SpaceX business",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261119vl223/samsung-austin-plant-spacex-business.html",
-              "date": "2026-11-19"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Segment · Colossus 운영",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -22469,7 +22447,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-21T05:05:47.650Z",
+        "updatedAt": "2026-11-21T10:52:28.360Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23373,14 +23351,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "Samsung retools Austin chip plant to target SpaceX business",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261119vl223/samsung-austin-plant-spacex-business.html",
-                  "date": "2026-11-19"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#9FCECA",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
                 "source": {
@@ -23625,7 +23596,7 @@
                   "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
                   "date": "2026-11-20"
                 },
-                "evidenceCount": 4,
+                "evidenceCount": 3,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24514,7 +24485,7 @@
               "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
               "date": "2026-11-20"
             },
-            "evidenceCount": 4,
+            "evidenceCount": 3,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24859,14 +24830,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "Samsung retools Austin chip plant to target SpaceX business",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261119vl223/samsung-austin-plant-spacex-business.html",
-              "date": "2026-11-19"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#9FCECA",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
             "source": {
@@ -27784,13 +27748,6 @@
               "date": "2026-11-20"
             },
             {
-              "title": "분석: Jensen의 퇴사 이후 AI 데이터 센터 붐의 세 가지 전환점이 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261120pd203/data-center-investment-jensen-huang-ceo-supply-chain.html",
-              "date": "2026-11-20"
-            },
-            {
               "title": "Nvidia GeForce driver bug reportedly hammers SSDs with up to 30GB of writes per hour",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
@@ -27975,15 +27932,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "Samsung retools Austin chip plant to target SpaceX business",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261119vl223/samsung-austin-plant-spacex-business.html",
-              "date": "2026-11-19"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "apple",
@@ -28150,7 +28099,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
+          "mentions": 3,
           "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -28184,7 +28133,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 3
+              "count": 2
             }
           ],
           "painAxes": [
@@ -28623,13 +28572,6 @@
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261120pd230/google-tpu-mediatek-asic-nvidia.html",
-              "date": "2026-11-20"
-            },
-            {
-              "title": "분석: Jensen의 퇴사 이후 AI 데이터 센터 붐의 세 가지 전환점이 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261120pd203/data-center-investment-jensen-huang-ceo-supply-chain.html",
               "date": "2026-11-20"
             },
             {
@@ -32967,8 +32909,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -33001,7 +32943,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -33434,15 +33376,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Samsung retools Austin chip plant to target SpaceX business",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261119vl223/samsung-austin-plant-spacex-business.html",
-              "date": "2026-11-19"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Segment · Colossus 운영",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38122,7 +38056,7 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
+          "mentions": 1,
           "sourceCount": 1,
           "accountIds": [],
           "weekly": [
@@ -38156,7 +38090,7 @@
             },
             {
               "week": "2026-11-16",
-              "count": 2
+              "count": 1
             }
           ],
           "latest": {
@@ -38867,8 +38801,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -38900,23 +38834,23 @@
             },
             {
               "week": "2026-11-16",
-              "count": 1
+              "count": 0
             }
           ],
           "latest": {
-            "id": "6fdff271612b18180eeb",
-            "title": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
-            "summary": "삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 AI 인프라를 위해 설계된 LPDDR 기반 서버 메모리 모듈인 SOCAMM2를 출시 · 이 모듈은 AI 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다",
-            "text": "digitimes.com aidemand samsung introduces socamm2 memory module for agentic ai servers samsung electronics has introduced socamm2, an lpddr-based server memory module designed for agentic ai infrastructure that requires higher performance, greater upgrade flexibility, and improved power and space efficiency. the module targets systems in which ai agents reason autonomously, create plans, and execute multiple tasks continuously, increasing the amount of data that servers must store and process. 삼성, 에이전트 ai 서버용 socamm2 메모리 모듈 출시 삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 ai 인프라를 위해 설계된 lpddr 기반 서버 메모리 모듈인 socamm2를 출시 · 이 모듈은 ai 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다",
-            "source": "digitimes.com",
+            "id": "4a8103cc81e8a1ade8d5",
+            "title": "Neo4j’s rusty in-memory AI Agent graph database",
+            "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+            "text": "blocksandfiles.com aidemand neo4j’s rusty in-memory ai agent graph database graph database supplier neo4j’s relate is an in-memory database built in rust for ai agents and agentic systems. neo4j’s rusty in-memory ai agent graph database 그래프 데이터베이스 공급업체인 neo4j의 relate는 ai 에이전트 및 agentic 시스템을 위해 rust로 구축된 인메모리 데이터베이스",
+            "source": "blocksandfiles.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261120pd204/samsung-memory-module-efficiency-data-bandwidth.html",
-            "date": "2026-11-20"
+            "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+            "date": "2026-11-13"
           },
-          "status": "opportunity-candidate",
-          "evidenceStatus": "cross-checked",
-          "evidenceLabel": "2-SOURCE SIGNAL",
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
           "translation": {
             "ruleId": "Agentic Inference",
             "systemShift": "도구 호출·재검색·다단계 추론 반복 → 세션당 활성 Context 확대",
@@ -38925,12 +38859,6 @@
             "stage": "POC",
             "gate": "Cache Hit · Bytes/Task · Cost/Successful Task",
             "status": "approved-rule"
-          },
-          "source": {
-            "name": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261120pd204/samsung-memory-module-efficiency-data-bandwidth.html",
-            "asOf": "2026-11-20",
-            "sourceClass": "authoritative-media"
           }
         },
         {
@@ -39399,103 +39327,7 @@
       "horizonPortfolio": [
         {
           "horizon": "H1",
-          "items": [
-            {
-              "id": "agentic-inference",
-              "label": "AGENTIC INFERENCE",
-              "horizon": "H1",
-              "aliases": [
-                "agentic AI",
-                "agentic inference",
-                "AI agent",
-                "tool calling",
-                "multi-step reasoning",
-                "reasoning AI"
-              ],
-              "memoryMapKeys": [
-                "Agentic Inference",
-                "Context Caching"
-              ],
-              "painAxisIds": [
-                "capacity",
-                "power-thermal"
-              ],
-              "productIds": [
-                "custom-hbm",
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "promotionRule": {
-                "minMentions": 2,
-                "minSources": 2
-              },
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 1
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 1
-                }
-              ],
-              "latest": {
-                "id": "6fdff271612b18180eeb",
-                "title": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
-                "summary": "삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 AI 인프라를 위해 설계된 LPDDR 기반 서버 메모리 모듈인 SOCAMM2를 출시 · 이 모듈은 AI 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다",
-                "text": "digitimes.com aidemand samsung introduces socamm2 memory module for agentic ai servers samsung electronics has introduced socamm2, an lpddr-based server memory module designed for agentic ai infrastructure that requires higher performance, greater upgrade flexibility, and improved power and space efficiency. the module targets systems in which ai agents reason autonomously, create plans, and execute multiple tasks continuously, increasing the amount of data that servers must store and process. 삼성, 에이전트 ai 서버용 socamm2 메모리 모듈 출시 삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 ai 인프라를 위해 설계된 lpddr 기반 서버 메모리 모듈인 socamm2를 출시 · 이 모듈은 ai 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261120pd204/samsung-memory-module-efficiency-data-bandwidth.html",
-                "date": "2026-11-20"
-              },
-              "status": "opportunity-candidate",
-              "evidenceStatus": "cross-checked",
-              "evidenceLabel": "2-SOURCE SIGNAL",
-              "translation": {
-                "ruleId": "Agentic Inference",
-                "systemShift": "도구 호출·재검색·다단계 추론 반복 → 세션당 활성 Context 확대",
-                "memoryNeed": "KV Cache 재사용·장기 세션 보존·Hot/Warm 데이터 계층화",
-                "productAxis": "HBM · AI-DRAM · AI-NAND",
-                "stage": "POC",
-                "gate": "Cache Hit · Bytes/Task · Cost/Successful Task",
-                "status": "approved-rule"
-              },
-              "source": {
-                "name": "digitimes.com",
-                "url": "https://www.digitimes.com/news/a20261120pd204/samsung-memory-module-efficiency-data-bandwidth.html",
-                "asOf": "2026-11-20",
-                "sourceClass": "authoritative-media"
-              }
-            }
-          ]
+          "items": []
         },
         {
           "horizon": "H2",
@@ -39508,26 +39340,12 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-21T05:04:19.410Z",
-        "items": [
-          {
-            "id": "opportunity:agentic-inference:2026-11-20:https-www-digitimes-com-news-a20261120pd204-samsung-memory-module-efficiency-data-bandwidth-html",
-            "kind": "opportunity-candidate",
-            "headline": "AGENTIC INFERENCE · H1 기회 후보",
-            "asOf": "2026-11-20",
-            "source": "digitimes.com",
-            "sourceUrl": "https://www.digitimes.com/news/a20261120pd204/samsung-memory-module-efficiency-data-bandwidth.html",
-            "isNew": false
-          }
-        ],
+        "generatedAt": "2026-11-21T10:51:04.805Z",
+        "items": [],
         "newItems": [],
         "newCount": 0,
-        "recentIds": [
-          "opportunity:agentic-inference:2026-11-20:https-www-digitimes-com-news-a20261120pd204-samsung-memory-module-efficiency-data-bandwidth-html"
-        ],
-        "counts": {
-          "opportunity-candidate": 1
-        }
+        "recentIds": [],
+        "counts": {}
       },
       "roadmap90d": [
         {
@@ -39640,27 +39458,6 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
-        "summary": "삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 AI 인프라를 위해 설계된 LPDDR 기반 서버 메모리 모듈인 SOCAMM2를 출시 · 이 모듈은 AI 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데…",
-        "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-20",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
         "title": "JEDEC, DDR6 메모리 표준 미리보기: 2.35배 더 많은 대역폭, 44% 더 좁은 DIMM",
         "summary": "JEDEC는 DDR6 메모리의 첫 번째 사양을 공개 · DDR5의 두 배 이상의 대역폭을 목표로 하고 DIMM이 44% 더 작은 DDR6은 서버 메모리 표준에 대한 세대별 가장 큰 변화가 될 것으로 예상",
         "url": "https://www.servethehome.com/jedec-previews-ddr6-memory-standard-2-35x-more-bandwidth-44-narrower-dimms/",
@@ -39716,6 +39513,40 @@
         "summary": "파이슨전자(Phison Electronics)는 새로운 공간 전용 SSD 솔루션 '파스카리 스페이스(Pascari Space)'를 공식 출시해 상업용 우주 애플리케이션과 우주궤도 인프라 스토리지 시장에 본격 진출했다고 20일 밝혔다 · 이번 신제품 시리즈는 이번 주 열리는 SC26 슈퍼컴퓨터 컨퍼런스에서도 공개될 예정이다",
         "url": "https://finance.technews.tw/2026/11/20/phison-launches-ssd-solution-designed-for-space/",
         "source": "finance.technews.tw",
+        "publishedAt": "2026-11-20",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "Ruby, 7개의 메모리 보안 취약점 수정(이 중 5개는 원격 코드 실행으로 이어질 수 있음)",
+        "summary": "프로그래밍 언어 Ruby 유지 관리 팀은 11월 18일에 7개의 메모리 보안 취약점을 패치하기 위한 보안 업데이트를 발표 · 이 중 3개는 심각한 위험, 3개는 높은 위험, 1개는 보통 위험으로 분류 · 관계자들은 취약점 중 5개가 개념 증명(PoC)을 통해 입증되었으며 특정 상황에서 원격 코드 실행(RCE)을 유발할…",
+        "url": "https://www.ithome.com.tw/news/180667",
+        "source": "ithome.com.tw",
+        "publishedAt": "2026-11-20",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "SK Hynix reportedly plans to buy HBM bonding tools from Besi",
+        "summary": "SKHY는 네덜란드 칩 장비 제조사인 BE반도체 인더스트리즈(Besi)로부터 차세대 고대역폭 메모리(HBM)용 하이브리드 본딩 장비 초기 물량을 구매해 첨단 메모리 패키징 주문을 두고 경쟁하는 한국 경쟁업체보다 우위를 점할 계획이다",
+        "url": "https://www.digitimes.com/news/a20261120VL212/sk-hynix-hbm-equipment-dutch-production.html",
+        "source": "digitimes.com",
         "publishedAt": "2026-11-20",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -39966,12 +39797,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
+          "title": "Neo4j’s rusty in-memory AI Agent graph database",
           "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html",
-          "publishedAt": "2026-11-20",
-          "evidenceLevel": "Reported"
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+          "publishedAt": "2026-11-13",
+          "evidenceLevel": "Watch"
         }
       }
     ],
@@ -40013,8 +39844,8 @@
       },
       "enabled": true
     },
-    "runId": "44867865757",
-    "generatedAt": "2026-11-21T05:05:47.650Z",
+    "runId": "44895194731",
+    "generatedAt": "2026-11-21T10:52:28.360Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40352,8 +40183,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "44867865757",
-    "generatedAt": "2026-11-21T05:05:47.650Z",
+    "runId": "44895194731",
+    "generatedAt": "2026-11-21T10:52:28.360Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41125,8 +40956,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-21T05:05:47.650Z",
-    "runId": "44867865757"
+    "generatedAt": "2026-11-21T10:52:28.360Z",
+    "runId": "44895194731"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41372,7 +41203,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-20T23:15:47.932Z"
+        "indexedAt": "2026-11-21T10:51:04.497Z"
       }
     },
     "sources": [
@@ -41509,8 +41340,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-21T05:05:47.650Z",
-    "runId": "44867865757"
+    "generatedAt": "2026-11-21T10:52:28.360Z",
+    "runId": "44895194731"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41545,7 +41376,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 4,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
@@ -41662,7 +41493,7 @@
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
-        "subtitle": "digitimes.com · 2026-11-20",
+        "subtitle": "blocksandfiles.com · 2026-11-13",
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -41675,20 +41506,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
-          "summary": "삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 AI 인프라를 위해 설계된 LPDDR 기반 서버 메모리 모듈인 SOCAMM2를 출시 · 이 모듈은 AI 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html",
-          "publishedAt": "2026-11-20",
-          "evidenceLevel": "Reported",
+          "title": "Neo4j’s rusty in-memory AI Agent graph database",
+          "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+          "publishedAt": "2026-11-13",
+          "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 2,
         "signals": [
           [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
-            "삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 AI 인프라를 위해 설계된 LPDDR 기반 서버 메모리 모듈인 SOCAMM2를 출시 · 이 모듈은 AI 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다"
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Neo4j’s rusty in-memory AI Agent graph database",
+            "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41774,9 +41605,9 @@
         "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-11-20",
-            "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html"
+            "Watch",
+            "blocksandfiles.com · 2026-11-13",
+            "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746"
           ],
           [
             "CONTROL",
@@ -41813,9 +41644,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-21T05:05:47.650Z"
+          "publishedAt": "2026-11-21T10:52:28.360Z"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 10,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41936,11 +41767,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-21T05:05:47.650Z",
+          "publishedAt": "2026-11-21T10:52:28.360Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42045,7 +41876,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "digitimes.com · 2026-11-20",
+        "subtitle": "blocksandfiles.com · 2026-11-13",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42058,20 +41889,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
-          "summary": "삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 AI 인프라를 위해 설계된 LPDDR 기반 서버 메모리 모듈인 SOCAMM2를 출시 · 이 모듈은 AI 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html",
-          "publishedAt": "2026-11-20",
-          "evidenceLevel": "Reported",
+          "title": "Neo4j’s rusty in-memory AI Agent graph database",
+          "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+          "publishedAt": "2026-11-13",
+          "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 2,
         "signals": [
           [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "삼성, 에이전트 AI 서버용 SOCAMM2 메모리 모듈 출시",
-            "삼성전자는 더 높은 성능, 더 높은 업그레이드 유연성, 향상된 전력 및 공간 효율성이 요구되는 에이전트 AI 인프라를 위해 설계된 LPDDR 기반 서버 메모리 모듈인 SOCAMM2를 출시 · 이 모듈은 AI 에이전트가 자율적으로 추론하고, 계획을 세우고, 여러 작업을 지속적으로 실행하여 서버가 저장하고 처리해야 하는 데이터의 양을 늘리는 시스템을 대상으로 합니다"
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Neo4j’s rusty in-memory AI Agent graph database",
+            "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스"
           ],
           [
             "EXECUTIVE DECISION",
@@ -42159,9 +41990,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-11-20",
-            "https://www.digitimes.com/news/a20261120PD204/samsung-memory-module-efficiency-data-bandwidth.html"
+            "Watch",
+            "blocksandfiles.com · 2026-11-13",
+            "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746"
           ],
           [
             "CONTROL",
@@ -42198,9 +42029,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-21T05:05:47.650Z"
+          "publishedAt": "2026-11-21T10:52:28.360Z"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
