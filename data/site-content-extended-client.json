@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "44955345336",
-  "generatedAt": "2026-11-21T22:24:22.611Z",
-  "expiresAt": "2026-11-23T00:24:21.102Z",
+  "runId": "44982809825",
+  "generatedAt": "2026-11-22T04:11:38.828Z",
+  "expiresAt": "2026-11-23T06:11:37.157Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-21T22:24:04.475Z",
-    "runId": "44955345336",
+    "generatedAt": "2026-11-22T04:10:14.012Z",
+    "runId": "44982809825",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,30 +122,6 @@
     ],
     "eventTriggers": [
       {
-        "id": "d64fbf603ababbadf9db",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "llm-serving-systems-research",
-        "source": "LLM Serving Systems Research",
-        "sourceClass": "research",
-        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
-        "url": "https://arxiv.org/abs/2309.06180",
-        "changed": true
-      },
-      {
-        "id": "f2244202b7970aae5354",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "llm-serving-systems-research",
-        "source": "LLM Serving Systems Research",
-        "sourceClass": "research",
-        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
-        "url": "https://arxiv.org/abs/2309.06180",
-        "changed": true
-      },
-      {
         "id": "2266a646bb77612184af",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
@@ -208,6 +184,19 @@
         "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
         "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
         "publishedAt": "2026-08-07",
+        "changed": false
+      },
+      {
+        "id": "ee2e8a588f82c8b7b3e4",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "marvell-custom-hbm",
+        "source": "Marvell Custom HBM Compute",
+        "sourceClass": "official",
+        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
+        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+        "publishedAt": "2026-08-05",
         "changed": false
       },
       {
@@ -274,16 +263,29 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
+      },
+      {
+        "id": "7df22d66ea27105523e8",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
+        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+        "publishedAt": "2026-07-25",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-21T22:24:04.475Z",
+      "generatedAt": "2026-11-22T04:10:14.012Z",
       "stats": {
-        "eligibleDocuments": 39,
-        "structuredEvents": 37,
-        "verifiedEvents": 32,
-        "currentStages": 31,
+        "eligibleDocuments": 40,
+        "structuredEvents": 38,
+        "verifiedEvents": 33,
+        "currentStages": 32,
         "newEvents": 1,
         "contradictionReviews": 0
       },
@@ -666,6 +668,40 @@
           "isCurrentStage": true
         },
         {
+          "id": "01c89b9521e41dbbc40d",
+          "ruleId": "customer-silicon-roadmap",
+          "eventType": "customer-roadmap",
+          "label": "Customer Silicon · Memory Requirement",
+          "entity": {
+            "id": "sk-hynix",
+            "label": "SK hynix"
+          },
+          "product": {
+            "id": "cxl",
+            "label": "CXL"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [
+            "512 GB",
+            "32 GB"
+          ],
+          "evidenceSpan": "The CMM-Ax Applied LLM inference System was tested against standard GPU and CPU-offloading baselines using the Llama3-8B-1048K model1 across 128K–1024K token sequences, with accuracy validated by the RULER benchmark.2 Reported metrics reflect a projected 512 GB per-device configuration (scaled from the 32 GB prototype), focusing on decode throughput (tokens/s) as the primary efficiency metric",
+          "source": "Marvell Custom HBM Compute",
+          "sourceId": "marvell-custom-hbm",
+          "sourceClass": "official",
+          "sourceUrl": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+          "publishedAt": "2026-08-05",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-05",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
           "id": "cf015c32d7166653e4c8",
           "ruleId": "customer-silicon-roadmap",
           "eventType": "customer-roadmap",
@@ -757,40 +793,6 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
-        },
-        {
-          "id": "463cdf3a25b0e315775d",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "industry",
-            "label": "Memory industry"
-          },
-          "product": {
-            "id": "maia",
-            "label": "Maia"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [
-            "216 GB",
-            "7 TB/s"
-          ],
-          "evidenceSpan": "Maia 200 is an AI inference powerhouse: an accelerator built on TSMC’s 3nm process with native FP8/FP4 tensor cores, a redesigned memory system with 216GB HBM3e at 7 TB/s and 272MB of on-chip SRAM, plus data movement engines that keep massive models fed, fast and highly utilized",
-          "source": "Microsoft Official Blog",
-          "sourceId": "microsoft-ai-infra",
-          "sourceClass": "official",
-          "sourceUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-          "publishedAt": "2026-01-26",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-01-26",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
         }
       ]
     },
@@ -825,17 +827,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 155,
-        "structuredEvents": 37,
-        "verifiedEvents": 32,
+        "structuredEvents": 38,
+        "verifiedEvents": 33,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 35,
+        "observed": 36,
         "useful": 29,
-        "observationRatePct": 85.4,
-        "usefulYieldPct": 82.9,
+        "observationRatePct": 87.8,
+        "usefulYieldPct": 80.6,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -854,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -866,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -878,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1008,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,8 +1057,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1067,8 +1069,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1081,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1092,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1104,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1116,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1127,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1139,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1161,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1173,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1184,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1196,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1207,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1219,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1231,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1239,11 +1241,12 @@
             "sourceId": "marvell-custom-hbm",
             "latencyClass": "technology-validation",
             "refreshMode": "event+poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "lastUsefulObservationAt": "2026-11-21T22:24:04.475Z",
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
-            "eventYield": 0
+            "eventYield": 1
           },
           {
             "id": "openai-jalapeno-2026",
@@ -1252,8 +1255,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1264,8 +1267,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1276,8 +1279,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
-            "lastUsefulObservationAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
+            "lastUsefulObservationAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1288,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-21T22:23:59.703Z",
+            "lastSuccessAt": "2026-11-22T04:10:11.088Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1323,7 +1326,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T22:24:04.475Z",
+          "updatedAt": "2026-11-22T04:10:14.012Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1453,7 +1456,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T22:24:04.475Z",
+          "updatedAt": "2026-11-22T04:10:14.012Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1583,7 +1586,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T22:24:04.475Z",
+          "updatedAt": "2026-11-22T04:10:14.012Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1710,7 +1713,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-21T22:24:04.475Z",
+          "updatedAt": "2026-11-22T04:10:14.012Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1813,7 +1816,7 @@
               "indexedAt": "2026-11-20T17:29:09.682Z",
               "sourceChangeDetectedAt": "2026-11-20T17:29:02.562Z",
               "freshnessDays": 365,
-              "documentStatus": "retained-last-verified"
+              "documentStatus": "current"
             },
             {
               "id": "23573c07e31f7af6e053",
@@ -1837,7 +1840,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 8,
-        "fresh": 2,
+        "fresh": 0,
         "observationRatePct": 5.4,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -2054,7 +2057,7 @@
         "id": "marvell-cmm-ax-pnm-2026",
         "sourceId": "marvell-custom-hbm",
         "kind": "event",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "openai-jalapeno-2026",
@@ -2099,10 +2102,10 @@
         "documents": 155,
         "chunks": 600,
         "added": 0,
-        "changed": 1,
-        "unchanged": 38,
-        "retained": 116,
-        "reindexed": 1
+        "changed": 0,
+        "unchanged": 40,
+        "retained": 115,
+        "reindexed": 0
       },
       "packs": [
         {
@@ -2196,7 +2199,7 @@
               "publishedAt": "2026-08-05",
               "indexedAt": "2026-11-20T17:29:09.682Z",
               "sourceChangeDetectedAt": "2026-11-20T17:29:02.562Z",
-              "stale": true
+              "stale": false
             },
             {
               "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
@@ -2206,7 +2209,7 @@
               "publishedAt": "2026-08-05",
               "indexedAt": "2026-11-20T17:29:09.682Z",
               "sourceChangeDetectedAt": "2026-11-20T17:29:02.562Z",
-              "stale": true
+              "stale": false
             }
           ]
         },
@@ -2463,7 +2466,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 90.2,
+      "score": 91.6,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2480,26 +2483,26 @@
       "components": {
         "contentAge": 96.7,
         "embeddingLag": 100,
-        "staleRetrievalRate": 65.4,
+        "staleRetrievalRate": 71.2,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 34.6,
-        "feedCoveragePct": 85.4,
+        "staleRetrievalRatePct": 28.8,
+        "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 95.1,
+        "currentPct": 95.9,
         "previousPct": 95.1
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-11-21T22:23:59.703Z",
         "indexedAt": "2026-11-21T22:24:04.475Z"
       },
-      "generatedAt": "2026-11-21T22:24:04.475Z"
+      "generatedAt": "2026-11-22T04:10:14.012Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2509,7 +2512,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 87.1,
+        "freshDocumentPct": 86.5,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2518,7 +2521,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-21T22:24:22.611Z",
+    "generatedAt": "2026-11-22T04:11:38.828Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3652,12 +3655,10 @@
               "Microsoft Maia HBM"
             ],
             "evidence": {
-              "status": "official-fact",
-              "label": "공식 확인",
-              "stage": "공개",
+              "status": "official-monitoring",
+              "label": "OFFICIAL",
               "source": "Microsoft Official Blog",
-              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-              "asOf": "2026-01-26"
+              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -5443,8 +5444,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5473,7 +5474,7 @@
               },
               {
                 "week": "2026-11-09",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-11-16",
@@ -5910,15 +5911,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-                "source": "TrendForce",
-                "sourceClass": "news",
-                "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-                "date": "2026-11-11"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "공식 플랫폼 공개",
             "stageLedger": {
               "stage": "DESIGN",
@@ -11006,8 +10999,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11036,7 +11029,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-16",
@@ -11473,15 +11466,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼 공개",
           "stageLedger": {
             "stage": "DESIGN",
@@ -12845,12 +12830,10 @@
             "Microsoft Maia HBM"
           ],
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
-            "stage": "공개",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-            "asOf": "2026-01-26"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -20275,8 +20258,8 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 4,
-          "sourceCount": 2,
+          "mentions": 3,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20305,7 +20288,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-16",
@@ -20785,13 +20768,6 @@
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261119pd201/packaging-chips-growth-supply-chain-capacity.html",
               "date": "2026-11-20"
-            },
-            {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
             }
           ],
           "chipStage": "공식 플랫폼",
@@ -22383,7 +22359,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-21T22:24:22.611Z",
+        "updatedAt": "2026-11-22T04:11:38.828Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -22818,7 +22794,7 @@
                   "detail": "첫 1GW를 2026년 하반기 Vera Rubin으로 배포 계획",
                   "status": "배포 계획",
                   "effectiveAt": "2025-09-22",
-                  "ageMonths": 13,
+                  "ageMonths": 14,
                   "freshnessBand": "recent",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -22838,7 +22814,7 @@
                   "detail": "10GW AI Factory 배포와 연동한 단계별 투자 의향",
                   "status": "투자 의향",
                   "effectiveAt": "2025-09-22",
-                  "ageMonths": 13,
+                  "ageMonths": 14,
                   "freshnessBand": "recent",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -23085,7 +23061,7 @@
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
                   "name": "Microsoft Official Blog",
-                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
+                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
                 },
                 "relationCount": 3
               },
@@ -23518,14 +23494,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "gpu",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-                  "source": "TrendForce",
-                  "sourceClass": "news",
-                  "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-                  "date": "2026-11-11"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23804,7 +23773,7 @@
                   "url": "https://www.digitimes.com/news/a20261120vl220/taiwan-nvidia-tsmc-design-ai-server.html",
                   "date": "2026-11-20"
                 },
-                "evidenceCount": 4,
+                "evidenceCount": 3,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24407,14 +24376,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "gpu",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24557,7 +24519,7 @@
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
               "name": "Microsoft Official Blog",
-              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
+              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
             },
             "relationCount": 3
           },
@@ -25126,7 +25088,7 @@
               "url": "https://www.digitimes.com/news/a20261120vl220/taiwan-nvidia-tsmc-design-ai-server.html",
               "date": "2026-11-20"
             },
-            "evidenceCount": 4,
+            "evidenceCount": 3,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -26227,7 +26189,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-09-22",
-            "ageMonths": 13,
+            "ageMonths": 14,
             "freshnessBand": "recent",
             "status": "공식 의향서 · 단계 배치 계획",
             "source": {
@@ -26246,7 +26208,7 @@
                 "detail": "첫 1GW를 2026년 하반기 Vera Rubin으로 배포 계획",
                 "status": "배포 계획",
                 "effectiveAt": "2025-09-22",
-                "ageMonths": 13,
+                "ageMonths": 14,
                 "freshnessBand": "recent",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -26266,7 +26228,7 @@
                 "detail": "10GW AI Factory 배포와 연동한 단계별 투자 의향",
                 "status": "투자 의향",
                 "effectiveAt": "2025-09-22",
-                "ageMonths": 13,
+                "ageMonths": 14,
                 "freshnessBand": "recent",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -27661,15 +27623,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "dell",
@@ -27920,7 +27874,7 @@
           "evidence": []
         }
       ],
-      "verifiedAccounts": 5,
+      "verifiedAccounts": 4,
       "monitoredAccounts": 20,
       "focusAccounts": [
         {
@@ -27999,8 +27953,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28029,7 +27983,7 @@
             },
             {
               "week": "2026-11-09",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-11-16",
@@ -28466,15 +28420,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼 공개",
           "stageLedger": {
             "stage": "DESIGN",
@@ -29838,12 +29784,10 @@
             "Microsoft Maia HBM"
           ],
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
-            "stage": "공개",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-            "asOf": "2026-01-26"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -38121,8 +38065,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -38146,7 +38090,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-09",
@@ -38157,6 +38101,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "71c6c146bfd88a3b9643",
+            "title": "Same fab, different paths: Kioxia and Sandisk diverge on HBF",
+            "text": "blocksandfiles.com nand same fab, different paths: kioxia and sandisk diverge on hbf nand fab joint-venture (jv) partners kioxia and sandisk have differing views on the sk hynix-led high-bandwidth flash (hbf) initiative, with sandisk supporting it and kioxia so far neutral and staking out an alternative architectural position. same fab, different paths: kioxia and sandisk diverge on hbf",
+            "source": "blocksandfiles.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
+            "date": "2026-11-03"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38671,8 +38625,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-28",
@@ -38700,13 +38654,24 @@
             },
             {
               "week": "2026-11-09",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-11-16",
               "count": 0
             }
           ],
+          "latest": {
+            "id": "4a8103cc81e8a1ade8d5",
+            "title": "Neo4j’s rusty in-memory AI Agent graph database",
+            "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+            "text": "blocksandfiles.com aidemand neo4j’s rusty in-memory ai agent graph database graph database supplier neo4j’s relate is an in-memory database built in rust for ai agents and agentic systems. neo4j’s rusty in-memory ai agent graph database 그래프 데이터베이스 공급업체인 neo4j의 relate는 ai 에이전트 및 agentic 시스템을 위해 rust로 구축된 인메모리 데이터베이스",
+            "source": "blocksandfiles.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+            "date": "2026-11-13"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39199,7 +39164,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-21T22:24:04.773Z",
+        "generatedAt": "2026-11-22T04:10:14.339Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39656,12 +39621,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Broadcom × Meta MTIA · 공식 Baseline",
-          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
-          "source": "Broadcom × Meta MTIA",
-          "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-21T22:24:22.611Z",
-          "evidenceLevel": "Official baseline"
+          "title": "Neo4j’s rusty in-memory AI Agent graph database",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+          "publishedAt": "2026-11-13",
+          "evidenceLevel": "Watch"
         }
       }
     ],
@@ -39703,8 +39668,8 @@
       },
       "enabled": true
     },
-    "runId": "44955345336",
-    "generatedAt": "2026-11-21T22:24:22.611Z",
+    "runId": "44982809825",
+    "generatedAt": "2026-11-22T04:11:38.828Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40042,8 +40007,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "44955345336",
-    "generatedAt": "2026-11-21T22:24:22.611Z",
+    "runId": "44982809825",
+    "generatedAt": "2026-11-22T04:11:38.828Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40815,8 +40780,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-21T22:24:22.611Z",
-    "runId": "44955345336"
+    "generatedAt": "2026-11-22T04:11:38.828Z",
+    "runId": "44982809825"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41057,7 +41022,7 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 90.2,
+        "freshnessScore": 91.6,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
@@ -41199,8 +41164,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-21T22:24:22.611Z",
-    "runId": "44955345336"
+    "generatedAt": "2026-11-22T04:11:38.828Z",
+    "runId": "44982809825"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41352,33 +41317,43 @@
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
+        "subtitle": "blocksandfiles.com · 2026-11-13",
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "decision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
+        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성",
+        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": true,
-          "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
-          "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-21T22:24:22.611Z"
+          "pending": false,
+          "title": "Neo4j’s rusty in-memory AI Agent graph database",
+          "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+          "publishedAt": "2026-11-13",
+          "evidenceLevel": "Watch",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 0,
+        "evidenceCount": 2,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Neo4j’s rusty in-memory AI Agent graph database",
+            "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스"
+          ],
           [
             "EXECUTIVE DECISION",
             "Agentic Inference를 Serving SW × Data Placement로 판단",
-            "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증"
+            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성"
+            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
           ]
         ],
         "lenses": [
@@ -41454,6 +41429,11 @@
         "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
         "sources": [
           [
+            "Watch",
+            "blocksandfiles.com · 2026-11-13",
+            "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41488,9 +41468,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-21T22:24:22.611Z"
+          "publishedAt": "2026-11-22T04:11:38.828Z"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41611,7 +41591,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-21T22:24:22.611Z",
+          "publishedAt": "2026-11-22T04:11:38.828Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -41720,35 +41700,43 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
+        "subtitle": "blocksandfiles.com · 2026-11-13",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-        "decision": "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장",
+        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원",
+        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": true,
-          "title": "Useful AI Work/MW/원을 단일 North Star로 운영",
-          "summary": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-          "publishedAt": "2026-11-21T22:24:22.611Z",
+          "pending": false,
+          "title": "Neo4j’s rusty in-memory AI Agent graph database",
+          "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+          "publishedAt": "2026-11-13",
           "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 0,
+        "evidenceCount": 2,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Neo4j’s rusty in-memory AI Agent graph database",
+            "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스"
+          ],
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
-            "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장"
+            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원"
+            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
           ]
         ],
         "lenses": [
@@ -41826,6 +41814,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
+            "Watch",
+            "blocksandfiles.com · 2026-11-13",
+            "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41849,30 +41842,30 @@
         "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "recommendation": "LIGHTHOUSE → REPEAT",
         "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "decision": "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자",
+        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단",
+        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-21T22:24:22.611Z"
+          "publishedAt": "2026-11-22T04:11:38.828Z"
         },
-        "evidenceCount": 0,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "검증 결과를 반복 가능한 공동사업 패키지로 전환",
-            "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자"
+            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단"
+            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
           ]
         ],
         "lenses": [

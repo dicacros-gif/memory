@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "44955345336",
-  "generatedAt": "2026-11-21T22:24:22.611Z",
-  "expiresAt": "2026-11-23T00:24:21.102Z",
+  "runId": "44982809825",
+  "generatedAt": "2026-11-22T04:11:38.828Z",
+  "expiresAt": "2026-11-23T06:11:37.157Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "44955345336"
+    "sourceRunId": "44982809825"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "44955345336",
-    "generatedAt": "2026-11-21T22:24:22.611Z",
+    "runId": "44982809825",
+    "generatedAt": "2026-11-22T04:11:38.828Z",
     "totalSections": 73,
     "boundSections": 73,
     "refresh": {
@@ -206,18 +206,18 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 35,
+    "evidenceCount": 39,
     "briefCount": 6,
-    "sourceCount": 2,
+    "sourceCount": 3,
     "configuredSources": 147,
     "observedSources": 8,
-    "freshObservedSources": 2,
-    "staleObservedSources": 6,
+    "freshObservedSources": 0,
+    "staleObservedSources": 8,
     "officialConfigured": 123,
     "officialObserved": 0,
     "officialFreshObserved": 0,
     "discoveryQueries": 117,
-    "connectedHealthChecks": 77,
+    "connectedHealthChecks": 78,
     "healthChecks": 94,
     "scheduleHours": 6,
     "browserRecheckMinutes": 5,
@@ -270,8 +270,8 @@
       "scheduleHours": 6,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "44955345336",
-      "generatedAt": "2026-11-21T22:24:22.611Z"
+      "runId": "44982809825",
+      "generatedAt": "2026-11-22T04:11:38.828Z"
     }
   },
   "decisionControl": {
@@ -281,15 +281,15 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-11-21T22:24:22.611Z",
-      "expiresAt": "2026-11-23T00:24:21.102Z"
+      "generatedAt": "2026-11-22T04:11:38.828Z",
+      "expiresAt": "2026-11-23T06:11:37.157Z"
     },
     "coverage": {
       "status": "LOW",
       "observed": 8,
       "configured": 147,
       "ratio": 0.054,
-      "freshRatio": 0.014
+      "freshRatio": 0
     },
     "confidence": {
       "status": "REVIEW",
@@ -299,11 +299,11 @@
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-21T22:24:04.475Z",
-    "runId": "44955345336",
+    "generatedAt": "2026-11-22T04:10:14.012Z",
+    "runId": "44982809825",
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 90.2,
+      "score": 91.6,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -320,26 +320,26 @@
       "components": {
         "contentAge": 96.7,
         "embeddingLag": 100,
-        "staleRetrievalRate": 65.4,
+        "staleRetrievalRate": 71.2,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 34.6,
-        "feedCoveragePct": 85.4,
+        "staleRetrievalRatePct": 28.8,
+        "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 95.1,
+        "currentPct": 95.9,
         "previousPct": 95.1
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-11-21T22:23:59.703Z",
         "indexedAt": "2026-11-21T22:24:04.475Z"
       },
-      "generatedAt": "2026-11-21T22:24:04.475Z"
+      "generatedAt": "2026-11-22T04:10:14.012Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -349,7 +349,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 87.1,
+        "freshDocumentPct": 86.5,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -359,15 +359,15 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 155,
-        "structuredEvents": 37,
-        "verifiedEvents": 32,
+        "structuredEvents": 38,
+        "verifiedEvents": 33,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
         "configured": 147,
         "observed": 8,
-        "fresh": 2,
+        "fresh": 0,
         "observationRatePct": 5.4,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -426,7 +426,7 @@
     "thesis": [],
     "currentDecisions": [
       "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-      "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
+      "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
       "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정"
     ],
     "scope": [],
@@ -495,8 +495,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "accounts.projects",
-      "runId": "44955345336",
-      "generatedAt": "2026-11-21T22:24:22.611Z",
+      "runId": "44982809825",
+      "generatedAt": "2026-11-22T04:11:38.828Z",
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
@@ -595,7 +595,7 @@
       "revalidationRequired": false,
       "indexedAt": "2026-11-21T22:24:04.475Z"
     },
-    "status": "3개 고객 과제 · 2026-11-21"
+    "status": "3개 고객 과제 · 2026-11-22"
   },
   "decisionCases": [
     {
@@ -744,33 +744,43 @@
       "phase": "NEXT",
       "tabLabel": "Agentic Inference",
       "title": "Data Center Workload Optimization · Agentic AI",
+      "subtitle": "blocksandfiles.com · 2026-11-13",
       "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
       "recommendation": "BOTTLENECK-FIRST PoC",
       "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-      "decision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
+      "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
       "hypothesis": {
         "status": "unverified",
         "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
-      "stop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성",
+      "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "pending": true,
-        "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
-        "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "publishedAt": "2026-11-21T22:24:22.611Z"
+        "pending": false,
+        "title": "Neo4j’s rusty in-memory AI Agent graph database",
+        "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+        "source": "blocksandfiles.com",
+        "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+        "publishedAt": "2026-11-13",
+        "evidenceLevel": "Watch",
+        "sourceClass": "authoritative-media"
       },
-      "evidenceCount": 0,
+      "evidenceCount": 2,
       "signals": [
+        [
+          "Watch · AUTHORITATIVE-MEDIA",
+          "Neo4j’s rusty in-memory AI Agent graph database",
+          "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스"
+        ],
         [
           "EXECUTIVE DECISION",
           "Agentic Inference를 Serving SW × Data Placement로 판단",
-          "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증"
+          "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
         ],
         [
           "REVERSAL KPI",
           "판단 변경 조건",
-          "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성"
+          "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
         ]
       ],
       "lenses": [
@@ -846,6 +856,11 @@
       "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
       "sources": [
         [
+          "Watch",
+          "blocksandfiles.com · 2026-11-13",
+          "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746"
+        ],
+        [
           "CONTROL",
           "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
@@ -880,9 +895,9 @@
         "pending": true,
         "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "publishedAt": "2026-11-21T22:24:22.611Z"
+        "publishedAt": "2026-11-22T04:11:38.828Z"
       },
-      "evidenceCount": 5,
+      "evidenceCount": 7,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -992,30 +1007,30 @@
       "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
       "recommendation": "LIGHTHOUSE → REPEAT",
       "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-      "decision": "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자",
+      "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
       "hypothesis": {
         "status": "unverified",
         "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
-      "stop": "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단",
+      "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
         "pending": true,
         "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "publishedAt": "2026-11-21T22:24:22.611Z"
+        "publishedAt": "2026-11-22T04:11:38.828Z"
       },
-      "evidenceCount": 0,
+      "evidenceCount": 2,
       "signals": [
         [
           "EXECUTIVE DECISION",
           "검증 결과를 반복 가능한 공동사업 패키지로 전환",
-          "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자"
+          "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
         ],
         [
           "REVERSAL KPI",
           "판단 변경 조건",
-          "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단"
+          "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
         ]
       ],
       "lenses": [
@@ -1163,7 +1178,7 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 5,
+      "evidenceCount": 7,
       "latest": {
         "pending": false,
         "title": "VAST는 페타바이트 SSD가 오늘날의 병렬 파일 시스템 RAID보다 더 커질 것이라고 말함",
@@ -1175,7 +1190,7 @@
         "sourceClass": "authoritative-media"
       },
       "fact": "15TB 드라이브로 구축된 VAST의 900PB 시스템은 400kW 대신 약 5.6MW를 소비",
-      "implication": "1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+      "implication": "원문 해석 연결 전 · 파생 관측만 사용",
       "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "availability": {
@@ -1203,7 +1218,7 @@
         "sourceClass": "authoritative-media"
       },
       "fact": "TSMC(Taiwan Semiconductor Manufacturing Co.)는 중국 칩 설계자가 라이센스 없이 해외 파운드리에서 첨단 칩을 제조하는 데 사용했던 경로를 제거하는 새로운 미국 수출 규정을 준수할 것이라고 밝혔음 · 이 규칙은 AI 프로세서를 넘어서는 것",
-      "implication": "512Gb TLC은 공개 누적 124개 관측에서 +191.76% 변동(직접 가격이 아닌 proxy)",
+      "implication": "DDR5 16Gb (2Gx8) 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
       "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
       "availability": {
@@ -1247,23 +1262,24 @@
     {
       "id": "demand",
       "label": "수요·고객",
-      "evidenceCount": 0,
+      "evidenceCount": 2,
       "latest": {
-        "pending": true,
-        "title": "수요·고객 · 직접 근거 대기",
-        "summary": "최근 36개월 내 게시 가능한 직접 근거 없음",
+        "pending": false,
+        "title": "Neo4j’s rusty in-memory AI Agent graph database",
+        "summary": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+        "source": "blocksandfiles.com",
+        "url": "https://www.blocksandfiles.com/ai-ml/2026/11/13/neo4js-rusty-in-memory-ai-agent-graph-database/5309746",
+        "publishedAt": "2026-11-13",
         "evidenceLevel": "Watch",
-        "sourceClass": "unclassified"
+        "sourceClass": "authoritative-media"
       },
-      "fact": "최근 36개월 내 게시 가능한 직접 근거 없음",
-      "implication": "신규 직접 근거 확보 전 전략 가설로 유지 · 수치 판단 보류",
-      "decision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
-      "action": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성",
+      "fact": "그래프 데이터베이스 공급업체인 Neo4j의 Relate는 AI 에이전트 및 Agentic 시스템을 위해 Rust로 구축된 인메모리 데이터베이스",
+      "implication": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+      "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+      "action": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "availability": {
-        "status": "pending-source",
-        "reason": "no-publishable-recent-source",
-        "historyWindowMonths": 36,
-        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
+        "status": "evidence-available",
+        "historyWindowMonths": 36
       },
       "hypothesis": {
         "status": "unverified",
@@ -1410,11 +1426,10 @@
           "gate": "Model Portability · Region Ramp · TCO",
           "accent": "#3085A5",
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-            "asOf": "2026-01-26"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
           }
         },
         {
@@ -1776,11 +1791,10 @@
           "gate": "Model Portability · Region Ramp · TCO",
           "accent": "#3085A5",
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-            "asOf": "2026-01-26"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
           }
         },
         {
@@ -2956,7 +2970,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-21T22:24:22.611Z",
+        "updatedAt": "2026-11-22T04:11:38.828Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -4327,7 +4341,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-09-22",
-            "ageMonths": 13,
+            "ageMonths": 14,
             "freshnessBand": "recent",
             "status": "공식 의향서 · 단계 배치 계획",
             "source": {
