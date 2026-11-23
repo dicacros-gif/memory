@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45071513227",
-  "generatedAt": "2026-11-22T21:34:59.558Z",
+  "runId": "45104005854",
+  "generatedAt": "2026-11-23T03:23:10.716Z",
   "coverage": {
     "companiesObserved": 35,
     "companiesWithDerivedDemand": 28,
-    "derivedRequirements": 95,
+    "derivedRequirements": 97,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -454,6 +454,28 @@
     "tsmc": {
       "requirements": [
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "지속",
+          "firstSeen": "2026-11-18",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "14nkqu2",
+            "1tz1p8c",
+            "17kbgdy",
+            "14jhoo6",
+            "1c9msl5"
+          ],
+          "evidence": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html"
+        },
+        {
           "technology": "3nm",
           "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
           "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -502,26 +524,6 @@
           "evidence": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "반복",
-          "firstSeen": "2026-11-18",
-          "lastSeen": "2026-11-20",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "14nkqu2",
-            "1tz1p8c",
-            "17kbgdy"
-          ],
-          "evidence": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261119PD201/packaging-chips-growth-supply-chain-capacity.html"
         },
         {
           "technology": "Custom HBM",
@@ -1250,6 +1252,24 @@
           "evidence": "OCP 2026에 등장한 Microsoft Maia 300",
           "source": "servethehome.com",
           "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026/"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-11-23",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1c9msl5"
+          ],
+          "evidence": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html"
         }
       ]
     },
@@ -1308,16 +1328,17 @@
           "gate": "Package Capacity · Ramp 일정",
           "hold": "반복",
           "firstSeen": "2026-08-27",
-          "lastSeen": "2026-11-02",
-          "evidenceCount": 3,
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0a4x56d",
             "0kpfn7r",
-            "0fvk44g"
+            "0fvk44g",
+            "1c9msl5"
           ],
-          "evidence": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었습니다.",
-          "source": "technews.tw",
-          "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/"
+          "evidence": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html"
         },
         {
           "technology": "Silicon Photonics",
@@ -1681,6 +1702,24 @@
           "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-11-23",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1c9msl5"
+          ],
+          "evidence": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html"
         }
       ]
     },
@@ -2097,6 +2136,26 @@
       "weight": 22
     },
     {
+      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+      "productAxis": "HBM · Package",
+      "stage": "SCALE",
+      "gate": "Package Capacity · Ramp 일정",
+      "technologies": [
+        "CoWoS"
+      ],
+      "accountCount": 7,
+      "accounts": [
+        "anthropic",
+        "google",
+        "intel",
+        "mediatek",
+        "microsoft",
+        "nvidia",
+        "tsmc"
+      ],
+      "weight": 15
+    },
+    {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
       "productAxis": "HBM",
       "stage": "SCALE",
@@ -2150,24 +2209,6 @@
         "tsmc"
       ],
       "weight": 13
-    },
-    {
-      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-      "productAxis": "HBM · Package",
-      "stage": "SCALE",
-      "gate": "Package Capacity · Ramp 일정",
-      "technologies": [
-        "CoWoS"
-      ],
-      "accountCount": 5,
-      "accounts": [
-        "anthropic",
-        "intel",
-        "mediatek",
-        "nvidia",
-        "tsmc"
-      ],
-      "weight": 10
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",

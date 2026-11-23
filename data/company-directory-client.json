@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45071513227",
-  "generatedAt": "2026-11-22T21:34:59.558Z",
+  "runId": "45104005854",
+  "generatedAt": "2026-11-23T03:23:10.716Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -532,7 +532,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 114
+        "ageDays": 115
       }
     },
     {
@@ -850,7 +850,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -1548,7 +1548,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -1832,7 +1832,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -2588,7 +2588,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -3068,15 +3068,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "황의 퇴임 이후 AI 공급업체들이 꾸준한 주문을 보고하면서 대만 시장은 6.23% 급락",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261120vl220/taiwan-nvidia-tsmc-design-ai-server.html",
-          "date": "2026-11-20"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -3097,7 +3089,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -3981,7 +3973,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -4543,7 +4535,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -4939,7 +4931,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 137
+        "ageDays": 138
       }
     },
     {
@@ -5175,7 +5167,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -5293,7 +5285,17 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5443,9 +5445,13 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5731,6 +5737,17 @@
             "firstSeen": "2026-10-14",
             "lastSeen": "2026-11-20",
             "seenCount": 4
+          },
+          {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+            "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-23",
+            "firstSeen": "2026-11-23",
+            "lastSeen": "2026-11-23",
+            "seenCount": 1
           }
         ],
         "stances": []
@@ -5756,6 +5773,24 @@
           "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-11-23",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1c9msl5"
+          ],
+          "evidence": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html"
         }
       ],
       "silicon": {
@@ -5855,6 +5890,37 @@
             "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
             "asOf": "2026-11-20",
             "count": 4
+          }
+        },
+        {
+          "id": "google:cowos:training-bandwidth",
+          "accountId": "google",
+          "account": "Google",
+          "layer": "end-customer",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "CoWoS · 관측",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "painPoint": "Google · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "economics": "Bandwidth/$ · 스텝당 시간",
+          "executionGate": "Package Capacity · Ramp 일정",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html",
+            "asOf": "2026-11-23",
+            "count": 1
           }
         }
       ],
@@ -5967,7 +6033,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261123pd209/intel-microsoft-cowos-google-tsmc.html",
+          "date": "2026-11-23"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -6046,7 +6120,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -6567,7 +6641,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -6677,7 +6751,17 @@
             "sourceId": "microsoft-ai-infra"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6729,9 +6813,13 @@
       },
       "executiveLens": {
         "question": "Model Portability · Region Ramp · TCO",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -6879,6 +6967,17 @@
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-10-27",
             "seenCount": 2
+          },
+          {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+            "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-23",
+            "firstSeen": "2026-11-23",
+            "lastSeen": "2026-11-23",
+            "seenCount": 1
           }
         ],
         "stances": [
@@ -6915,6 +7014,24 @@
           "evidence": "OCP 2026에 등장한 Microsoft Maia 300",
           "source": "servethehome.com",
           "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026/"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-11-23",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1c9msl5"
+          ],
+          "evidence": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html"
         }
       ],
       "silicon": {
@@ -7015,6 +7132,37 @@
             "asOf": "2026-10-27",
             "count": 2
           }
+        },
+        {
+          "id": "microsoft:cowos:training-bandwidth",
+          "accountId": "microsoft",
+          "account": "Microsoft",
+          "layer": "end-customer",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "CoWoS · 관측",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "painPoint": "Microsoft · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "economics": "Bandwidth/$ · 스텝당 시간",
+          "executionGate": "Package Capacity · Ramp 일정",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html",
+            "asOf": "2026-11-23",
+            "count": 1
+          }
         }
       ],
       "org": {
@@ -7067,7 +7215,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261123pd209/intel-microsoft-cowos-google-tsmc.html",
+          "date": "2026-11-23"
+        }
+      ],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -7104,7 +7260,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -8890,7 +9046,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 40
+        "ageDays": 41
       }
     },
     {
@@ -9581,7 +9737,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -9859,7 +10015,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 73
+        "ageDays": 74
       }
     },
     {
@@ -10220,7 +10376,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -10520,7 +10676,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 87
+        "ageDays": 88
       }
     },
     {
@@ -10955,7 +11111,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -11080,7 +11236,7 @@
           {
             "id": "capacity",
             "label": "용량",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "ai-d-b",
@@ -11090,7 +11246,7 @@
           {
             "id": "package-foundry",
             "label": "패키징·파운드리",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "custom-hbm"
@@ -11355,6 +11511,17 @@
             "seenCount": 6
           },
           {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
+            "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-23",
+            "firstSeen": "2026-11-18",
+            "lastSeen": "2026-11-23",
+            "seenCount": 5
+          },
+          {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
             "headline": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
@@ -11364,17 +11531,6 @@
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-11-17",
             "seenCount": 4
-          },
-          {
-            "key": "tech:CoWoS",
-            "label": "CoWoS",
-            "headline": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
-            "url": "https://www.digitimes.com/news/a20261119PD201/packaging-chips-growth-supply-chain-capacity.html",
-            "source": "digitimes.com",
-            "asOf": "2026-11-20",
-            "firstSeen": "2026-11-18",
-            "lastSeen": "2026-11-20",
-            "seenCount": 3
           },
           {
             "key": "tech:LPDDR",
@@ -11453,6 +11609,28 @@
       },
       "derivedDemand": [
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "지속",
+          "firstSeen": "2026-11-18",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "14nkqu2",
+            "1tz1p8c",
+            "17kbgdy",
+            "14jhoo6",
+            "1c9msl5"
+          ],
+          "evidence": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html"
+        },
+        {
           "technology": "3nm",
           "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
           "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -11501,26 +11679,6 @@
           "evidence": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "반복",
-          "firstSeen": "2026-11-18",
-          "lastSeen": "2026-11-20",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "14nkqu2",
-            "1tz1p8c",
-            "17kbgdy"
-          ],
-          "evidence": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261119PD201/packaging-chips-growth-supply-chain-capacity.html"
         },
         {
           "technology": "Custom HBM",
@@ -11578,7 +11736,7 @@
           "layer": "foundry-package",
           "status": "watch",
           "statusLabel": "추가 검증",
-          "signal": "CoWoS · 반복",
+          "signal": "CoWoS · 지속",
           "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
           "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
           "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -11592,11 +11750,11 @@
           "executionGate": "Package Capacity · Ramp 일정",
           "stage": "SCALE",
           "evidence": {
-            "title": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
+            "title": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261119PD201/packaging-chips-growth-supply-chain-capacity.html",
-            "asOf": "2026-11-20",
-            "count": 3
+            "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html",
+            "asOf": "2026-11-23",
+            "count": 5
           }
         },
         {
@@ -11781,25 +11939,25 @@
       },
       "evidence": [
         {
-          "title": "황의 퇴임 이후 AI 공급업체들이 꾸준한 주문을 보고하면서 대만 시장은 6.23% 급락",
+          "title": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261120vl220/taiwan-nvidia-tsmc-design-ai-server.html",
-          "date": "2026-11-20"
+          "url": "https://www.digitimes.com/news/a20261123pd215/packaging-spil-amkor-tsmc-ase.html",
+          "date": "2026-11-23"
         },
         {
-          "title": "TSMC는 중국 칩 설계자의 주요 면제를 박탈하는 새로운 미국 규정을 준수할 것이라고 밝혔음",
+          "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261120vl218/tsmc-taiwan-chips-communications-samsung.html",
-          "date": "2026-11-20"
+          "url": "https://www.digitimes.com/news/a20261123pd209/intel-microsoft-cowos-google-tsmc.html",
+          "date": "2026-11-23"
         },
         {
-          "title": "Suregiant, 이형필름이 첨단 패키징에 진입하면서 높은 두 자릿수 성장 목표",
+          "title": "미국의 칩 제한으로 인해 대만 IC 설계자들은 시장 점유율을 확보할 수 있게 되었지만 이것이 지속될까요?",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261119pd201/packaging-chips-growth-supply-chain-capacity.html",
-          "date": "2026-11-20"
+          "url": "https://www.digitimes.com/news/a20261123pd204/ic-taiwan-chips-ic-design-2026.html",
+          "date": "2026-11-23"
         },
         {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -11845,7 +12003,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 40
+        "ageDays": 41
       }
     },
     {
@@ -12385,7 +12543,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -13241,7 +13399,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 40
+        "ageDays": 41
       }
     },
     {
@@ -14244,7 +14402,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 45
+        "ageDays": 46
       }
     },
     {
@@ -15551,7 +15709,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 40
+        "ageDays": 41
       }
     },
     {
@@ -15711,7 +15869,9 @@
       "executiveLens": {
         "question": "Workload SLO · Rack Power · Qualification · Attach · Volume",
         "painSignals": [],
-        "riskSignals": [],
+        "riskSignals": [
+          "가격 정책"
+        ],
         "recommendedProducts": [],
         "actions": [
           {
@@ -15932,6 +16092,13 @@
           "sourceClass": "public",
           "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
           "date": "2026-05-18"
+        },
+        {
+          "title": "계약 체결 후 AI 서버 가격이 최대 45% 상승해 구매자는 공급업체의 처분을 받음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261123vl206/ai-server-dell-price-hpe-lenovo.html",
+          "date": "2026-11-23"
         }
       ],
       "sources": [
@@ -15986,7 +16153,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -16217,7 +16384,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 81
+        "ageDays": 82
       }
     },
     {
@@ -16461,7 +16628,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -16780,7 +16947,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 103
+        "ageDays": 104
       }
     },
     {
@@ -17037,7 +17204,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 85
+        "ageDays": 86
       }
     },
     {
@@ -17265,7 +17432,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 180
+        "ageDays": 181
       }
     },
     {
@@ -17475,7 +17642,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 251
+        "ageDays": 252
       }
     },
     {
@@ -17728,7 +17895,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 90
+        "ageDays": 91
       }
     },
     {
@@ -18007,7 +18174,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 174
+        "ageDays": 175
       }
     },
     {
@@ -18230,7 +18397,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 114
+        "ageDays": 115
       }
     },
     {
@@ -18532,7 +18699,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 40
+        "ageDays": 41
       }
     },
     {
@@ -18756,7 +18923,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 114
+        "ageDays": 115
       }
     },
     {
@@ -18965,7 +19132,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 114
+        "ageDays": 115
       }
     },
     {
@@ -19207,7 +19374,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 114
+        "ageDays": 115
       }
     }
   ],
