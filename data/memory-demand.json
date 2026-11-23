@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45104005854",
-  "generatedAt": "2026-11-23T03:23:10.716Z",
+  "runId": "45142390605",
+  "generatedAt": "2026-11-23T09:11:09.899Z",
   "coverage": {
     "companiesObserved": 35,
     "companiesWithDerivedDemand": 28,
-    "derivedRequirements": 97,
+    "derivedRequirements": 99,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -235,8 +235,8 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-18",
-          "evidenceCount": 7,
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 8,
           "evidenceIds": [
             "0fyqwvp",
             "026p40z",
@@ -244,11 +244,12 @@
             "0ykarzn",
             "0t4d89z",
             "0x1uyey",
-            "0m0c6m2"
+            "0m0c6m2",
+            "11j8bad"
           ],
-          "evidence": "SK Hynix seeks HBM4 packaging equipment for early 2027 delivery",
+          "evidence": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261118VL216/sk-hynix-hbm4-packaging-equipment-2027.html"
+          "url": "https://www.digitimes.com/news/a20261123VL200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html"
         },
         {
           "technology": "eSSD",
@@ -1061,6 +1062,27 @@
     "micron": {
       "requirements": [
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 4,
+          "evidenceIds": [
+            "1pb2tu1",
+            "0l6w3jy",
+            "026p40z",
+            "11j8bad"
+          ],
+          "evidence": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123VL200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html"
+        },
+        {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -1137,26 +1159,6 @@
           "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
           "source": "electronicsweekly.com",
           "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "반복",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-10-11",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "1pb2tu1",
-            "0l6w3jy",
-            "026p40z"
-          ],
-          "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
-          "source": "sector-signals.net",
-          "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
         },
         {
           "technology": "KV Cache",
@@ -1720,6 +1722,24 @@
           "evidence": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환합니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261123PD209/intel-microsoft-cowos-google-tsmc.html"
+        },
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-11-23",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "11j8bad"
+          ],
+          "evidence": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123VL200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html"
         }
       ]
     },
@@ -1756,8 +1776,8 @@
           "gate": "Energy/Task · 상호운용성",
           "hold": "지속",
           "firstSeen": "2026-10-17",
-          "lastSeen": "2026-11-18",
-          "evidenceCount": 9,
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 10,
           "evidenceIds": [
             "0x8jxps",
             "0pap1z3",
@@ -1767,11 +1787,12 @@
             "0g2gg4w",
             "0mafc3j",
             "0spazn2",
-            "1tz1p8c"
+            "1tz1p8c",
+            "12990h7"
           ],
-          "evidence": "Taiwan Mask, CoWoS 및 포토닉스 성장을 포착하기 위해 14인치 용량 확장",
+          "evidence": "Apple, 맞춤형 칩용 광학 패키징 채용으로 실리콘 포토닉스 경쟁에 돌입",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261118PD253/taiwan-mask-growth-photonics-14-inch-capacity.html"
+          "url": "https://www.digitimes.com/news/a20261123PD222/apple-photonics-silicon-packaging-chips.html"
         },
         {
           "technology": "CPO",
@@ -1817,6 +1838,24 @@
     },
     "apple": {
       "requirements": [
+        {
+          "technology": "Silicon Photonics",
+          "systemShift": "데이터 이동 방식이 전기에서 광으로 이동",
+          "memoryNeed": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
+          "productAxis": "System",
+          "stage": "EXPLORE",
+          "gate": "Energy/Task · 상호운용성",
+          "hold": "관측",
+          "firstSeen": "2026-11-23",
+          "lastSeen": "2026-11-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "12990h7"
+          ],
+          "evidence": "Apple, 맞춤형 칩용 광학 패키징 채용으로 실리콘 포토닉스 경쟁에 돌입",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261123PD222/apple-photonics-silicon-packaging-chips.html"
+        },
         {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
@@ -2056,12 +2095,13 @@
       "technologies": [
         "HBM4"
       ],
-      "accountCount": 10,
+      "accountCount": 11,
       "accounts": [
         "amd",
         "apple",
         "cxmt",
         "gigabyte",
+        "google",
         "micron",
         "microsoft",
         "nvidia",
@@ -2069,7 +2109,7 @@
         "skhynix",
         "tesla"
       ],
-      "weight": 33
+      "weight": 36
     },
     {
       "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
