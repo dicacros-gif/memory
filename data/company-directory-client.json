@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45260496536",
-  "generatedAt": "2026-11-23T20:51:49.828Z",
+  "runId": "45312031285",
+  "generatedAt": "2026-11-24T02:39:54.189Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -532,7 +532,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 115
+        "ageDays": 116
       }
     },
     {
@@ -850,7 +850,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -1548,7 +1548,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -1832,7 +1832,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -2588,7 +2588,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -3089,7 +3089,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -3973,7 +3973,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -4535,7 +4535,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -4664,26 +4664,7 @@
             "sourceId": "apple-pcc-expanding-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -4742,15 +4723,9 @@
       },
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
-        "painSignals": [
-          "전력·열",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-o",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4940,15 +4915,7 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [
-        {
-          "title": "Apple, 맞춤형 칩용 광학 패키징 채용으로 실리콘 포토닉스 경쟁에 돌입",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123pd222/apple-photonics-silicon-packaging-chips.html",
-          "date": "2026-11-23"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -4993,7 +4960,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 138
+        "ageDays": 139
       }
     },
     {
@@ -5216,7 +5183,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
+          "date": "2026-11-24"
+        }
+      ],
       "sources": [
         {
           "id": "nvidia-coreweave-2026",
@@ -5229,7 +5204,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -5347,27 +5322,7 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5517,16 +5472,9 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [
-          "용량",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5796,14 +5744,7 @@
         },
         "asOf": "2026-08-27",
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
-          "url": "https://www.digitimes.com/news/a20261123VL200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html",
-          "date": "2026-11-23",
-          "source": "digitimes.com",
-          "observedCount": 1
-        }
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -6174,22 +6115,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123vl200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html",
-          "date": "2026-11-23"
-        },
-        {
-          "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123pd209/intel-microsoft-cowos-google-tsmc.html",
-          "date": "2026-11-23"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -6268,7 +6194,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -6789,7 +6715,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -6899,17 +6825,7 @@
             "sourceId": "microsoft-ai-infra"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6961,13 +6877,9 @@
       },
       "executiveLens": {
         "question": "Model Portability · Region Ramp · TCO",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7363,22 +7275,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Microsoft는 USB4 기술을 통한 RDMA를 장려하고 여러 Windows PC가 로컬에서 대규모 모델을 실행",
-          "source": "technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/11/23/microsoft-introduces-rdma-over-usb4-on-windows",
-          "date": "2026-11-23"
-        },
-        {
-          "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123pd209/intel-microsoft-cowos-google-tsmc.html",
-          "date": "2026-11-23"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -7415,7 +7312,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -7534,18 +7431,7 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -7645,14 +7531,9 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8255,14 +8136,7 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
-          "url": "https://www.digitimes.com/news/a20261123VL200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html",
-          "date": "2026-11-23",
-          "source": "digitimes.com",
-          "observedCount": 1
-        }
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -9080,11 +8954,18 @@
           "date": "2026-07-25"
         },
         {
-          "title": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
+          "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123vl200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html",
-          "date": "2026-11-23"
+          "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
+          "date": "2026-11-24"
+        },
+        {
+          "title": "분석: 리더십 변화와 수출 규제 강화로 인해 Nvidia의 중국 팀은 곤경에 처해 있음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261123pd226/nvidia-ceo-staff-chips-market.html",
+          "date": "2026-11-24"
         },
         {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -9246,7 +9127,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 41
+        "ageDays": 42
       }
     },
     {
@@ -9937,7 +9818,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -10215,7 +10096,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 74
+        "ageDays": 75
       }
     },
     {
@@ -10576,7 +10457,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -10876,7 +10757,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -10989,26 +10870,7 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -11032,10 +10894,7 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [
-          "전력·열",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11319,13 +11178,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
-        },
-        {
-          "title": "Apple, 맞춤형 칩용 광학 패키징 채용으로 실리콘 포토닉스 경쟁에 돌입",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123pd222/apple-photonics-silicon-packaging-chips.html",
-          "date": "2026-11-23"
         }
       ],
       "sources": [
@@ -11341,7 +11193,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -11466,20 +11318,11 @@
           {
             "id": "capacity",
             "label": "용량",
-            "mentions": 4,
+            "mentions": 1,
             "trend": "up",
             "productIds": [
               "ai-d-b",
               "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           }
         ],
@@ -11522,8 +11365,7 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "용량",
-          "패키징·파운드리"
+          "용량"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -11712,14 +11554,7 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
-          "url": "https://www.digitimes.com/news/a20261123VL200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html",
-          "date": "2026-11-23",
-          "source": "digitimes.com",
-          "observedCount": 1
-        }
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -12183,25 +12018,11 @@
           "date": "2026-11-23"
         },
         {
-          "title": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123pd215/packaging-spil-amkor-tsmc-ase.html",
-          "date": "2026-11-23"
-        },
-        {
-          "title": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123vl200/weekly-news-roundup-tsmc-sk-hynix-chips-equipment-investment.html",
-          "date": "2026-11-23"
-        },
-        {
-          "title": "CSP가 TSMC CoWoS에 대한 대안을 모색함에 따라 Microsoft, Google은 Intel EMIB로 전환",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123pd209/intel-microsoft-cowos-google-tsmc.html",
-          "date": "2026-11-23"
+          "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+          "source": "TrendForce",
+          "sourceClass": "news",
+          "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+          "date": "2026-11-11"
         }
       ],
       "sources": [
@@ -12240,7 +12061,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 41
+        "ageDays": 42
       }
     },
     {
@@ -12780,7 +12601,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -13637,7 +13458,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 41
+        "ageDays": 42
       }
     },
     {
@@ -14640,7 +14461,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 46
+        "ageDays": 47
       }
     },
     {
@@ -15948,7 +15769,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 41
+        "ageDays": 42
       }
     },
     {
@@ -16108,9 +15929,7 @@
       "executiveLens": {
         "question": "Workload SLO · Rack Power · Qualification · Attach · Volume",
         "painSignals": [],
-        "riskSignals": [
-          "가격 정책"
-        ],
+        "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
           {
@@ -16331,13 +16150,6 @@
           "sourceClass": "public",
           "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
           "date": "2026-05-18"
-        },
-        {
-          "title": "계약 체결 후 AI 서버 가격이 최대 45% 상승해 구매자는 공급업체의 처분을 받음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261123vl206/ai-server-dell-price-hpe-lenovo.html",
-          "date": "2026-11-23"
         }
       ],
       "sources": [
@@ -16392,7 +16204,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 75
+        "ageDays": 76
       }
     },
     {
@@ -16581,6 +16393,25 @@
         },
         "commentBasis": "기준선"
       },
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [],
+        "stances": [
+          {
+            "key": "stance:hpe는 네트워킹이 더 큰 수익 역할을 담당함에 따라 메모리 부족이 2028년까지 지속될 것으로 예상합니다.",
+            "statement": "HPE는 네트워킹이 더 큰 수익 역할을 담당함에 따라 메모리 부족이 2028년까지 지속될 것으로 예상합니다.",
+            "verb": "예상",
+            "headline": "HPE는 네트워킹이 더 큰 수익 역할을 담당함에 따라 메모리 부족이 2028년까지 지속될 것으로 예상합니다.",
+            "url": "https://www.digitimes.com/news/a20261124VL203/hpe-profit-2028-2027-growth.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-24",
+            "firstSeen": "2026-11-24",
+            "lastSeen": "2026-11-24",
+            "seenCount": 1
+          }
+        ]
+      },
       "painPoints": [
         {
           "id": "hpe-memory-lens",
@@ -16588,6 +16419,20 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:hpe expects memory shortages to last into 2028 as networking takes on ",
+            "text": "HPE expects memory shortages to last into 2028 as networking takes on a bigger profit role",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-24",
+            "url": "https://www.digitimes.com/news/a20261124VL203/hpe-profit-2028-2027-growth.html",
+            "source": "digitimes.com"
+          }
+        ]
+      },
       "baseline": {
         "chipStrategy": "NVIDIA NVL72 레퍼런스 기반 엔터프라이즈 AI 시스템",
         "constraint": "레퍼런스 인증 슬롯과 지역별 도입 속도가 물량을 가름 · FQ3 FY26(5~7월) 매출 122억$(+34% YoY) · FY27 매출 성장 +13~17% 가이던스 (9/2 8-K)",
@@ -16623,7 +16468,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -16867,7 +16712,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -17186,7 +17031,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 104
+        "ageDays": 105
       }
     },
     {
@@ -17443,7 +17288,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 86
+        "ageDays": 87
       }
     },
     {
@@ -17671,7 +17516,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 181
+        "ageDays": 182
       }
     },
     {
@@ -17881,7 +17726,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 252
+        "ageDays": 253
       }
     },
     {
@@ -18134,7 +17979,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 91
+        "ageDays": 92
       }
     },
     {
@@ -18413,7 +18258,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 175
+        "ageDays": 176
       }
     },
     {
@@ -18636,7 +18481,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 115
+        "ageDays": 116
       }
     },
     {
@@ -18938,7 +18783,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 41
+        "ageDays": 42
       }
     },
     {
@@ -19162,7 +19007,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 115
+        "ageDays": 116
       }
     },
     {
@@ -19371,7 +19216,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 115
+        "ageDays": 116
       }
     },
     {
@@ -19613,7 +19458,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 115
+        "ageDays": 116
       }
     }
   ],
