@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45353927358",
-  "generatedAt": "2026-11-24T08:29:56.387Z",
+  "runId": "45409599796",
+  "generatedAt": "2026-11-24T14:20:25.668Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -9042,6 +9042,13 @@
           "date": "2026-07-25"
         },
         {
+          "title": "Jen-Hsun Huang이 Huida를 장악하기 위해 돌아왔고, 주식 시장은 급등하고 있으며, 대만 공장의 AI 공급망의 영향을 한눈에 볼 수 있음",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/11/24/jensen-return-and-its-impact-on-taiwan-ai-supply-chain",
+          "date": "2026-11-24"
+        },
+        {
           "title": "Jensen Huang의 Nvidia 복귀로 글로벌 시장 랠리가 촉발되면서 대만 주식이 9% 이상 급등",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
@@ -9060,13 +9067,6 @@
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-          "date": "2026-11-24"
-        },
-        {
-          "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
           "date": "2026-11-24"
         }
       ],
@@ -11625,7 +11625,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "선단 공정·CoWoS 캐파 대규모 증설",
+        "capex": "$22.6 billion",
         "plan": "로직·패키징 동시 확장",
         "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
         "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
@@ -11648,8 +11648,20 @@
             "observedAt": "2026-09-14"
           }
         ],
-        "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "capexBasis": "관측",
+        "capexHeadline": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있습니다.",
+        "capexUrl": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html",
+        "capexAsOf": "2026-11-24",
+        "capexBaseline": "선단 공정·CoWoS 캐파 대규모 증설",
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있습니다.",
+          "url": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html",
+          "date": "2026-11-24",
+          "source": "digitimes.com",
+          "amount": "$22.6 billion",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -11669,13 +11681,13 @@
           {
             "key": "tech:2nm",
             "label": "2nm",
-            "headline": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
-            "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
+            "headline": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있습니다.",
+            "url": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html",
             "source": "digitimes.com",
-            "asOf": "2026-11-17",
+            "asOf": "2026-11-24",
             "firstSeen": "2026-09-15",
-            "lastSeen": "2026-11-17",
-            "seenCount": 6
+            "lastSeen": "2026-11-24",
+            "seenCount": 7
           },
           {
             "key": "tech:CoWoS",
@@ -11776,6 +11788,30 @@
       },
       "derivedDemand": [
         {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "지속",
+          "firstSeen": "2026-09-15",
+          "lastSeen": "2026-11-24",
+          "evidenceCount": 7,
+          "evidenceIds": [
+            "1uhvy0c",
+            "1d7b4dv",
+            "1g3fqr2",
+            "01hmtol",
+            "0lvnfym",
+            "02op6lb",
+            "1ru7irk"
+          ],
+          "evidence": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html"
+        },
+        {
           "technology": "CoWoS",
           "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
           "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -11823,29 +11859,6 @@
           "evidence": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261117PD221/tsmc-3nm-hbm-competition-nvidia.html"
-        },
-        {
-          "technology": "2nm",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "Interface Power · Base Die 공정",
-          "hold": "지속",
-          "firstSeen": "2026-09-15",
-          "lastSeen": "2026-11-17",
-          "evidenceCount": 6,
-          "evidenceIds": [
-            "1uhvy0c",
-            "1d7b4dv",
-            "1g3fqr2",
-            "01hmtol",
-            "0lvnfym",
-            "02op6lb"
-          ],
-          "evidence": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html"
         },
         {
           "technology": "Custom HBM",
@@ -11896,6 +11909,34 @@
         }
       ],
       "strategyOpportunities": [
+        {
+          "id": "tsmc:2nm:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "2nm · 지속",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "painPoint": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "solution": "Custom HBM와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "Custom HBM"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Interface Power · Base Die 공정",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html",
+            "asOf": "2026-11-24",
+            "count": 7
+          }
+        },
         {
           "id": "tsmc:cowos:foundry-package",
           "accountId": "tsmc",
@@ -11950,34 +11991,6 @@
             "url": "https://www.digitimes.com/news/a20261117PD221/tsmc-3nm-hbm-competition-nvidia.html",
             "asOf": "2026-11-17",
             "count": 10
-          }
-        },
-        {
-          "id": "tsmc:2nm:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "2nm · 지속",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "painPoint": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "solution": "Custom HBM와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "Custom HBM"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "Interface Power · Base Die 공정",
-          "stage": "QUALIFY",
-          "evidence": {
-            "title": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html",
-            "asOf": "2026-11-17",
-            "count": 6
           }
         },
         {
@@ -12105,6 +12118,13 @@
         "basis": "기준선"
       },
       "evidence": [
+        {
+          "title": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261124vl226/tsmc-texas-arizona-investment-manufacturing.html",
+          "date": "2026-11-24"
+        },
         {
           "title": "TSMC는 AI 수요 급증으로 인해 첨단 반도체 용량 공급이 여전히 부족하다고 밝혔음",
           "source": "digitimes.com",
@@ -14240,26 +14260,6 @@
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "반복",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-11-24",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "12i0vdu",
-            "0q4l5cu",
-            "0torwh0",
-            "0u4mjo5"
-          ],
-          "source": "technews.tw",
-          "url": "https://technews.tw/2026/11/24/samsung-plans-to-expand-v9-nand-production-capacity-at-xi-an-plant/"
-        },
-        {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
           "memoryNeed": "저전력 우선의 메모리 구성",
@@ -14316,6 +14316,23 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "관측",
+          "firstSeen": "2026-11-24",
+          "lastSeen": "2026-11-24",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0u4mjo5"
+          ],
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/11/24/samsung-plans-to-expand-v9-nand-production-capacity-at-xi-an-plant/"
         },
         {
           "technology": "SOCAMM",
@@ -14419,6 +14436,15 @@
             "source": "digitimes.com"
           },
           {
+            "key": "s:samsung memory capacity through 2029 largely under contract, korean re",
+            "text": "Samsung memory capacity through 2029 largely under contract, Korean report says",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-24",
+            "url": "https://www.digitimes.com/news/a20261124VL220/samsung-capacity-demand-data-center-2027.html",
+            "source": "digitimes.com"
+          },
+          {
             "key": "s:samsung electronics said on november 12 it had moved up the planned op",
             "text": "Samsung Electronics said on November 12 it had moved up the planned opening of its new high-bandwidth memory (HBM) packaging plant in South Korea by one year to June 2028 to meet rising demand for AI server memory.",
             "kind": "보도",
@@ -14434,15 +14460,6 @@
             "attributionVersion": 1,
             "date": "2026-11-06",
             "url": "https://www.digitimes.com/news/a20261106PD208/sdc-panel-2027-demand-profit.html",
-            "source": "digitimes.com"
-          },
-          {
-            "key": "s:samsung electronics plans to begin structural work at its p5 fab 2 fac",
-            "text": "Samsung Electronics plans to begin structural work at its P5 Fab 2 facility in Pyeongtaek, South Korea, in January 2027, accelerating its memory capacity expansion as chip shortages are expected to persist through 2028, reported.",
-            "kind": "보도",
-            "attributionVersion": 1,
-            "date": "2026-11-06",
-            "url": "https://www.digitimes.com/news/a20261105VL231/samsung-2028-2027-equipment-production.html",
             "source": "digitimes.com"
           }
         ]

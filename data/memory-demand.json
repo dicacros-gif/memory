@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45353927358",
-  "generatedAt": "2026-11-24T08:29:56.387Z",
+  "runId": "45409599796",
+  "generatedAt": "2026-11-24T14:20:25.668Z",
   "coverage": {
     "companiesObserved": 36,
     "companiesWithDerivedDemand": 28,
@@ -455,6 +455,30 @@
     "tsmc": {
       "requirements": [
         {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "지속",
+          "firstSeen": "2026-09-15",
+          "lastSeen": "2026-11-24",
+          "evidenceCount": 7,
+          "evidenceIds": [
+            "1uhvy0c",
+            "1d7b4dv",
+            "1g3fqr2",
+            "01hmtol",
+            "0lvnfym",
+            "02op6lb",
+            "1ru7irk"
+          ],
+          "evidence": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html"
+        },
+        {
           "technology": "CoWoS",
           "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
           "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -502,29 +526,6 @@
           "evidence": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261117PD221/tsmc-3nm-hbm-competition-nvidia.html"
-        },
-        {
-          "technology": "2nm",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "Interface Power · Base Die 공정",
-          "hold": "지속",
-          "firstSeen": "2026-09-15",
-          "lastSeen": "2026-11-17",
-          "evidenceCount": 6,
-          "evidenceIds": [
-            "1uhvy0c",
-            "1d7b4dv",
-            "1g3fqr2",
-            "01hmtol",
-            "0lvnfym",
-            "02op6lb"
-          ],
-          "evidence": "AI server tracker: TSMC, Alchip post big October gains powered by 2nm and ASIC orders",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261117VL216/revenue-growth-taiwan-semiconductor-supply-chain-tsmc-2nm.html"
         },
         {
           "technology": "Custom HBM",
@@ -908,26 +909,6 @@
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "반복",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-11-24",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "12i0vdu",
-            "0q4l5cu",
-            "0torwh0",
-            "0u4mjo5"
-          ],
-          "source": "technews.tw",
-          "url": "https://technews.tw/2026/11/24/samsung-plans-to-expand-v9-nand-production-capacity-at-xi-an-plant/"
-        },
-        {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
           "memoryNeed": "저전력 우선의 메모리 구성",
@@ -984,6 +965,23 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "관측",
+          "firstSeen": "2026-11-24",
+          "lastSeen": "2026-11-24",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0u4mjo5"
+          ],
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/11/24/samsung-plans-to-expand-v9-nand-production-capacity-at-xi-an-plant/"
         },
         {
           "technology": "SOCAMM",
@@ -2131,7 +2129,7 @@
         "samsung",
         "tsmc"
       ],
-      "weight": 19
+      "weight": 20
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -2303,20 +2301,20 @@
       "weight": 8
     },
     {
-      "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-      "productAxis": "AI-NAND",
-      "stage": "SCALE",
-      "gate": "Cost/Query · Latency SLA",
+      "memoryNeed": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
+      "productAxis": "System",
+      "stage": "EXPLORE",
+      "gate": "Energy/Task · 상호운용성",
       "technologies": [
-        "eSSD"
+        "Silicon Photonics"
       ],
       "accountCount": 3,
       "accounts": [
-        "samsung",
-        "skhynix",
-        "solidigm"
+        "apple",
+        "coherent",
+        "intel"
       ],
-      "weight": 11
+      "weight": 10
     }
   ]
 }
