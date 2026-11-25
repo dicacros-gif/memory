@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45568602479",
-  "generatedAt": "2026-11-25T07:46:54.882Z",
+  "runId": "45622274581",
+  "generatedAt": "2026-11-25T13:36:14.725Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3225,7 +3225,35 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3329,9 +3357,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "전력·열",
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-o",
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3699,10 +3734,10 @@
             "headline": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
             "source": "troy-technical.com",
-            "asOf": "2026-11-08",
+            "asOf": "2026-11-22",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-11-08",
-            "seenCount": 6
+            "lastSeen": "2026-11-22",
+            "seenCount": 7
           },
           {
             "key": "tech:3nm",
@@ -3744,6 +3779,30 @@
       },
       "derivedDemand": [
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-11-22",
+          "evidenceCount": 7,
+          "evidenceIds": [
+            "06l7v1e",
+            "07f6o4b",
+            "1tnrry0",
+            "1xylrhd",
+            "1xom5se",
+            "1wuncph",
+            "1u2xmrp"
+          ],
+          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "3nm",
           "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
           "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -3764,29 +3823,6 @@
           "evidence": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261117PD221/tsmc-3nm-hbm-competition-nvidia.html"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "지속",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-11-08",
-          "evidenceCount": 6,
-          "evidenceIds": [
-            "06l7v1e",
-            "07f6o4b",
-            "1tnrry0",
-            "1xylrhd",
-            "1xom5se",
-            "1wuncph"
-          ],
-          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-          "source": "troy-technical.com",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
         {
           "technology": "Custom HBM",
@@ -3898,6 +3934,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-22"
         }
       ],
       "sources": [
@@ -7423,7 +7466,35 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -7523,11 +7594,16 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
-        "riskSignals": [
-          "스펙 게이트"
+        "painSignals": [
+          "전력·열",
+          "패키징·파운드리",
+          "로직 경계"
         ],
-        "recommendedProducts": [],
+        "riskSignals": [],
+        "recommendedProducts": [
+          "ai-d-o",
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8153,10 +8229,10 @@
             "headline": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
             "source": "troy-technical.com",
-            "asOf": "2026-11-08",
+            "asOf": "2026-11-22",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-11-08",
-            "seenCount": 9
+            "lastSeen": "2026-11-22",
+            "seenCount": 10
           },
           {
             "key": "tech:HBM4",
@@ -8334,6 +8410,33 @@
       },
       "derivedDemand": [
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-11-22",
+          "evidenceCount": 10,
+          "evidenceIds": [
+            "105urmn",
+            "06l7v1e",
+            "0fyqwvp",
+            "07f6o4b",
+            "0ykarzn",
+            "1tnrry0",
+            "1xylrhd",
+            "1xom5se",
+            "1wuncph",
+            "1u2xmrp"
+          ],
+          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -8409,32 +8512,6 @@
           "evidence": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "지속",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-11-08",
-          "evidenceCount": 9,
-          "evidenceIds": [
-            "105urmn",
-            "06l7v1e",
-            "0fyqwvp",
-            "07f6o4b",
-            "0ykarzn",
-            "1tnrry0",
-            "1xylrhd",
-            "1xom5se",
-            "1wuncph"
-          ],
-          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-          "source": "troy-technical.com",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
         {
           "technology": "3nm",
@@ -8685,6 +8762,37 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:hbm4e:training-bandwidth",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "HBM4E · 지속",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "painPoint": "NVIDIA · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "memoryRequirement": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "economics": "Bandwidth/$ · 스텝당 시간",
+          "executionGate": "Thermal · Yield · Qualification Schedule",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+            "source": "troy-technical.com",
+            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
+            "asOf": "2026-11-22",
+            "count": 10
+          }
+        },
+        {
           "id": "nvidia:vera-rubin:inference-kv-cache",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -8773,36 +8881,6 @@
             "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html",
             "asOf": "2026-11-17",
             "count": 5
-          }
-        },
-        {
-          "id": "nvidia:hbm4:dual-axis",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "HBM4 · 지속",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "painPoint": "NVIDIA · 학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
-          "memoryRequirement": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "solution": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
-          "products": [
-            "Custom HBM",
-            "AI-DRAM",
-            "AI-NAND"
-          ],
-          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
-          "economics": "프로그램별 ASP · Capacity/$",
-          "executionGate": "Time-to-qualification · Design Win",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "Jensen 이후 Nvidia, 한국 칩과 배터리 재검토를 촉발",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261116PD211/nvidia-technology-samsung-roadmap-ceo.html",
-            "asOf": "2026-11-16",
-            "count": 8
           }
         }
       ],
@@ -8978,10 +9056,10 @@
           "date": "2026-07-25"
         },
         {
-          "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
-          "source": "technews.tw",
+          "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
+          "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+          "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
           "date": "2026-11-25"
         },
         {
@@ -8990,6 +9068,13 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261125pd203/nvidia-jensen-huang-ssd-production-market.html",
           "date": "2026-11-25"
+        },
+        {
+          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-11-22"
         },
         {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -10591,7 +10676,18 @@
             "sourceId": "tesla-ai"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -10628,9 +10724,14 @@
       },
       "executiveLens": {
         "question": "AI5 Production · Vehicle Validation",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -10768,7 +10869,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
+          "date": "2026-11-25"
+        }
+      ],
       "sources": [
         {
           "id": "tesla-ai",
@@ -12047,6 +12156,13 @@
       },
       "evidence": [
         {
+          "title": "텍사스 감사관, TSMC에 3억 5400만 달러 세금 감면 지원",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261125vl228/tsmc-texas-investment-tax-incentive-arizona.html",
+          "date": "2026-11-25"
+        },
+        {
           "title": "Taipower, 대만 남부의 TSMC 주도 칩 붐을 위해 그리드에 NT$1096억 투자",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
@@ -13067,6 +13183,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:HBM4E",
+            "label": "HBM4E",
+            "headline": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
+            "source": "troy-technical.com",
+            "asOf": "2026-11-22",
+            "firstSeen": "2026-10-31",
+            "lastSeen": "2026-11-22",
+            "seenCount": 5
+          },
+          {
             "key": "tech:HBM4",
             "label": "HBM4",
             "headline": "주간 뉴스 정리: 새로운 미국 규정을 준수하는 TSMC; 머스크, 장비 확보 위해 한국 기업에 접근",
@@ -13075,17 +13202,6 @@
             "asOf": "2026-11-23",
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-11-23",
-            "seenCount": 4
-          },
-          {
-            "key": "tech:HBM4E",
-            "label": "HBM4E",
-            "headline": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-            "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
-            "source": "troy-technical.com",
-            "asOf": "2026-11-08",
-            "firstSeen": "2026-10-31",
-            "lastSeen": "2026-11-08",
             "seenCount": 4
           },
           {
@@ -13195,6 +13311,28 @@
       },
       "derivedDemand": [
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-10-31",
+          "lastSeen": "2026-11-22",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "1tnrry0",
+            "1xylrhd",
+            "1xom5se",
+            "1wuncph",
+            "1u2xmrp"
+          ],
+          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -13233,27 +13371,6 @@
           "evidence": "NVHBM: Micron’s bandwidth and power specs for NVIDIA",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/11/nvhbm-microns-bandwidth-and-power-specs-for-nvidia/"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "반복",
-          "firstSeen": "2026-10-31",
-          "lastSeen": "2026-11-08",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "1tnrry0",
-            "1xylrhd",
-            "1xom5se",
-            "1wuncph"
-          ],
-          "evidence": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-          "source": "troy-technical.com",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
         {
           "technology": "CXL",
