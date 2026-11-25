@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45474668316",
-  "generatedAt": "2026-11-24T20:10:44.818Z",
+  "runId": "45527698723",
+  "generatedAt": "2026-11-25T01:58:13.928Z",
   "coverage": {
     "companiesObserved": 36,
     "companiesWithDerivedDemand": 28,
-    "derivedRequirements": 99,
+    "derivedRequirements": 98,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -967,23 +967,6 @@
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
         },
         {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "관측",
-          "firstSeen": "2026-11-24",
-          "lastSeen": "2026-11-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0u4mjo5"
-          ],
-          "source": "technews.tw",
-          "url": "https://technews.tw/2026/11/24/samsung-plans-to-expand-v9-nand-production-capacity-at-xi-an-plant/"
-        },
-        {
           "technology": "SOCAMM",
           "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
           "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
@@ -1526,6 +1509,35 @@
     "sandisk": {
       "requirements": [
         {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "지속",
+          "firstSeen": "2026-08-28",
+          "lastSeen": "2026-11-24",
+          "evidenceCount": 12,
+          "evidenceIds": [
+            "0fv1za0",
+            "1etr26h",
+            "0g51kyz",
+            "1ejrghi",
+            "0ua1xwd",
+            "045weny",
+            "0m6lf6k",
+            "0ibt6bu",
+            "1t0k2ik",
+            "0hmnpt6",
+            "0hco447",
+            "0hcr9m6"
+          ],
+          "evidence": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai"
+        },
+        {
           "technology": "QLC eSSD",
           "systemShift": "Checkpoint와 Data Lake가 랙 밀도와 전력을 함께 압박",
           "memoryNeed": "저장 밀도와 전력 효율을 동시에 개선",
@@ -1546,34 +1558,6 @@
           "evidence": "QLC SSD: 대용량, 고성능 NAND | 샌디스크",
           "source": "sandisk.com",
           "url": "https://www.sandisk.com/topics/ssd/what-is-qlc"
-        },
-        {
-          "technology": "HBF",
-          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
-          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-          "productAxis": "AI-NAND",
-          "stage": "POC",
-          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-          "hold": "지속",
-          "firstSeen": "2026-08-28",
-          "lastSeen": "2026-11-16",
-          "evidenceCount": 11,
-          "evidenceIds": [
-            "0fv1za0",
-            "1etr26h",
-            "0g51kyz",
-            "1ejrghi",
-            "0ua1xwd",
-            "045weny",
-            "0m6lf6k",
-            "0ibt6bu",
-            "1t0k2ik",
-            "0hmnpt6",
-            "0hco447"
-          ],
-          "evidence": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth Flash for AI ...",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai"
         }
       ]
     },

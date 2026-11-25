@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "45474668316",
-  "generatedAt": "2026-11-24T20:10:44.818Z",
-  "expiresAt": "2026-11-25T22:10:42.747Z",
+  "runId": "45527698723",
+  "generatedAt": "2026-11-25T01:58:13.928Z",
+  "expiresAt": "2026-11-26T03:58:12.221Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-24T20:09:16.651Z",
-    "runId": "45474668316",
+    "generatedAt": "2026-11-25T01:56:51.140Z",
+    "runId": "45527698723",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,31 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "dff57348873b43ac1df8",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "llm-serving-systems-research",
-        "source": "LLM Serving Systems Research",
-        "sourceClass": "research",
-        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
-        "url": "https://arxiv.org/abs/2309.06180",
-        "changed": true
-      },
-      {
-        "id": "eb4f168190781a3a450f",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "llm-serving-systems-research",
-        "source": "LLM Serving Systems Research",
-        "sourceClass": "research",
-        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
-        "url": "https://arxiv.org/abs/2309.06180",
-        "changed": true
-      },
-      {
-        "id": "2266a646bb77612184af",
+        "id": "48bb67145d1b0dd9f78e",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
         "priority": "immediate",
@@ -155,7 +131,46 @@
         "sourceClass": "official",
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-12",
+        "publishedAt": "2026-11-24",
+        "changed": true
+      },
+      {
+        "id": "23dbbdd25b2c274c982e",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-11-24",
+        "changed": true
+      },
+      {
+        "id": "336fa67a9db9fd115ff3",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-11-24",
+        "changed": true
+      },
+      {
+        "id": "385b5b41ab6e4924c46c",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "sandisk-newsroom",
+        "source": "sandisk.com",
+        "sourceClass": "official",
+        "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+        "publishedAt": "2026-11-24",
         "changed": false
       },
       {
@@ -261,30 +276,17 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-24T20:09:16.651Z",
+      "generatedAt": "2026-11-25T01:56:51.140Z",
       "stats": {
-        "eligibleDocuments": 40,
+        "eligibleDocuments": 41,
         "structuredEvents": 38,
         "verifiedEvents": 33,
         "currentStages": 32,
-        "newEvents": 0,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -604,6 +606,39 @@
           "isCurrentStage": true
         },
         {
+          "id": "d5ebbb3cf99711065933",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "industry",
+            "label": "Memory industry"
+          },
+          "product": {
+            "id": "hbf",
+            "label": "HBF"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [
+            "2.2%"
+          ],
+          "evidenceSpan": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support",
+          "source": "sandisk.com",
+          "sourceId": "sandisk-newsroom",
+          "sourceClass": "official",
+          "sourceUrl": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "publishedAt": "2026-11-24",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-11-24",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
           "id": "31aaf477ab2c38aa4a80",
           "ruleId": "full-stack-memory-portfolio",
           "eventType": "strategy-portfolio",
@@ -760,37 +795,6 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
-        },
-        {
-          "id": "2bba443d461375820020",
-          "ruleId": "memory-centric-compute",
-          "eventType": "memory-centric-architecture",
-          "label": "PIM · CXL Pooling · 3D Stacked DRAM",
-          "entity": {
-            "id": "sk-hynix",
-            "label": "SK hynix"
-          },
-          "product": {
-            "id": "ai-memory",
-            "label": "AI Memory"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [],
-          "evidenceSpan": "Utilizing hybrid bonding technology that connects chips without bumps, SoIC widens data processing bandwidth and reduces chip size, making it an essential technology for next generation AI semiconductor production",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
-          "sourceClass": "official",
-          "sourceUrl": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
-          "publishedAt": "2026-04-23",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-04-23",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
         }
       ]
     },
@@ -824,7 +828,7 @@
       ],
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 156,
+        "sourceDocuments": 157,
         "structuredEvents": 38,
         "verifiedEvents": 33,
         "decisionReadyBriefs": 4,
@@ -832,10 +836,10 @@
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 36,
-        "useful": 29,
-        "observationRatePct": 87.8,
-        "usefulYieldPct": 80.6,
+        "observed": 35,
+        "useful": 28,
+        "observationRatePct": 85.4,
+        "usefulYieldPct": 80,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -854,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -866,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -878,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1008,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1053,12 +1057,10 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "transportStatus": "unavailable",
+            "attempts": 0,
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "llm-serving-systems-research",
@@ -1067,8 +1069,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1081,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1092,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1104,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1116,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1127,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1139,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1161,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1173,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1184,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1196,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1207,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1219,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1231,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1243,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1255,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1267,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1279,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
-            "lastUsefulObservationAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-24T20:09:12.641Z",
+            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1324,12 +1326,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-24T20:09:16.651Z",
+          "updatedAt": "2026-11-25T01:56:51.140Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
-          "sourceStage": "COMMERCIAL_SHIPMENT",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "sourceStage": "DISCLOSED",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1361,10 +1363,25 @@
           "evidenceCount": 8,
           "officialFactCount": 6,
           "marketEstimateCount": 2,
-          "independentSources": 3,
+          "independentSources": 4,
           "primaryEvidence": 6,
-          "verifiedClaims": 11,
+          "verifiedClaims": 12,
           "evidence": [
+            {
+              "id": "d5ebbb3cf99711065933",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-11-24",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-11-24",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
             {
               "score": 3.5,
               "chunkId": "d7f64e9d77146b39d4c7",
@@ -1427,22 +1444,6 @@
               "claimType": "verified-fact",
               "asOf": "2026-07-29",
               "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
-            },
-            {
-              "id": "9d6f0424120480932e3c",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-nvidia-partnership-2026",
-              "title": "SK hynix · AI Memory · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-              "publishedAt": "2026-07-25",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-07-25",
-              "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
             }
           ]
         },
@@ -1454,12 +1455,12 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-24T20:09:16.651Z",
+          "updatedAt": "2026-11-25T01:56:51.140Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-          "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
-          "sourceStage": "COMMERCIAL_SHIPMENT",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "sourceStage": "DISCLOSED",
           "stage": "ARCHITECTURE_BENCHMARK",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1492,10 +1493,25 @@
           "evidenceCount": 8,
           "officialFactCount": 6,
           "marketEstimateCount": 2,
-          "independentSources": 5,
+          "independentSources": 6,
           "primaryEvidence": 6,
-          "verifiedClaims": 6,
+          "verifiedClaims": 7,
           "evidence": [
+            {
+              "id": "d5ebbb3cf99711065933",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-11-24",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-11-24",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
             {
               "score": 1.75,
               "chunkId": "a0e6463c36f708d6eb6e",
@@ -1557,22 +1573,6 @@
               "claimType": "verified-fact",
               "asOf": "2026-08-07",
               "excerpt": "SK hynix plans to proactively secure production infrastructure based on mid-to-long-term demand discussed with customers, while expanding actual production capacity in alignment with the timing of customer needs"
-            },
-            {
-              "id": "7c64b0051b9767050f5a",
-              "ruleId": "hbf-standardization-stage",
-              "feedId": "skhynix-hbf-open-standard",
-              "title": "SK hynix · HBF · STANDARDIZATION",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-              "publishedAt": "2026-08-04",
-              "stage": "STANDARDIZATION",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-08-04",
-              "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
             }
           ]
         },
@@ -1584,12 +1584,12 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-24T20:09:16.651Z",
+          "updatedAt": "2026-11-25T01:56:51.140Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
           "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1620,10 +1620,40 @@
           "evidenceCount": 8,
           "officialFactCount": 7,
           "marketEstimateCount": 1,
-          "independentSources": 5,
+          "independentSources": 6,
           "primaryEvidence": 7,
-          "verifiedClaims": 9,
+          "verifiedClaims": 10,
           "evidence": [
+            {
+              "id": "d5ebbb3cf99711065933",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-11-24",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-11-24",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
+            {
+              "score": 1.75,
+              "chunkId": "ac6a8a33909268274891",
+              "title": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
+              "excerpt": "Solidigm Announces New Co-CEOs Xin Guo and Richard Chin Solidigm, a pioneer in enterprise data storage, announced new co-chief executive officers, Xin Guo and Richard Chin",
+              "sourceId": "solidigm-newsroom",
+              "source": "news.solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW/266116-solidigm-announces-new-co-ceos-xin-guo-and-richard-chin",
+              "publishedAt": "2026-11-24",
+              "indexedAt": "2026-11-25T01:56:51.140Z",
+              "sourceChangeDetectedAt": "2026-11-25T01:55:27.573Z",
+              "freshnessDays": 180,
+              "documentStatus": "current"
+            },
             {
               "score": 1.75,
               "chunkId": "a0e6463c36f708d6eb6e",
@@ -1656,21 +1686,6 @@
               "documentStatus": "current"
             },
             {
-              "score": 1.75,
-              "chunkId": "56be3c9602d6b5ad8386",
-              "title": "솔리다임 뉴스룸",
-              "excerpt": "Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
-              "sourceId": "solidigm-newsroom",
-              "source": "news.solidigm.com",
-              "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW",
-              "publishedAt": "2026-08-29",
-              "indexedAt": "2026-08-30T07:22:51.493Z",
-              "sourceChangeDetectedAt": "2026-08-30T07:20:42.071Z",
-              "freshnessDays": 180,
-              "documentStatus": "retained-last-verified"
-            },
-            {
               "id": "31aaf477ab2c38aa4a80",
               "ruleId": "full-stack-memory-portfolio",
               "feedId": "skhynix-dell-forum-2026",
@@ -1685,21 +1700,6 @@
               "claimType": "verified-fact",
               "asOf": "2026-08-26",
               "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
-            },
-            {
-              "id": "7196f7790653c9406e26",
-              "ruleId": "hbf-standardization-stage",
-              "title": "Sandisk · HBF · STANDARDIZATION",
-              "source": "Trendforce",
-              "sourceId": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
-              "publishedAt": "2026-08-14",
-              "stage": "STANDARDIZATION",
-              "confidence": "research-observed",
-              "claimType": "market-estimate",
-              "asOf": "2026-08-14",
-              "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
             }
           ]
         },
@@ -1711,12 +1711,12 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-24T20:09:16.651Z",
+          "updatedAt": "2026-11-25T01:56:51.140Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-          "sourceStage": "ANNOUNCED",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "sourceStage": "DISCLOSED",
           "stage": "SCALE_GATE",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1746,12 +1746,27 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "officialFactCount": 7,
-          "marketEstimateCount": 1,
+          "officialFactCount": 8,
+          "marketEstimateCount": 0,
           "independentSources": 4,
-          "primaryEvidence": 7,
-          "verifiedClaims": 12,
+          "primaryEvidence": 8,
+          "verifiedClaims": 13,
           "evidence": [
+            {
+              "id": "d5ebbb3cf99711065933",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-11-24",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-11-24",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
             {
               "score": 2.75,
               "chunkId": "e9338b77f001c4b7083c",
@@ -1815,34 +1830,18 @@
               "sourceChangeDetectedAt": "2026-11-20T17:29:02.562Z",
               "freshnessDays": 365,
               "documentStatus": "current"
-            },
-            {
-              "id": "23573c07e31f7af6e053",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-hbf-open-standard",
-              "title": "SK hynix · HBF · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-              "publishedAt": "2026-08-04",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-08-04",
-              "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
             }
           ]
         }
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 7,
-        "fresh": 5,
-        "observationRatePct": 4.8,
+        "observed": 9,
+        "fresh": 4,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
-        "officialObserved": 0,
-        "officialFresh": 0,
+        "officialObserved": 2,
+        "officialFresh": 2,
         "targetPct": 90
       }
     },
@@ -1959,7 +1958,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "fetched"
+        "status": "unavailable"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2097,13 +2096,13 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 156,
-        "chunks": 601,
-        "added": 0,
+        "documents": 157,
+        "chunks": 602,
+        "added": 1,
         "changed": 1,
         "unchanged": 39,
         "retained": 116,
-        "reindexed": 1
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2313,6 +2312,16 @@
           "evidenceCount": 4,
           "citations": [
             {
+              "title": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
+              "source": "news.solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW/266116-solidigm-announces-new-co-ceos-xin-guo-and-richard-chin",
+              "publishedAt": "2026-11-24",
+              "indexedAt": "2026-11-25T01:56:51.140Z",
+              "sourceChangeDetectedAt": "2026-11-25T01:55:27.573Z",
+              "stale": false
+            },
+            {
               "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
               "source": "news.solidigm.com",
               "sourceClass": "official",
@@ -2321,16 +2330,6 @@
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "stale": true
-            },
-            {
-              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "source": "OpenAI Infrastructure",
-              "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-18",
-              "indexedAt": "2026-11-20T23:15:47.932Z",
-              "sourceChangeDetectedAt": "2026-11-20T23:15:44.104Z",
-              "stale": false
             },
             {
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
@@ -2464,7 +2463,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.6,
+      "score": 91.8,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2481,26 +2480,26 @@
       "components": {
         "contentAge": 96.6,
         "embeddingLag": 100,
-        "staleRetrievalRate": 71.2,
-        "coverageDrift": 100
+        "staleRetrievalRate": 73.1,
+        "coverageDrift": 98.4
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 28.8,
-        "feedCoveragePct": 87.8,
+        "staleRetrievalRatePct": 26.9,
+        "feedCoveragePct": 85.4,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0,
+        "coverageDropPctPoint": 0.8,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 95.9,
+        "currentPct": 95.1,
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-24T20:09:12.641Z",
-        "indexedAt": "2026-11-24T20:09:16.651Z"
+        "sourceChangeDetectedAt": "2026-11-25T01:55:27.573Z",
+        "indexedAt": "2026-11-25T01:56:51.140Z"
       },
-      "generatedAt": "2026-11-24T20:09:16.651Z"
+      "generatedAt": "2026-11-25T01:56:51.140Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2510,7 +2509,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 86.5,
+        "freshDocumentPct": 86.6,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2519,7 +2518,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-24T20:10:44.818Z",
+    "generatedAt": "2026-11-25T01:58:13.928Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3096,8 +3095,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -3130,7 +3129,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -3143,8 +3142,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-10-05",
@@ -3176,23 +3175,12 @@
                   },
                   {
                     "week": "2026-11-23",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d7ffd659df03d5dd343f",
-                  "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                  "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                  "date": "2026-11-24"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -3601,15 +3589,7 @@
               "bandwidthMultiplier": 2.67,
               "capacityMultiplier": 2.02
             },
-            "evidenceStream": [
-              {
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -4275,8 +4255,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4309,7 +4289,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -4322,8 +4302,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-10-05",
@@ -4355,23 +4335,12 @@
                   },
                   {
                     "week": "2026-11-23",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d7ffd659df03d5dd343f",
-                  "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                  "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                  "date": "2026-11-24"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -4753,15 +4722,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -4930,8 +4891,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4964,7 +4925,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -5397,15 +5358,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "해설: Lens의 반도체 전략은 Apple의 중국 공급업체에게 가치 사슬을 향상시킬 수 있는 길을 제공",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261124vl207/apple-investment-packaging-manufacturing-industrial.html",
-                "date": "2026-11-24"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "공식 인프라 공개",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -5488,7 +5441,7 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 6,
+            "mentions": 4,
             "sourceCount": 3,
             "officialEvidenceCount": 0,
             "weekly": [
@@ -5522,7 +5475,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 5
+                "count": 3
               }
             ],
             "painAxes": [
@@ -5535,8 +5488,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-10-05",
@@ -5568,23 +5521,12 @@
                   },
                   {
                     "week": "2026-11-23",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d7ffd659df03d5dd343f",
-                  "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                  "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                  "date": "2026-11-24"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -5989,11 +5931,11 @@
                 "date": "2026-11-24"
               },
               {
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
+                "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+                "source": "TrendForce",
+                "sourceClass": "news",
+                "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+                "date": "2026-11-11"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -7469,8 +7411,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -7503,7 +7445,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -7516,8 +7458,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-10-05",
@@ -7549,23 +7491,12 @@
                   },
                   {
                     "week": "2026-11-23",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d7ffd659df03d5dd343f",
-                  "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                  "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                  "date": "2026-11-24"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -7974,15 +7905,7 @@
               "bandwidthMultiplier": 2.67,
               "capacityMultiplier": 2.02
             },
-            "evidenceStream": [
-              {
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -9888,7 +9811,7 @@
             {
               "id": "bandwidth",
               "label": "대역폭",
-              "mentions": 1
+              "mentions": 0
             },
             {
               "id": "capacity",
@@ -9929,7 +9852,7 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 1
+                  "mentions": 0
                 },
                 {
                   "id": "capacity",
@@ -9998,7 +9921,7 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 2
+                  "mentions": 0
                 },
                 {
                   "id": "capacity",
@@ -10525,7 +10448,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
@@ -10558,7 +10481,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 2
+                "mentions": 0
               },
               {
                 "id": "capacity",
@@ -10584,7 +10507,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
@@ -10610,7 +10533,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
@@ -10636,7 +10559,7 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
@@ -11102,7 +11025,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 6,
+          "mentions": 4,
           "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -11136,7 +11059,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 5
+              "count": 3
             }
           ],
           "painAxes": [
@@ -11149,8 +11072,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -11182,23 +11105,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -11603,11 +11515,11 @@
               "date": "2026-11-24"
             },
             {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
+              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+              "source": "TrendForce",
+              "sourceClass": "news",
+              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+              "date": "2026-11-11"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -12416,8 +12328,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -12450,7 +12362,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -12463,8 +12375,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -12496,23 +12408,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -12921,15 +12822,7 @@
             "bandwidthMultiplier": 2.67,
             "capacityMultiplier": 2.02
           },
-          "evidenceStream": [
-            {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -13595,8 +13488,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13629,7 +13522,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -13642,8 +13535,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -13675,23 +13568,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -14073,15 +13955,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -16565,8 +16439,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -16599,7 +16473,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -17032,15 +16906,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "해설: Lens의 반도체 전략은 Apple의 중국 공급업체에게 가치 사슬을 향상시킬 수 있는 길을 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl207/apple-investment-packaging-manufacturing-industrial.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -19404,8 +19270,8 @@
             "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
           },
           "servesAccounts": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -19438,7 +19304,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -19871,15 +19737,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Factory 확장",
           "chipPortfolio": [],
           "stageLedger": {
@@ -20455,7 +20313,7 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 3,
+          "mentions": 2,
           "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -20489,21 +20347,21 @@
             },
             {
               "week": "2026-11-23",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -20535,32 +20393,21 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "634b71f7c17229530384",
-                "title": "TSMC says advanced semiconductor capacity remains in short supply amid booming AI demand",
-                "summary": "TSMC는 반도체가 더 넓은 AI 추세에서 계속해서 없어서는 안 될 핵심 역할을 하고 있다고 말하면서 첨단 공정 기술에 대한 수요가 여전히 강하고 생산 능력이 부족할 것이라고 지적",
-                "text": "digitimes.com aidemand tsmc says advanced semiconductor capacity remains in short supply amid booming ai demand tsmc said semiconductors continue to play an indispensable and central role in the broader ai trend, noting that demand for advanced process technologies remains strong and capacity will remain tight. tsmc says advanced semiconductor capacity remains in short supply amid booming ai demand tsmc는 반도체가 더 넓은 ai 추세에서 계속해서 없어서는 안 될 핵심 역할을 하고 있다고 말하면서 첨단 공정 기술에 대한 수요가 여전히 강하고 생산 능력이 부족할 것이라고 지적",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261123pd239/market-taiwan-demand-tsmc-capacity.html",
-                "date": "2026-11-23"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20940,13 +20787,6 @@
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261124vl226/tsmc-texas-arizona-investment-manufacturing.html",
               "date": "2026-11-24"
-            },
-            {
-              "title": "TSMC says advanced semiconductor capacity remains in short supply amid booming AI demand",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261123pd239/market-taiwan-demand-tsmc-capacity.html",
-              "date": "2026-11-23"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -22537,7 +22377,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-24T20:10:44.818Z",
+        "updatedAt": "2026-11-25T01:58:13.928Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23199,14 +23039,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                  "date": "2026-11-24"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#30A59D",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
                 "source": {
@@ -23306,14 +23139,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                  "date": "2026-11-24"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23513,14 +23339,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "해설: Lens의 반도체 전략은 Apple의 중국 공급업체에게 가치 사슬을 향상시킬 수 있는 길을 제공",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261124vl207/apple-investment-packaging-manufacturing-industrial.html",
-                  "date": "2026-11-24"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
                 "source": {
@@ -23640,14 +23459,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "gpu-cloud",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
-                  "date": "2026-11-24"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#407AA5",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
                 "source": {
@@ -23986,7 +23798,7 @@
                   "url": "https://www.digitimes.com/news/a20261124vl226/tsmc-texas-arizona-investment-manufacturing.html",
                   "date": "2026-11-24"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 2,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24699,14 +24511,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#30A59D",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
             "source": {
@@ -24806,14 +24611,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -25013,14 +24811,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "해설: Lens의 반도체 전략은 Apple의 중국 공급업체에게 가치 사슬을 향상시킬 수 있는 길을 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl207/apple-investment-packaging-manufacturing-industrial.html",
-              "date": "2026-11-24"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
             "source": {
@@ -25239,14 +25030,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "gpu-cloud",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
-              "date": "2026-11-24"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#407AA5",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
             "source": {
@@ -25336,7 +25120,7 @@
               "url": "https://www.digitimes.com/news/a20261124vl226/tsmc-texas-arizona-investment-manufacturing.html",
               "date": "2026-11-24"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 2,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -27861,77 +27645,13 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
@@ -27958,11 +27678,11 @@
               "date": "2026-11-24"
             },
             {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
+              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+              "source": "TrendForce",
+              "sourceClass": "news",
+              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+              "date": "2026-11-11"
             }
           ]
         },
@@ -27988,68 +27708,7 @@
           "headline": "Google · 7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
           "layer": "end-customer",
           "decisionQuestion": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "measured",
@@ -28082,22 +27741,11 @@
             "bandwidthMultiplier": 2.67,
             "capacityMultiplier": 2.02
           },
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "microsoft",
@@ -28121,89 +27769,17 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "oracle",
@@ -28288,15 +27864,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "해설: Lens의 반도체 전략은 Apple의 중국 공급업체에게 가치 사슬을 향상시킬 수 있는 길을 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl207/apple-investment-packaging-manufacturing-industrial.html",
-              "date": "2026-11-24"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "marvell",
@@ -28364,15 +27932,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
-              "date": "2026-11-24"
-            }
-          ]
+          "evidence": []
         }
       ],
       "verifiedAccounts": 4,
@@ -28454,7 +28014,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 6,
+          "mentions": 4,
           "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -28488,7 +28048,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 5
+              "count": 3
             }
           ],
           "painAxes": [
@@ -28501,8 +28061,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -28534,23 +28094,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -28955,11 +28504,11 @@
               "date": "2026-11-24"
             },
             {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
+              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+              "source": "TrendForce",
+              "sourceClass": "news",
+              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+              "date": "2026-11-11"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -29768,8 +29317,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -29802,7 +29351,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -29815,8 +29364,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -29848,23 +29397,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -30273,15 +29811,7 @@
             "bandwidthMultiplier": 2.67,
             "capacityMultiplier": 2.02
           },
-          "evidenceStream": [
-            {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "TPU7x 제공 · TPU 8t/8i 발표",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -30947,8 +30477,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -30981,7 +30511,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -30994,8 +30524,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -31027,23 +30557,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d7ffd659df03d5dd343f",
-                "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-                "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "text": "digitimes.com hbm analysis: samsung, sk hynix look beyond nvidia as huang returns jensen huang's return as nvidia ceo has eased concerns among south korean memory chipmakers over high-bandwidth memory (hbm) supply agreements and next-generation chip development, but growing demand for ai processors from google, amazon, and other technology companies continues to reshape the memory market. 분석: 황이 복귀함에 따라 삼성, skhy는 nvidia를 넘어설 것으로 보임 · jensen huang이 nvidia ceo로 복귀하면서 고대역폭 메모리(hbm) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 google, amazon 및 기타 기술 기업의 ai 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-                "date": "2026-11-24"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -31425,15 +30944,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -33917,8 +33428,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -33951,7 +33462,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -34384,15 +33895,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "해설: Lens의 반도체 전략은 Apple의 중국 공급업체에게 가치 사슬을 향상시킬 수 있는 길을 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl207/apple-investment-packaging-manufacturing-industrial.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -36227,8 +35730,8 @@
             "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
           },
           "servesAccounts": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -36261,7 +35764,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -36694,15 +36197,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Nvidia GPU가 ASIC, 메모리보다 더 큰 성장 압력에 직면함에 따라 네오클라우드 자금 조달이 강화",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124pd207/financing-data-center-growth-investment-policy.html",
-              "date": "2026-11-24"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Factory 확장",
           "chipPortfolio": [],
           "stageLedger": {
@@ -38475,8 +37970,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "accountIds": [],
           "weekly": [
             {
@@ -38509,7 +38004,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 2
+              "count": 1
             }
           ],
           "latest": {
@@ -38523,7 +38018,7 @@
             "url": "https://www.digitimes.com/news/a20261124vl219/infineon-automotive-industrial-humanoid-robot-gan-development.html",
             "date": "2026-11-24"
           },
-          "promotionStatus": "ai-d-e-opportunity"
+          "promotionStatus": "monitoring"
         },
         {
           "id": "autonomous",
@@ -38660,8 +38155,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-10-05",
@@ -38693,9 +38188,20 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "265af9ba5e1220b53072",
+            "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+            "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
+            "text": "sandisk.com nand scaling the memory wall: behind sandisk’s high bandwidth flash for ai ... high bandwidth flash (hbf)—a new form of nand—delivers performance within 2.2% of unlimited-capacity hbm, while offering a significant increase in memory capacity—unlocking ai services that traditional hbm simply can’t support. powered by sandisk’s cba (cmos directly bonded to array) technology, hbf sets a new standard for high-bandwidth memory, combining exceptional speed, density, and energy efficiency in a single architecture. 메모리 벽 확장: ai용 sandisk의 고대역폭 플래시 뒤에 ... 새로운 형태의 nand인 고대역폭 플래시(hbf)는 무제한 용량 hbm의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 hbm이 지원할 수 없는 ai 서비스를 제공 · sandisk의 cba(cmos direct bonded to array) 기술로 구동되는 hbf는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
+            "source": "sandisk.com",
+            "sourceClass": "official",
+            "origin": "live-crawl",
+            "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+            "date": "2026-11-24"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38887,8 +38393,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-10-05",
@@ -38920,19 +38426,9 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "b5b33f00c657947a830a",
-            "title": "반도체, 휴머노이드 로봇, CPO를 모두 잡아라! 동유다 \"올메이드\", 첨단 장비 사업 기회 활용",
-            "summary": "Dongyouda Automation은 올해 '2026년 타이중 무인 차량 및 로봇 응용 전시회'에 참가하여 반도체 자동화, 휴머노이드 로봇 부품, 공동 패키지 광학(CPO)의 세 가지 주요 제품 라인에 중점을 두었음 · 정밀 변속기, 모션 제어 및 핵심 부품 제조 역량을 결합하여 고급 장비의 적용을 심화하고 다음 단계의 성장 모멘텀을 마련",
-            "source": "technews.tw",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://technews.tw/2026/11/24/component-manufacturing",
-            "date": "2026-11-24"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39412,9 +38908,9 @@
           ],
           "latest": {
             "id": "62ff7427f923c77b5963",
-            "title": "공유 CXL 메모리 풀에는 정체될 수 있는 가파른 소프트웨어 세금이 부과",
+            "title": "공유 CXL 메모리 풀에는 다중 서버 확장을 지연시킬 수 있는 높은 소프트웨어 세금이 부과",
             "summary": "메모리 제조업체가 공유 CXL 풀을 AI KV 캐시의 본거지로 사용하면서 결과가 나왔음",
-            "text": "tomshardware.com cxl shared cxl memory pools come with steep software tax that could stall ... the results land as memory makers push shared cxl pools as a home for ai’s kv cache. 공유 cxl 메모리 풀에는 정체될 수 있는 가파른 소프트웨어 세금이 부과 · 메모리 제조업체가 공유 cxl 풀을 ai kv 캐시의 본거지로 사용하면서 결과가 나왔음",
+            "text": "tomshardware.com cxl shared cxl memory pools come with steep software tax that could stall multi-server scaling the results land as memory makers push shared cxl pools as a home for ai’s kv cache. 공유 cxl 메모리 풀에는 다중 서버 확장을 지연시킬 수 있는 높은 소프트웨어 세금이 부과 · 메모리 제조업체가 공유 cxl 풀을 ai kv 캐시의 본거지로 사용하면서 결과가 나왔음",
             "source": "tomshardware.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -39758,7 +39254,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-24T20:09:17.092Z",
+        "generatedAt": "2026-11-25T01:56:51.366Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39841,10 +39337,10 @@
         "evidence": {
           "status": "official-fact",
           "label": "공식 확인",
-          "stage": "상업 출하",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/en/q2-2026-business-results",
-          "asOf": "2026-07-29"
+          "stage": "공개",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "asOf": "2026-11-24"
         }
       },
       {
@@ -39876,7 +39372,25 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "Stock up on storage with 4TB T-Force G50 SSD at just $0.10 per GB",
+        "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도,…",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+        "source": "sandisk.com",
+        "publishedAt": "2026-11-24",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "GB당 단 $0.10의 가격으로 4TB T-Force G50 SSD로 스토리지를 확보하세요",
+        "summary": "기타 대용량 드라이브의 가격은 GB당 $0.12~$0.15 또는 그 이상",
         "url": "https://www.tomshardware.com/pc-components/ssds/stock-up-on-storage-with-4tb-t-force-g50-ssd-at-just-usd0-10-per-gb-entry-level-pcie-4-0-drive-offers-decent-performance-and-lots-of-capacity",
         "source": "tomshardware.com",
         "publishedAt": "2026-11-23",
@@ -39896,6 +39410,23 @@
         "ageDays": 2
       },
       {
+        "title": "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
+        "summary": "AI용 고대역폭, 고용량 메모리에 대한 수요 급증으로 인해 글로벌 메모리 거대 기업들은 마진이 더 높은 제품에 생산 및 R&D 자원을 집중하게 되었고, 이로 인해 자동차 메모리에 대한 장기 계약이 압박을 받고 있음 · 메모리 공급업체가 자동차 제조업체의 긴 계약 절차를 진행하는 것을 꺼리면서 대만 메모리 회사는 이익을…",
+        "url": "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-25",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
         "title": "RAM 가격 추적 2026",
         "summary": "DDR5 메모리 키트를 선택하든 DDR4 메모리 키트를 선택하든 가격은 크게 변동 · 좋은 RAM 거래를 찾아내는 것은 어렵기 때문에 현재 메모리 키트의 최저 가격을 나열",
         "url": "https://www.tomshardware.com/gift-guides-seasonal-sales/ram-price-tracking-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities",
@@ -39913,7 +39444,7 @@
         "ageDays": 1
       },
       {
-        "title": "공유 CXL 메모리 풀에는 정체될 수 있는 가파른 소프트웨어 세금이 부과",
+        "title": "공유 CXL 메모리 풀에는 다중 서버 확장을 지연시킬 수 있는 높은 소프트웨어 세금이 부과",
         "summary": "메모리 제조업체가 공유 CXL 풀을 AI KV 캐시의 본거지로 사용하면서 결과가 나왔음",
         "url": "https://www.tomshardware.com/pc-components/dram/shared-cxl-memory-pools-come-with-steep-software-tax-that-could-stall-multi-server-scaling-ut-arlington-shares-real-world-test-that-measured-four-servers-sharing-the-same-pool-at-sc26",
         "source": "tomshardware.com",
@@ -39933,40 +39464,6 @@
         "title": "한국 보고서에 따르면 2029년까지 삼성 메모리 용량은 대부분 계약 상태에 있음",
         "summary": "AI 데이터 센터 수요는 메모리 공급 협상을 수년 후로 추진하고 있음 · 삼성전자의 2027년부터 2029년까지 메모리칩 생산능력 대부분은 이미 계약에 따라 확보됐다고 국내 매체가 21일 이 문제에 정통한 관계자를 인용해 보도 · 삼성은 이 보고서를 공개적으로 확인하지 않았음",
         "url": "https://www.digitimes.com/news/a20261124VL220/samsung-capacity-demand-data-center-2027.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-24",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "ASML은 미국의 MATCH 법안이 역효과를 낳을 수 있으며 중국의 팹이 통제할 수 없을 정도로 운영될 수 있다고 경고",
-        "summary": "US Congress is accelerating efforts to advance the Multilateral Alignment of Technology Controls on Hardware Act (MATCH Act) following a series of dramatic developments surroundin…",
-        "url": "https://www.digitimes.com/news/a20261124PD226.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-24",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "분석: 황이 복귀함에 따라 삼성, SKHY는 Nvidia를 넘어설 것으로 보임",
-        "summary": "Jensen Huang이 Nvidia CEO로 복귀하면서 고대역폭 메모리(HBM) 공급 계약과 차세대 칩 개발에 대한 한국 메모리 칩 제조업체들의 우려가 완화되었지만 Google, Amazon 및 기타 기술 기업의 AI 프로세서에 대한 수요가 증가하면서 메모리 시장이 계속해서 재편되고 있음",
-        "url": "https://www.digitimes.com/news/a20261124VL217/nvidia-samsung-jensen-huang-sk-hynix-ceo.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-24",
         "sourceClass": "authoritative-media",
@@ -40123,11 +39620,11 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "마이크론, 대만, 싱가포르에 HBM 투자 강화",
-          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "title": "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261124VL216/micron-hbm-investment-taiwan-production.html",
-          "publishedAt": "2026-11-24",
+          "url": "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html",
+          "publishedAt": "2026-11-25",
           "evidenceLevel": "Reported"
         }
       },
@@ -40170,12 +39667,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "Zenitron은 2H27에 새로운 메모리 용량을 확보하더라도 DRAM 부족이 거의 해소되지 않을 것으로 보고 있음",
-          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261124PD212.html",
-          "publishedAt": "2026-11-24",
-          "evidenceLevel": "Reported"
+          "title": "SK hynix Newsroom · 공식 Baseline",
+          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/",
+          "publishedAt": "2026-11-25T01:58:13.928Z",
+          "evidenceLevel": "Official baseline"
         }
       },
       {
@@ -40218,12 +39715,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "TSMC says advanced semiconductor capacity remains in short supply amid booming AI demand",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261123PD239/market-taiwan-demand-tsmc-capacity.html",
-          "publishedAt": "2026-11-23",
-          "evidenceLevel": "Reported"
+          "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "publishedAt": "2026-11-24",
+          "evidenceLevel": "Confirmed"
         }
       }
     ],
@@ -40265,8 +39762,8 @@
       },
       "enabled": true
     },
-    "runId": "45474668316",
-    "generatedAt": "2026-11-24T20:10:44.818Z",
+    "runId": "45527698723",
+    "generatedAt": "2026-11-25T01:58:13.928Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40604,8 +40101,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "45474668316",
-    "generatedAt": "2026-11-24T20:10:44.818Z",
+    "runId": "45527698723",
+    "generatedAt": "2026-11-25T01:58:13.928Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41304,10 +40801,24 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "monitoring"
+        "status": "fresh"
       }
     ],
-    "signals": [],
+    "signals": [
+      {
+        "id": "sandisk-newsroom-data-2026-11-24",
+        "pillar": "data",
+        "pillarLabel": "DATA / STORAGE",
+        "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
+        "source": "Sandisk Newsroom",
+        "sourceId": "sandisk-newsroom",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+        "publishedAt": "2026-11-24",
+        "evidenceLevel": "Watch",
+        "sourceClass": "official"
+      }
+    ],
     "pillarCoverage": [
       {
         "id": "facility",
@@ -41329,9 +40840,9 @@
         "id": "data",
         "label": "DATA / STORAGE",
         "configured": 6,
-        "observed": 0,
-        "fresh": 0,
-        "status": "coverage-gap"
+        "observed": 1,
+        "fresh": 1,
+        "status": "fresh"
       },
       {
         "id": "orchestration",
@@ -41368,7 +40879,7 @@
     ],
     "automation": {
       "status": "SOURCE-CONNECTED",
-      "activePillars": 0,
+      "activePillars": 1,
       "totalPillars": 7,
       "activeWorkloads": 6,
       "promotedWorkloads": 0,
@@ -41377,8 +40888,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-24T20:10:44.818Z",
-    "runId": "45474668316"
+    "generatedAt": "2026-11-25T01:58:13.928Z",
+    "runId": "45527698723"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41619,12 +41130,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.6,
+        "freshnessScore": 91.8,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-24T20:09:16.651Z"
+        "indexedAt": "2026-11-25T01:56:51.140Z"
       }
     },
     "sources": [
@@ -41757,12 +41268,12 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "monitoring"
+        "status": "fresh"
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-24T20:10:44.818Z",
-    "runId": "45474668316"
+    "generatedAt": "2026-11-25T01:58:13.928Z",
+    "runId": "45527698723"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41776,7 +41287,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
-        "subtitle": "digitimes.com · 2026-11-24",
+        "subtitle": "sandisk.com · 2026-11-24",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41789,20 +41300,20 @@
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
           "pending": false,
-          "title": "마이크론, 대만, 싱가포르에 HBM 투자 강화",
-          "summary": "마이크론테크놀로지가 삼성전자, SKHY와의 생산능력 격차를 줄이기 위해 대만과 싱가포르에서 고대역폭메모리(HBM) 생산 투자를 늘리고 있음",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261124VL216/micron-hbm-investment-taiwan-production.html",
+          "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+          "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
           "publishedAt": "2026-11-24",
-          "evidenceLevel": "Reported",
-          "sourceClass": "authoritative-media"
+          "evidenceLevel": "Confirmed",
+          "sourceClass": "official"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 1,
         "signals": [
           [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "마이크론, 대만, 싱가포르에 HBM 투자 강화",
-            "마이크론테크놀로지가 삼성전자, SKHY와의 생산능력 격차를 줄이기 위해 대만과 싱가포르에서 고대역폭메모리(HBM) 생산 투자를 늘리고 있음"
+            "Confirmed · OFFICIAL",
+            "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+            "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41889,9 +41400,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-11-24",
-            "https://www.digitimes.com/news/a20261124VL216/micron-hbm-investment-taiwan-production.html"
+            "Confirmed",
+            "sandisk.com · 2026-11-24",
+            "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai"
           ],
           [
             "CONTROL",
@@ -41928,7 +41439,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-24T20:10:44.818Z"
+          "publishedAt": "2026-11-25T01:58:13.928Z"
         },
         "evidenceCount": 9,
         "signals": [
@@ -42050,9 +41561,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-24T20:10:44.818Z"
+          "publishedAt": "2026-11-25T01:58:13.928Z"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 5,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42159,7 +41670,6 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
-        "subtitle": "digitimes.com · 2026-11-24",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -42171,22 +41681,15 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": false,
-          "title": "Zenitron은 2H27에 새로운 메모리 용량을 확보하더라도 DRAM 부족이 거의 해소되지 않을 것으로 보고 있음",
-          "summary": "IC 유통업체인 Zenitron은 2027년 하반기에 새로운 메모리 생산 능력이 가동되어 전반적인 공급이 완화될 것으로 예상하고 있음 · 그럼에도 불구하고, 메모리 가격이 조정되더라도 붕괴될 가능성은 거의 없는 반면, DRAM은 매우 타이트한 상태를 유지하고 있다고 Andrew Chou 공동 CEO는 말했음",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261124PD212.html",
-          "publishedAt": "2026-11-24",
-          "evidenceLevel": "Reported",
-          "sourceClass": "authoritative-media"
+          "pending": true,
+          "title": "DRAM·범용 가격",
+          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-11-25T01:58:13.928Z",
+          "evidenceLevel": "Watch",
+          "sourceClass": "unclassified"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 4,
         "signals": [
-          [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "Zenitron은 2H27에 새로운 메모리 용량을 확보하더라도 DRAM 부족이 거의 해소되지 않을 것으로 보고 있음",
-            "IC 유통업체인 Zenitron은 2027년 하반기에 새로운 메모리 생산 능력이 가동되어 전반적인 공급이 완화될 것으로 예상하고 있음 · 그럼에도 불구하고, 메모리 가격이 조정되더라도 붕괴될 가능성은 거의 없는 반면, DRAM은 매우 타이트한 상태를 유지하고 있다고 Andrew Chou 공동 CEO는 말했음"
-          ],
           [
             "EXECUTIVE DECISION",
             "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
@@ -42270,11 +41773,6 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-11-24",
-            "https://www.digitimes.com/news/a20261124PD212.html"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42295,7 +41793,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "digitimes.com · 2026-11-23",
+        "subtitle": "digitimes.com · 2026-11-25",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42308,11 +41806,11 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "TSMC says advanced semiconductor capacity remains in short supply amid booming AI demand",
-          "summary": "TSMC는 반도체가 더 넓은 AI 추세에서 계속해서 없어서는 안 될 핵심 역할을 하고 있다고 말하면서 첨단 공정 기술에 대한 수요가 여전히 강하고 생산 능력이 부족할 것이라고 지적",
+          "title": "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
+          "summary": "AI용 고대역폭, 고용량 메모리에 대한 수요 급증으로 인해 글로벌 메모리 거대 기업들은 마진이 더 높은 제품에 생산 및 R&D 자원을 집중하게 되었고, 이로 인해 자동차 메모리에 대한 장기 계약이 압박을 받고 있음 · 메모리 공급업체가 자동차 제조업체의 긴 계약 절차를 진행하는 것을 꺼리면서 대만 메모리 회사는 이익을 얻고 있지만 주류 자동차 제조업체의 요구 사항은 생산 재배치 중에 변경될 가능성 낮음",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261123PD239/market-taiwan-demand-tsmc-capacity.html",
-          "publishedAt": "2026-11-23",
+          "url": "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html",
+          "publishedAt": "2026-11-25",
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
@@ -42320,8 +41818,8 @@
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
-            "TSMC says advanced semiconductor capacity remains in short supply amid booming AI demand",
-            "TSMC는 반도체가 더 넓은 AI 추세에서 계속해서 없어서는 안 될 핵심 역할을 하고 있다고 말하면서 첨단 공정 기술에 대한 수요가 여전히 강하고 생산 능력이 부족할 것이라고 지적"
+            "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
+            "AI용 고대역폭, 고용량 메모리에 대한 수요 급증으로 인해 글로벌 메모리 거대 기업들은 마진이 더 높은 제품에 생산 및 R&D 자원을 집중하게 되었고, 이로 인해 자동차 메모리에 대한 장기 계약이 압박을 받고 있음 · 메모리 공급업체가 자동차 제조업체의 긴 계약 절차를 진행하는 것을 꺼리면서 대만 메모리 회사는 이익을 얻고 있지만 주류 자동차 제조업체의 요구 사항은 생산 재배치 중에 변경될 가능성 낮음"
           ],
           [
             "EXECUTIVE DECISION",
@@ -42410,8 +41908,8 @@
         "sources": [
           [
             "Reported",
-            "digitimes.com · 2026-11-23",
-            "https://www.digitimes.com/news/a20261123PD239/market-taiwan-demand-tsmc-capacity.html"
+            "digitimes.com · 2026-11-25",
+            "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html"
           ],
           [
             "CONTROL",
@@ -42448,7 +41946,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-24T20:10:44.818Z"
+          "publishedAt": "2026-11-25T01:58:13.928Z"
         },
         "evidenceCount": 9,
         "signals": [
