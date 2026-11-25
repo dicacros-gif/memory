@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "45527698723",
-  "generatedAt": "2026-11-25T01:58:13.928Z",
-  "expiresAt": "2026-11-26T03:58:12.221Z",
+  "runId": "45568602479",
+  "generatedAt": "2026-11-25T07:46:54.882Z",
+  "expiresAt": "2026-11-26T09:46:52.620Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-25T01:56:51.140Z",
-    "runId": "45527698723",
+    "generatedAt": "2026-11-25T07:45:26.381Z",
+    "runId": "45568602479",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,59 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "48bb67145d1b0dd9f78e",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-24",
-        "changed": true
-      },
-      {
-        "id": "23dbbdd25b2c274c982e",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-24",
-        "changed": true
-      },
-      {
-        "id": "336fa67a9db9fd115ff3",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-11-24",
-        "changed": true
-      },
-      {
-        "id": "385b5b41ab6e4924c46c",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "sandisk-newsroom",
-        "source": "sandisk.com",
-        "sourceClass": "official",
-        "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "publishedAt": "2026-11-24",
-        "changed": false
-      },
-      {
-        "id": "8f9b39ca7bff9adbe72f",
+        "id": "4592ad156d47118b0063",
         "ruleId": "full-stack-memory-portfolio",
         "label": "Full-Stack AI Memory Portfolio",
         "priority": "quarterly",
@@ -184,10 +132,10 @@
         "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
         "url": "https://news.skhynix.com/en/dtf-2026",
         "publishedAt": "2026-08-26",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "286a830cce93b857661f",
+        "id": "4560bd08dc5f10a9aee2",
         "ruleId": "oem-rack-roadmap",
         "label": "Server OEM · Rack Platform Roadmap",
         "priority": "immediate",
@@ -197,23 +145,10 @@
         "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
         "url": "https://news.skhynix.com/en/dtf-2026",
         "publishedAt": "2026-08-26",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "d0a9d630319f93ff2d58",
-        "ruleId": "hbf-standardization-stage",
-        "label": "HBF Standard → Lighthouse PoC",
-        "priority": "immediate",
-        "sourceId": "trendforce.com",
-        "source": "Trendforce",
-        "sourceClass": "research",
-        "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
-        "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
-        "publishedAt": "2026-08-14",
-        "changed": false
-      },
-      {
-        "id": "72f4c1c197318d96dc00",
+        "id": "595c699f2458ada3e5c6",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
@@ -223,70 +158,83 @@
         "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
         "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
         "publishedAt": "2026-08-07",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "ee2e8a588f82c8b7b3e4",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "marvell-custom-hbm",
-        "source": "Marvell Custom HBM Compute",
-        "sourceClass": "official",
-        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
-        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-        "publishedAt": "2026-08-05",
-        "changed": false
-      },
-      {
-        "id": "b09f11bbb8d2e4ae8fac",
-        "ruleId": "hbf-standardization-stage",
-        "label": "HBF Standard → Lighthouse PoC",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "03d1894ebe386b1c4d1d",
+        "id": "b53288f946ca0cbfdf92",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
         "sourceId": "skhynix-newsroom",
         "source": "SK hynix Newsroom",
         "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
+        "title": "“Overcoming Technological Limits Requires the Integration of Memory and Logic”: SK hynix Presents Vision at TSMC Symposium",
+        "url": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
+        "publishedAt": "2026-04-23",
+        "changed": true
       },
       {
-        "id": "d68f89e9a3676800c266",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
+        "id": "ff8255e5311b96308dae",
+        "ruleId": "full-stack-memory-portfolio",
+        "label": "Full-Stack AI Memory Portfolio",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "“Overcoming Technological Limits Requires the Integration of Memory and Logic”: SK hynix Presents Vision at TSMC Symposium",
+        "url": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
+        "publishedAt": "2026-04-23",
+        "changed": true
+      },
+      {
+        "id": "7223dfed3edaee903084",
+        "ruleId": "memory-centric-compute",
+        "label": "PIM · CXL Pooling · 3D Stacked DRAM",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "“Overcoming Technological Limits Requires the Integration of Memory and Logic”: SK hynix Presents Vision at TSMC Symposium",
+        "url": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
+        "publishedAt": "2026-04-23",
+        "changed": true
+      },
+      {
+        "id": "609b26c10e510b1bb190",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
         "sourceId": "skhynix-newsroom",
         "source": "SK hynix Newsroom",
         "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
+        "title": "SK hynix Begins Mass Production of 192GB SOCAMM2 ‘Setting a New Standard for AI Server Memory Performance’",
+        "url": "https://news.skhynix.com/en/mass-production-socamm2-192gb",
+        "publishedAt": "2026-04-20",
+        "changed": true
+      },
+      {
+        "id": "055c2d26516ad65522b5",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "semi-analysis",
+        "source": "newsletter.semianalysis.com",
+        "sourceClass": "research",
+        "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+        "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
+        "publishedAt": "2026-11-24",
         "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-25T01:56:51.140Z",
+      "generatedAt": "2026-11-25T07:45:26.381Z",
       "stats": {
         "eligibleDocuments": 41,
-        "structuredEvents": 38,
-        "verifiedEvents": 33,
+        "structuredEvents": 39,
+        "verifiedEvents": 32,
         "currentStages": 32,
-        "newEvents": 1,
+        "newEvents": 2,
         "contradictionReviews": 0
       },
       "events": [
@@ -416,6 +364,37 @@
           "claimType": "verified-fact",
           "asOf": "2026-04-20",
           "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
+          "id": "e15edd616c153b5ad6ad",
+          "ruleId": "competitor-ramp",
+          "eventType": "competitive-stage",
+          "label": "경쟁사 Ramp·고객 공급",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "hbm4",
+            "label": "HBM4"
+          },
+          "stage": {
+            "id": "QUALIFICATION",
+            "rank": 50
+          },
+          "metrics": [],
+          "evidenceSpan": "HBM4, Custom Base Die, Shoreline Expansion, Process Flow, China Domestic Production, Samsung Qualification",
+          "source": "newsletter.semianalysis.com",
+          "sourceId": "semi-analysis",
+          "sourceClass": "research",
+          "sourceUrl": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
+          "publishedAt": "2026-11-24",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-11-24",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
@@ -601,39 +580,6 @@
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
           "asOf": "2024-04-19",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
-          "id": "d5ebbb3cf99711065933",
-          "ruleId": "capacity-commitment",
-          "eventType": "commercial-commitment",
-          "label": "CapEx·Capacity·장기 물량",
-          "entity": {
-            "id": "industry",
-            "label": "Memory industry"
-          },
-          "product": {
-            "id": "hbf",
-            "label": "HBF"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [
-            "2.2%"
-          ],
-          "evidenceSpan": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support",
-          "source": "sandisk.com",
-          "sourceId": "sandisk-newsroom",
-          "sourceClass": "official",
-          "sourceUrl": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-11-24",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-11-24",
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
@@ -829,8 +775,8 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 157,
-        "structuredEvents": 38,
-        "verifiedEvents": 33,
+        "structuredEvents": 39,
+        "verifiedEvents": 32,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
@@ -858,8 +804,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -870,8 +816,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -882,7 +828,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +839,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +851,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,8 +863,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -929,7 +875,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +886,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +898,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +910,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +922,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +934,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +946,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1012,8 +958,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +970,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +982,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +993,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1069,8 +1015,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1027,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1038,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1050,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1062,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1073,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1085,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1107,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1119,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1130,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1142,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1153,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1165,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1177,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1189,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1201,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1213,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1225,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
-            "lastUsefulObservationAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
+            "lastUsefulObservationAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1237,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-25T01:56:46.993Z",
+            "lastSuccessAt": "2026-11-25T07:45:22.945Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,12 +1272,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-25T01:56:51.140Z",
+          "updatedAt": "2026-11-25T07:45:26.381Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Samsung · HBM4 · QUALIFICATION",
+          "sourceStage": "QUALIFICATION",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "confirmed-primary",
+          "confidence": "research-observed",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1361,26 +1307,26 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 8,
-          "officialFactCount": 6,
-          "marketEstimateCount": 2,
+          "officialFactCount": 5,
+          "marketEstimateCount": 3,
           "independentSources": 4,
-          "primaryEvidence": 6,
-          "verifiedClaims": 12,
+          "primaryEvidence": 5,
+          "verifiedClaims": 11,
           "evidence": [
             {
-              "id": "d5ebbb3cf99711065933",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "id": "e15edd616c153b5ad6ad",
+              "ruleId": "competitor-ramp",
+              "title": "Samsung · HBM4 · QUALIFICATION",
+              "source": "newsletter.semianalysis.com",
+              "sourceId": "semi-analysis",
+              "sourceClass": "research",
+              "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
               "publishedAt": "2026-11-24",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
+              "stage": "QUALIFICATION",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
               "asOf": "2026-11-24",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+              "excerpt": "HBM4, Custom Base Die, Shoreline Expansion, Process Flow, China Domestic Production, Samsung Qualification"
             },
             {
               "score": 3.5,
@@ -1455,12 +1401,12 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-25T01:56:51.140Z",
+          "updatedAt": "2026-11-25T07:45:26.381Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Samsung · HBM4 · QUALIFICATION",
+          "sourceStage": "QUALIFICATION",
           "stage": "ARCHITECTURE_BENCHMARK",
-          "confidence": "confirmed-primary",
+          "confidence": "research-observed",
           "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1491,26 +1437,26 @@
           "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
           "killCriteria": "동일 품질·SLO 조건에서 $/query와 Goodput/W 두 지표 모두 SW-only가 우위이면 HW 제안을 중단(2개 지표 기준)",
           "evidenceCount": 8,
-          "officialFactCount": 6,
-          "marketEstimateCount": 2,
+          "officialFactCount": 5,
+          "marketEstimateCount": 3,
           "independentSources": 6,
-          "primaryEvidence": 6,
-          "verifiedClaims": 7,
+          "primaryEvidence": 5,
+          "verifiedClaims": 6,
           "evidence": [
             {
-              "id": "d5ebbb3cf99711065933",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "id": "b78925360b05391516d6",
+              "ruleId": "hbm4-production-stage",
+              "title": "Samsung · HBM4 · QUALIFICATION",
+              "source": "newsletter.semianalysis.com",
+              "sourceId": "semi-analysis",
+              "sourceClass": "research",
+              "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
               "publishedAt": "2026-11-24",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
+              "stage": "QUALIFICATION",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
               "asOf": "2026-11-24",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+              "excerpt": "HBM4, Custom Base Die, Shoreline Expansion, Process Flow, China Domestic Production, Samsung Qualification"
             },
             {
               "score": 1.75,
@@ -1584,12 +1530,12 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-25T01:56:51.140Z",
+          "updatedAt": "2026-11-25T07:45:26.381Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "latestSignal": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
           "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1620,25 +1566,10 @@
           "evidenceCount": 8,
           "officialFactCount": 7,
           "marketEstimateCount": 1,
-          "independentSources": 6,
+          "independentSources": 5,
           "primaryEvidence": 7,
-          "verifiedClaims": 10,
+          "verifiedClaims": 9,
           "evidence": [
-            {
-              "id": "d5ebbb3cf99711065933",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-11-24",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-11-24",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
             {
               "score": 1.75,
               "chunkId": "ac6a8a33909268274891",
@@ -1700,6 +1631,21 @@
               "claimType": "verified-fact",
               "asOf": "2026-08-26",
               "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
+            },
+            {
+              "id": "7196f7790653c9406e26",
+              "ruleId": "hbf-standardization-stage",
+              "title": "Sandisk · HBF · STANDARDIZATION",
+              "source": "Trendforce",
+              "sourceId": "trendforce.com",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+              "publishedAt": "2026-08-14",
+              "stage": "STANDARDIZATION",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-14",
+              "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
             }
           ]
         },
@@ -1711,12 +1657,12 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-25T01:56:51.140Z",
+          "updatedAt": "2026-11-25T07:45:26.381Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+          "sourceStage": "ANNOUNCED",
           "stage": "SCALE_GATE",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1746,27 +1692,12 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "officialFactCount": 8,
-          "marketEstimateCount": 0,
+          "officialFactCount": 7,
+          "marketEstimateCount": 1,
           "independentSources": 4,
-          "primaryEvidence": 8,
-          "verifiedClaims": 13,
+          "primaryEvidence": 7,
+          "verifiedClaims": 12,
           "evidence": [
-            {
-              "id": "d5ebbb3cf99711065933",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-11-24",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-11-24",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
             {
               "score": 2.75,
               "chunkId": "e9338b77f001c4b7083c",
@@ -1830,18 +1761,34 @@
               "sourceChangeDetectedAt": "2026-11-20T17:29:02.562Z",
               "freshnessDays": 365,
               "documentStatus": "current"
+            },
+            {
+              "id": "23573c07e31f7af6e053",
+              "ruleId": "partner-codesign",
+              "feedId": "skhynix-hbf-open-standard",
+              "title": "SK hynix · HBF · ANNOUNCED",
+              "source": "SK hynix Newsroom",
+              "sourceId": "skhynix-newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+              "publishedAt": "2026-08-04",
+              "stage": "ANNOUNCED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-08-04",
+              "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
             }
           ]
         }
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 9,
-        "fresh": 4,
-        "observationRatePct": 6.1,
+        "observed": 10,
+        "fresh": 7,
+        "observationRatePct": 6.8,
         "officialConfigured": 123,
-        "officialObserved": 2,
-        "officialFresh": 2,
+        "officialObserved": 1,
+        "officialFresh": 1,
         "targetPct": 90
       }
     },
@@ -2098,11 +2045,11 @@
       "stats": {
         "documents": 157,
         "chunks": 602,
-        "added": 1,
-        "changed": 1,
-        "unchanged": 39,
+        "added": 0,
+        "changed": 8,
+        "unchanged": 33,
         "retained": 116,
-        "reindexed": 2
+        "reindexed": 8
       },
       "packs": [
         {
@@ -2155,8 +2102,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
               "publishedAt": "2026-08-07",
-              "indexedAt": "2026-11-05T12:10:22.691Z",
-              "sourceChangeDetectedAt": "2026-11-05T12:10:14.458Z",
+              "indexedAt": "2026-11-25T07:45:26.381Z",
+              "sourceChangeDetectedAt": "2026-11-25T07:45:22.945Z",
               "stale": false
             },
             {
@@ -2414,8 +2361,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/dtf-2026",
               "publishedAt": "2026-08-26",
-              "indexedAt": "2026-11-20T00:06:47.435Z",
-              "sourceChangeDetectedAt": "2026-11-20T00:06:42.979Z",
+              "indexedAt": "2026-11-25T07:45:26.381Z",
+              "sourceChangeDetectedAt": "2026-11-25T07:45:22.945Z",
               "stale": false
             },
             {
@@ -2424,8 +2371,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/dtf-2026",
               "publishedAt": "2026-08-26",
-              "indexedAt": "2026-11-20T00:06:47.435Z",
-              "sourceChangeDetectedAt": "2026-11-20T00:06:42.979Z",
+              "indexedAt": "2026-11-25T07:45:26.381Z",
+              "sourceChangeDetectedAt": "2026-11-25T07:45:22.945Z",
               "stale": false
             },
             {
@@ -2463,7 +2410,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.8,
+      "score": 92.1,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2481,25 +2428,25 @@
         "contentAge": 96.6,
         "embeddingLag": 100,
         "staleRetrievalRate": 73.1,
-        "coverageDrift": 98.4
+        "coverageDrift": 100
       },
       "diagnostics": {
         "staleRetrievalRatePct": 26.9,
         "feedCoveragePct": 85.4,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0.8,
+        "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
         "currentPct": 95.1,
-        "previousPct": 95.9
+        "previousPct": 95.1
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-25T01:55:27.573Z",
-        "indexedAt": "2026-11-25T01:56:51.140Z"
+        "sourceChangeDetectedAt": "2026-11-25T07:45:22.945Z",
+        "indexedAt": "2026-11-25T07:45:26.381Z"
       },
-      "generatedAt": "2026-11-25T01:56:51.140Z"
+      "generatedAt": "2026-11-25T07:45:26.381Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2518,7 +2465,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-25T01:58:13.928Z",
+    "generatedAt": "2026-11-25T07:46:54.882Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5441,7 +5388,7 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 4,
+            "mentions": 3,
             "sourceCount": 3,
             "officialEvidenceCount": 0,
             "weekly": [
@@ -5475,7 +5422,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 3
+                "count": 2
               }
             ],
             "painAxes": [
@@ -5724,6 +5671,61 @@
             ],
             "whyLost": [
               {
+                "id": "spec-gate",
+                "index": "3",
+                "label": "스펙 게이트",
+                "productIds": [],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-02",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-09",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-16",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-11-23",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "a953d1452d6f2ae9dd0b",
+                  "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
+                  "summary": "엔비디아는 앞서 광범위한 논란을 불러일으켰던 백그라운드 녹화 오류를 완전히 수정하는 데 초점을 맞춘 지포스 게임 레디(GeForce Game Ready)와 스튜디오 621.40 WHQL 드라이버를 24일 공식 출시 · 이 문제로 인해 일부 Windows 시스템은 유휴 상태에서도 SSD에 계속해서 비정상적으로 쓰기를 수행 · 일부 사용자들은 쓰기량이 놀라울 정도라고 보고해 솔리드 스테이트 드라이브(Solid-State Drive)의 수명이 손상될 수 있다는 우려가 제기되기도 했음",
+                  "source": "technews.tw",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+                  "date": "2026-11-25"
+                }
+              },
+              {
                 "id": "pricing",
                 "index": "1",
                 "label": "가격 정책",
@@ -5772,51 +5774,6 @@
                 "id": "one-stop",
                 "index": "2",
                 "label": "원스톱 통합",
-                "productIds": [],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-02",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-09",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-16",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-11-23",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "spec-gate",
-                "index": "3",
-                "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5910,25 +5867,18 @@
             },
             "evidenceStream": [
               {
-                "title": "Jen-Hsun Huang이 Huida를 장악하기 위해 돌아왔고, 주식 시장은 급등하고 있으며, 대만 공장의 AI 공급망의 영향을 한눈에 볼 수 있음",
+                "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
                 "source": "technews.tw",
                 "sourceClass": "authoritative-media",
-                "url": "https://technews.tw/2026/11/24/jensen-return-and-its-impact-on-taiwan-ai-supply-chain",
-                "date": "2026-11-24"
+                "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+                "date": "2026-11-25"
               },
               {
-                "title": "Jensen Huang의 Nvidia 복귀로 글로벌 시장 랠리가 촉발되면서 대만 주식이 9% 이상 급등",
+                "title": "Jensen Huang은 여전히 GPU 부족의 인질로 남아 있는 중국의 기업용 SSD 복구와 함께 Nvidia로 돌아왔음",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261124vl215/jensen-huang-nvidia-recovery-market-taiwan.html?chid=10",
-                "date": "2026-11-24"
-              },
-              {
-                "title": "ASML은 미국의 MATCH 법안이 역효과를 낳을 수 있으며 중국의 팹이 통제할 수 없을 정도로 운영될 수 있다고 경고",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261124pd226.html",
-                "date": "2026-11-24"
+                "url": "https://www.digitimes.com/news/a20261125pd203/nvidia-jensen-huang-ssd-production-market.html",
+                "date": "2026-11-25"
               },
               {
                 "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -11025,7 +10975,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
+          "mentions": 3,
           "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -11059,7 +11009,641 @@
             },
             {
               "week": "2026-11-23",
-              "count": 3
+              "count": 2
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "spec-gate",
+              "index": "3",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a953d1452d6f2ae9dd0b",
+                "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
+                "summary": "엔비디아는 앞서 광범위한 논란을 불러일으켰던 백그라운드 녹화 오류를 완전히 수정하는 데 초점을 맞춘 지포스 게임 레디(GeForce Game Ready)와 스튜디오 621.40 WHQL 드라이버를 24일 공식 출시 · 이 문제로 인해 일부 Windows 시스템은 유휴 상태에서도 SSD에 계속해서 비정상적으로 쓰기를 수행 · 일부 사용자들은 쓰기량이 놀라울 정도라고 보고해 솔리드 스테이트 드라이브(Solid-State Drive)의 수명이 손상될 수 있다는 우려가 제기되기도 했음",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+                "date": "2026-11-25"
+              }
+            },
+            {
+              "id": "pricing",
+              "index": "1",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "2",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "4",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [
+            {
+              "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+              "date": "2026-11-25"
+            },
+            {
+              "title": "Jensen Huang은 여전히 GPU 부족의 인질로 남아 있는 중국의 기업용 SSD 복구와 함께 Nvidia로 돌아왔음",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261125pd203/nvidia-jensen-huang-ssd-production-market.html",
+              "date": "2026-11-25"
+            },
+            {
+              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+              "source": "TrendForce",
+              "sourceClass": "news",
+              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+              "date": "2026-11-11"
+            }
+          ],
+          "chipStage": "공식 플랫폼 공개",
+          "stageLedger": {
+            "stage": "DESIGN",
+            "label": "Custom HBM 공동설계 근거",
+            "source": {
+              "id": "aws-nvidia-trainium4-nvhbm-2026",
+              "name": "AWS × NVIDIA Trainium4 and NVHBM",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+              "domains": [
+                "nvidianews.nvidia.com"
+              ],
+              "topics": [
+                "trainium4",
+                "nvlink-fusion",
+                "nvhbm",
+                "annapurna-labs",
+                "rack-scale"
+              ],
+              "roles": [
+                "customer",
+                "partnership",
+                "technology",
+                "demand"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:nvidianews.nvidia.com AWS Trainium4 NVHBM NVLink Fusion"
+              ],
+              "enabled": true
+            }
+          }
+        },
+        {
+          "id": "dell",
+          "layer": "end-customer",
+          "focus": true,
+          "demandClass": "rack-platform",
+          "group": "server-oem",
+          "company": "Dell Technologies",
+          "chip": "Dell AI Factory · PowerEdge XE9812 (Vera Rubin NVL72, 2H 2026) · XE9712 (GB200/GB300 세대)",
+          "aliases": [
+            "dell",
+            "dell technologies",
+            "dell ai factory",
+            "poweredge",
+            "xe9712",
+            "xe9812"
+          ],
+          "baseline": [
+            {
+              "label": "RACK PLATFORM",
+              "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+              }
+            },
+            {
+              "label": "MARKET MOTION",
+              "value": "Dell AI Factory · Agentic AI",
+              "sourceId": "dell-agentic-ai-2026",
+              "source": {
+                "id": "dell-agentic-ai-2026",
+                "name": "Dell Technologies · Agentic AI Infrastructure",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "PowerEdge XE9712",
+              "type": "INTEGRATED RACK · SERVER OEM",
+              "workload": "Training · Reasoning · Agentic Inference",
+              "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
+              "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
+              "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
+              "evidenceLabel": "OFFICIAL RACK PLATFORM",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+                "sourceClass": "official"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+          "buyingCriteria": [
+            "Rack Power",
+            "Liquid Cooling",
+            "System Qualification",
+            "Cost/Task",
+            "Time-to-Deploy"
+          ],
+          "oemChannel": {
+            "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
+            "brandOems": [
+              "Dell",
+              "HPE",
+              "Lenovo",
+              "Supermicro"
+            ],
+            "odms": [
+              "Foxconn",
+              "QCT",
+              "Wiwynn"
+            ],
+            "sourceId": "nvidia-blackwell-oem-ecosystem"
+          },
+          "accent": "#B48E46",
+          "newsQueries": [
+            "Dell AI Factory PowerEdge memory",
+            "Dell XE9712 GB200 NVL72",
+            "Dell agentic AI data center"
+          ],
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
+            "source": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "asOf": "2026-05-18"
+          },
+          "servesAccounts": [],
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-10-05",
+              "count": 0
+            },
+            {
+              "week": "2026-10-12",
+              "count": 0
+            },
+            {
+              "week": "2026-10-19",
+              "count": 0
+            },
+            {
+              "week": "2026-10-26",
+              "count": 0
+            },
+            {
+              "week": "2026-11-02",
+              "count": 0
+            },
+            {
+              "week": "2026-11-09",
+              "count": 0
+            },
+            {
+              "week": "2026-11-16",
+              "count": 0
+            },
+            {
+              "week": "2026-11-23",
+              "count": 1
             }
           ],
           "painAxes": [
@@ -11494,636 +12078,13 @@
           },
           "evidenceStream": [
             {
-              "title": "Jen-Hsun Huang이 Huida를 장악하기 위해 돌아왔고, 주식 시장은 급등하고 있으며, 대만 공장의 AI 공급망의 영향을 한눈에 볼 수 있음",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/24/jensen-return-and-its-impact-on-taiwan-ai-supply-chain",
-              "date": "2026-11-24"
-            },
-            {
-              "title": "Jensen Huang의 Nvidia 복귀로 글로벌 시장 랠리가 촉발되면서 대만 주식이 9% 이상 급등",
+              "title": "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl215/jensen-huang-nvidia-recovery-market-taiwan.html?chid=10",
-              "date": "2026-11-24"
-            },
-            {
-              "title": "ASML은 미국의 MATCH 법안이 역효과를 낳을 수 있으며 중국의 팹이 통제할 수 없을 정도로 운영될 수 있다고 경고",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124pd226.html",
-              "date": "2026-11-24"
-            },
-            {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
+              "url": "https://www.digitimes.com/news/a20261125vl210/dell-demand-2027-infrastructure-dram.html",
+              "date": "2026-11-25"
             }
           ],
-          "chipStage": "공식 플랫폼 공개",
-          "stageLedger": {
-            "stage": "DESIGN",
-            "label": "Custom HBM 공동설계 근거",
-            "source": {
-              "id": "aws-nvidia-trainium4-nvhbm-2026",
-              "name": "AWS × NVIDIA Trainium4 and NVHBM",
-              "tier": "primary-customer",
-              "sourceClass": "official",
-              "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
-              "domains": [
-                "nvidianews.nvidia.com"
-              ],
-              "topics": [
-                "trainium4",
-                "nvlink-fusion",
-                "nvhbm",
-                "annapurna-labs",
-                "rack-scale"
-              ],
-              "roles": [
-                "customer",
-                "partnership",
-                "technology",
-                "demand"
-              ],
-              "languages": [
-                "en"
-              ],
-              "freshnessHours": 168,
-              "discoveryQueries": [
-                "site:nvidianews.nvidia.com AWS Trainium4 NVHBM NVLink Fusion"
-              ],
-              "enabled": true
-            }
-          }
-        },
-        {
-          "id": "dell",
-          "layer": "end-customer",
-          "focus": true,
-          "demandClass": "rack-platform",
-          "group": "server-oem",
-          "company": "Dell Technologies",
-          "chip": "Dell AI Factory · PowerEdge XE9812 (Vera Rubin NVL72, 2H 2026) · XE9712 (GB200/GB300 세대)",
-          "aliases": [
-            "dell",
-            "dell technologies",
-            "dell ai factory",
-            "poweredge",
-            "xe9712",
-            "xe9812"
-          ],
-          "baseline": [
-            {
-              "label": "RACK PLATFORM",
-              "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
-              "sourceId": "dell-xe9712-rack",
-              "source": {
-                "id": "dell-xe9712-rack",
-                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
-                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
-              }
-            },
-            {
-              "label": "MARKET MOTION",
-              "value": "Dell AI Factory · Agentic AI",
-              "sourceId": "dell-agentic-ai-2026",
-              "source": {
-                "id": "dell-agentic-ai-2026",
-                "name": "Dell Technologies · Agentic AI Infrastructure",
-                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
-              }
-            }
-          ],
-          "chipPortfolio": [
-            {
-              "name": "PowerEdge XE9712",
-              "type": "INTEGRATED RACK · SERVER OEM",
-              "workload": "Training · Reasoning · Agentic Inference",
-              "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
-              "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
-              "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
-              "evidenceLabel": "OFFICIAL RACK PLATFORM",
-              "sourceId": "dell-xe9712-rack",
-              "source": {
-                "id": "dell-xe9712-rack",
-                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
-                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
-                "sourceClass": "official"
-              }
-            }
-          ],
-          "stage": "고객 제안 단계 검토",
-          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
-          "memory": "HBM4 · Server DRAM · CXL · eSSD",
-          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
-          "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
-          "buyingCriteria": [
-            "Rack Power",
-            "Liquid Cooling",
-            "System Qualification",
-            "Cost/Task",
-            "Time-to-Deploy"
-          ],
-          "oemChannel": {
-            "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
-            "brandOems": [
-              "Dell",
-              "HPE",
-              "Lenovo",
-              "Supermicro"
-            ],
-            "odms": [
-              "Foxconn",
-              "QCT",
-              "Wiwynn"
-            ],
-            "sourceId": "nvidia-blackwell-oem-ecosystem"
-          },
-          "accent": "#B48E46",
-          "newsQueries": [
-            "Dell AI Factory PowerEdge memory",
-            "Dell XE9712 GB200 NVL72",
-            "Dell agentic AI data center"
-          ],
-          "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
-            "source": "Dell Technologies · Agentic AI Infrastructure",
-            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-            "asOf": "2026-05-18"
-          },
-          "servesAccounts": [],
-          "mentions": 0,
-          "sourceCount": 0,
-          "officialEvidenceCount": 0,
-          "weekly": [
-            {
-              "week": "2026-10-05",
-              "count": 0
-            },
-            {
-              "week": "2026-10-12",
-              "count": 0
-            },
-            {
-              "week": "2026-10-19",
-              "count": 0
-            },
-            {
-              "week": "2026-10-26",
-              "count": 0
-            },
-            {
-              "week": "2026-11-02",
-              "count": 0
-            },
-            {
-              "week": "2026-11-09",
-              "count": 0
-            },
-            {
-              "week": "2026-11-16",
-              "count": 0
-            },
-            {
-              "week": "2026-11-23",
-              "count": 0
-            }
-          ],
-          "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            }
-          ],
-          "whyLost": [
-            {
-              "id": "pricing",
-              "index": "1",
-              "label": "가격 정책",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "one-stop",
-              "index": "2",
-              "label": "원스톱 통합",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "spec-gate",
-              "index": "3",
-              "label": "스펙 게이트",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "diversification",
-              "index": "4",
-              "label": "의도적 다변화",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            }
-          ],
-          "generationProgression": {
-            "status": "insufficient",
-            "generations": []
-          },
-          "evidenceStream": [],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -20352,6 +20313,65 @@
           ],
           "painAxes": [
             {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "6c4d05964469f07976ed",
+                "title": "Taipower, 대만 남부의 TSMC 주도 칩 붐을 위해 그리드에 NT$1096억 투자",
+                "summary": "Taiwan Power Company(Taipower)는 대만 남부에서 확장 중인 반도체 제조업체의 급증하는 전력 수요를 충족하기 위해 송전 및 변전 인프라에 NT$1096억(미화 33억3천만 달러)을 투자할 계획 · 이번 투자에는 대만 남부 과학단지(STSP)의 세 번째 초고압 변전소가 포함되어 S 회랑으로 알려진 이 지역의 성장하는 반도체 산업 클러스터에 대한 전력 공급을 강화하게 됩니다",
+                "text": "digitimes.com aidemand taipower to pour nt$109.6 billion into grid for tsmc-led chip boom in southern taiwan taiwan power company (taipower) plans to invest nt$109.6 billion (us$3.33 billion) in power transmission and transformation infrastructure to meet surging electricity demand from semiconductor manufacturers expanding in southern taiwan. the investment will include a third ultra-high-voltage substation at the southern taiwan science park (stsp), reinforcing power supply to the region's growing semiconductor industry cluster, known as the s corridor. taipower, 대만 남부의 tsmc 주도 칩 붐을 위해 그리드에 nt$1096억 투자 taiwan power company(taipower)는 대만 남부에서 확장 중인 반도체 제조업체의 급증하는 전력 수요를 충족하기 위해 송전 및 변전 인프라에 nt$1096억(미화 33억3천만 달러)을 투자할 계획 · 이번 투자에는 대만 남부 과학단지(stsp)의 세 번째 초고압 변전소가 포함되어 s 회랑으로 알려진 이 지역의 성장하는 반도체 산업 클러스터에 대한 전력 공급을 강화하게 됩니다",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261125pd217/taiwan-power-company-taiwan-expansion-infrastructure-transmission.html",
+                "date": "2026-11-25"
+              }
+            },
+            {
               "id": "bandwidth",
               "index": "1",
               "label": "대역폭",
@@ -20408,54 +20428,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20782,11 +20754,11 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있음",
+              "title": "Taipower, 대만 남부의 TSMC 주도 칩 붐을 위해 그리드에 NT$1096억 투자",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl226/tsmc-texas-arizona-investment-manufacturing.html",
-              "date": "2026-11-24"
+              "url": "https://www.digitimes.com/news/a20261125pd217/taiwan-power-company-taiwan-expansion-infrastructure-transmission.html",
+              "date": "2026-11-25"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -22377,7 +22349,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-25T01:58:13.928Z",
+        "updatedAt": "2026-11-25T07:46:54.882Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -22585,7 +22557,7 @@
                   "decisionImpact": "GPU 물량만 보지 않고 Trainium/GPU 혼합 Rack의 Memory Attach·전력·Qualification 시점을 공동 추적",
                   "status": "공식 전략 협력",
                   "effectiveAt": "2026-08-26",
-                  "ageMonths": 2,
+                  "ageMonths": 3,
                   "freshnessBand": "current",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -23513,13 +23485,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Jen-Hsun Huang이 Huida를 장악하기 위해 돌아왔고, 주식 시장은 급등하고 있으며, 대만 공장의 AI 공급망의 영향을 한눈에 볼 수 있음",
+                  "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
                   "source": "technews.tw",
                   "sourceClass": "authoritative-media",
-                  "url": "https://technews.tw/2026/11/24/jensen-return-and-its-impact-on-taiwan-ai-supply-chain",
-                  "date": "2026-11-24"
+                  "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+                  "date": "2026-11-25"
                 },
-                "evidenceCount": 4,
+                "evidenceCount": 3,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23792,11 +23764,11 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있음",
+                  "title": "Taipower, 대만 남부의 TSMC 주도 칩 붐을 위해 그리드에 NT$1096억 투자",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261124vl226/tsmc-texas-arizona-investment-manufacturing.html",
-                  "date": "2026-11-24"
+                  "url": "https://www.digitimes.com/news/a20261125pd217/taiwan-power-company-taiwan-expansion-infrastructure-transmission.html",
+                  "date": "2026-11-25"
                 },
                 "evidenceCount": 2,
                 "accent": "#647785",
@@ -24008,7 +23980,14 @@
                 },
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261125vl210/dell-demand-2027-infrastructure-dram.html",
+                  "date": "2026-11-25"
+                },
+                "evidenceCount": 1,
                 "accent": "#c0aa7f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
                 "source": {
@@ -24402,13 +24381,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Jen-Hsun Huang이 Huida를 장악하기 위해 돌아왔고, 주식 시장은 급등하고 있으며, 대만 공장의 AI 공급망의 영향을 한눈에 볼 수 있음",
+              "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
               "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/24/jensen-return-and-its-impact-on-taiwan-ai-supply-chain",
-              "date": "2026-11-24"
+              "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+              "date": "2026-11-25"
             },
-            "evidenceCount": 4,
+            "evidenceCount": 3,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24462,7 +24441,14 @@
             },
             "demandClass": "rack-platform",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261125vl210/dell-demand-2027-infrastructure-dram.html",
+              "date": "2026-11-25"
+            },
+            "evidenceCount": 1,
             "accent": "#c0aa7f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
             "source": {
@@ -25114,11 +25100,11 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있음",
+              "title": "Taipower, 대만 남부의 TSMC 주도 칩 붐을 위해 그리드에 NT$1096억 투자",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl226/tsmc-texas-arizona-investment-manufacturing.html",
-              "date": "2026-11-24"
+              "url": "https://www.digitimes.com/news/a20261125pd217/taiwan-power-company-taiwan-expansion-infrastructure-transmission.html",
+              "date": "2026-11-25"
             },
             "evidenceCount": 2,
             "accent": "#647785",
@@ -25676,7 +25662,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-08-26",
-            "ageMonths": 2,
+            "ageMonths": 3,
             "freshnessBand": "current",
             "status": "공식 공동 설계",
             "source": {
@@ -25697,7 +25683,7 @@
                 "decisionImpact": "GPU 물량만 보지 않고 Trainium/GPU 혼합 Rack의 Memory Attach·전력·Qualification 시점을 공동 추적",
                 "status": "공식 전략 협력",
                 "effectiveAt": "2026-08-26",
-                "ageMonths": 2,
+                "ageMonths": 3,
                 "freshnessBand": "current",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -27120,7 +27106,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-08-26",
-            "ageMonths": 2,
+            "ageMonths": 3,
             "freshnessBand": "current",
             "status": "공식 전략 파트너",
             "source": {
@@ -27646,7 +27632,63 @@
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
           "topPainAxes": [],
-          "whyLost": [],
+          "whyLost": [
+            {
+              "id": "spec-gate",
+              "index": "3",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a953d1452d6f2ae9dd0b",
+                "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
+                "summary": "엔비디아는 앞서 광범위한 논란을 불러일으켰던 백그라운드 녹화 오류를 완전히 수정하는 데 초점을 맞춘 지포스 게임 레디(GeForce Game Ready)와 스튜디오 621.40 WHQL 드라이버를 24일 공식 출시 · 이 문제로 인해 일부 Windows 시스템은 유휴 상태에서도 SSD에 계속해서 비정상적으로 쓰기를 수행 · 일부 사용자들은 쓰기량이 놀라울 정도라고 보고해 솔리드 스테이트 드라이브(Solid-State Drive)의 수명이 손상될 수 있다는 우려가 제기되기도 했음",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+                "date": "2026-11-25"
+              }
+            }
+          ],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
@@ -27657,25 +27699,18 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Jen-Hsun Huang이 Huida를 장악하기 위해 돌아왔고, 주식 시장은 급등하고 있으며, 대만 공장의 AI 공급망의 영향을 한눈에 볼 수 있음",
+              "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
               "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/24/jensen-return-and-its-impact-on-taiwan-ai-supply-chain",
-              "date": "2026-11-24"
+              "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+              "date": "2026-11-25"
             },
             {
-              "title": "Jensen Huang의 Nvidia 복귀로 글로벌 시장 랠리가 촉발되면서 대만 주식이 9% 이상 급등",
+              "title": "Jensen Huang은 여전히 GPU 부족의 인질로 남아 있는 중국의 기업용 SSD 복구와 함께 Nvidia로 돌아왔음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl215/jensen-huang-nvidia-recovery-market-taiwan.html?chid=10",
-              "date": "2026-11-24"
-            },
-            {
-              "title": "ASML은 미국의 MATCH 법안이 역효과를 낳을 수 있으며 중국의 팹이 통제할 수 없을 정도로 운영될 수 있다고 경고",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124pd226.html",
-              "date": "2026-11-24"
+              "url": "https://www.digitimes.com/news/a20261125pd203/nvidia-jensen-huang-ssd-production-market.html",
+              "date": "2026-11-25"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -27701,7 +27736,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261125vl210/dell-demand-2027-infrastructure-dram.html",
+              "date": "2026-11-25"
+            }
+          ]
         },
         {
           "accountId": "google",
@@ -28014,7 +28057,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
+          "mentions": 3,
           "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -28048,7 +28091,641 @@
             },
             {
               "week": "2026-11-23",
-              "count": 3
+              "count": 2
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "spec-gate",
+              "index": "3",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a953d1452d6f2ae9dd0b",
+                "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
+                "summary": "엔비디아는 앞서 광범위한 논란을 불러일으켰던 백그라운드 녹화 오류를 완전히 수정하는 데 초점을 맞춘 지포스 게임 레디(GeForce Game Ready)와 스튜디오 621.40 WHQL 드라이버를 24일 공식 출시 · 이 문제로 인해 일부 Windows 시스템은 유휴 상태에서도 SSD에 계속해서 비정상적으로 쓰기를 수행 · 일부 사용자들은 쓰기량이 놀라울 정도라고 보고해 솔리드 스테이트 드라이브(Solid-State Drive)의 수명이 손상될 수 있다는 우려가 제기되기도 했음",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+                "date": "2026-11-25"
+              }
+            },
+            {
+              "id": "pricing",
+              "index": "1",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "2",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "4",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [
+            {
+              "title": "NVIDIA는 SSD 배경 비정상 쓰기 재해를 공식적으로 해결하기 위해 GeForce 621.40 WHQL 인증 드라이버를 출시",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/11/25/nvidia-621-40-driver-fixes-ssd-abnormal-writes-excessive-background-log-flushing-risk",
+              "date": "2026-11-25"
+            },
+            {
+              "title": "Jensen Huang은 여전히 GPU 부족의 인질로 남아 있는 중국의 기업용 SSD 복구와 함께 Nvidia로 돌아왔음",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261125pd203/nvidia-jensen-huang-ssd-production-market.html",
+              "date": "2026-11-25"
+            },
+            {
+              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+              "source": "TrendForce",
+              "sourceClass": "news",
+              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+              "date": "2026-11-11"
+            }
+          ],
+          "chipStage": "공식 플랫폼 공개",
+          "stageLedger": {
+            "stage": "DESIGN",
+            "label": "Custom HBM 공동설계 근거",
+            "source": {
+              "id": "aws-nvidia-trainium4-nvhbm-2026",
+              "name": "AWS × NVIDIA Trainium4 and NVHBM",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+              "domains": [
+                "nvidianews.nvidia.com"
+              ],
+              "topics": [
+                "trainium4",
+                "nvlink-fusion",
+                "nvhbm",
+                "annapurna-labs",
+                "rack-scale"
+              ],
+              "roles": [
+                "customer",
+                "partnership",
+                "technology",
+                "demand"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:nvidianews.nvidia.com AWS Trainium4 NVHBM NVLink Fusion"
+              ],
+              "enabled": true
+            }
+          }
+        },
+        {
+          "id": "dell",
+          "layer": "end-customer",
+          "focus": true,
+          "demandClass": "rack-platform",
+          "group": "server-oem",
+          "company": "Dell Technologies",
+          "chip": "Dell AI Factory · PowerEdge XE9812 (Vera Rubin NVL72, 2H 2026) · XE9712 (GB200/GB300 세대)",
+          "aliases": [
+            "dell",
+            "dell technologies",
+            "dell ai factory",
+            "poweredge",
+            "xe9712",
+            "xe9812"
+          ],
+          "baseline": [
+            {
+              "label": "RACK PLATFORM",
+              "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+              }
+            },
+            {
+              "label": "MARKET MOTION",
+              "value": "Dell AI Factory · Agentic AI",
+              "sourceId": "dell-agentic-ai-2026",
+              "source": {
+                "id": "dell-agentic-ai-2026",
+                "name": "Dell Technologies · Agentic AI Infrastructure",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "PowerEdge XE9712",
+              "type": "INTEGRATED RACK · SERVER OEM",
+              "workload": "Training · Reasoning · Agentic Inference",
+              "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
+              "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
+              "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
+              "evidenceLabel": "OFFICIAL RACK PLATFORM",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+                "sourceClass": "official"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+          "buyingCriteria": [
+            "Rack Power",
+            "Liquid Cooling",
+            "System Qualification",
+            "Cost/Task",
+            "Time-to-Deploy"
+          ],
+          "oemChannel": {
+            "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
+            "brandOems": [
+              "Dell",
+              "HPE",
+              "Lenovo",
+              "Supermicro"
+            ],
+            "odms": [
+              "Foxconn",
+              "QCT",
+              "Wiwynn"
+            ],
+            "sourceId": "nvidia-blackwell-oem-ecosystem"
+          },
+          "accent": "#B48E46",
+          "newsQueries": [
+            "Dell AI Factory PowerEdge memory",
+            "Dell XE9712 GB200 NVL72",
+            "Dell agentic AI data center"
+          ],
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
+            "source": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "asOf": "2026-05-18"
+          },
+          "servesAccounts": [],
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-10-05",
+              "count": 0
+            },
+            {
+              "week": "2026-10-12",
+              "count": 0
+            },
+            {
+              "week": "2026-10-19",
+              "count": 0
+            },
+            {
+              "week": "2026-10-26",
+              "count": 0
+            },
+            {
+              "week": "2026-11-02",
+              "count": 0
+            },
+            {
+              "week": "2026-11-09",
+              "count": 0
+            },
+            {
+              "week": "2026-11-16",
+              "count": 0
+            },
+            {
+              "week": "2026-11-23",
+              "count": 1
             }
           ],
           "painAxes": [
@@ -28483,636 +29160,13 @@
           },
           "evidenceStream": [
             {
-              "title": "Jen-Hsun Huang이 Huida를 장악하기 위해 돌아왔고, 주식 시장은 급등하고 있으며, 대만 공장의 AI 공급망의 영향을 한눈에 볼 수 있음",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/24/jensen-return-and-its-impact-on-taiwan-ai-supply-chain",
-              "date": "2026-11-24"
-            },
-            {
-              "title": "Jensen Huang의 Nvidia 복귀로 글로벌 시장 랠리가 촉발되면서 대만 주식이 9% 이상 급등",
+              "title": "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124vl215/jensen-huang-nvidia-recovery-market-taiwan.html?chid=10",
-              "date": "2026-11-24"
-            },
-            {
-              "title": "ASML은 미국의 MATCH 법안이 역효과를 낳을 수 있으며 중국의 팹이 통제할 수 없을 정도로 운영될 수 있다고 경고",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261124pd226.html",
-              "date": "2026-11-24"
-            },
-            {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
+              "url": "https://www.digitimes.com/news/a20261125vl210/dell-demand-2027-infrastructure-dram.html",
+              "date": "2026-11-25"
             }
           ],
-          "chipStage": "공식 플랫폼 공개",
-          "stageLedger": {
-            "stage": "DESIGN",
-            "label": "Custom HBM 공동설계 근거",
-            "source": {
-              "id": "aws-nvidia-trainium4-nvhbm-2026",
-              "name": "AWS × NVIDIA Trainium4 and NVHBM",
-              "tier": "primary-customer",
-              "sourceClass": "official",
-              "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
-              "domains": [
-                "nvidianews.nvidia.com"
-              ],
-              "topics": [
-                "trainium4",
-                "nvlink-fusion",
-                "nvhbm",
-                "annapurna-labs",
-                "rack-scale"
-              ],
-              "roles": [
-                "customer",
-                "partnership",
-                "technology",
-                "demand"
-              ],
-              "languages": [
-                "en"
-              ],
-              "freshnessHours": 168,
-              "discoveryQueries": [
-                "site:nvidianews.nvidia.com AWS Trainium4 NVHBM NVLink Fusion"
-              ],
-              "enabled": true
-            }
-          }
-        },
-        {
-          "id": "dell",
-          "layer": "end-customer",
-          "focus": true,
-          "demandClass": "rack-platform",
-          "group": "server-oem",
-          "company": "Dell Technologies",
-          "chip": "Dell AI Factory · PowerEdge XE9812 (Vera Rubin NVL72, 2H 2026) · XE9712 (GB200/GB300 세대)",
-          "aliases": [
-            "dell",
-            "dell technologies",
-            "dell ai factory",
-            "poweredge",
-            "xe9712",
-            "xe9812"
-          ],
-          "baseline": [
-            {
-              "label": "RACK PLATFORM",
-              "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
-              "sourceId": "dell-xe9712-rack",
-              "source": {
-                "id": "dell-xe9712-rack",
-                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
-                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
-              }
-            },
-            {
-              "label": "MARKET MOTION",
-              "value": "Dell AI Factory · Agentic AI",
-              "sourceId": "dell-agentic-ai-2026",
-              "source": {
-                "id": "dell-agentic-ai-2026",
-                "name": "Dell Technologies · Agentic AI Infrastructure",
-                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
-              }
-            }
-          ],
-          "chipPortfolio": [
-            {
-              "name": "PowerEdge XE9712",
-              "type": "INTEGRATED RACK · SERVER OEM",
-              "workload": "Training · Reasoning · Agentic Inference",
-              "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
-              "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
-              "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
-              "evidenceLabel": "OFFICIAL RACK PLATFORM",
-              "sourceId": "dell-xe9712-rack",
-              "source": {
-                "id": "dell-xe9712-rack",
-                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
-                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
-                "sourceClass": "official"
-              }
-            }
-          ],
-          "stage": "고객 제안 단계 검토",
-          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
-          "memory": "HBM4 · Server DRAM · CXL · eSSD",
-          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
-          "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
-          "buyingCriteria": [
-            "Rack Power",
-            "Liquid Cooling",
-            "System Qualification",
-            "Cost/Task",
-            "Time-to-Deploy"
-          ],
-          "oemChannel": {
-            "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
-            "brandOems": [
-              "Dell",
-              "HPE",
-              "Lenovo",
-              "Supermicro"
-            ],
-            "odms": [
-              "Foxconn",
-              "QCT",
-              "Wiwynn"
-            ],
-            "sourceId": "nvidia-blackwell-oem-ecosystem"
-          },
-          "accent": "#B48E46",
-          "newsQueries": [
-            "Dell AI Factory PowerEdge memory",
-            "Dell XE9712 GB200 NVL72",
-            "Dell agentic AI data center"
-          ],
-          "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
-            "source": "Dell Technologies · Agentic AI Infrastructure",
-            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-            "asOf": "2026-05-18"
-          },
-          "servesAccounts": [],
-          "mentions": 0,
-          "sourceCount": 0,
-          "officialEvidenceCount": 0,
-          "weekly": [
-            {
-              "week": "2026-10-05",
-              "count": 0
-            },
-            {
-              "week": "2026-10-12",
-              "count": 0
-            },
-            {
-              "week": "2026-10-19",
-              "count": 0
-            },
-            {
-              "week": "2026-10-26",
-              "count": 0
-            },
-            {
-              "week": "2026-11-02",
-              "count": 0
-            },
-            {
-              "week": "2026-11-09",
-              "count": 0
-            },
-            {
-              "week": "2026-11-16",
-              "count": 0
-            },
-            {
-              "week": "2026-11-23",
-              "count": 0
-            }
-          ],
-          "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            }
-          ],
-          "whyLost": [
-            {
-              "id": "pricing",
-              "index": "1",
-              "label": "가격 정책",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "one-stop",
-              "index": "2",
-              "label": "원스톱 통합",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "spec-gate",
-              "index": "3",
-              "label": "스펙 게이트",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "diversification",
-              "index": "4",
-              "label": "의도적 다변화",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            }
-          ],
-          "generationProgression": {
-            "status": "insufficient",
-            "generations": []
-          },
-          "evidenceStream": [],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -36232,11 +36286,9 @@
             "Time-to-Deploy"
           ],
           "source": {
-            "id": "dell-agentic-ai-2026",
-            "name": "Dell Technologies · Agentic AI Infrastructure",
-            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-            "sourceClass": "official",
-            "asOf": "2026-05-18"
+            "name": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261125vl210/dell-demand-2027-infrastructure-dram.html",
+            "asOf": "2026-11-25"
           }
         },
         "accounts": [
@@ -36251,11 +36303,9 @@
             "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
             "tier": "TIER 1",
             "source": {
-              "id": "dell-agentic-ai-2026",
-              "name": "Dell Technologies · Agentic AI Infrastructure",
-              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-              "sourceClass": "official",
-              "asOf": "2026-05-18"
+              "name": "digitimes.com",
+              "url": "https://www.digitimes.com/news/a20261125vl210/dell-demand-2027-infrastructure-dram.html",
+              "asOf": "2026-11-25"
             }
           },
           {
@@ -37970,8 +38020,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "accountIds": [],
           "weekly": [
             {
@@ -38004,20 +38054,9 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "02d1f96cde66dc96536a",
-            "title": "인피니언, 자동차 및 산업용 칩 기술을 적용해 휴머노이드 로봇 개발 발전",
-            "summary": "Infineon Technologies는 기능적 안전, 민첩성 및 전력 효율성이 핵심 개발 우선순위로 떠오르면서 휴머노이드 로봇에 자동차 및 산업용 반도체 기술을 적용하고 있음 · 그러나 상당한 생산을 위한 일정은 시장 요구에 따라 전개될 것",
-            "text": "digitimes.com aidemand infineon adapts automotive and industrial chip technologies to advance the development of humanoid robots infineon technologies is adapting its automotive and industrial semiconductor technologies for humanoid robots, with functional safety, dexterity and power efficiency emerging as key development priorities. however, a timeline for significant production will develop with market needs. 인피니언, 자동차 및 산업용 칩 기술을 적용해 휴머노이드 로봇 개발 발전 infineon technologies는 기능적 안전, 민첩성 및 전력 효율성이 핵심 개발 우선순위로 떠오르면서 휴머노이드 로봇에 자동차 및 산업용 반도체 기술을 적용하고 있음 · 그러나 상당한 생산을 위한 일정은 시장 요구에 따라 전개될 것",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261124vl219/infineon-automotive-industrial-humanoid-robot-gan-development.html",
-            "date": "2026-11-24"
-          },
           "promotionStatus": "monitoring"
         },
         {
@@ -38155,8 +38194,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-10-05",
@@ -38188,20 +38227,9 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "265af9ba5e1220b53072",
-            "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
-            "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-            "text": "sandisk.com nand scaling the memory wall: behind sandisk’s high bandwidth flash for ai ... high bandwidth flash (hbf)—a new form of nand—delivers performance within 2.2% of unlimited-capacity hbm, while offering a significant increase in memory capacity—unlocking ai services that traditional hbm simply can’t support. powered by sandisk’s cba (cmos directly bonded to array) technology, hbf sets a new standard for high-bandwidth memory, combining exceptional speed, density, and energy efficiency in a single architecture. 메모리 벽 확장: ai용 sandisk의 고대역폭 플래시 뒤에 ... 새로운 형태의 nand인 고대역폭 플래시(hbf)는 무제한 용량 hbm의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 hbm이 지원할 수 없는 ai 서비스를 제공 · sandisk의 cba(cmos direct bonded to array) 기술로 구동되는 hbf는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-            "source": "sandisk.com",
-            "sourceClass": "official",
-            "origin": "live-crawl",
-            "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "date": "2026-11-24"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39254,7 +39282,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-25T01:56:51.366Z",
+        "generatedAt": "2026-11-25T07:45:26.778Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39337,10 +39365,10 @@
         "evidence": {
           "status": "official-fact",
           "label": "공식 확인",
-          "stage": "공개",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "asOf": "2026-11-24"
+          "stage": "상업 출하",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/en/q2-2026-business-results",
+          "asOf": "2026-07-29"
         }
       },
       {
@@ -39372,12 +39400,12 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
-        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도,…",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "source": "sandisk.com",
+        "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+        "summary": "HBM4, Custom Base Die, 해안선 확장, 공정 흐름, 중국 국내 생산, 삼성 자격",
+        "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
+        "source": "newsletter.semianalysis.com",
         "publishedAt": "2026-11-24",
-        "sourceClass": "official",
+        "sourceClass": "research",
         "evidenceLevel": "Watch",
         "topics": [
           {
@@ -39389,8 +39417,7 @@
         "ageDays": 1
       },
       {
-        "title": "GB당 단 $0.10의 가격으로 4TB T-Force G50 SSD로 스토리지를 확보하세요",
-        "summary": "기타 대용량 드라이브의 가격은 GB당 $0.12~$0.15 또는 그 이상",
+        "title": "Stock up on storage with 4TB T-Force G50 SSD at just $0.10 per GB",
         "url": "https://www.tomshardware.com/pc-components/ssds/stock-up-on-storage-with-4tb-t-force-g50-ssd-at-just-usd0-10-per-gb-entry-level-pcie-4-0-drive-offers-decent-performance-and-lots-of-capacity",
         "source": "tomshardware.com",
         "publishedAt": "2026-11-23",
@@ -39410,9 +39437,26 @@
         "ageDays": 2
       },
       {
-        "title": "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
-        "summary": "AI용 고대역폭, 고용량 메모리에 대한 수요 급증으로 인해 글로벌 메모리 거대 기업들은 마진이 더 높은 제품에 생산 및 R&D 자원을 집중하게 되었고, 이로 인해 자동차 메모리에 대한 장기 계약이 압박을 받고 있음 · 메모리 공급업체가 자동차 제조업체의 긴 계약 절차를 진행하는 것을 꺼리면서 대만 메모리 회사는 이익을…",
-        "url": "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html",
+        "title": "중국 CSP에 대한 수요 감소로 가격 전망 억제, 2027년 메모리 생산량 증가세 둔화",
+        "summary": "TrendForce의 최신 메모리 산업 조사에 따르면 중국 클라우드 서비스 제공업체(CSP)가 2027년 메모리 주문을 하향 조정함에 따라 NAND 플래시 산업은 공급이 지속적으로 증가함에 따라 가격 하락 사이클에 진입할 것으로 예상 · 따라서 연간 생산량 가치는 이전 추정치보다 약 4,193억 달러로 하향 조정 · D…",
+        "url": "https://technews.tw/2026/11/25/chinese-csp-demand-cut-dampens-price-outlook-memory-value-growth-slows-2027/",
+        "source": "technews.tw",
+        "publishedAt": "2026-11-25",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "메모리 급증으로 인해 2027년까지 일본 모바일 시장 전망이 좌우될 전망",
+        "summary": "Tight memory supply and broader inflation are squeezing Japan's mobile phone market. According to Japanese market research firm MM Research Institute, total handset shipments in J…",
+        "url": "https://www.digitimes.com/news/a20261125PD215/market-shipments-mobile-2027-inflation.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-25",
         "sourceClass": "authoritative-media",
@@ -39427,11 +39471,11 @@
         "ageDays": 0
       },
       {
-        "title": "RAM 가격 추적 2026",
-        "summary": "DDR5 메모리 키트를 선택하든 DDR4 메모리 키트를 선택하든 가격은 크게 변동 · 좋은 RAM 거래를 찾아내는 것은 어렵기 때문에 현재 메모리 키트의 최저 가격을 나열",
-        "url": "https://www.tomshardware.com/gift-guides-seasonal-sales/ram-price-tracking-2026-lowest-price-on-ddr5-and-ddr4-memory-of-all-capacities",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-24",
+        "title": "분석가들은 메모리 공급 과잉 위험 경고, 마이크론 가격 목표 하향",
+        "summary": "MarketWatch는 BNP 파리바 분석가 칼 애커만(Karl Ackerman)이 마이크론에 대한 투자의견을 '우수'에서 '중립'으로 낮추고 목표주가를 1,700달러에서 775달러로 낮췄다고 보도 · 그는 메모리 수요가 예상보다 일찍 정점을 이루고 공급 과잉이 발생할 가능성이 있다고 믿고 있음",
+        "url": "https://finance.technews.tw/2026/11/25/microns-stock-falls-as-an-analyst-warns-about-a-future-supply-glut/",
+        "source": "finance.technews.tw",
+        "publishedAt": "2026-11-25",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39441,14 +39485,14 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
       },
       {
-        "title": "공유 CXL 메모리 풀에는 다중 서버 확장을 지연시킬 수 있는 높은 소프트웨어 세금이 부과",
-        "summary": "메모리 제조업체가 공유 CXL 풀을 AI KV 캐시의 본거지로 사용하면서 결과가 나왔음",
-        "url": "https://www.tomshardware.com/pc-components/dram/shared-cxl-memory-pools-come-with-steep-software-tax-that-could-stall-multi-server-scaling-ut-arlington-shares-real-world-test-that-measured-four-servers-sharing-the-same-pool-at-sc26",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-24",
+        "title": "차세대 DRAM을 목표로! 스웨덴 스타트업 AlixLabs는 ALE 에칭을 사용하여 EUV 홀을 32% 줄임",
+        "summary": "스웨덴 반도체 장비 스타트업 알릭스랩스가 24일 최신 기술 성과를 발표 · 원자층 식각(Atomic Layer Etching, ALE라고도 함) 기술을 사용하여 극자외선(EUV) 리소그래피로 정의된 홀의 크기를 더욱 줄임 · 예비 실험에서는 구멍의 평균 직경을 약 32%까지 성공적으로 줄였음 · 향후 차세대 DRAM,…",
+        "url": "https://technews.tw/2026/11/25/alixlabs-demonstrates-advanced-via-patterning-for-future-dram-applications/",
+        "source": "technews.tw",
+        "publishedAt": "2026-11-25",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39458,24 +39502,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "한국 보고서에 따르면 2029년까지 삼성 메모리 용량은 대부분 계약 상태에 있음",
-        "summary": "AI 데이터 센터 수요는 메모리 공급 협상을 수년 후로 추진하고 있음 · 삼성전자의 2027년부터 2029년까지 메모리칩 생산능력 대부분은 이미 계약에 따라 확보됐다고 국내 매체가 21일 이 문제에 정통한 관계자를 인용해 보도 · 삼성은 이 보고서를 공개적으로 확인하지 않았음",
-        "url": "https://www.digitimes.com/news/a20261124VL220/samsung-capacity-demand-data-center-2027.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-24",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
       }
     ],
     "reportPolicy": {
@@ -39620,10 +39647,10 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
+          "title": "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
           "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html",
+          "url": "https://www.digitimes.com/news/a20261125VL210/dell-demand-2027-infrastructure-dram.html",
           "publishedAt": "2026-11-25",
           "evidenceLevel": "Reported"
         }
@@ -39667,12 +39694,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-11-25T01:58:13.928Z",
-          "evidenceLevel": "Official baseline"
+          "title": "Jensen Huang은 여전히 GPU 부족의 인질로 남아 있는 중국의 기업용 SSD 복구와 함께 Nvidia로 돌아왔음",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261125PD203/nvidia-jensen-huang-ssd-production-market.html",
+          "publishedAt": "2026-11-25",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -39715,12 +39742,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
+          "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "source": "newsletter.semianalysis.com",
+          "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
           "publishedAt": "2026-11-24",
-          "evidenceLevel": "Confirmed"
+          "evidenceLevel": "Reported"
         }
       }
     ],
@@ -39762,8 +39789,8 @@
       },
       "enabled": true
     },
-    "runId": "45527698723",
-    "generatedAt": "2026-11-25T01:58:13.928Z",
+    "runId": "45568602479",
+    "generatedAt": "2026-11-25T07:46:54.882Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40101,8 +40128,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "45527698723",
-    "generatedAt": "2026-11-25T01:58:13.928Z",
+    "runId": "45568602479",
+    "generatedAt": "2026-11-25T07:46:54.882Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40801,24 +40828,10 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
-    "signals": [
-      {
-        "id": "sandisk-newsroom-data-2026-11-24",
-        "pillar": "data",
-        "pillarLabel": "DATA / STORAGE",
-        "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
-        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-        "source": "Sandisk Newsroom",
-        "sourceId": "sandisk-newsroom",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "publishedAt": "2026-11-24",
-        "evidenceLevel": "Watch",
-        "sourceClass": "official"
-      }
-    ],
+    "signals": [],
     "pillarCoverage": [
       {
         "id": "facility",
@@ -40840,9 +40853,9 @@
         "id": "data",
         "label": "DATA / STORAGE",
         "configured": 6,
-        "observed": 1,
-        "fresh": 1,
-        "status": "fresh"
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
       },
       {
         "id": "orchestration",
@@ -40879,7 +40892,7 @@
     ],
     "automation": {
       "status": "SOURCE-CONNECTED",
-      "activePillars": 1,
+      "activePillars": 0,
       "totalPillars": 7,
       "activeWorkloads": 6,
       "promotedWorkloads": 0,
@@ -40888,8 +40901,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-25T01:58:13.928Z",
-    "runId": "45527698723"
+    "generatedAt": "2026-11-25T07:46:54.882Z",
+    "runId": "45568602479"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41130,12 +41143,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.8,
+        "freshnessScore": 92.1,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-25T01:56:51.140Z"
+        "indexedAt": "2026-11-25T07:45:26.381Z"
       }
     },
     "sources": [
@@ -41268,12 +41281,12 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-25T01:58:13.928Z",
-    "runId": "45527698723"
+    "generatedAt": "2026-11-25T07:46:54.882Z",
+    "runId": "45568602479"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41287,7 +41300,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
-        "subtitle": "sandisk.com · 2026-11-24",
+        "subtitle": "newsletter.semianalysis.com · 2026-11-24",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41300,20 +41313,20 @@
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
           "pending": false,
-          "title": "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
-          "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+          "summary": "HBM4, Custom Base Die, 해안선 확장, 공정 흐름, 중국 국내 생산, 삼성 자격",
+          "source": "newsletter.semianalysis.com",
+          "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
           "publishedAt": "2026-11-24",
-          "evidenceLevel": "Confirmed",
-          "sourceClass": "official"
+          "evidenceLevel": "Reported",
+          "sourceClass": "research"
         },
         "evidenceCount": 1,
         "signals": [
           [
-            "Confirmed · OFFICIAL",
-            "메모리 벽 확장: AI용 Sandisk의 고대역폭 플래시 뒤에 ...",
-            "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정"
+            "Reported · RESEARCH",
+            "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+            "HBM4, Custom Base Die, 해안선 확장, 공정 흐름, 중국 국내 생산, 삼성 자격"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41400,9 +41413,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
-            "Confirmed",
-            "sandisk.com · 2026-11-24",
-            "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai"
+            "Reported",
+            "newsletter.semianalysis.com · 2026-11-24",
+            "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm"
           ],
           [
             "CONTROL",
@@ -41439,7 +41452,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-25T01:58:13.928Z"
+          "publishedAt": "2026-11-25T07:46:54.882Z"
         },
         "evidenceCount": 9,
         "signals": [
@@ -41561,9 +41574,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-25T01:58:13.928Z"
+          "publishedAt": "2026-11-25T07:46:54.882Z"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41684,11 +41697,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-25T01:58:13.928Z",
+          "publishedAt": "2026-11-25T07:46:54.882Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41806,10 +41819,10 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
-          "summary": "AI용 고대역폭, 고용량 메모리에 대한 수요 급증으로 인해 글로벌 메모리 거대 기업들은 마진이 더 높은 제품에 생산 및 R&D 자원을 집중하게 되었고, 이로 인해 자동차 메모리에 대한 장기 계약이 압박을 받고 있음 · 메모리 공급업체가 자동차 제조업체의 긴 계약 절차를 진행하는 것을 꺼리면서 대만 메모리 회사는 이익을 얻고 있지만 주류 자동차 제조업체의 요구 사항은 생산 재배치 중에 변경될 가능성 낮음",
+          "title": "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
+          "summary": "델 테크놀로지스는 AI 인프라 지출이 정점에 가까워지고 있다는 우려에 대해 분석가들에게 2027년에는 수요와 부품 공급 간의 격차가 더 벌어지고 메모리 공급 부족으로 인해 서버 가격이 상승할 것이라고 말했다",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html",
+          "url": "https://www.digitimes.com/news/a20261125VL210/dell-demand-2027-infrastructure-dram.html",
           "publishedAt": "2026-11-25",
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
@@ -41818,8 +41831,8 @@
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
-            "AI 수요로 인해 자동 메모리 계약이 중단되고 공급 경보가 발생함",
-            "AI용 고대역폭, 고용량 메모리에 대한 수요 급증으로 인해 글로벌 메모리 거대 기업들은 마진이 더 높은 제품에 생산 및 R&D 자원을 집중하게 되었고, 이로 인해 자동차 메모리에 대한 장기 계약이 압박을 받고 있음 · 메모리 공급업체가 자동차 제조업체의 긴 계약 절차를 진행하는 것을 꺼리면서 대만 메모리 회사는 이익을 얻고 있지만 주류 자동차 제조업체의 요구 사항은 생산 재배치 중에 변경될 가능성 낮음"
+            "Dell은 메모리 부족 현상이 지속됨에 따라 2027년에는 AI 수요가 공급보다 훨씬 앞설 것이라고 밝혔음",
+            "델 테크놀로지스는 AI 인프라 지출이 정점에 가까워지고 있다는 우려에 대해 분석가들에게 2027년에는 수요와 부품 공급 간의 격차가 더 벌어지고 메모리 공급 부족으로 인해 서버 가격이 상승할 것이라고 말했다"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41909,7 +41922,7 @@
           [
             "Reported",
             "digitimes.com · 2026-11-25",
-            "https://www.digitimes.com/news/a20261124PD222/demand-automakers-production-automotive-vehicle.html"
+            "https://www.digitimes.com/news/a20261125VL210/dell-demand-2027-infrastructure-dram.html"
           ],
           [
             "CONTROL",
@@ -41946,7 +41959,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-25T01:58:13.928Z"
+          "publishedAt": "2026-11-25T07:46:54.882Z"
         },
         "evidenceCount": 9,
         "signals": [
