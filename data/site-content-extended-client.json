@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "45732278994",
-  "generatedAt": "2026-11-26T01:12:02.829Z",
-  "expiresAt": "2026-11-27T03:12:01.123Z",
+  "runId": "45770228511",
+  "generatedAt": "2026-11-26T07:00:50.155Z",
+  "expiresAt": "2026-11-27T09:00:48.486Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-26T01:10:38.148Z",
-    "runId": "45732278994",
+    "generatedAt": "2026-11-26T06:59:25.450Z",
+    "runId": "45770228511",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -121,6 +121,45 @@
       }
     ],
     "eventTriggers": [
+      {
+        "id": "3d9a66806512dab8587a",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "c56247cffd5ee97c9f4a",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "f6b957a0395cc72bf386",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
       {
         "id": "48bb67145d1b0dd9f78e",
         "ruleId": "earnings-release",
@@ -237,52 +276,13 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "08a3dd4aa908ce9d524c",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-26T01:10:38.148Z",
+      "generatedAt": "2026-11-26T06:59:25.450Z",
       "stats": {
-        "eligibleDocuments": 41,
+        "eligibleDocuments": 40,
         "structuredEvents": 38,
         "verifiedEvents": 33,
         "currentStages": 32,
@@ -856,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1010,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,8 +1057,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1069,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1081,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1092,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1104,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1116,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1127,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1139,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1161,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1173,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1184,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1196,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1207,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1219,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1231,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1243,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1255,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1267,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1279,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
-            "lastUsefulObservationAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
+            "lastUsefulObservationAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T01:10:34.975Z",
+            "lastSuccessAt": "2026-11-26T06:58:54.997Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,7 +1326,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T01:10:38.148Z",
+          "updatedAt": "2026-11-26T06:59:25.450Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,7 +1456,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T01:10:38.148Z",
+          "updatedAt": "2026-11-26T06:59:25.450Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1586,7 +1586,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T01:10:38.148Z",
+          "updatedAt": "2026-11-26T06:59:25.450Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
           "sourceStage": "DISCLOSED",
@@ -1713,7 +1713,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T01:10:38.148Z",
+          "updatedAt": "2026-11-26T06:59:25.450Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1839,12 +1839,12 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 9,
+        "observed": 8,
         "fresh": 2,
-        "observationRatePct": 6.1,
+        "observationRatePct": 5.4,
         "officialConfigured": 123,
-        "officialObserved": 1,
-        "officialFresh": 1,
+        "officialObserved": 0,
+        "officialFresh": 0,
         "targetPct": 90
       }
     },
@@ -2102,10 +2102,10 @@
         "documents": 157,
         "chunks": 602,
         "added": 0,
-        "changed": 0,
-        "unchanged": 41,
-        "retained": 116,
-        "reindexed": 0
+        "changed": 1,
+        "unchanged": 39,
+        "retained": 117,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -2499,10 +2499,10 @@
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-25T19:22:59.841Z",
-        "indexedAt": "2026-11-25T19:23:05.043Z"
+        "sourceChangeDetectedAt": "2026-11-26T06:58:54.997Z",
+        "indexedAt": "2026-11-26T06:59:25.450Z"
       },
-      "generatedAt": "2026-11-26T01:10:38.148Z"
+      "generatedAt": "2026-11-26T06:59:25.450Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2521,7 +2521,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-26T01:12:02.829Z",
+    "generatedAt": "2026-11-26T07:00:50.155Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5444,8 +5444,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 2,
-            "sourceCount": 2,
+            "mentions": 4,
+            "sourceCount": 4,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5478,7 +5478,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 1
+                "count": 3
               }
             ],
             "painAxes": [
@@ -5912,6 +5912,20 @@
               "generations": []
             },
             "evidenceStream": [
+              {
+                "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
+                "date": "2026-11-26"
+              },
+              {
+                "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
+                "date": "2026-11-26"
+              },
               {
                 "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
                 "source": "tomshardware.com",
@@ -6692,8 +6706,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -6726,7 +6740,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -6739,8 +6753,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-10-05",
@@ -6772,23 +6786,12 @@
                   },
                   {
                     "week": "2026-11-23",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "44c3aaa3b2b1bc2ee3e5",
-                  "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-                  "summary": "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                  "text": "digitimes.com aidemand tesla's ai4.5 downgrade exposes the memory bottleneck behind physical ai the ramifications of the prolonged memory squeeze are reverberating further across supply chains serving applications at the edge, as elon musk's ambitions in physical ai increasingly collide with the constraints imposed by the global memory shortage. tesla의 ai4.5 다운그레이드로 물리적 ai 이면의 메모리 병목 현상 노출 물리적 ai에 대한 elon musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-                  "date": "2026-11-25"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -7170,15 +7173,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-                "date": "2026-11-25"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "공식 Roadmap 모니터",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -11033,8 +11028,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11067,7 +11062,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 3
             }
           ],
           "painAxes": [
@@ -11502,6 +11497,20 @@
           },
           "evidenceStream": [
             {
+              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
+              "date": "2026-11-26"
+            },
+            {
+              "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
+              "date": "2026-11-26"
+            },
+            {
               "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
@@ -11650,8 +11659,8 @@
             "asOf": "2026-05-18"
           },
           "servesAccounts": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11684,7 +11693,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -11937,8 +11946,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -11970,12 +11979,23 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "52cffa1fdf2a851250ba",
+                "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+                "summary": "미국의 대표적인 PC 브랜드인 HP와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 PC 시장은 여전히 약세를 유지할 것이라고 경고 · HP는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 PC 교체 주기가 거의 끝났다고 밝혔다",
+                "text": "digitimes.com aidemand hp and dell see weak pc market as memory prices rise in 2027 hp and dell, two leading us pc brands, expect memory prices to continue rising in 2027, though at a slower pace, while warning that the pc market will remain weak. hp said the corporate pc replacement cycle has largely ended, with the downturn that began in the second half of 2026 extending into 2027. hp와 델은 2027년 메모리 가격 상승으로 pc 시장 약세 전망 미국의 대표적인 pc 브랜드인 hp와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 pc 시장은 여전히 약세를 유지할 것이라고 경고 · hp는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 pc 교체 주기가 거의 끝났다고 밝혔다",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+                "date": "2026-11-26"
+              }
             },
             {
               "id": "one-stop",
@@ -12117,7 +12137,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+              "date": "2026-11-26"
+            }
+          ],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -15252,8 +15280,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -15286,7 +15314,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -15299,8 +15327,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -15332,23 +15360,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44c3aaa3b2b1bc2ee3e5",
-                "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-                "summary": "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                "text": "digitimes.com aidemand tesla's ai4.5 downgrade exposes the memory bottleneck behind physical ai the ramifications of the prolonged memory squeeze are reverberating further across supply chains serving applications at the edge, as elon musk's ambitions in physical ai increasingly collide with the constraints imposed by the global memory shortage. tesla의 ai4.5 다운그레이드로 물리적 ai 이면의 메모리 병목 현상 노출 물리적 ai에 대한 elon musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-                "date": "2026-11-25"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -15730,15 +15747,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-              "date": "2026-11-25"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 Roadmap 모니터",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -20326,8 +20335,8 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 3,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20360,69 +20369,10 @@
             },
             {
               "week": "2026-11-23",
-              "count": 2
+              "count": 0
             }
           ],
           "painAxes": [
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "6c4d05964469f07976ed",
-                "title": "Taipower, 대만 남부의 TSMC 주도 칩 붐을 위해 그리드에 NT$1096억 투자",
-                "summary": "Taiwan Power Company(Taipower)는 대만 남부에서 확장 중인 반도체 제조업체의 급증하는 전력 수요를 충족하기 위해 송전 및 변전 인프라에 NT$1096억(미화 33억3천만 달러)을 투자할 계획 · 이번 투자에는 대만 남부 과학단지(STSP)의 세 번째 초고압 변전소가 포함되어 S 회랑으로 알려진 이 지역의 성장하는 반도체 산업 클러스터에 대한 전력 공급을 강화하게 됩니다",
-                "text": "digitimes.com aidemand taipower to pour nt$109.6 billion into grid for tsmc-led chip boom in southern taiwan taiwan power company (taipower) plans to invest nt$109.6 billion (us$3.33 billion) in power transmission and transformation infrastructure to meet surging electricity demand from semiconductor manufacturers expanding in southern taiwan. the investment will include a third ultra-high-voltage substation at the southern taiwan science park (stsp), reinforcing power supply to the region's growing semiconductor industry cluster, known as the s corridor. taipower, 대만 남부의 tsmc 주도 칩 붐을 위해 그리드에 nt$1096억 투자 taiwan power company(taipower)는 대만 남부에서 확장 중인 반도체 제조업체의 급증하는 전력 수요를 충족하기 위해 송전 및 변전 인프라에 nt$1096억(미화 33억3천만 달러)을 투자할 계획 · 이번 투자에는 대만 남부 과학단지(stsp)의 세 번째 초고압 변전소가 포함되어 s 회랑으로 알려진 이 지역의 성장하는 반도체 산업 클러스터에 대한 전력 공급을 강화하게 됩니다",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261125pd217/taiwan-power-company-taiwan-expansion-infrastructure-transmission.html",
-                "date": "2026-11-25"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -20480,6 +20430,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20805,20 +20803,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "텍사스 감사관, TSMC에 3억 5400만 달러 세금 감면 지원",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261125vl228/tsmc-texas-investment-tax-incentive-arizona.html",
-              "date": "2026-11-25"
-            },
-            {
-              "title": "Taipower, 대만 남부의 TSMC 주도 칩 붐을 위해 그리드에 NT$1096억 투자",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261125pd217/taiwan-power-company-taiwan-expansion-infrastructure-transmission.html",
-              "date": "2026-11-25"
-            },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
@@ -22408,7 +22392,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-26T01:12:02.829Z",
+        "updatedAt": "2026-11-26T07:00:50.155Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -22733,8 +22717,8 @@
                   "detail": "주요 주주·Azure 우선 파트너·차세대 Silicon 공동 실행",
                   "status": "주요 주주",
                   "effectiveAt": "2026-04-27",
-                  "ageMonths": 6,
-                  "freshnessBand": "current",
+                  "ageMonths": 7,
+                  "freshnessBand": "recent",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
                   "source": {
@@ -23544,13 +23528,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
-                  "source": "tomshardware.com",
+                  "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
+                  "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
-                  "date": "2026-11-25"
+                  "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
+                  "date": "2026-11-26"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 4,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23823,13 +23807,13 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "텍사스 감사관, TSMC에 3억 5400만 달러 세금 감면 지원",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261125vl228/tsmc-texas-investment-tax-incentive-arizona.html",
-                  "date": "2026-11-25"
+                  "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+                  "source": "TrendForce",
+                  "sourceClass": "news",
+                  "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+                  "date": "2026-11-11"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 1,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24039,7 +24023,14 @@
                 },
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+                  "date": "2026-11-26"
+                },
+                "evidenceCount": 1,
                 "accent": "#c0aa7f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
                 "source": {
@@ -24433,13 +24424,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
-              "source": "tomshardware.com",
+              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
-              "date": "2026-11-25"
+              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
+              "date": "2026-11-26"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 4,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24493,7 +24484,14 @@
             },
             "demandClass": "rack-platform",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+              "date": "2026-11-26"
+            },
+            "evidenceCount": 1,
             "accent": "#c0aa7f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
             "source": {
@@ -25145,13 +25143,13 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "텍사스 감사관, TSMC에 3억 5400만 달러 세금 감면 지원",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261125vl228/tsmc-texas-investment-tax-incentive-arizona.html",
-              "date": "2026-11-25"
+              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+              "source": "TrendForce",
+              "sourceClass": "news",
+              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+              "date": "2026-11-11"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 1,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -26090,8 +26088,8 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-04-27",
-            "ageMonths": 6,
-            "freshnessBand": "current",
+            "ageMonths": 7,
+            "freshnessBand": "recent",
             "status": "공식 개정 파트너십",
             "source": {
               "id": "microsoft-openai-2026",
@@ -26109,8 +26107,8 @@
                 "detail": "주요 주주·Azure 우선 파트너·차세대 Silicon 공동 실행",
                 "status": "주요 주주",
                 "effectiveAt": "2026-04-27",
-                "ageMonths": 6,
-                "freshnessBand": "current",
+                "ageMonths": 7,
+                "freshnessBand": "recent",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
                 "source": {
@@ -27043,7 +27041,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-02-25",
-            "ageMonths": 20,
+            "ageMonths": 21,
             "freshnessBand": "history",
             "status": "공식 사전 호환성 검증",
             "source": {
@@ -27688,6 +27686,20 @@
           "whatChanged": [],
           "evidence": [
             {
+              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
+              "date": "2026-11-26"
+            },
+            {
+              "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
+              "date": "2026-11-26"
+            },
+            {
               "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
@@ -27709,7 +27721,64 @@
           "layer": "end-customer",
           "decisionQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume",
           "topPainAxes": [],
-          "whyLost": [],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "1",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "52cffa1fdf2a851250ba",
+                "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+                "summary": "미국의 대표적인 PC 브랜드인 HP와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 PC 시장은 여전히 약세를 유지할 것이라고 경고 · HP는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 PC 교체 주기가 거의 끝났다고 밝혔다",
+                "text": "digitimes.com aidemand hp and dell see weak pc market as memory prices rise in 2027 hp and dell, two leading us pc brands, expect memory prices to continue rising in 2027, though at a slower pace, while warning that the pc market will remain weak. hp said the corporate pc replacement cycle has largely ended, with the downturn that began in the second half of 2026 extending into 2027. hp와 델은 2027년 메모리 가격 상승으로 pc 시장 약세 전망 미국의 대표적인 pc 브랜드인 hp와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 pc 시장은 여전히 약세를 유지할 것이라고 경고 · hp는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 pc 교체 주기가 거의 끝났다고 밝혔다",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+                "date": "2026-11-26"
+              }
+            }
+          ],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
@@ -27718,7 +27787,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+              "date": "2026-11-26"
+            }
+          ]
         },
         {
           "accountId": "google",
@@ -27837,89 +27914,17 @@
           "headline": "Tesla · AI5 · Dojo",
           "layer": "end-customer",
           "decisionQuestion": "AI5 Production · Vehicle Validation",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44c3aaa3b2b1bc2ee3e5",
-                "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-                "summary": "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                "text": "digitimes.com aidemand tesla's ai4.5 downgrade exposes the memory bottleneck behind physical ai the ramifications of the prolonged memory squeeze are reverberating further across supply chains serving applications at the edge, as elon musk's ambitions in physical ai increasingly collide with the constraints imposed by the global memory shortage. tesla의 ai4.5 다운그레이드로 물리적 ai 이면의 메모리 병목 현상 노출 물리적 ai에 대한 elon musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-                "date": "2026-11-25"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-              "date": "2026-11-25"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "spacexai",
@@ -28103,8 +28108,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28137,7 +28142,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 3
             }
           ],
           "painAxes": [
@@ -28572,6 +28577,20 @@
           },
           "evidenceStream": [
             {
+              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
+              "date": "2026-11-26"
+            },
+            {
+              "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
+              "date": "2026-11-26"
+            },
+            {
               "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
@@ -28720,8 +28739,8 @@
             "asOf": "2026-05-18"
           },
           "servesAccounts": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28754,7 +28773,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -29007,8 +29026,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -29040,12 +29059,23 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "52cffa1fdf2a851250ba",
+                "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+                "summary": "미국의 대표적인 PC 브랜드인 HP와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 PC 시장은 여전히 약세를 유지할 것이라고 경고 · HP는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 PC 교체 주기가 거의 끝났다고 밝혔다",
+                "text": "digitimes.com aidemand hp and dell see weak pc market as memory prices rise in 2027 hp and dell, two leading us pc brands, expect memory prices to continue rising in 2027, though at a slower pace, while warning that the pc market will remain weak. hp said the corporate pc replacement cycle has largely ended, with the downturn that began in the second half of 2026 extending into 2027. hp와 델은 2027년 메모리 가격 상승으로 pc 시장 약세 전망 미국의 대표적인 pc 브랜드인 hp와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 pc 시장은 여전히 약세를 유지할 것이라고 경고 · hp는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 pc 교체 주기가 거의 끝났다고 밝혔다",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+                "date": "2026-11-26"
+              }
             },
             {
               "id": "one-stop",
@@ -29187,7 +29217,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+              "date": "2026-11-26"
+            }
+          ],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -32322,8 +32360,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -32356,7 +32394,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -32369,8 +32407,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -32402,23 +32440,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44c3aaa3b2b1bc2ee3e5",
-                "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-                "summary": "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                "text": "digitimes.com aidemand tesla's ai4.5 downgrade exposes the memory bottleneck behind physical ai the ramifications of the prolonged memory squeeze are reverberating further across supply chains serving applications at the edge, as elon musk's ambitions in physical ai increasingly collide with the constraints imposed by the global memory shortage. tesla의 ai4.5 다운그레이드로 물리적 ai 이면의 메모리 병목 현상 노출 물리적 ai에 대한 elon musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-                "date": "2026-11-25"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -32800,15 +32827,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-              "date": "2026-11-25"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 Roadmap 모니터",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -36326,11 +36345,9 @@
             "Time-to-Deploy"
           ],
           "source": {
-            "id": "dell-agentic-ai-2026",
-            "name": "Dell Technologies · Agentic AI Infrastructure",
-            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-            "sourceClass": "official",
-            "asOf": "2026-05-18"
+            "name": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+            "asOf": "2026-11-26"
           }
         },
         "accounts": [
@@ -36345,11 +36362,9 @@
             "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
             "tier": "TIER 1",
             "source": {
-              "id": "dell-agentic-ai-2026",
-              "name": "Dell Technologies · Agentic AI Infrastructure",
-              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-              "sourceClass": "official",
-              "asOf": "2026-05-18"
+              "name": "digitimes.com",
+              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
+              "asOf": "2026-11-26"
             }
           },
           {
@@ -38064,11 +38079,9 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
-          "accountIds": [
-            "tesla"
-          ],
+          "mentions": 0,
+          "sourceCount": 0,
+          "accountIds": [],
           "weekly": [
             {
               "week": "2026-10-05",
@@ -38100,20 +38113,9 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "44c3aaa3b2b1bc2ee3e5",
-            "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-            "summary": "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-            "text": "digitimes.com aidemand tesla's ai4.5 downgrade exposes the memory bottleneck behind physical ai the ramifications of the prolonged memory squeeze are reverberating further across supply chains serving applications at the edge, as elon musk's ambitions in physical ai increasingly collide with the constraints imposed by the global memory shortage. tesla의 ai4.5 다운그레이드로 물리적 ai 이면의 메모리 병목 현상 노출 물리적 ai에 대한 elon musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261125vl221/tesla-hardware-automotive-silicon-cost.html",
-            "date": "2026-11-25"
-          },
           "promotionStatus": "monitoring"
         },
         {
@@ -39328,7 +39330,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-26T01:10:38.463Z",
+        "generatedAt": "2026-11-26T06:59:25.765Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39446,95 +39448,32 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "실온에서 최대급의 성능, 스핀류를 전기 신호로 변환 자기 메모리 등에 응용",
-        "url": "https://eetimes.itmedia.co.jp/ee/articles/2611/26/news027.html",
-        "source": "eetimes.itmedia.co.jp",
-        "publishedAt": "2026-11-25",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "RAM 가격 추적 2026",
-        "summary": "DDR5 메모리 키트를 선택하든 DDR4 메모리 키트를 선택하든 가격은 크게 변동 · 좋은 RAM 거래를 찾아내는 것은 어렵기 때문에 현재 메모리 키트의 최저 가격을 나열",
-        "url": "https://www.tomshardware.com/gift-guides-seasonal-sales/the-lowest-priced-ram-in-2026-price-tracking-on-ddr5-and-ddr4-memory-of-all-capacities",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-25",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "단일 DDR5 메모리 스틱을 구입하면 키트를 구입하는 것보다 더 많은 비용을 절약가능",
-        "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-        "url": "https://www.tomshardware.com/pc-components/ddr5/buying-single-sticks-of-ddr5-memory-can-save-you-more-than-buying-a-kit-16gb-kits-are-less-than-half-the-price-of-2-x-16gb-at-amazon-and-newegg",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-25",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "2026년 중국 메모리 산업 현황",
-        "summary": "중국 메모리 부문에서는 기록적인 해였으며 화웨이는 이름이 알려지지 않은 자체 HBM을 출시",
-        "url": "https://www.tomshardware.com/tech-industry/semiconductors/the-state-of-chinas-memory-industry-in-2026-cxmt-and-ymtc-are-booming-but-hbm-remains-a-headache",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-25",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
-        "summary": "블랙 프라이데이를 위한 RTX 5060 게이밍 노트북 거래",
-        "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-11-25",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-        "summary": "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
-        "url": "https://www.digitimes.com/news/a20261125VL221/tesla-hardware-automotive-silicon-cost.html",
+        "title": "Acer CEO, NT$1000억 재고에 불안해하며 메모리 가격에 신중",
+        "summary": "While third-party market researchers project global PC unit shipments to decline in 2027, rising component costs are driving up average selling prices, enabling revenue and operat…",
+        "url": "https://www.digitimes.com/news/a20261125PD221/acer-inventory-pc-2026.html",
         "source": "digitimes.com",
-        "publishedAt": "2026-11-25",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "미국, 삼성·SKHY 증설로 메모리 과잉 경고",
+        "summary": "미국은 AI 수요가 글로벌 공급에 부담을 주더라도 한국의 정부 지원 메모리 칩 확장이 과잉을 초래할 수 있다고 경고 · 조사 결과에 따르면 삼성전자와 SKHY가 언급됐지만, 메모리 칩은 제안된 관세에서 제외",
+        "url": "https://www.digitimes.com/news/a20261126VL217/samsung-sk-hynix-demand-investment-expansion.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-26",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39544,7 +39483,74 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
+      },
+      {
+        "title": "SK Hynix eyes 100-layer 3D DRAM production by 2031",
+        "url": "https://www.digitimes.com/news/a20261126VL216/dram-sk-hynix-3d-production-manufacturing.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "메모리가 급증하고 총 이익이 압축! 전 세계 주요 휴대전화 제조사들이 2027년 출하량 목표를 줄였다는 소문이 돌고 있으며, 특히 비보(vivo)와 샤오미(Xiaomi)가 가장 큰 감소세를 보이고 있음",
+        "summary": "공급망 소식통에 따르면, 대부분의 주요 스마트폰 브랜드는 메모리 가격이 여전히 높게 유지되면서 2027년 출하량 목표를 순차적으로 하향 조정했으며, 이로 인해 총 마진이 계속해서 줄어들고 시장 수요에 영향을 미치고 있음 · 이 가운데 샤오미, 비보, 레노버의 모토로라 등이 가장 큰 하락폭을 보인 반면, 메이저 제조사 중…",
+        "url": "https://technews.tw/2026/11/26/soaring-memory-prices-impact-mobile-phone-shipments/",
+        "source": "technews.tw",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "YMTC, 이제 삼성, SKHY에 NAND 기술 라이센스: 400단 메모리를 재편하는 Xtacking 특허 벽 내부",
+        "summary": "Samsung Electronics and SK Hynix are adopting parts of Xtacking, the 3D NAND stacking technology first developed by China's Yangtze Memory Technologies Co. (YMTC), through cross-l…",
+        "url": "https://www.digitimes.com/news/a20261126VL210/samsung-sk-hynix-ymtc-nand-patent.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
+        "summary": "미국의 대표적인 PC 브랜드인 HP와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 PC 시장은 여전히 약세를 유지할 것이라고 경고 · HP는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 PC 교체 주기가 거의 끝났다고 밝혔다",
+        "url": "https://www.digitimes.com/news/a20261126PD212/dell-hp-pc-market-memory-2027.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
       }
     ],
     "reportPolicy": {
@@ -39689,12 +39695,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "2026년 중국 메모리 산업 현황",
-          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/the-state-of-chinas-memory-industry-in-2026-cxmt-and-ymtc-are-booming-but-hbm-remains-a-headache",
-          "publishedAt": "2026-11-25",
-          "evidenceLevel": "Watch"
+          "title": "미국, 삼성·SKHY 증설로 메모리 과잉 경고",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261126VL217/samsung-sk-hynix-demand-investment-expansion.html",
+          "publishedAt": "2026-11-26",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -39740,7 +39746,7 @@
           "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
           "source": "SK hynix Newsroom",
           "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-11-26T01:12:02.829Z",
+          "publishedAt": "2026-11-26T07:00:50.155Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -39784,12 +39790,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261125VL221/tesla-hardware-automotive-silicon-cost.html",
+          "title": "2026년 중국 메모리 산업 현황",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/the-state-of-chinas-memory-industry-in-2026-cxmt-and-ymtc-are-booming-but-hbm-remains-a-headache",
           "publishedAt": "2026-11-25",
-          "evidenceLevel": "Reported"
+          "evidenceLevel": "Watch"
         }
       }
     ],
@@ -39831,8 +39837,8 @@
       },
       "enabled": true
     },
-    "runId": "45732278994",
-    "generatedAt": "2026-11-26T01:12:02.829Z",
+    "runId": "45770228511",
+    "generatedAt": "2026-11-26T07:00:50.155Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40170,8 +40176,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "45732278994",
-    "generatedAt": "2026-11-26T01:12:02.829Z",
+    "runId": "45770228511",
+    "generatedAt": "2026-11-26T07:00:50.155Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40943,8 +40949,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-26T01:12:02.829Z",
-    "runId": "45732278994"
+    "generatedAt": "2026-11-26T07:00:50.155Z",
+    "runId": "45770228511"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41190,7 +41196,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-25T19:23:05.043Z"
+        "indexedAt": "2026-11-26T06:59:25.450Z"
       }
     },
     "sources": [
@@ -41327,8 +41333,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-26T01:12:02.829Z",
-    "runId": "45732278994"
+    "generatedAt": "2026-11-26T07:00:50.155Z",
+    "runId": "45770228511"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41363,7 +41369,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 1,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
@@ -41494,7 +41500,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-26T01:12:02.829Z"
+          "publishedAt": "2026-11-26T07:00:50.155Z"
         },
         "evidenceCount": 4,
         "signals": [
@@ -41616,9 +41622,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-26T01:12:02.829Z"
+          "publishedAt": "2026-11-26T07:00:50.155Z"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 3,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41739,11 +41745,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-26T01:12:02.829Z",
+          "publishedAt": "2026-11-26T07:00:50.155Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41848,7 +41854,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "digitimes.com · 2026-11-25",
+        "subtitle": "digitimes.com · 2026-11-26",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -41861,11 +41867,11 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-          "summary": "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음",
+          "title": "미국, 삼성·SKHY 증설로 메모리 과잉 경고",
+          "summary": "미국은 AI 수요가 글로벌 공급에 부담을 주더라도 한국의 정부 지원 메모리 칩 확장이 과잉을 초래할 수 있다고 경고 · 조사 결과에 따르면 삼성전자와 SKHY가 언급됐지만, 메모리 칩은 제안된 관세에서 제외",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261125VL221/tesla-hardware-automotive-silicon-cost.html",
-          "publishedAt": "2026-11-25",
+          "url": "https://www.digitimes.com/news/a20261126VL217/samsung-sk-hynix-demand-investment-expansion.html",
+          "publishedAt": "2026-11-26",
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
@@ -41873,8 +41879,8 @@
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
-            "Tesla의 AI4.5 다운그레이드로 물리적 AI 이면의 메모리 병목 현상 노출",
-            "물리적 AI에 대한 Elon Musk의 야망이 글로벌 메모리 부족으로 인한 제약과 점점 더 충돌함에 따라 장기간의 메모리 압박으로 인한 여파는 엣지에서 애플리케이션을 제공하는 공급망 전체에 더욱 큰 영향을 미치고 있음"
+            "미국, 삼성·SKHY 증설로 메모리 과잉 경고",
+            "미국은 AI 수요가 글로벌 공급에 부담을 주더라도 한국의 정부 지원 메모리 칩 확장이 과잉을 초래할 수 있다고 경고 · 조사 결과에 따르면 삼성전자와 SKHY가 언급됐지만, 메모리 칩은 제안된 관세에서 제외"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41963,8 +41969,8 @@
         "sources": [
           [
             "Reported",
-            "digitimes.com · 2026-11-25",
-            "https://www.digitimes.com/news/a20261125VL221/tesla-hardware-automotive-silicon-cost.html"
+            "digitimes.com · 2026-11-26",
+            "https://www.digitimes.com/news/a20261126VL217/samsung-sk-hynix-demand-investment-expansion.html"
           ],
           [
             "CONTROL",
@@ -42001,7 +42007,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-26T01:12:02.829Z"
+          "publishedAt": "2026-11-26T07:00:50.155Z"
         },
         "evidenceCount": 4,
         "signals": [
