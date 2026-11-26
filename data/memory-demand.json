@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45770228511",
-  "generatedAt": "2026-11-26T07:00:50.155Z",
+  "runId": "45820637410",
+  "generatedAt": "2026-11-26T12:49:20.331Z",
   "coverage": {
     "companiesObserved": 36,
     "companiesWithDerivedDemand": 28,
@@ -301,6 +301,25 @@
           "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
         },
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-11-26",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "01jl2rz",
+            "1312ti8"
+          ],
+          "evidence": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html"
+        },
+        {
           "technology": "Hybrid Bonding",
           "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
           "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
@@ -397,24 +416,6 @@
           "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
         },
         {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "관측",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "01jl2rz"
-          ],
-          "evidence": "NVIDIA Reportedly Pushes TSMC 3nm NVHBM Base Dies for Samsung ...",
-          "source": "trendforce.com",
-          "url": "https://www.trendforce.com/news/2026/10/19/news-nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-in-unlikely-foundry-tie-up/"
-        },
-        {
           "technology": "CPO",
           "systemShift": "랙·팟 규모에서 Fabric 전력이 메모리와 같은 예산을 다투고, 광연결이 프로세서 간을 넘어 메모리 인터페이스까지 확장 검토",
           "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교 · 로드맵 목표는 노드당 100Tb/s 초과 · 1pJ/bit 미만 · 칩간 지연 10ns 미만 (Nature Electronics 리뷰 2026 · 2D CPO → 2.5D 인터포저 → 3D 이종적층)",
@@ -454,6 +455,34 @@
     },
     "tsmc": {
       "requirements": [
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-11-26",
+          "evidenceCount": 11,
+          "evidenceIds": [
+            "0wd2d4f",
+            "0o0ayvo",
+            "0d63qpl",
+            "01buukn",
+            "1x2je9l",
+            "106hb70",
+            "1ar8pkx",
+            "0roiupr",
+            "01jl2rz",
+            "0r8jdnc",
+            "1312ti8"
+          ],
+          "evidence": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html"
+        },
         {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
@@ -499,33 +528,6 @@
           "evidence": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "지속",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-11-17",
-          "evidenceCount": 10,
-          "evidenceIds": [
-            "0wd2d4f",
-            "0o0ayvo",
-            "0d63qpl",
-            "01buukn",
-            "1x2je9l",
-            "106hb70",
-            "1ar8pkx",
-            "0roiupr",
-            "01jl2rz",
-            "0r8jdnc"
-          ],
-          "evidence": "NVHBM이 베이스 다이 경쟁을 재편하면서 TSMC 3nm가 HBM에 진출",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261117PD221/tsmc-3nm-hbm-competition-nvidia.html"
         },
         {
           "technology": "Custom HBM",
@@ -1085,6 +1087,26 @@
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
         },
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-11-26",
+          "evidenceCount": 3,
+          "evidenceIds": [
+            "106hb70",
+            "01jl2rz",
+            "1312ti8"
+          ],
+          "evidence": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -1142,25 +1164,6 @@
           "evidence": "Dynamo 및 Liqid CXL 공유 메모리를 사용하여 KV 캐시 메모리 벽 깨기",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/architecture/2026/10/26/breaking-the-kv-cache-memory-wall-using-dynamo-and-liqid-cxl-shared-memory/5305130"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "반복",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 2,
-          "evidenceIds": [
-            "106hb70",
-            "01jl2rz"
-          ],
-          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
-          "source": "electronicsweekly.com",
-          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
         },
         {
           "technology": "KV Cache",
@@ -2156,7 +2159,7 @@
         "skhynix",
         "tsmc"
       ],
-      "weight": 30
+      "weight": 32
     },
     {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
