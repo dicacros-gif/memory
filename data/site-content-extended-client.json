@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "45820637410",
-  "generatedAt": "2026-11-26T12:49:20.331Z",
-  "expiresAt": "2026-11-27T14:49:18.156Z",
+  "runId": "45875164824",
+  "generatedAt": "2026-11-26T18:37:00.924Z",
+  "expiresAt": "2026-11-27T20:36:59.240Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-26T12:47:52.195Z",
-    "runId": "45820637410",
+    "generatedAt": "2026-11-26T18:35:36.201Z",
+    "runId": "45875164824",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,42 +122,42 @@
     ],
     "eventTriggers": [
       {
-        "id": "5b4ed250e8374be6ef16",
+        "id": "49b904ce239ce97f89d3",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "sourceId": "vllm-kv-offloading",
+        "source": "vLLM KV Offloading",
+        "sourceClass": "official",
+        "title": "KV Offloading Usage Guide - vLLM",
+        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+        "publishedAt": "2026-01-08",
         "changed": true
       },
       {
-        "id": "3c4f9b40e87070b40529",
+        "id": "4716ab4d309f920b96d2",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "vllm-kv-offloading",
+        "source": "vLLM KV Offloading",
+        "sourceClass": "official",
+        "title": "KV Offloading Usage Guide - vLLM",
+        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+        "publishedAt": "2026-01-08",
+        "changed": true
+      },
+      {
+        "id": "81bddb6e8ad9a5ea4f41",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "7e4ab825d1b0e232d7b9",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "sourceId": "vllm-kv-offloading",
+        "source": "vLLM KV Offloading",
+        "sourceClass": "official",
+        "title": "KV Offloading Usage Guide - vLLM",
+        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+        "publishedAt": "2026-01-08",
         "changed": true
       },
       {
@@ -280,9 +280,9 @@
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-26T12:47:52.195Z",
+      "generatedAt": "2026-11-26T18:35:36.201Z",
       "stats": {
-        "eligibleDocuments": 40,
+        "eligibleDocuments": 41,
         "structuredEvents": 38,
         "verifiedEvents": 33,
         "currentStages": 32,
@@ -856,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1010,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,8 +1057,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1069,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1081,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1092,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1104,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1116,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1127,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1139,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1161,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1173,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1184,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1196,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1207,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1219,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1231,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1243,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1255,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1267,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1279,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
-            "lastUsefulObservationAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T12:47:47.121Z",
+            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,7 +1326,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T12:47:52.195Z",
+          "updatedAt": "2026-11-26T18:35:36.201Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,7 +1456,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T12:47:52.195Z",
+          "updatedAt": "2026-11-26T18:35:36.201Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1507,17 +1507,17 @@
               "source": "news.solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-23",
+              "publishedAt": "2026-11-25",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
-              "documentStatus": "retained-last-verified"
+              "documentStatus": "current"
             },
             {
               "score": 2.75,
               "chunkId": "817f6e685a5df4402818",
               "title": "Samsung Semiconductor Global Newsroom - Samsung Semiconductor Global Newsroom",
-              "excerpt": ": Next-Generation Memory for the Data Movement Era Part 1 explored how HBM has evolved to supply data to AI chips. Today, as inference, reasoning, long-context processing, and agentic AI expand, AI systems... Technology 2026.10.28 Part 1. The Evolution of AI and AI Chips - and the HBM That Pow",
+              "excerpt": ": Next-Generation Memory for the Data Movement Era Part 1 explored how HBM has evolved to supply data to AI chips. Today, as inference, reasoning, long-context processing, and agentic AI expand, AI systems... Technology 2026.10.28 Part 1. The Evolution of AI and AI Chips - and the HBM That Powers Them As AI becomes ca…",
               "sourceId": "samsung-semiconductor",
               "feedId": "samsung-hbm4-stage",
               "source": "Samsung Semiconductor",
@@ -1586,9 +1586,9 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T12:47:52.195Z",
+          "updatedAt": "2026-11-26T18:35:36.201Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
+          "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
           "confidence": "verified-primary",
@@ -1628,6 +1628,21 @@
           "evidence": [
             {
               "score": 1.75,
+              "chunkId": "a0e6463c36f708d6eb6e",
+              "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+              "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
+              "sourceId": "solidigm-newsroom",
+              "source": "news.solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW/releases",
+              "publishedAt": "2026-11-25",
+              "indexedAt": "2026-11-16T14:52:11.037Z",
+              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
+              "freshnessDays": 180,
+              "documentStatus": "current"
+            },
+            {
+              "score": 1.75,
               "chunkId": "ac6a8a33909268274891",
               "title": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
               "excerpt": "Solidigm Announces New Co-CEOs Xin Guo and Richard Chin Solidigm, a pioneer in enterprise data storage, announced new co-chief executive officers, Xin Guo and Richard Chin",
@@ -1638,21 +1653,6 @@
               "publishedAt": "2026-11-24",
               "indexedAt": "2026-11-25T01:56:51.140Z",
               "sourceChangeDetectedAt": "2026-11-25T01:55:27.573Z",
-              "freshnessDays": 180,
-              "documentStatus": "retained-last-verified"
-            },
-            {
-              "score": 1.75,
-              "chunkId": "a0e6463c36f708d6eb6e",
-              "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
-              "excerpt": "News archive | Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
-              "sourceId": "solidigm-newsroom",
-              "source": "news.solidigm.com",
-              "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-23",
-              "indexedAt": "2026-11-16T14:52:11.037Z",
-              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
               "documentStatus": "retained-last-verified"
             },
@@ -1713,7 +1713,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T12:47:52.195Z",
+          "updatedAt": "2026-11-26T18:35:36.201Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1839,12 +1839,12 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 8,
-        "fresh": 3,
-        "observationRatePct": 5.4,
+        "observed": 9,
+        "fresh": 5,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
-        "officialObserved": 0,
-        "officialFresh": 0,
+        "officialObserved": 1,
+        "officialFresh": 1,
         "targetPct": 90
       }
     },
@@ -2102,10 +2102,10 @@
         "documents": 157,
         "chunks": 602,
         "added": 0,
-        "changed": 2,
-        "unchanged": 38,
-        "retained": 117,
-        "reindexed": 2
+        "changed": 1,
+        "unchanged": 40,
+        "retained": 116,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -2315,6 +2315,26 @@
           "evidenceCount": 4,
           "citations": [
             {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-11-26T18:35:36.201Z",
+              "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
+              "stale": false
+            },
+            {
+              "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+              "source": "news.solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW/releases",
+              "publishedAt": "2026-11-25",
+              "indexedAt": "2026-11-16T14:52:11.037Z",
+              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
+              "stale": false
+            },
+            {
               "title": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
               "source": "news.solidigm.com",
               "sourceClass": "official",
@@ -2323,26 +2343,6 @@
               "indexedAt": "2026-11-25T01:56:51.140Z",
               "sourceChangeDetectedAt": "2026-11-25T01:55:27.573Z",
               "stale": true
-            },
-            {
-              "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
-              "source": "news.solidigm.com",
-              "sourceClass": "official",
-              "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-23",
-              "indexedAt": "2026-11-16T14:52:11.037Z",
-              "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
-              "stale": true
-            },
-            {
-              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "source": "OpenAI Infrastructure",
-              "sourceClass": "official",
-              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-18",
-              "indexedAt": "2026-11-20T23:15:47.932Z",
-              "sourceChangeDetectedAt": "2026-11-20T23:15:44.104Z",
-              "stale": false
             }
           ]
         },
@@ -2456,8 +2456,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-11-25T19:23:05.043Z",
-              "sourceChangeDetectedAt": "2026-11-25T19:22:59.841Z",
+              "indexedAt": "2026-11-26T18:35:36.201Z",
+              "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
               "stale": false
             }
           ]
@@ -2466,7 +2466,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.6,
+      "score": 92.6,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2483,11 +2483,11 @@
       "components": {
         "contentAge": 96.7,
         "embeddingLag": 100,
-        "staleRetrievalRate": 71.2,
+        "staleRetrievalRate": 75,
         "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 28.8,
+        "staleRetrievalRatePct": 25,
         "feedCoveragePct": 87.8,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
@@ -2499,10 +2499,10 @@
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-26T12:47:47.121Z",
-        "indexedAt": "2026-11-26T12:47:52.195Z"
+        "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
+        "indexedAt": "2026-11-26T18:35:36.201Z"
       },
-      "generatedAt": "2026-11-26T12:47:52.195Z"
+      "generatedAt": "2026-11-26T18:35:36.201Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2521,7 +2521,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-26T12:49:20.331Z",
+    "generatedAt": "2026-11-26T18:37:00.924Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5444,8 +5444,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 4,
-            "sourceCount": 4,
+            "mentions": 3,
+            "sourceCount": 3,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5478,7 +5478,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 3
+                "count": 2
               }
             ],
             "painAxes": [
@@ -5925,13 +5925,6 @@
                 "sourceClass": "authoritative-media",
                 "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
                 "date": "2026-11-26"
-              },
-              {
-                "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
-                "date": "2026-11-25"
               },
               {
                 "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -6706,8 +6699,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -6740,7 +6733,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -7173,7 +7166,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+                "source": "tomshardware.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
+                "date": "2026-11-26"
+              }
+            ],
             "chipStage": "공식 Roadmap 모니터",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -11028,8 +11029,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
-          "sourceCount": 4,
+          "mentions": 3,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11062,7 +11063,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 3
+              "count": 2
             }
           ],
           "painAxes": [
@@ -11509,13 +11510,6 @@
               "sourceClass": "authoritative-media",
               "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
               "date": "2026-11-26"
-            },
-            {
-              "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
-              "source": "tomshardware.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
-              "date": "2026-11-25"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -15280,8 +15274,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -15314,7 +15308,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -15747,7 +15741,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
+              "date": "2026-11-26"
+            }
+          ],
           "chipStage": "공식 Roadmap 모니터",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -22421,7 +22423,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-26T12:49:20.331Z",
+        "updatedAt": "2026-11-26T18:37:00.924Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23563,7 +23565,7 @@
                   "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
                   "date": "2026-11-26"
                 },
-                "evidenceCount": 4,
+                "evidenceCount": 3,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24459,7 +24461,7 @@
               "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
               "date": "2026-11-26"
             },
-            "evidenceCount": 4,
+            "evidenceCount": 3,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -27729,13 +27731,6 @@
               "date": "2026-11-26"
             },
             {
-              "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
-              "source": "tomshardware.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
-              "date": "2026-11-25"
-            },
-            {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
               "sourceClass": "news",
@@ -27953,7 +27948,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
+              "date": "2026-11-26"
+            }
+          ]
         },
         {
           "accountId": "spacexai",
@@ -28137,8 +28140,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
-          "sourceCount": 4,
+          "mentions": 3,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28171,7 +28174,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 3
+              "count": 2
             }
           ],
           "painAxes": [
@@ -28618,13 +28621,6 @@
               "sourceClass": "authoritative-media",
               "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
               "date": "2026-11-26"
-            },
-            {
-              "title": "Nvidia RTX 5060 GPU를 탑재한 이 Acer Nitro V 노트북은 Best Buy에서 1,049달러",
-              "source": "tomshardware.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/laptops/gaming-laptops/this-acer-nitro-v-laptop-with-nvidia-rtx-5060-gpu-is-usd1-049-at-best-buy-16-inch-boasts-16gb-ddr5-ram-and-a-512gb-ssd",
-              "date": "2026-11-25"
             },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -32389,8 +32385,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -32423,7 +32419,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -32856,7 +32852,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
+              "date": "2026-11-26"
+            }
+          ],
           "chipStage": "공식 Roadmap 모니터",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38359,12 +38363,12 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-10-05",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-12",
@@ -38395,6 +38399,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "2026-10-11:60",
+            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
+            "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
+            "source": "trendforce.com",
+            "sourceClass": "news",
+            "origin": "live-crawl",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
+            "date": "2026-10-11"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38986,8 +39000,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-10-05",
@@ -39019,9 +39033,20 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "0be479eea81fd3413d97",
+            "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+            "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+            "text": "news.solidigm.com nand news archive | solidigm newsroom co-ceo xin guo talks nand supply dynamics, the rise of the kv cache, and why storage has become a day-zero design decision for ai infrastructure. 뉴스 아카이브 | 솔리다임 뉴스룸 공동 ceo인 xin guo는 nand 공급 역학, kv 캐시의 증가, 스토리지가 ai 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+            "source": "news.solidigm.com",
+            "sourceClass": "official",
+            "origin": "live-crawl",
+            "url": "https://news.solidigm.com/en-ww/releases",
+            "date": "2026-11-25"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39359,7 +39384,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-26T12:47:52.604Z",
+        "generatedAt": "2026-11-26T18:35:36.519Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39477,6 +39502,23 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
+        "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+        "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+        "url": "https://news.solidigm.com/en-WW/releases/",
+        "source": "news.solidigm.com",
+        "publishedAt": "2026-11-25",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
         "title": "Acer CEO, NT$1000억 재고에 불안해하며 메모리 가격에 신중",
         "summary": "While third-party market researchers project global PC unit shipments to decline in 2027, rising component costs are driving up average selling prices, enabling revenue and operat…",
         "url": "https://www.digitimes.com/news/a20261125PD221/acer-inventory-pc-2026.html",
@@ -39489,6 +39531,40 @@
             "id": "rag",
             "label": "RAG / VECTOR"
           },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "전자 제조업체는 역사상 최악의 부족 상황 속에서 DRAM 공급을 찾아 잠그기 위해 메모리 '전시실'을 설치",
+        "summary": "Elon Musk조차도 특별한 대우를 받을 수 없는 것 같음",
+        "url": "https://www.tomshardware.com/pc-components/dram/electronics-manufacturers-set-up-memory-war-rooms-to-find-lock-in-dram-supplies-amid-worst-shortage-in-history-employees-scour-ebay-contact-hundreds-of-brokers-and-snap-up-even-small-batches-of-just-5-to-12-units",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+        "summary": "PC를 위한 초고속 스토리지 업그레이드를 만나보세요",
+        "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
@@ -39518,56 +39594,6 @@
         "title": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
         "summary": "SKHY는 맞춤형 고대역폭 메모리(HBM) 개발을 위해 TSMC의 3nm 공정 경험이 있는 엔지니어를 찾고 있고, 미국 경쟁사인 마이크론 테크놀로지(Micron Technology)는 아시아 진출을 지원하기 위해 한국 채용을 강화하고 있음",
         "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-26",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "마이크론, 삼성, SKHY, 다년간 메모리 계약 체결",
-        "summary": "The world's three largest memory chipmakers are securing multiyear supply agreements as shortages driven by AI demand push customers to commit cash years before chips are delivered",
-        "url": "https://www.digitimes.com/news/a20261126VL222/sk-hynix-micron-chipmakers-demand-chips.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-26",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "미국, 삼성·SKHY 증설로 메모리 과잉 경고",
-        "summary": "미국은 AI 수요가 글로벌 공급에 부담을 주더라도 한국의 정부 지원 메모리 칩 확장이 과잉을 초래할 수 있다고 경고 · 조사 결과에 따르면 삼성전자와 SKHY가 언급됐지만, 메모리 칩은 제안된 관세에서 제외",
-        "url": "https://www.digitimes.com/news/a20261126VL217/samsung-sk-hynix-demand-investment-expansion.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-26",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "SK Hynix eyes 100-layer 3D DRAM production by 2031",
-        "url": "https://www.digitimes.com/news/a20261126VL216/dram-sk-hynix-3d-production-manufacturing.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-26",
         "sourceClass": "authoritative-media",
@@ -39775,7 +39801,7 @@
           "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
           "source": "SK hynix Newsroom",
           "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-11-26T12:49:20.331Z",
+          "publishedAt": "2026-11-26T18:37:00.924Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -39866,8 +39892,8 @@
       },
       "enabled": true
     },
-    "runId": "45820637410",
-    "generatedAt": "2026-11-26T12:49:20.331Z",
+    "runId": "45875164824",
+    "generatedAt": "2026-11-26T18:37:00.924Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40205,8 +40231,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "45820637410",
-    "generatedAt": "2026-11-26T12:49:20.331Z",
+    "runId": "45875164824",
+    "generatedAt": "2026-11-26T18:37:00.924Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40978,8 +41004,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-26T12:49:20.331Z",
-    "runId": "45820637410"
+    "generatedAt": "2026-11-26T18:37:00.924Z",
+    "runId": "45875164824"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41220,12 +41246,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.6,
+        "freshnessScore": 92.6,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-26T12:47:52.195Z"
+        "indexedAt": "2026-11-26T18:35:36.201Z"
       }
     },
     "sources": [
@@ -41362,8 +41388,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-26T12:49:20.331Z",
-    "runId": "45820637410"
+    "generatedAt": "2026-11-26T18:37:00.924Z",
+    "runId": "45875164824"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41398,7 +41424,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 1,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -41529,9 +41555,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-26T12:49:20.331Z"
+          "publishedAt": "2026-11-26T18:37:00.924Z"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41651,9 +41677,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-26T12:49:20.331Z"
+          "publishedAt": "2026-11-26T18:37:00.924Z"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 5,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41774,7 +41800,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-26T12:49:20.331Z",
+          "publishedAt": "2026-11-26T18:37:00.924Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -41904,7 +41930,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 7,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -42036,9 +42062,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-26T12:49:20.331Z"
+          "publishedAt": "2026-11-26T18:37:00.924Z"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
