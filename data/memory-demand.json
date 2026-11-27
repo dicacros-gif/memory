@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "45914971210",
-  "generatedAt": "2026-11-27T00:23:30.700Z",
+  "runId": "45948608548",
+  "generatedAt": "2026-11-27T06:11:48.507Z",
   "coverage": {
     "companiesObserved": 36,
     "companiesWithDerivedDemand": 28,
-    "derivedRequirements": 99,
+    "derivedRequirements": 100,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -833,6 +833,29 @@
     "samsung": {
       "requirements": [
         {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-11-27",
+          "evidenceCount": 6,
+          "evidenceIds": [
+            "0m4djqm",
+            "0d63qpl",
+            "106hb70",
+            "01jl2rz",
+            "0bpoiza",
+            "0mqgpst"
+          ],
+          "evidence": "삼성, 맞춤형 HBM 푸시로 메모리 R&D 개편",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261127VL206/samsung-development-hbm-lsi-design.html"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -879,28 +902,6 @@
             "17fxubs",
             "196yd6d",
             "1u8znlv",
-            "0bpoiza"
-          ],
-          "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261117PD225/samsung-hbm-meta-2nm-nvidia.html"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "지속",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-11-17",
-          "evidenceCount": 5,
-          "evidenceIds": [
-            "0m4djqm",
-            "0d63qpl",
-            "106hb70",
-            "01jl2rz",
             "0bpoiza"
           ],
           "evidence": "삼성, 메타용 맞춤형 HBM 개발, 2nm 공정 채택",
@@ -1493,6 +1494,24 @@
     },
     "kioxia": {
       "requirements": [
+        {
+          "technology": "TLC eSSD",
+          "systemShift": "Retrieval Hot Path의 무작위 읽기가 병목",
+          "memoryNeed": "높은 QPS와 낮은 P99를 지키는 저장 계층",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "QPS · P99 · Endurance",
+          "hold": "관측",
+          "firstSeen": "2026-11-27",
+          "lastSeen": "2026-11-27",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "10z6vux"
+          ],
+          "evidence": "KIOXIA, 1,800만 개 이상의 무작위 읽기 IOPS를 갖춘 GP2 시리즈 SSD 발표",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/kioxia-gp2-series-ssd/"
+        },
         {
           "technology": "QLC eSSD",
           "systemShift": "Checkpoint와 Data Lake가 랙 밀도와 전력을 함께 압박",
@@ -2182,7 +2201,7 @@
         "skhynix",
         "tsmc"
       ],
-      "weight": 22
+      "weight": 23
     },
     {
       "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
