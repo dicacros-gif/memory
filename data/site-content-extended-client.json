@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "45948608548",
-  "generatedAt": "2026-11-27T06:11:48.507Z",
-  "expiresAt": "2026-11-28T08:11:46.310Z",
+  "runId": "45992817719",
+  "generatedAt": "2026-11-27T12:01:05.268Z",
+  "expiresAt": "2026-11-28T14:01:03.067Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-27T06:10:20.654Z",
-    "runId": "45948608548",
+    "generatedAt": "2026-11-27T11:59:37.232Z",
+    "runId": "45992817719",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,6 +122,69 @@
     ],
     "eventTriggers": [
       {
+        "id": "32b3f3b49ad3cda2f1f3",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "721f5ba2e15f4c6fb2fa",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "5b27261ffab36f0696b6",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "dff57348873b43ac1df8",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
+      {
+        "id": "eb4f168190781a3a450f",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
+        "sourceClass": "research",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "changed": true
+      },
+      {
         "id": "48bb67145d1b0dd9f78e",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
@@ -211,81 +274,16 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "03d1894ebe386b1c4d1d",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "d68f89e9a3676800c266",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "08a3dd4aa908ce9d524c",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-27T06:10:20.654Z",
+      "generatedAt": "2026-11-27T11:59:37.232Z",
       "stats": {
-        "eligibleDocuments": 41,
-        "structuredEvents": 38,
-        "verifiedEvents": 33,
-        "currentStages": 32,
+        "eligibleDocuments": 39,
+        "structuredEvents": 37,
+        "verifiedEvents": 32,
+        "currentStages": 31,
         "newEvents": 0,
         "contradictionReviews": 0
       },
@@ -827,17 +825,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 157,
-        "structuredEvents": 38,
-        "verifiedEvents": 33,
+        "structuredEvents": 37,
+        "verifiedEvents": 32,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 36,
+        "observed": 35,
         "useful": 29,
-        "observationRatePct": 87.8,
-        "usefulYieldPct": 80.6,
+        "observationRatePct": 85.4,
+        "usefulYieldPct": 82.9,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -856,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1010,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,12 +1053,11 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "transportStatus": "unavailable",
+            "attempts": 0,
+            "lastUsefulObservationAt": "2026-11-27T11:59:37.232Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 0
           },
           {
             "id": "llm-serving-systems-research",
@@ -1069,8 +1066,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1078,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1089,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1101,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1113,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1124,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1136,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1158,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1170,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1181,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1193,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1204,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1216,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1228,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1240,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1252,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1264,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1276,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
-            "lastUsefulObservationAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
+            "lastUsefulObservationAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1288,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-27T06:10:15.773Z",
+            "lastSuccessAt": "2026-11-27T11:59:32.093Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,7 +1323,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-27T06:10:20.654Z",
+          "updatedAt": "2026-11-27T11:59:37.232Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,7 +1453,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-27T06:10:20.654Z",
+          "updatedAt": "2026-11-27T11:59:37.232Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1511,7 +1508,7 @@
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
-              "documentStatus": "current"
+              "documentStatus": "retained-last-verified"
             },
             {
               "score": 2.75,
@@ -1586,7 +1583,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-27T06:10:20.654Z",
+          "updatedAt": "2026-11-27T11:59:37.232Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "DISCLOSED",
@@ -1639,7 +1636,7 @@
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
-              "documentStatus": "current"
+              "documentStatus": "retained-last-verified"
             },
             {
               "score": 1.75,
@@ -1713,7 +1710,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-27T06:10:20.654Z",
+          "updatedAt": "2026-11-27T11:59:37.232Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1839,12 +1836,12 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 9,
-        "fresh": 6,
-        "observationRatePct": 6.1,
+        "observed": 7,
+        "fresh": 5,
+        "observationRatePct": 4.8,
         "officialConfigured": 123,
-        "officialObserved": 1,
-        "officialFresh": 1,
+        "officialObserved": 0,
+        "officialFresh": 0,
         "targetPct": 90
       }
     },
@@ -1961,7 +1958,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "fetched"
+        "status": "unavailable"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2102,10 +2099,10 @@
         "documents": 157,
         "chunks": 602,
         "added": 0,
-        "changed": 0,
-        "unchanged": 41,
-        "retained": 116,
-        "reindexed": 0
+        "changed": 2,
+        "unchanged": 37,
+        "retained": 118,
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2301,8 +2298,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-11-25T19:23:05.043Z",
-              "sourceChangeDetectedAt": "2026-11-25T19:22:59.841Z",
+              "indexedAt": "2026-11-27T11:59:37.232Z",
+              "sourceChangeDetectedAt": "2026-11-27T11:59:32.093Z",
               "stale": false
             }
           ]
@@ -2322,7 +2319,7 @@
               "publishedAt": "2026-01-08",
               "indexedAt": "2026-11-26T18:35:36.201Z",
               "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
-              "stale": false
+              "stale": true
             },
             {
               "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
@@ -2332,7 +2329,7 @@
               "publishedAt": "2026-11-26",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
-              "stale": false
+              "stale": true
             },
             {
               "title": "Solidigm, 새로운 공동 CEO Xin Guo와 Richard Chin 발표",
@@ -2458,7 +2455,7 @@
               "publishedAt": "2026-01-08",
               "indexedAt": "2026-11-26T18:35:36.201Z",
               "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
-              "stale": false
+              "stale": true
             }
           ]
         }
@@ -2466,7 +2463,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 92.6,
+      "score": 90.4,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2483,26 +2480,26 @@
       "components": {
         "contentAge": 96.7,
         "embeddingLag": 100,
-        "staleRetrievalRate": 75,
-        "coverageDrift": 100
+        "staleRetrievalRate": 67.3,
+        "coverageDrift": 98.4
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 25,
-        "feedCoveragePct": 87.8,
+        "staleRetrievalRatePct": 32.7,
+        "feedCoveragePct": 85.4,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0,
+        "coverageDropPctPoint": 0.8,
         "activeDocumentCount": 23
       },
       "coverage": {
-        "currentPct": 95.9,
+        "currentPct": 95.1,
         "previousPct": 95.9
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
-        "indexedAt": "2026-11-26T18:35:36.201Z"
+        "sourceChangeDetectedAt": "2026-11-27T11:59:32.093Z",
+        "indexedAt": "2026-11-27T11:59:37.232Z"
       },
-      "generatedAt": "2026-11-27T06:10:20.654Z"
+      "generatedAt": "2026-11-27T11:59:37.232Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2521,7 +2518,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-27T06:11:48.507Z",
+    "generatedAt": "2026-11-27T12:01:05.268Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5444,8 +5441,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 4,
-            "sourceCount": 2,
+            "mentions": 5,
+            "sourceCount": 3,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5478,7 +5475,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 3
+                "count": 4
               }
             ],
             "painAxes": [
@@ -5956,11 +5953,11 @@
                 "date": "2026-11-27"
               },
               {
-                "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-                "source": "TrendForce",
-                "sourceClass": "news",
-                "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-                "date": "2026-11-11"
+                "title": "Kioxia와 Huida는 SSD를 사용하여 GPU 메모리 용량을 확장하여 1PB를 초과하고 2조 벡터 처리를 지원",
+                "source": "finance.technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://finance.technews.tw/2026/11/27/kioxia-and-nvidia-collaborate-to-expand-gpu-memory-capacity-via-ssds",
+                "date": "2026-11-27"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -7197,7 +7194,7 @@
             },
             "evidenceStream": [
               {
-                "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+                "title": "Save 21% on this ultra-fast 2TB SanDisk Optimus GX Pro 8100 SSD, now just 17.5 cents per GB",
                 "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
@@ -11058,8 +11055,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
-          "sourceCount": 2,
+          "mentions": 5,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11092,7 +11089,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -11570,11 +11567,11 @@
               "date": "2026-11-27"
             },
             {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
+              "title": "Kioxia와 Huida는 SSD를 사용하여 GPU 메모리 용량을 확장하여 1PB를 초과하고 2조 벡터 처리를 지원",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/27/kioxia-and-nvidia-collaborate-to-expand-gpu-memory-capacity-via-ssds",
+              "date": "2026-11-27"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -15782,7 +15779,7 @@
           },
           "evidenceStream": [
             {
-              "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+              "title": "Save 21% on this ultra-fast 2TB SanDisk Optimus GX Pro 8100 SSD, now just 17.5 cents per GB",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
@@ -19941,8 +19938,7 @@
               "latest": {
                 "id": "5bced584126230ffbe1e",
                 "title": "Hiwin Mikrosystem's 3Q26 revenue jumps 77% as CPO test orders extend visibility to mid-2027",
-                "summary": "Taiwan-based precision motion-control maker Hiwin Mikrosystem posted third-quarter 2026 revenue of NT$1.218 billion (approx. US$37 million), up 77% year-over-year, as it moves into co-packaged optics (CPO) testing, silicon photonics (SiPh), advanced packaging, and front-end semiconductor processes",
-                "text": "digitimes.com packaging hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes. hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes",
+                "text": "digitimes.com packaging hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes. hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -22452,7 +22448,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-27T06:11:48.507Z",
+        "updatedAt": "2026-11-27T12:01:05.268Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -27891,11 +27887,11 @@
               "date": "2026-11-27"
             },
             {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
+              "title": "Kioxia와 Huida는 SSD를 사용하여 GPU 메모리 용량을 확장하여 1PB를 초과하고 2조 벡터 처리를 지원",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/27/kioxia-and-nvidia-collaborate-to-expand-gpu-memory-capacity-via-ssds",
+              "date": "2026-11-27"
             }
           ]
         },
@@ -28045,7 +28041,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+              "title": "Save 21% on this ultra-fast 2TB SanDisk Optimus GX Pro 8100 SSD, now just 17.5 cents per GB",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
@@ -28235,8 +28231,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 4,
-          "sourceCount": 2,
+          "mentions": 5,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28269,7 +28265,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -28747,11 +28743,11 @@
               "date": "2026-11-27"
             },
             {
-              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
-              "source": "TrendForce",
-              "sourceClass": "news",
-              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
-              "date": "2026-11-11"
+              "title": "Kioxia와 Huida는 SSD를 사용하여 GPU 메모리 용량을 확장하여 1PB를 초과하고 2조 벡터 처리를 지원",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/11/27/kioxia-and-nvidia-collaborate-to-expand-gpu-memory-capacity-via-ssds",
+              "date": "2026-11-27"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -32959,7 +32955,7 @@
           },
           "evidenceStream": [
             {
-              "title": "초고속 2TB SanDisk Optimus GX Pro 8100 SSD를 21% 절약하세요 · 이제 GB당 단 17.5센트에 불과",
+              "title": "Save 21% on this ultra-fast 2TB SanDisk Optimus GX Pro 8100 SSD, now just 17.5 cents per GB",
               "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/pc-components/ssds/save-21-percent-on-this-ultra-fast-2tb-sandisk-optimus-gx-pro-8100-ssd-now-just-17-5-cents-per-gb-rebranded-sn8100-offers-gen-5-speeds-of-up-to-14-900-mb-s-at-a-record-low-price",
@@ -38520,7 +38516,7 @@
             }
           ],
           "latest": {
-            "id": "2026-10-11:62",
+            "id": "2026-10-11:61",
             "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
             "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
             "source": "trendforce.com",
@@ -38682,8 +38678,7 @@
           "latest": {
             "id": "5bced584126230ffbe1e",
             "title": "Hiwin Mikrosystem's 3Q26 revenue jumps 77% as CPO test orders extend visibility to mid-2027",
-            "summary": "Taiwan-based precision motion-control maker Hiwin Mikrosystem posted third-quarter 2026 revenue of NT$1.218 billion (approx. US$37 million), up 77% year-over-year, as it moves into co-packaged optics (CPO) testing, silicon photonics (SiPh), advanced packaging, and front-end semiconductor processes",
-            "text": "digitimes.com packaging hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes. hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes",
+            "text": "digitimes.com packaging hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes. hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027",
             "source": "digitimes.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -39131,8 +39126,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-10-05",
@@ -39164,7 +39159,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 2
+              "count": 1
             }
           ],
           "latest": {
@@ -39178,9 +39173,9 @@
             "url": "https://www.digitimes.com/news/a20261126pd215/cxl-memory-dram-data-demand-growth.html",
             "date": "2026-11-27"
           },
-          "status": "opportunity-candidate",
-          "evidenceStatus": "cross-checked",
-          "evidenceLabel": "2-SOURCE SIGNAL",
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
           "translation": {
             "ruleId": "Long Context",
             "systemShift": "컨텍스트 길이 증가가 용량 요구를 선형 이상으로 밀어올림",
@@ -39189,12 +39184,6 @@
             "stage": "POC",
             "gate": "Capacity/$ · TTFT",
             "status": "approved-rule"
-          },
-          "source": {
-            "name": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261126pd215/cxl-memory-dram-data-demand-growth.html",
-            "asOf": "2026-11-27",
-            "sourceClass": "authoritative-media"
           }
         },
         {
@@ -39508,104 +39497,7 @@
       "horizonPortfolio": [
         {
           "horizon": "H1",
-          "items": [
-            {
-              "id": "long-context-kv",
-              "label": "LONG CONTEXT · KV CACHE",
-              "horizon": "H1",
-              "aliases": [
-                "long context",
-                "long-context",
-                "KV cache",
-                "context caching",
-                "prefix cache",
-                "롱 컨텍스트"
-              ],
-              "memoryMapKeys": [
-                "Long Context",
-                "KV Cache",
-                "Context Caching"
-              ],
-              "painAxisIds": [
-                "capacity",
-                "bandwidth"
-              ],
-              "productIds": [
-                "custom-hbm",
-                "ai-d-b",
-                "ai-d-e"
-              ],
-              "promotionRule": {
-                "minMentions": 2,
-                "minSources": 2
-              },
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 2
-                }
-              ],
-              "latest": {
-                "id": "cc7d48f8f69fb1d10b21",
-                "title": "DIGITIMES Insight: KV 캐시 증가는 일대일로 CXL 메모리 수요로 변환되지 않음",
-                "summary": "DIGITIMES에 따르면 AI 추론에서 KV 캐시의 급속한 증가는 호스트 DRAM이 일반적으로 HBM에서 먼저 이동된 데이터를 가져오기 때문에 CXL 메모리에 대한 수요로 비례적으로 해석되지 않음 · CXL은 호스트 DRAM이 제한되어 있고 데이터를 재사용할 가치가 있으며 서비스가 신속하게 다시 로드되는 경우에만 필요",
-                "text": "digitimes.com cxl digitimes insight: kv cache growth will not translate one-for-one into cxl memory demand the rapid growth of kv cache in ai inference will not translate proportionally into demand for cxl memory, because host dram usually takes the data moved out of hbm first, according to digitimes. cxl becomes necessary only when host dram is constrained, the data is worth reusing, and the service depends on reloading it quickly. digitimes insight: kv 캐시 증가는 일대일로 cxl 메모리 수요로 변환되지 않음 · digitimes에 따르면 ai 추론에서 kv 캐시의 급속한 증가는 호스트 dram이 일반적으로 hbm에서 먼저 이동된 데이터를 가져오기 때문에 cxl 메모리에 대한 수요로 비례적으로 해석되지 않음 · cxl은 호스트 dram이 제한되어 있고 데이터를 재사용할 가치가 있으며 서비스가 신속하게 다시 로드되는 경우에만 필요",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261126pd215/cxl-memory-dram-data-demand-growth.html",
-                "date": "2026-11-27"
-              },
-              "status": "opportunity-candidate",
-              "evidenceStatus": "cross-checked",
-              "evidenceLabel": "2-SOURCE SIGNAL",
-              "translation": {
-                "ruleId": "Long Context",
-                "systemShift": "컨텍스트 길이 증가가 용량 요구를 선형 이상으로 밀어올림",
-                "memoryNeed": "CPU DRAM 또는 새로운 Memory Tier",
-                "productAxis": "AI-DRAM · CXL · AI-NAND",
-                "stage": "POC",
-                "gate": "Capacity/$ · TTFT",
-                "status": "approved-rule"
-              },
-              "source": {
-                "name": "digitimes.com",
-                "url": "https://www.digitimes.com/news/a20261126pd215/cxl-memory-dram-data-demand-growth.html",
-                "asOf": "2026-11-27",
-                "sourceClass": "authoritative-media"
-              }
-            }
-          ]
+          "items": []
         },
         {
           "horizon": "H2",
@@ -39618,36 +39510,12 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-27T06:10:21.048Z",
-        "items": [
-          {
-            "id": "opportunity:long-context-kv:2026-11-27:https-www-digitimes-com-news-a20261126pd215-cxl-memory-dram-data-demand-growth-html",
-            "kind": "opportunity-candidate",
-            "headline": "LONG CONTEXT · KV CACHE · H1 기회 후보",
-            "asOf": "2026-11-27",
-            "source": "digitimes.com",
-            "sourceUrl": "https://www.digitimes.com/news/a20261126pd215/cxl-memory-dram-data-demand-growth.html",
-            "isNew": true
-          }
-        ],
-        "newItems": [
-          {
-            "id": "opportunity:long-context-kv:2026-11-27:https-www-digitimes-com-news-a20261126pd215-cxl-memory-dram-data-demand-growth-html",
-            "kind": "opportunity-candidate",
-            "headline": "LONG CONTEXT · KV CACHE · H1 기회 후보",
-            "asOf": "2026-11-27",
-            "source": "digitimes.com",
-            "sourceUrl": "https://www.digitimes.com/news/a20261126pd215/cxl-memory-dram-data-demand-growth.html",
-            "isNew": true
-          }
-        ],
-        "newCount": 1,
-        "recentIds": [
-          "opportunity:long-context-kv:2026-11-27:https-www-digitimes-com-news-a20261126pd215-cxl-memory-dram-data-demand-growth-html"
-        ],
-        "counts": {
-          "opportunity-candidate": 1
-        }
+        "generatedAt": "2026-11-27T11:59:37.602Z",
+        "items": [],
+        "newItems": [],
+        "newCount": 0,
+        "recentIds": [],
+        "counts": {}
       },
       "roadmap90d": [
         {
@@ -39760,23 +39628,6 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
-        "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
-        "url": "https://news.solidigm.com/en-WW/releases/",
-        "source": "news.solidigm.com",
-        "publishedAt": "2026-11-26",
-        "sourceClass": "official",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
         "title": "인도의 축제용 스마트폰 판매량은 메모리 비용으로 인해 가격이 상승하면서 22% 감소했습니다: 카운터포인트",
         "summary": "India's smartphone sales during the 2026 festive season, which ran from October 8 to November 10, fell an estimated 22% year-over-year, according to preliminary post-festive check…",
         "url": "https://www.digitimes.com/news/a20261127PR200/india-smartphone-sales-price-demand-2026.html",
@@ -39795,7 +39646,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "DIGITIMES Insight: KV 캐시 증가는 일대일로 CXL 메모리 수요로 변환되지 않음",
@@ -39816,7 +39667,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "EmBestor의 수익은 메모리 랠리로 15배나 치솟았지만 실제 베팅은 산업용 AI입니다",
@@ -39837,13 +39688,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
-        "title": "메모리 가격은 500% 폭등했고, 중소 전자제품 제조사들은 물건을 찾기 위해 이베이를 뒤지고 수백 명의 브로커에게 연락",
-        "summary": "월스트리트저널(WSJ)에 따르면 메모리 부족으로 인해 많은 중소 전자제품 공장이 조달 전쟁실을 설치하게 됐다 · 직원들은 eBay와 같은 웹사이트에서 상품 출처를 검색하고 수백 명의 중개업체에 연락했으며 심지어 5~12개 단위의 소규모 배치 주문도 수락 · 대만의 메모리 모듈 및 스토리지 공장인 Apacer는 현금과 기…",
-        "url": "https://technews.tw/2026/11/27/electronics-manufacturers-set-up-memory-war-rooms-to-find-lock-in-dram-supplies-amid-worst-shortage-in-history/",
-        "source": "technews.tw",
+        "title": "Kioxia와 Huida는 SSD를 사용하여 GPU 메모리 용량을 확장하여 1PB를 초과하고 2조 벡터 처리를 지원",
+        "summary": "메모리 솔루션 대표 제조사 키옥시아(Kioxia)가 엔비디아(NVIDIA)와 협력한다고 27일 밝혔다 · Kioxia의 SCADA 소프트웨어의 고성능과 Kioxia의 솔리드 스테이트 드라이브(SSD)를 결합함으로써 효과적인 GPU 메모리 용량을 PB 수준으로 확장하고 NVIDIA의 Storage-Next 프로젝트를 지원…",
+        "url": "https://finance.technews.tw/2026/11/27/kioxia-and-nvidia-collaborate-to-expand-gpu-memory-capacity-via-ssds/",
+        "source": "finance.technews.tw",
         "publishedAt": "2026-11-27",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -39858,12 +39709,12 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
-        "title": "한국은 중국 창신메모리의 4F² 아키텍처 D램 칩 크기가 장점이 없고 양산도 쉽지 않다고 지적",
-        "summary": "최근 국내 반도체 분야 교수·연구자들은 중국 D램 제조사 창신메모리(CXMT)가 최초로 출시했다고 주장하는 4F² 아키텍처 D램을 평가하며 이 제품의 양산이 쉽지 않다는 점을 지적",
-        "url": "https://technews.tw/2026/11/27/south-korea-believes-changxin-memory-technologies-4f%c2%b2-dram-architecture-lacks-a-size-advantage/",
+        "title": "미국의 수출 제한이 변화를 가속화! UBS: 중국산 AI 칩, 2028년 88% 이상의 시장점유율 확보할 것",
+        "summary": "최근 Huida 위기로 인해 미국 칩 수출 통제에 대한 관심이 집중되었고 중국의 독자적인 반도체 개발 의지가 가속화 · UBS 전망에 따르면 중국의 연간 국내 인공지능(AI) 가속기 출하량은 2025년 170만대에서 2030년 1,000만대를 넘어 6배 가까이 증가할 것으로 예상 · 이 가운데 캠브리안(Cambrian)…",
+        "url": "https://technews.tw/2026/11/27/ubs-see-chinese-ai-chip-market-by-2028/",
         "source": "technews.tw",
         "publishedAt": "2026-11-27",
         "sourceClass": "authoritative-media",
@@ -39875,7 +39726,24 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
+      },
+      {
+        "title": "한국은행, 메모리반도체 호황 위험 경고",
+        "summary": "Memory chip prices could fall well below current projections by 2028 if AI investment slows, financing conditions tighten, and Chinese manufacturers expand production, according t…",
+        "url": "https://www.digitimes.com/news/a20261127VL213/memory-exports-financing-investment-2027-2028.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-27",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
       }
     ],
     "reportPolicy": {
@@ -40162,8 +40030,8 @@
       },
       "enabled": true
     },
-    "runId": "45948608548",
-    "generatedAt": "2026-11-27T06:11:48.507Z",
+    "runId": "45992817719",
+    "generatedAt": "2026-11-27T12:01:05.268Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40501,8 +40369,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "45948608548",
-    "generatedAt": "2026-11-27T06:11:48.507Z",
+    "runId": "45992817719",
+    "generatedAt": "2026-11-27T12:01:05.268Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41274,8 +41142,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-27T06:11:48.507Z",
-    "runId": "45948608548"
+    "generatedAt": "2026-11-27T12:01:05.268Z",
+    "runId": "45992817719"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41516,12 +41384,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 92.6,
+        "freshnessScore": 90.4,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-26T18:35:36.201Z"
+        "indexedAt": "2026-11-27T11:59:37.232Z"
       }
     },
     "sources": [
@@ -41658,8 +41526,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-27T06:11:48.507Z",
-    "runId": "45948608548"
+    "generatedAt": "2026-11-27T12:01:05.268Z",
+    "runId": "45992817719"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41832,7 +41700,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -41962,9 +41830,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-27T06:11:48.507Z"
+          "publishedAt": "2026-11-27T12:01:05.268Z"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42085,11 +41953,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-27T06:11:48.507Z",
+          "publishedAt": "2026-11-27T12:01:05.268Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 8,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42215,7 +42083,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -42347,9 +42215,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-27T06:11:48.507Z"
+          "publishedAt": "2026-11-27T12:01:05.268Z"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
