@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "45875164824",
-  "generatedAt": "2026-11-26T18:37:00.924Z",
-  "expiresAt": "2026-11-27T20:36:59.240Z",
+  "runId": "45914971210",
+  "generatedAt": "2026-11-27T00:23:30.700Z",
+  "expiresAt": "2026-11-28T02:23:29.403Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-26T18:35:36.201Z",
-    "runId": "45875164824",
+    "generatedAt": "2026-11-27T00:22:08.843Z",
+    "runId": "45914971210",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -121,45 +121,6 @@
       }
     ],
     "eventTriggers": [
-      {
-        "id": "49b904ce239ce97f89d3",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "vllm-kv-offloading",
-        "source": "vLLM KV Offloading",
-        "sourceClass": "official",
-        "title": "KV Offloading Usage Guide - vLLM",
-        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-        "publishedAt": "2026-01-08",
-        "changed": true
-      },
-      {
-        "id": "4716ab4d309f920b96d2",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "vllm-kv-offloading",
-        "source": "vLLM KV Offloading",
-        "sourceClass": "official",
-        "title": "KV Offloading Usage Guide - vLLM",
-        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-        "publishedAt": "2026-01-08",
-        "changed": true
-      },
-      {
-        "id": "81bddb6e8ad9a5ea4f41",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "vllm-kv-offloading",
-        "source": "vLLM KV Offloading",
-        "sourceClass": "official",
-        "title": "KV Offloading Usage Guide - vLLM",
-        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-        "publishedAt": "2026-01-08",
-        "changed": true
-      },
       {
         "id": "48bb67145d1b0dd9f78e",
         "ruleId": "earnings-release",
@@ -276,11 +237,50 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
+      },
+      {
+        "id": "fa5f7151388fbece7d36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "e713dfa1c21c0922c992",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "08a3dd4aa908ce9d524c",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
+        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+        "publishedAt": "2026-07-25",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-26T18:35:36.201Z",
+      "generatedAt": "2026-11-27T00:22:08.843Z",
       "stats": {
         "eligibleDocuments": 41,
         "structuredEvents": 38,
@@ -856,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1010,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,8 +1057,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1069,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1081,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1092,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1104,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1116,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1127,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1139,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1161,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1173,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1184,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1196,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1207,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1219,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1231,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1243,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1255,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1267,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1279,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
-            "lastUsefulObservationAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
+            "lastUsefulObservationAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-26T18:35:30.195Z",
+            "lastSuccessAt": "2026-11-27T00:22:04.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1326,7 +1326,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T18:35:36.201Z",
+          "updatedAt": "2026-11-27T00:22:08.843Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1456,7 +1456,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T18:35:36.201Z",
+          "updatedAt": "2026-11-27T00:22:08.843Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1507,7 +1507,7 @@
               "source": "news.solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-25",
+              "publishedAt": "2026-11-26",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
@@ -1586,7 +1586,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T18:35:36.201Z",
+          "updatedAt": "2026-11-27T00:22:08.843Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "뉴스 아카이브 | 솔리다임 뉴스룸",
           "sourceStage": "DISCLOSED",
@@ -1635,7 +1635,7 @@
               "source": "news.solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-25",
+              "publishedAt": "2026-11-26",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "freshnessDays": 180,
@@ -1713,7 +1713,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-26T18:35:36.201Z",
+          "updatedAt": "2026-11-27T00:22:08.843Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1840,7 +1840,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 9,
-        "fresh": 5,
+        "fresh": 1,
         "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 1,
@@ -2102,10 +2102,10 @@
         "documents": 157,
         "chunks": 602,
         "added": 0,
-        "changed": 1,
-        "unchanged": 40,
+        "changed": 0,
+        "unchanged": 41,
         "retained": 116,
-        "reindexed": 1
+        "reindexed": 0
       },
       "packs": [
         {
@@ -2329,7 +2329,7 @@
               "source": "news.solidigm.com",
               "sourceClass": "official",
               "url": "https://news.solidigm.com/en-WW/releases",
-              "publishedAt": "2026-11-25",
+              "publishedAt": "2026-11-26",
               "indexedAt": "2026-11-16T14:52:11.037Z",
               "sourceChangeDetectedAt": "2026-11-16T14:50:11.426Z",
               "stale": false
@@ -2502,7 +2502,7 @@
         "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
         "indexedAt": "2026-11-26T18:35:36.201Z"
       },
-      "generatedAt": "2026-11-26T18:35:36.201Z"
+      "generatedAt": "2026-11-27T00:22:08.843Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2521,7 +2521,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-26T18:37:00.924Z",
+    "generatedAt": "2026-11-27T00:23:30.700Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5444,8 +5444,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 3,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5478,7 +5478,7 @@
               },
               {
                 "week": "2026-11-23",
-                "count": 2
+                "count": 0
               }
             ],
             "painAxes": [
@@ -5912,20 +5912,6 @@
               "generations": []
             },
             "evidenceStream": [
-              {
-                "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
-                "date": "2026-11-26"
-              },
-              {
-                "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
-                "source": "technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
-                "date": "2026-11-26"
-              },
               {
                 "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
                 "source": "TrendForce",
@@ -11029,8 +11015,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11063,7 +11049,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 2
+              "count": 0
             }
           ],
           "painAxes": [
@@ -11497,20 +11483,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
-              "date": "2026-11-26"
-            },
-            {
-              "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
-              "date": "2026-11-26"
-            },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
@@ -11653,8 +11625,8 @@
             "asOf": "2026-05-18"
           },
           "servesAccounts": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11687,7 +11659,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -11940,8 +11912,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -11973,23 +11945,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "52cffa1fdf2a851250ba",
-                "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-                "summary": "미국의 대표적인 PC 브랜드인 HP와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 PC 시장은 여전히 약세를 유지할 것이라고 경고 · HP는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 PC 교체 주기가 거의 끝났다고 밝혔다",
-                "text": "digitimes.com aidemand hp and dell see weak pc market as memory prices rise in 2027 hp and dell, two leading us pc brands, expect memory prices to continue rising in 2027, though at a slower pace, while warning that the pc market will remain weak. hp said the corporate pc replacement cycle has largely ended, with the downturn that began in the second half of 2026 extending into 2027. hp와 델은 2027년 메모리 가격 상승으로 pc 시장 약세 전망 미국의 대표적인 pc 브랜드인 hp와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 pc 시장은 여전히 약세를 유지할 것이라고 경고 · hp는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 pc 교체 주기가 거의 끝났다고 밝혔다",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-                "date": "2026-11-26"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "one-stop",
@@ -12131,15 +12092,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-              "date": "2026-11-26"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -19814,8 +19767,8 @@
             "asOf": "2026-03-02"
           },
           "servesAccounts": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -19848,10 +19801,69 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-09",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-16",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-23",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5bced584126230ffbe1e",
+                "title": "Hiwin Mikrosystem's 3Q26 revenue jumps 77% as CPO test orders extend visibility to mid-2027",
+                "summary": "Taiwan-based precision motion-control maker Hiwin Mikrosystem posted third-quarter 2026 revenue of NT$1.218 billion (approx. US$37 million), up 77% year-over-year, as it moves into co-packaged optics (CPO) testing, silicon photonics (SiPh), advanced packaging, and front-end semiconductor processes",
+                "text": "digitimes.com packaging hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes. hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261126pd202/hiwin-technologies-cpo-profit-revenue-2026-testing.html",
+                "date": "2026-11-26"
+              }
+            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -19957,54 +19969,6 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20281,7 +20245,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Hiwin Mikrosystem's 3Q26 revenue jumps 77% as CPO test orders extend visibility to mid-2027",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126pd202/hiwin-technologies-cpo-profit-revenue-2026-testing.html",
+              "date": "2026-11-26"
+            }
+          ],
           "chipStage": "전략 파트너십",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22423,7 +22395,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-26T18:37:00.924Z",
+        "updatedAt": "2026-11-27T00:23:30.700Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23559,13 +23531,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
-                  "date": "2026-11-26"
+                  "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+                  "source": "TrendForce",
+                  "sourceClass": "news",
+                  "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+                  "date": "2026-11-11"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 1,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23892,7 +23864,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "interconnect",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Hiwin Mikrosystem's 3Q26 revenue jumps 77% as CPO test orders extend visibility to mid-2027",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261126pd202/hiwin-technologies-cpo-profit-revenue-2026-testing.html",
+                  "date": "2026-11-26"
+                },
+                "evidenceCount": 1,
                 "accent": "#2B7996",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
                 "source": {
@@ -24054,14 +24033,7 @@
                 },
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-                  "date": "2026-11-26"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#c0aa7f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
                 "source": {
@@ -24455,13 +24427,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
-              "date": "2026-11-26"
+              "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
+              "source": "TrendForce",
+              "sourceClass": "news",
+              "url": "https://www.trendforce.com/news/2026/11/11/news-dram-godfather-kau-rejects-tsmc-dram-rumors-warns-of-supply-glut-as-cxmts-10-fabs-ramp-up-within-2-years",
+              "date": "2026-11-11"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 1,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24515,14 +24487,7 @@
             },
             "demandClass": "rack-platform",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-              "date": "2026-11-26"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#c0aa7f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
             "source": {
@@ -25130,7 +25095,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "interconnect",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Hiwin Mikrosystem's 3Q26 revenue jumps 77% as CPO test orders extend visibility to mid-2027",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261126pd202/hiwin-technologies-cpo-profit-revenue-2026-testing.html",
+              "date": "2026-11-26"
+            },
+            "evidenceCount": 1,
             "accent": "#2B7996",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
             "source": {
@@ -27717,20 +27689,6 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
-              "date": "2026-11-26"
-            },
-            {
-              "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
-              "date": "2026-11-26"
-            },
-            {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
               "sourceClass": "news",
@@ -27745,64 +27703,7 @@
           "layer": "end-customer",
           "decisionQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume",
           "topPainAxes": [],
-          "whyLost": [
-            {
-              "id": "pricing",
-              "index": "1",
-              "label": "가격 정책",
-              "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-09",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-16",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-23",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "52cffa1fdf2a851250ba",
-                "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-                "summary": "미국의 대표적인 PC 브랜드인 HP와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 PC 시장은 여전히 약세를 유지할 것이라고 경고 · HP는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 PC 교체 주기가 거의 끝났다고 밝혔다",
-                "text": "digitimes.com aidemand hp and dell see weak pc market as memory prices rise in 2027 hp and dell, two leading us pc brands, expect memory prices to continue rising in 2027, though at a slower pace, while warning that the pc market will remain weak. hp said the corporate pc replacement cycle has largely ended, with the downturn that began in the second half of 2026 extending into 2027. hp와 델은 2027년 메모리 가격 상승으로 pc 시장 약세 전망 미국의 대표적인 pc 브랜드인 hp와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 pc 시장은 여전히 약세를 유지할 것이라고 경고 · hp는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 pc 교체 주기가 거의 끝났다고 밝혔다",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-                "date": "2026-11-26"
-              }
-            }
-          ],
+          "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
@@ -27811,15 +27712,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-              "date": "2026-11-26"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "google",
@@ -28140,8 +28033,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28174,7 +28067,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 2
+              "count": 0
             }
           ],
           "painAxes": [
@@ -28608,20 +28501,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126vl211/huawei-ascend-patent-ip-nvidia.html",
-              "date": "2026-11-26"
-            },
-            {
-              "title": "화웨이, 후이다의 글로벌 지배력 겨냥해 반도체·AI 특허팀 신설",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/26/huawei-forms-patent-teams-for-chips-and-ai-eyeing-ecosystem-to-rival-nvidia",
-              "date": "2026-11-26"
-            },
             {
               "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
               "source": "TrendForce",
@@ -28764,8 +28643,8 @@
             "asOf": "2026-05-18"
           },
           "servesAccounts": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28798,7 +28677,7 @@
             },
             {
               "week": "2026-11-23",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -29051,8 +28930,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-10-05",
@@ -29084,23 +28963,12 @@
                 },
                 {
                   "week": "2026-11-23",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "52cffa1fdf2a851250ba",
-                "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-                "summary": "미국의 대표적인 PC 브랜드인 HP와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 PC 시장은 여전히 약세를 유지할 것이라고 경고 · HP는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 PC 교체 주기가 거의 끝났다고 밝혔다",
-                "text": "digitimes.com aidemand hp and dell see weak pc market as memory prices rise in 2027 hp and dell, two leading us pc brands, expect memory prices to continue rising in 2027, though at a slower pace, while warning that the pc market will remain weak. hp said the corporate pc replacement cycle has largely ended, with the downturn that began in the second half of 2026 extending into 2027. hp와 델은 2027년 메모리 가격 상승으로 pc 시장 약세 전망 미국의 대표적인 pc 브랜드인 hp와 델은 2027년에도 메모리 가격이 비록 둔화되더라도 계속 상승할 것으로 예상하는 동시에 pc 시장은 여전히 약세를 유지할 것이라고 경고 · hp는 2026년 하반기부터 시작된 경기 침체가 2027년까지 연장되면서 기업 pc 교체 주기가 거의 끝났다고 밝혔다",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-                "date": "2026-11-26"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "one-stop",
@@ -29242,15 +29110,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "HP와 델은 2027년 메모리 가격 상승으로 PC 시장 약세 전망",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-              "date": "2026-11-26"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -36378,9 +36238,11 @@
             "Time-to-Deploy"
           ],
           "source": {
-            "name": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-            "asOf": "2026-11-26"
+            "id": "dell-agentic-ai-2026",
+            "name": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "sourceClass": "official",
+            "asOf": "2026-05-18"
           }
         },
         "accounts": [
@@ -36395,9 +36257,11 @@
             "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
             "tier": "TIER 1",
             "source": {
-              "name": "digitimes.com",
-              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-              "asOf": "2026-11-26"
+              "id": "dell-agentic-ai-2026",
+              "name": "Dell Technologies · Agentic AI Infrastructure",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+              "sourceClass": "official",
+              "asOf": "2026-05-18"
             }
           },
           {
@@ -38363,12 +38227,12 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-10-05",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-12",
@@ -38399,16 +38263,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "2026-10-11:60",
-            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM ...",
-            "text": "trendforce.com cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm ...",
-            "source": "trendforce.com",
-            "sourceClass": "news",
-            "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-11"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38523,8 +38377,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-10-05",
@@ -38556,9 +38410,20 @@
             },
             {
               "week": "2026-11-23",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "5bced584126230ffbe1e",
+            "title": "Hiwin Mikrosystem's 3Q26 revenue jumps 77% as CPO test orders extend visibility to mid-2027",
+            "summary": "Taiwan-based precision motion-control maker Hiwin Mikrosystem posted third-quarter 2026 revenue of NT$1.218 billion (approx. US$37 million), up 77% year-over-year, as it moves into co-packaged optics (CPO) testing, silicon photonics (SiPh), advanced packaging, and front-end semiconductor processes",
+            "text": "digitimes.com packaging hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes. hiwin mikrosystem's 3q26 revenue jumps 77% as cpo test orders extend visibility to mid-2027 taiwan-based precision motion-control maker hiwin mikrosystem posted third-quarter 2026 revenue of nt$1.218 billion (approx. us$37 million), up 77% year-over-year, as it moves into co-packaged optics (cpo) testing, silicon photonics (siph), advanced packaging, and front-end semiconductor processes",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.digitimes.com/news/a20261126pd202/hiwin-technologies-cpo-profit-revenue-2026-testing.html",
+            "date": "2026-11-26"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39045,7 +38910,7 @@
             "sourceClass": "official",
             "origin": "live-crawl",
             "url": "https://news.solidigm.com/en-ww/releases",
-            "date": "2026-11-25"
+            "date": "2026-11-26"
           },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
@@ -39384,7 +39249,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-26T18:35:36.519Z",
+        "generatedAt": "2026-11-27T00:22:09.071Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39506,31 +39371,10 @@
         "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
         "url": "https://news.solidigm.com/en-WW/releases/",
         "source": "news.solidigm.com",
-        "publishedAt": "2026-11-25",
+        "publishedAt": "2026-11-26",
         "sourceClass": "official",
         "evidenceLevel": "Watch",
         "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 2
-      },
-      {
-        "title": "Acer CEO, NT$1000억 재고에 불안해하며 메모리 가격에 신중",
-        "summary": "While third-party market researchers project global PC unit shipments to decline in 2027, rising component costs are driving up average selling prices, enabling revenue and operat…",
-        "url": "https://www.digitimes.com/news/a20261125PD221/acer-inventory-pc-2026.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-11-26",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
-          },
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
@@ -39594,6 +39438,23 @@
         "title": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
         "summary": "SKHY는 맞춤형 고대역폭 메모리(HBM) 개발을 위해 TSMC의 3nm 공정 경험이 있는 엔지니어를 찾고 있고, 미국 경쟁사인 마이크론 테크놀로지(Micron Technology)는 아시아 진출을 지원하기 위해 한국 채용을 강화하고 있음",
         "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-26",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "마이크론, 삼성, SKHY, 다년간 메모리 계약 체결",
+        "summary": "The world's three largest memory chipmakers are securing multiyear supply agreements as shortages driven by AI demand push customers to commit cash years before chips are delivered",
+        "url": "https://www.digitimes.com/news/a20261126VL222/sk-hynix-micron-chipmakers-demand-chips.html",
         "source": "digitimes.com",
         "publishedAt": "2026-11-26",
         "sourceClass": "authoritative-media",
@@ -39797,12 +39658,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-11-26T18:37:00.924Z",
-          "evidenceLevel": "Official baseline"
+          "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "news.solidigm.com",
+          "url": "https://news.solidigm.com/en-WW/releases/",
+          "publishedAt": "2026-11-26",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -39892,8 +39753,8 @@
       },
       "enabled": true
     },
-    "runId": "45875164824",
-    "generatedAt": "2026-11-26T18:37:00.924Z",
+    "runId": "45914971210",
+    "generatedAt": "2026-11-27T00:23:30.700Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40231,8 +40092,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "45875164824",
-    "generatedAt": "2026-11-26T18:37:00.924Z",
+    "runId": "45914971210",
+    "generatedAt": "2026-11-27T00:23:30.700Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41004,8 +40865,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-26T18:37:00.924Z",
-    "runId": "45875164824"
+    "generatedAt": "2026-11-27T00:23:30.700Z",
+    "runId": "45914971210"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41388,8 +41249,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-26T18:37:00.924Z",
-    "runId": "45875164824"
+    "generatedAt": "2026-11-27T00:23:30.700Z",
+    "runId": "45914971210"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41555,9 +41416,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-26T18:37:00.924Z"
+          "publishedAt": "2026-11-27T00:23:30.700Z"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41663,6 +41524,7 @@
         "phase": "NEXT",
         "tabLabel": "Enterprise RAG",
         "title": "LLM Tech & Enterprise RAG Architecture",
+        "subtitle": "news.solidigm.com · 2026-11-26",
         "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "recommendation": "eSSD ATTACH",
         "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
@@ -41674,13 +41536,22 @@
         },
         "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
         "latest": {
-          "pending": true,
-          "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
-          "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-26T18:37:00.924Z"
+          "pending": false,
+          "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+          "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+          "source": "news.solidigm.com",
+          "url": "https://news.solidigm.com/en-WW/releases/",
+          "publishedAt": "2026-11-26",
+          "evidenceLevel": "Watch",
+          "sourceClass": "official"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 4,
         "signals": [
+          [
+            "Watch · OFFICIAL",
+            "뉴스 아카이브 | 솔리다임 뉴스룸",
+            "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명"
+          ],
           [
             "EXECUTIVE DECISION",
             "eSSD를 AI 추론의 독립 성장축으로 운영",
@@ -41766,6 +41637,11 @@
         "useCase": "MODELED STRATEGY CASE · Enterprise RAG · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
         "sources": [
           [
+            "Watch",
+            "news.solidigm.com · 2026-11-26",
+            "https://news.solidigm.com/en-WW/releases/"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41800,11 +41676,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-26T18:37:00.924Z",
+          "publishedAt": "2026-11-27T00:23:30.700Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 5,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41930,7 +41806,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -42062,9 +41938,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-26T18:37:00.924Z"
+          "publishedAt": "2026-11-27T00:23:30.700Z"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",

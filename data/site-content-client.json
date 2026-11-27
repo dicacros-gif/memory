@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "45875164824",
-  "generatedAt": "2026-11-26T18:37:00.924Z",
-  "expiresAt": "2026-11-27T20:36:59.240Z",
+  "runId": "45914971210",
+  "generatedAt": "2026-11-27T00:23:30.700Z",
+  "expiresAt": "2026-11-28T02:23:29.403Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "45875164824"
+    "sourceRunId": "45914971210"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "45875164824",
-    "generatedAt": "2026-11-26T18:37:00.924Z",
+    "runId": "45914971210",
+    "generatedAt": "2026-11-27T00:23:30.700Z",
     "totalSections": 73,
     "boundSections": 73,
     "refresh": {
@@ -206,13 +206,13 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 44,
+    "evidenceCount": 36,
     "briefCount": 7,
-    "sourceCount": 2,
+    "sourceCount": 3,
     "configuredSources": 147,
     "observedSources": 9,
-    "freshObservedSources": 5,
-    "staleObservedSources": 4,
+    "freshObservedSources": 1,
+    "staleObservedSources": 8,
     "officialConfigured": 123,
     "officialObserved": 1,
     "officialFreshObserved": 1,
@@ -270,8 +270,8 @@
       "scheduleHours": 6,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "45875164824",
-      "generatedAt": "2026-11-26T18:37:00.924Z"
+      "runId": "45914971210",
+      "generatedAt": "2026-11-27T00:23:30.700Z"
     }
   },
   "decisionControl": {
@@ -281,15 +281,15 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-11-26T18:37:00.924Z",
-      "expiresAt": "2026-11-27T20:36:59.240Z"
+      "generatedAt": "2026-11-27T00:23:30.700Z",
+      "expiresAt": "2026-11-28T02:23:29.403Z"
     },
     "coverage": {
       "status": "LOW",
       "observed": 9,
       "configured": 147,
       "ratio": 0.061,
-      "freshRatio": 0.034
+      "freshRatio": 0.007
     },
     "confidence": {
       "status": "REVIEW",
@@ -299,8 +299,8 @@
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-26T18:35:36.201Z",
-    "runId": "45875164824",
+    "generatedAt": "2026-11-27T00:22:08.843Z",
+    "runId": "45914971210",
     "freshness": {
       "framework": "evidence-freshness-v1",
       "score": 92.6,
@@ -339,7 +339,7 @@
         "sourceChangeDetectedAt": "2026-11-26T18:35:30.195Z",
         "indexedAt": "2026-11-26T18:35:36.201Z"
       },
-      "generatedAt": "2026-11-26T18:35:36.201Z"
+      "generatedAt": "2026-11-27T00:22:08.843Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -367,7 +367,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 9,
-        "fresh": 5,
+        "fresh": 1,
         "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 1,
@@ -495,8 +495,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "accounts.projects",
-      "runId": "45875164824",
-      "generatedAt": "2026-11-26T18:37:00.924Z",
+      "runId": "45914971210",
+      "generatedAt": "2026-11-27T00:23:30.700Z",
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
@@ -595,7 +595,7 @@
       "revalidationRequired": false,
       "indexedAt": "2026-11-26T18:35:36.201Z"
     },
-    "status": "3개 고객 과제 · 2026-11-26"
+    "status": "3개 고객 과제 · 2026-11-27"
   },
   "decisionCases": [
     {
@@ -758,9 +758,9 @@
         "pending": true,
         "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "publishedAt": "2026-11-26T18:37:00.924Z"
+        "publishedAt": "2026-11-27T00:23:30.700Z"
       },
-      "evidenceCount": 7,
+      "evidenceCount": 6,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -866,6 +866,7 @@
       "phase": "NEXT",
       "tabLabel": "Enterprise RAG",
       "title": "LLM Tech & Enterprise RAG Architecture",
+      "subtitle": "news.solidigm.com · 2026-11-26",
       "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
       "recommendation": "eSSD ATTACH",
       "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
@@ -877,13 +878,22 @@
       },
       "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "latest": {
-        "pending": true,
-        "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
-        "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "publishedAt": "2026-11-26T18:37:00.924Z"
+        "pending": false,
+        "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+        "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+        "source": "news.solidigm.com",
+        "url": "https://news.solidigm.com/en-WW/releases/",
+        "publishedAt": "2026-11-26",
+        "evidenceLevel": "Watch",
+        "sourceClass": "official"
       },
-      "evidenceCount": 5,
+      "evidenceCount": 4,
       "signals": [
+        [
+          "Watch · OFFICIAL",
+          "뉴스 아카이브 | 솔리다임 뉴스룸",
+          "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명"
+        ],
         [
           "EXECUTIVE DECISION",
           "eSSD를 AI 추론의 독립 성장축으로 운영",
@@ -969,6 +979,11 @@
       "useCase": "MODELED STRATEGY CASE · Enterprise RAG · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
       "sources": [
         [
+          "Watch",
+          "news.solidigm.com · 2026-11-26",
+          "https://news.solidigm.com/en-WW/releases/"
+        ],
+        [
           "CONTROL",
           "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
@@ -1003,9 +1018,9 @@
         "pending": true,
         "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "publishedAt": "2026-11-26T18:37:00.924Z"
+        "publishedAt": "2026-11-27T00:23:30.700Z"
       },
-      "evidenceCount": 7,
+      "evidenceCount": 6,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -1136,7 +1151,7 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 6,
+      "evidenceCount": 5,
       "latest": {
         "pending": true,
         "title": "DRAM·범용 가격",
@@ -1163,18 +1178,46 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 5,
+      "evidenceCount": 4,
       "latest": {
-        "pending": true,
-        "title": "NAND·eSSD",
-        "summary": "1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+        "pending": false,
+        "title": "뉴스 아카이브 | 솔리다임 뉴스룸",
+        "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
+        "source": "news.solidigm.com",
+        "url": "https://news.solidigm.com/en-WW/releases/",
+        "publishedAt": "2026-11-26",
         "evidenceLevel": "Watch",
-        "sourceClass": "unclassified"
+        "sourceClass": "official"
       },
-      "fact": "1TB-mSATA/M.2 TLC PCIe-Value Grade · PC-Client OEM SSD Contract Price · 321.00 · 일간 0.00%",
+      "fact": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
       "implication": "1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
+      "availability": {
+        "status": "evidence-available",
+        "historyWindowMonths": 36
+      },
+      "hypothesis": {
+        "status": "unverified",
+        "label": "검증 전",
+        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
+      }
+    },
+    {
+      "id": "china",
+      "label": "중국 경쟁",
+      "evidenceCount": 3,
+      "latest": {
+        "pending": true,
+        "title": "중국 경쟁",
+        "summary": "512Gb TLC은 공개 누적 125개 관측에서 +191.17% 변동(직접 가격이 아닌 proxy)",
+        "evidenceLevel": "Watch",
+        "sourceClass": "unclassified"
+      },
+      "fact": "512Gb TLC · Wafer Spot Price · 14.238 · 일간 -0.20%",
+      "implication": "512Gb TLC은 공개 누적 125개 관측에서 +191.17% 변동(직접 가격이 아닌 proxy)",
+      "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
+      "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
       "availability": {
         "status": "pending-source",
         "reason": "source-rejected-by-publication-policy",
@@ -1188,48 +1231,20 @@
       }
     },
     {
-      "id": "china",
-      "label": "중국 경쟁",
-      "evidenceCount": 3,
-      "latest": {
-        "pending": false,
-        "title": "미국의 봉쇄를 돌파하라! 화웨이, 최초로 중국 디자인 툴 체인을 통합한 'Tao EDA' 개발",
-        "summary": "미국은 수출 통제를 통해 중국의 첨단 반도체 기술 접근을 계속 제한하고 있음 · 화웨이는 미국 전자설계자동화(EDA) 소프트웨어에 대한 의존도를 줄이기 위해 독립적인 칩 설계 생태계 구축에 박차를 가하고 있음 · 화웨이는 중국 EDA 업체인 Phlexing Technology와 손을 잡고 첨단 패키징과 다중 프로세스 통합을 지원하는 국내 EDA 툴 체인을 개발하고 관련 기술을 실제 애플리케이션에 적용 · 3D 하이브리드 본딩과 멀티다이 통합 기술을 통",
-        "source": "technews.tw",
-        "url": "https://technews.tw/2026/11/26/huawei-phlexing-technology-tau-eda-tools/",
-        "publishedAt": "2026-11-26",
-        "evidenceLevel": "Watch",
-        "sourceClass": "authoritative-media"
-      },
-      "fact": "미국은 수출 통제를 통해 중국의 첨단 반도체 기술 접근을 계속 제한하고 있음 · 화웨이는 미국 전자설계자동화(EDA) 소프트웨어에 대한 의존도를 줄이기 위해 독립적인 칩 설계 생태계 구축에 박차를 가하고 있음 · 화웨이는 중국 EDA 업체인 Phlexing Technology와 손을 잡고 첨단 패키징과 다중 프로세스 통합을 지원하는 국내 EDA 툴 체인을 개발하고 관련 기술을 실제 애플리케이션에 적용 · 3D 하이브리드 본딩과 멀티다이 통합 기술을 통",
-      "implication": "512Gb TLC은 공개 누적 125개 관측에서 +191.17% 변동(직접 가격이 아닌 proxy)",
-      "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
-      "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
-      "availability": {
-        "status": "evidence-available",
-        "historyWindowMonths": 36
-      },
-      "hypothesis": {
-        "status": "unverified",
-        "label": "검증 전",
-        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
-      }
-    },
-    {
       "id": "policy",
       "label": "정책·Fab",
       "evidenceCount": 2,
       "latest": {
         "pending": false,
-        "title": "화웨이, 엔비디아에 맞서기 위해 무료 칩 특허 라이센스 제공",
-        "summary": "Huawei Technologies는 UnifiedBus 칩 인터커넥트 기술에 대한 무료 특허 라이센스를 제공하고 있으며, 해외 하드웨어 공급업체를 유치하고 Nvidia와 경쟁할 컴퓨팅 생태계를 구축하기 위해 반도체 및 인공 지능(AI) 특허 전담 팀을 구성",
-        "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261126VL211/huawei-ascend-patent-ip-nvidia.html",
+        "title": "미국의 자비를 원하지 않는 네덜란드는 ASML 수출 제한 확대에 반대",
+        "summary": "미국 의회가 중국산 반도체 장비 수출 규제를 더욱 강화하는 방안을 검토하고 있어 네덜란드 정부의 반발이 커지고 있음 · 로이터 통신에 따르면 쇼에르드 셰르드스마 네덜란드 통상장관은 26일 미국의 다자간 하드웨어 기술 통제 조정법(MATCH Act)이 정식 통과되면 네덜란드는 ASML과 다른 유럽 기술 기업의 이익을 해치지 않도록 미국 정부에 관련 조치를 취하지 말 것을 요청할 것이라고 밝혔다",
+        "source": "technews.tw",
+        "url": "https://technews.tw/2026/11/27/netherlands-opposes-expanding-asml-export-restrictions-resists-us-dictation/",
         "publishedAt": "2026-11-26",
-        "evidenceLevel": "Reported",
+        "evidenceLevel": "Watch",
         "sourceClass": "authoritative-media"
       },
-      "fact": "Huawei Technologies는 UnifiedBus 칩 인터커넥트 기술에 대한 무료 특허 라이센스를 제공하고 있으며, 해외 하드웨어 공급업체를 유치하고 Nvidia와 경쟁할 컴퓨팅 생태계를 구축하기 위해 반도체 및 인공 지능(AI) 특허 전담 팀을 구성",
+      "fact": "미국 의회가 중국산 반도체 장비 수출 규제를 더욱 강화하는 방안을 검토하고 있어 네덜란드 정부의 반발이 커지고 있음 · 로이터 통신에 따르면 쇼에르드 셰르드스마 네덜란드 통상장관은 26일 미국의 다자간 하드웨어 기술 통제 조정법(MATCH Act)이 정식 통과되면 네덜란드는 ASML과 다른 유럽 기술 기업의 이익을 해치지 않도록 미국 정부에 관련 조치를 취하지 말 것을 요청할 것이라고 밝혔다",
       "implication": "원문 해석 연결 전 · 파생 관측만 사용",
       "decision": "법안, 시행 규칙, 라이선스 조건을 구분하고 중국 Fab 안건을 운영 유지·캐파 확대·기술 업그레이드로 나눠 결재",
       "action": "정부 원문에서 법적 상태·적용 품목·라이선스 조건이 변경",
@@ -1246,7 +1261,7 @@
     {
       "id": "demand",
       "label": "수요·고객",
-      "evidenceCount": 7,
+      "evidenceCount": 6,
       "latest": {
         "pending": false,
         "title": "삼성·DB하이텍, AI 수요 급증에 8인치 파운드리 가격 인상 주목",
@@ -1322,7 +1337,7 @@
     "summary": "공동 CEO인 Xin Guo는 NAND 공급 역학, KV 캐시의 증가, 스토리지가 AI 인프라에 대한 첫 번째 설계 결정이 된 이유에 대해 설명",
     "source": "news.solidigm.com",
     "url": "https://news.solidigm.com/en-WW/releases/",
-    "publishedAt": "2026-11-25",
+    "publishedAt": "2026-11-26",
     "evidenceLevel": "Watch",
     "sourceClass": "official"
   },
@@ -2015,9 +2030,11 @@
             "Time-to-Deploy"
           ],
           "source": {
-            "name": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-            "asOf": "2026-11-26"
+            "id": "dell-agentic-ai-2026",
+            "name": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "sourceClass": "official",
+            "asOf": "2026-05-18"
           }
         },
         "accounts": [
@@ -2032,9 +2049,11 @@
             "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
             "tier": "TIER 1",
             "source": {
-              "name": "digitimes.com",
-              "url": "https://www.digitimes.com/news/a20261126pd212/dell-hp-pc-market-memory-2027.html",
-              "asOf": "2026-11-26"
+              "id": "dell-agentic-ai-2026",
+              "name": "Dell Technologies · Agentic AI Infrastructure",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+              "sourceClass": "official",
+              "asOf": "2026-05-18"
             }
           },
           {
@@ -2860,13 +2879,7 @@
           "layer": "end-customer",
           "decisionQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume",
           "topPainAxes": [],
-          "whyLost": [
-            {
-              "id": "pricing",
-              "label": "가격 정책",
-              "mentions": 1
-            }
-          ],
+          "whyLost": [],
           "recommendedProductIds": []
         },
         {
@@ -2981,7 +2994,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-26T18:37:00.924Z",
+        "updatedAt": "2026-11-27T00:23:30.700Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
