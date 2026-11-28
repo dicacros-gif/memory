@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "46082097114",
-  "generatedAt": "2026-11-27T23:37:57.246Z",
-  "expiresAt": "2026-11-29T01:37:55.547Z",
-  "collectedAt": "2026-11-27T23:25:10Z",
+  "runId": "46110816639",
+  "generatedAt": "2026-11-28T05:27:13.489Z",
+  "expiresAt": "2026-11-29T07:27:11.253Z",
+  "collectedAt": "2026-11-28T05:12:39Z",
   "providers": {
     "openbb": {
       "package": "openbb-core + openbb-yfinance",
@@ -14,7 +14,7 @@
       "state": "partial",
       "ok": 644,
       "failed": 30,
-      "finishedAt": "2026-11-27T23:25:04Z",
+      "finishedAt": "2026-11-28T05:12:32Z",
       "ohlcvFiles": 101
     },
     "financeDataReader": {
@@ -25,7 +25,7 @@
       "state": "ok",
       "ok": 8,
       "failed": 0,
-      "finishedAt": "2026-11-27T23:25:10Z",
+      "finishedAt": "2026-11-28T05:12:38Z",
       "ohlcvFiles": null
     },
     "tradingviewScreener": {
@@ -36,7 +36,7 @@
       "state": "ok",
       "ok": 1,
       "failed": 0,
-      "finishedAt": "2026-11-27T23:25:10Z",
+      "finishedAt": "2026-11-28T05:12:39Z",
       "ohlcvFiles": null
     }
   },
@@ -67,7 +67,7 @@
     }
   ],
   "memo": {
-    "asOf": "2026-11-27",
+    "asOf": "2026-11-28",
     "verdict": {
       "sector": "글로벌 메모리 업종",
       "stance": {
@@ -104,7 +104,7 @@
       "change": {
         "direction": "flat",
         "prior": {
-          "asOf": "2026-11-26",
+          "asOf": "2026-11-27",
           "composite": 0.2,
           "stance": "underweight",
           "conviction": "low",
@@ -148,7 +148,7 @@
         "weight": 0.15,
         "score": 0,
         "weighted": 0,
-        "verdict": "EPS 추정치 90일 +1.7% · 목표가 상승여력 +149%",
+        "verdict": "EPS 추정치 90일 +1.7% · 목표가 상승여력 +159%",
         "soWhat": "추정치 정체 · 실적 발표에서 방향 확인 필요"
       },
       {
@@ -182,7 +182,7 @@
         "status": "kill",
         "statusLabel": "폐기 조건",
         "rationale": "현물가 하락 전환은 계약가 둔화의 선행 신호",
-        "asOf": "2026-11-27",
+        "asOf": "2026-11-28",
         "source": "TrendForce 공개 테이블 자체 축적 히스토리"
       },
       {
@@ -195,7 +195,7 @@
         "status": "ok",
         "statusLabel": "정상",
         "rationale": "NAND 레버리지 종목 이익 추정 하향 경로",
-        "asOf": "2026-11-27",
+        "asOf": "2026-11-28",
         "source": "TrendForce 공개 테이블 자체 축적 히스토리"
       },
       {
@@ -236,7 +236,7 @@
         "status": "ok",
         "statusLabel": "정상",
         "rationale": "애널리스트 추정치 하향 전환은 이익 사이클 정점의 대표 신호",
-        "asOf": "2026-11-27",
+        "asOf": "2026-11-28",
         "source": "OpenBB · yfinance"
       },
       {
@@ -396,6 +396,15 @@
     ],
     "catalysts": [
       {
+        "date": "2026-11-25",
+        "label": "HBM4 Sample → Qualification → Ramp · 경쟁사 Ramp·고객 공급",
+        "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+        "source": "newsletter.semianalysis.com",
+        "sourceClass": "research",
+        "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
+        "priority": "즉시 반영"
+      },
+      {
         "date": "2026-08-26",
         "label": "Full-Stack AI Memory Portfolio · Server OEM · Rack Platform Roadmap",
         "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
@@ -456,15 +465,6 @@
         "source": "SK hynix Newsroom",
         "sourceClass": "official",
         "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "priority": "즉시 반영"
-      },
-      {
-        "date": "2026-07-20",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "title": "삼성, 2027년 HBM 시장에서 SKHY 추월할 수도",
-        "source": "Digitimes",
-        "sourceClass": "research",
-        "url": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
         "priority": "즉시 반영"
       }
     ],
@@ -782,6 +782,14 @@
         "conviction": "low",
         "kills": 2,
         "warns": 2
+      },
+      {
+        "asOf": "2026-11-28",
+        "composite": 0.2,
+        "stance": "underweight",
+        "conviction": "low",
+        "kills": 2,
+        "warns": 2
       }
     ],
     "method": {
@@ -794,14 +802,9 @@
   },
   "estimates": {
     "count": 5,
-    "upsideMedian": 148.5,
-    "upsideCount": 3,
+    "upsideMedian": 159.4,
+    "upsideCount": 4,
     "targetsWithheld": [
-      {
-        "symbol": "000660.KS",
-        "status": "stale",
-        "note": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
-      },
       {
         "symbol": "285A.T",
         "status": "stale",
@@ -811,29 +814,29 @@
     "rev90Median": 1.7,
     "rev30Median": -0.2,
     "recommendationMedian": 1.37,
-    "asOf": "2026-11-27T23:23:45Z",
+    "asOf": "2026-11-28T05:11:28Z",
     "rows": [
       {
         "symbol": "000660.KS",
-        "upside": null,
-        "targetStatus": "stale",
-        "targetNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
-        "rev90": 1.68,
-        "rev30": 1.44,
+        "upside": 170.27,
+        "targetStatus": "ok",
+        "targetNote": null,
+        "rev90": 1.69,
+        "rev30": 1.33,
         "recommendationMean": 1.34146,
         "analysts": 39,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       {
         "symbol": "005930.KS",
         "upside": 148.46,
         "targetStatus": "ok",
         "targetNote": null,
-        "rev90": -2.13,
-        "rev30": -0.43,
+        "rev90": -2.03,
+        "rev30": -0.33,
         "recommendationMean": 1.36111,
         "analysts": 36,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       {
         "symbol": "MU",
@@ -844,7 +847,7 @@
         "rev30": -0.22,
         "recommendationMean": 1.36735,
         "analysts": 45,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       {
         "symbol": "SNDK",
@@ -855,7 +858,7 @@
         "rev30": 6.02,
         "recommendationMean": 1.44,
         "analysts": 24,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       {
         "symbol": "285A.T",
@@ -866,7 +869,7 @@
         "rev30": -2.98,
         "recommendationMean": 1.5625,
         "analysts": 16,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       }
     ]
   },
@@ -879,17 +882,11 @@
       "같은 세션 OpenBB 시세가 크롤 종가와 5% 넘게 다르면 경고"
     ],
     "counts": {
-      "target-stale": 22,
+      "target-stale": 21,
       "target-thin": 7,
       "multiple-nm": 6
     },
     "flags": [
-      {
-        "kind": "target-stale",
-        "symbol": "000660.KS",
-        "date": null,
-        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
-      },
       {
         "kind": "target-stale",
         "symbol": "285A.T",
@@ -1279,8 +1276,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/000660.KS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 1110000,
@@ -1298,7 +1294,7 @@
         "volatility": 80.1,
         "maxDrawdown": -64.7,
         "volume": 3299870,
-        "volumeAverage": 3563520,
+        "volumeAverage": 3554984,
         "yearHigh": 2987000,
         "yearLow": 525000,
         "spark": [
@@ -1381,9 +1377,9 @@
         "evEbitda": 3.2,
         "evSales": 2.6,
         "pb": null,
-        "dividendYield": 0.28,
+        "dividendYield": 2.04,
         "beta": 2.47,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 77.4,
@@ -1399,11 +1395,11 @@
       "consensus": {
         "targetMedian": 3000000,
         "targetHigh": 4700000,
-        "targetLow": 1575000,
-        "upside": null,
+        "targetLow": 1350000,
+        "upside": 170.27,
         "rawUpside": 170.27,
-        "quality": "stale",
-        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.34,
         "analysts": 39,
@@ -1415,15 +1411,15 @@
           "strongSell": 0,
           "total": 41
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 359596.66,
-          "rev30": 1.44,
-          "rev90": 1.68,
-          "nextYear": 535980.25
+          "current": 359607.75,
+          "rev30": 1.33,
+          "rev90": 1.69,
+          "nextYear": 537622.25
         },
         "breadth": {
           "period": "0y",
@@ -1431,7 +1427,7 @@
           "down": 11,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -1579,8 +1575,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/005930.KS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 179100,
@@ -1598,7 +1593,7 @@
         "volatility": 63.2,
         "maxDrawdown": -52,
         "volume": 16011019,
-        "volumeAverage": 17717452,
+        "volumeAverage": 17664610,
         "yearHigh": 374500,
         "yearLow": 99900,
         "spark": [
@@ -1681,9 +1676,9 @@
         "evEbitda": 3,
         "evSales": 1.6,
         "pb": null,
-        "dividendYield": 10.74,
+        "dividendYield": 10.28,
         "beta": 1.58,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 64,
@@ -1715,15 +1710,15 @@
           "strongSell": 0,
           "total": 36
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 47516.574,
-          "rev30": -0.43,
-          "rev90": -2.13,
-          "nextYear": 77232.86
+          "current": 47565.812,
+          "rev30": -0.33,
+          "rev90": -2.03,
+          "nextYear": 77490.04
         },
         "breadth": {
           "period": "0y",
@@ -1731,7 +1726,7 @@
           "down": 4,
           "net": 4
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -1739,7 +1734,7 @@
         "epsAverage": 16616.555,
         "epsLow": 15008.783,
         "epsHigh": 18498.37,
-        "revenueAverage": 223743501420000
+        "revenueAverage": 224881596660000
       },
       "analystActions": [],
       "earningsHistory": {
@@ -1874,8 +1869,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/MU/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 646.95,
@@ -1974,11 +1968,11 @@
         "forwardPeQuality": "ok",
         "peg": 0.13,
         "evEbitda": 6.4,
-        "evSales": 5.3,
+        "evSales": 5.2,
         "pb": 5.29,
         "dividendYield": 0.1,
         "beta": 2.4,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 80.7,
@@ -2010,7 +2004,7 @@
           "strongSell": 0,
           "total": 49
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -2026,7 +2020,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2026-12-17",
@@ -2515,8 +2509,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/SNDK/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 85.36,
@@ -2619,7 +2612,7 @@
         "pb": 5.42,
         "dividendYield": 0,
         "beta": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 80,
@@ -2651,7 +2644,7 @@
           "strongSell": 0,
           "total": 25
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -2667,7 +2660,7 @@
           "down": 2,
           "net": 16
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-15",
@@ -3156,8 +3149,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/WDC/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 292.11,
@@ -3260,7 +3252,7 @@
         "pb": 11.69,
         "dividendYield": 0.26,
         "beta": 2.34,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 52.6,
@@ -3292,7 +3284,7 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -3308,7 +3300,7 @@
           "down": 0,
           "net": 21
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-28",
@@ -3792,8 +3784,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/285A.T/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 8450,
@@ -3811,7 +3802,7 @@
         "volatility": 104.5,
         "maxDrawdown": -80.9,
         "volume": 218138600,
-        "volumeAverage": 92329557,
+        "volumeAverage": 94426375,
         "yearHigh": 37566.668,
         "yearLow": 2866,
         "spark": [
@@ -3896,7 +3887,7 @@
         "pb": 4.61,
         "dividendYield": 0.77,
         "beta": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 73.4,
@@ -3928,7 +3919,7 @@
           "strongSell": 1,
           "total": 16
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -3944,7 +3935,7 @@
           "down": 4,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-28",
@@ -4086,8 +4077,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/002371.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 527.38,
@@ -4105,7 +4095,7 @@
         "volatility": 53.5,
         "maxDrawdown": -53.5,
         "volume": 11936156,
-        "volumeAverage": 8414807,
+        "volumeAverage": 8473496,
         "yearHigh": 968,
         "yearLow": 417,
         "spark": [
@@ -4190,7 +4180,7 @@
         "pb": 8.97,
         "dividendYield": 0.16,
         "beta": 0.56,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 38.3,
@@ -4215,7 +4205,7 @@
         "recommendationMean": 1.36,
         "analysts": 21,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -4295,8 +4285,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688012.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 269.1,
@@ -4314,7 +4303,7 @@
         "volatility": 68.8,
         "maxDrawdown": -65.1,
         "volume": 35364306,
-        "volumeAverage": 18327009,
+        "volumeAverage": 18610964,
         "yearHigh": 500,
         "yearLow": 171.95302,
         "spark": [
@@ -4397,9 +4386,9 @@
         "evEbitda": 124.5,
         "evSales": 17.1,
         "pb": 8.21,
-        "dividendYield": 0.16,
+        "dividendYield": 0.13,
         "beta": 0.94,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 38.5,
@@ -4424,7 +4413,7 @@
         "recommendationMean": 1.25,
         "analysts": 17,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -4509,8 +4498,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688082.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 244.8,
@@ -4528,7 +4516,7 @@
         "volatility": 84.3,
         "maxDrawdown": -64.3,
         "volume": 6790439,
-        "volumeAverage": 4785911,
+        "volumeAverage": 4819320,
         "yearHigh": 459.99,
         "yearLow": 138.56,
         "spark": [
@@ -4613,7 +4601,7 @@
         "pb": 8.04,
         "dividendYield": 0.3,
         "beta": 0.95,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 44.1,
@@ -4638,7 +4626,7 @@
         "recommendationMean": null,
         "analysts": 3,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -4723,8 +4711,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/600584.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 52.58,
@@ -4742,7 +4729,7 @@
         "volatility": 60.9,
         "maxDrawdown": -55.9,
         "volume": 92036140,
-        "volumeAverage": 70904366,
+        "volumeAverage": 71256562,
         "yearHigh": 113.87,
         "yearLow": 35.1,
         "spark": [
@@ -4827,7 +4814,7 @@
         "pb": 3.19,
         "dividendYield": 0.31,
         "beta": 1.52,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 15.6,
@@ -4852,7 +4839,7 @@
         "recommendationMean": null,
         "analysts": 11,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -4932,8 +4919,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/603986.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 217.34,
@@ -4951,7 +4937,7 @@
         "volatility": 66.8,
         "maxDrawdown": -76.5,
         "volume": 43255181,
-        "volumeAverage": 31740129,
+        "volumeAverage": 31932046,
         "yearHigh": 846.66,
         "yearLow": 194,
         "spark": [
@@ -5024,7 +5010,7 @@
         "tone": "negative"
       },
       "valuation": {
-        "marketCap": 152517263360,
+        "marketCap": 153001148416,
         "marketCapKrw": null,
         "pe": 11.9,
         "forwardPe": 13.3,
@@ -5036,7 +5022,7 @@
         "pb": 1.99,
         "dividendYield": 0.38,
         "beta": 2.06,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 63.6,
@@ -5061,7 +5047,7 @@
         "recommendationMean": 1.67,
         "analysts": 10,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -5141,8 +5127,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688981.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 134.42,
@@ -5160,7 +5145,7 @@
         "volatility": 53.5,
         "maxDrawdown": -45.4,
         "volume": 96836491,
-        "volumeAverage": 37363525,
+        "volumeAverage": 38354741,
         "yearHigh": 176.34,
         "yearLow": 91.2,
         "spark": [
@@ -5245,7 +5230,7 @@
         "pb": 6.66,
         "dividendYield": 0,
         "beta": 0.41,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 23.3,
@@ -5270,7 +5255,7 @@
         "recommendationMean": 1.58,
         "analysts": 11,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -5355,8 +5340,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/NVDA/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 150.49,
@@ -5459,7 +5443,7 @@
         "pb": 13.6,
         "dividendYield": 0.67,
         "beta": 2.25,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 74.9,
@@ -5491,7 +5475,7 @@
           "strongSell": 0,
           "total": 63
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -5507,7 +5491,7 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [
@@ -5984,8 +5968,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/AMD/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 424.54,
@@ -6088,7 +6071,7 @@
         "pb": 10.18,
         "dividendYield": 0,
         "beta": 2.54,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 56,
@@ -6120,7 +6103,7 @@
           "strongSell": 0,
           "total": 54
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -6136,7 +6119,7 @@
           "down": 1,
           "net": 31
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-02",
@@ -6614,8 +6597,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/AVGO/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 312.34,
@@ -6718,7 +6700,7 @@
         "pb": 14.96,
         "dividendYield": 0.86,
         "beta": 1.51,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 75.5,
@@ -6750,7 +6732,7 @@
           "strongSell": 0,
           "total": 50
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -6766,7 +6748,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2026-12-09",
@@ -6953,9 +6935,9 @@
           },
           {
             "date": "2026-09-02",
-            "actual": 3.32,
+            "actual": null,
             "estimate": 3.24,
-            "surprise": 2.5
+            "surprise": null
           },
           {
             "date": "2026-06-03",
@@ -6994,8 +6976,8 @@
             "surprise": 6
           }
         ],
-        "beats": 7,
-        "reported": 7,
+        "beats": 6,
+        "reported": 6,
         "averageSurprise": 1.8
       },
       "shareStats": {
@@ -7244,8 +7226,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/MRVL/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 140.54,
@@ -7339,7 +7320,7 @@
         "marketCap": 126453088256,
         "marketCapKrw": null,
         "pe": 46.2,
-        "forwardPe": 19.1,
+        "forwardPe": 19,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 8.77,
@@ -7348,7 +7329,7 @@
         "pb": 6.65,
         "dividendYield": 0.18,
         "beta": 2.33,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 52.2,
@@ -7380,7 +7361,7 @@
           "strongSell": 0,
           "total": 43
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -7396,7 +7377,7 @@
           "down": 1,
           "net": 6
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2026-12-01",
@@ -7880,8 +7861,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/QCOM/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 179.27,
@@ -7982,9 +7962,9 @@
         "evEbitda": 18.8,
         "evSales": 4.6,
         "pb": 6.32,
-        "dividendYield": 2.18,
+        "dividendYield": 2.05,
         "beta": 1.76,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 53.1,
@@ -8016,7 +7996,7 @@
           "strongSell": 2,
           "total": 37
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -8032,7 +8012,7 @@
           "down": 21,
           "net": -15
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-03",
@@ -8516,8 +8496,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/TSM/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 353.34,
@@ -8620,7 +8599,7 @@
         "pb": 67.87,
         "dividendYield": 1.1,
         "beta": 1.23,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 65.8,
@@ -8652,7 +8631,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -8668,7 +8647,7 @@
           "down": 2,
           "net": 7
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-14",
@@ -9101,8 +9080,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/UMC/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 13.44,
@@ -9205,7 +9183,7 @@
         "pb": 2.32,
         "dividendYield": 3.04,
         "beta": 1.83,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 31.7,
@@ -9237,7 +9215,7 @@
           "strongSell": 3,
           "total": 4
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -9253,7 +9231,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -9622,8 +9600,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/GFS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 37.71,
@@ -9726,7 +9703,7 @@
         "pb": 1.76,
         "dividendYield": 1.33,
         "beta": 1.85,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 28.5,
@@ -9758,7 +9735,7 @@
           "strongSell": 1,
           "total": 23
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -9774,7 +9751,7 @@
           "down": 1,
           "net": 13
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-10",
@@ -10252,8 +10229,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ASML/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 1325.82,
@@ -10351,12 +10327,12 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 1.58,
-        "evEbitda": 1745.8,
-        "evSales": 715.7,
+        "evEbitda": 1743.2,
+        "evSales": 714.6,
         "pb": 1138.41,
         "dividendYield": 0.71,
         "beta": 1.33,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 54.3,
@@ -10388,7 +10364,7 @@
           "strongSell": 0,
           "total": 41
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -10404,7 +10380,7 @@
           "down": 0,
           "net": 20
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -10773,8 +10749,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/AMAT/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 322.04,
@@ -10877,7 +10852,7 @@
         "pb": 9.78,
         "dividendYield": 0.68,
         "beta": 1.67,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 50,
@@ -10909,7 +10884,7 @@
           "strongSell": 0,
           "total": 40
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -10925,7 +10900,7 @@
           "down": 3,
           "net": 3
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-11",
@@ -11398,8 +11373,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/LRCX/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 192.69,
@@ -11502,7 +11476,7 @@
         "pb": 17.31,
         "dividendYield": 0.71,
         "beta": 2.01,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 51.1,
@@ -11534,7 +11508,7 @@
           "strongSell": 0,
           "total": 34
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -11550,7 +11524,7 @@
           "down": 8,
           "net": 11
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -12023,8 +11997,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/KLAC/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 140.86,
@@ -12117,17 +12090,17 @@
       "valuation": {
         "marketCap": 183535288320,
         "marketCapKrw": null,
-        "pe": 35.3,
+        "pe": 30.7,
         "forwardPe": 19.9,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 2.06,
         "evEbitda": 28.1,
-        "evSales": 12.8,
+        "evSales": 12.7,
         "pb": 28.14,
         "dividendYield": 0.69,
         "beta": 1.5,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 61.5,
@@ -12159,7 +12132,7 @@
           "strongSell": 0,
           "total": 29
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -12175,7 +12148,7 @@
           "down": 0,
           "net": 20
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-28",
@@ -12653,8 +12626,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/8035.T/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 8220,
@@ -12672,7 +12644,7 @@
         "volatility": 66.3,
         "maxDrawdown": -55.8,
         "volume": 23146800,
-        "volumeAverage": 17412901,
+        "volumeAverage": 17508466,
         "yearHigh": 16252,
         "yearLow": 6012,
         "spark": [
@@ -12747,7 +12719,7 @@
       "valuation": {
         "marketCap": 18606542815232,
         "marketCapKrw": null,
-        "pe": 44.2,
+        "pe": 46.1,
         "forwardPe": 6.4,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -12755,9 +12727,9 @@
         "evEbitda": 19.6,
         "evSales": 6.2,
         "pb": 8.48,
-        "dividendYield": 1.98,
+        "dividendYield": 1.9,
         "beta": 1.35,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 46.4,
@@ -12789,7 +12761,7 @@
           "strongSell": 0,
           "total": 23
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -12805,7 +12777,7 @@
           "down": 1,
           "net": 9
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-05",
@@ -12938,8 +12910,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ASX/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 31.34,
@@ -13032,7 +13003,7 @@
       "valuation": {
         "marketCap": 69185363968,
         "marketCapKrw": null,
-        "pe": 30.1,
+        "pe": 29.8,
         "forwardPe": 14.4,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -13042,7 +13013,7 @@
         "pb": 5.3,
         "dividendYield": 1.41,
         "beta": 1.52,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 20.8,
@@ -13074,7 +13045,7 @@
           "strongSell": 0,
           "total": 2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -13090,7 +13061,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-04",
@@ -13409,8 +13380,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/AMKR/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 34.33,
@@ -13513,7 +13483,7 @@
         "pb": 1.77,
         "dividendYield": 1.05,
         "beta": 2.4,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 16.6,
@@ -13545,7 +13515,7 @@
           "strongSell": 0,
           "total": 11
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -13561,7 +13531,7 @@
           "down": 6,
           "net": -5
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-08",
@@ -14045,8 +14015,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ANET/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 174.73,
@@ -14149,7 +14118,7 @@
         "pb": 13.42,
         "dividendYield": 0,
         "beta": 1.64,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 62.9,
@@ -14181,7 +14150,7 @@
           "strongSell": 0,
           "total": 30
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -14197,7 +14166,7 @@
           "down": 0,
           "net": 18
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-09",
@@ -14676,8 +14645,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/VRT/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 178.71,
@@ -14780,7 +14748,7 @@
         "pb": 12.51,
         "dividendYield": 0.17,
         "beta": 2.11,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 38.1,
@@ -14812,7 +14780,7 @@
           "strongSell": 0,
           "total": 32
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -14828,7 +14796,7 @@
           "down": 0,
           "net": 25
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-10",
@@ -15306,8 +15274,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688825.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 36.93,
@@ -15325,7 +15292,7 @@
         "volatility": 67.1,
         "maxDrawdown": -47.1,
         "volume": 529170867,
-        "volumeAverage": 275685064,
+        "volumeAverage": 279909827,
         "yearHigh": 61.8,
         "yearLow": 32.17,
         "spark": [
@@ -15410,7 +15377,7 @@
         "pb": 9.76,
         "dividendYield": 0,
         "beta": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 83.9,
@@ -15435,7 +15402,7 @@
         "recommendationMean": 1.63,
         "analysts": 14,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -15499,8 +15466,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688525.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 130.96,
@@ -15518,7 +15484,7 @@
         "volatility": 75.5,
         "maxDrawdown": -77.6,
         "volume": 30989516,
-        "volumeAverage": 18540491,
+        "volumeAverage": 18747975,
         "yearHigh": 517,
         "yearLow": 101.5,
         "spark": [
@@ -15601,9 +15567,9 @@
         "evEbitda": 7.2,
         "evSales": 3.1,
         "pb": 4.44,
-        "dividendYield": 0.56,
+        "dividendYield": 0.49,
         "beta": 2.15,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 47.9,
@@ -15703,8 +15669,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688347.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 212.4,
@@ -15722,7 +15687,7 @@
         "volatility": 90.3,
         "maxDrawdown": -67.1,
         "volume": 40349967,
-        "volumeAverage": 19110429,
+        "volumeAverage": 19464422,
         "yearHigh": 413.13,
         "yearLow": 97.04,
         "spark": [
@@ -15807,7 +15772,7 @@
         "pb": 8.56,
         "dividendYield": 0,
         "beta": 1.77,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 16.8,
@@ -15821,18 +15786,18 @@
         "epsForward": null
       },
       "consensus": {
-        "targetMedian": 229.05,
-        "targetHigh": 369.02,
-        "targetLow": 116.69,
-        "upside": 7.84,
-        "rawUpside": 7.84,
+        "targetMedian": 229.06,
+        "targetHigh": 369.04,
+        "targetLow": 116.7,
+        "upside": 7.85,
+        "rawUpside": 7.85,
         "quality": "ok",
         "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 2.33,
         "analysts": 6,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -15917,8 +15882,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688072.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 547.37,
@@ -15936,7 +15900,7 @@
         "volatility": 83.7,
         "maxDrawdown": -66.3,
         "volume": 8772660,
-        "volumeAverage": 5717290,
+        "volumeAverage": 5768213,
         "yearHigh": 945,
         "yearLow": 285.07,
         "spark": [
@@ -16019,9 +15983,9 @@
         "evEbitda": 110.4,
         "evSales": 20.2,
         "pb": 11.48,
-        "dividendYield": 0.15,
+        "dividendYield": 0.12,
         "beta": 0.38,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 38.5,
@@ -16046,7 +16010,7 @@
         "recommendationMean": null,
         "analysts": 5,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -16126,8 +16090,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688037.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 275.4,
@@ -16145,7 +16108,7 @@
         "volatility": 88.9,
         "maxDrawdown": -66.8,
         "volume": 9282149,
-        "volumeAverage": 4712771,
+        "volumeAverage": 4788928,
         "yearHigh": 459.88,
         "yearLow": 118.2,
         "spark": [
@@ -16230,7 +16193,7 @@
         "pb": 20.16,
         "dividendYield": 0.02,
         "beta": 0.91,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 31,
@@ -16255,7 +16218,7 @@
         "recommendationMean": null,
         "analysts": 1,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -16335,8 +16298,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688120.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 217.85,
@@ -16354,7 +16316,7 @@
         "volatility": 74,
         "maxDrawdown": -52.5,
         "volume": 13288054,
-        "volumeAverage": 9592414,
+        "volumeAverage": 9654008,
         "yearHigh": 374.85,
         "yearLow": 91.91428,
         "spark": [
@@ -16437,9 +16399,9 @@
         "evEbitda": 72.1,
         "evSales": 18.4,
         "pb": 9.15,
-        "dividendYield": 0.22,
+        "dividendYield": 0.18,
         "beta": 0.66,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 40.5,
@@ -16464,7 +16426,7 @@
         "recommendationMean": 2,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -16549,8 +16511,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/002156.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 40.13,
@@ -16568,7 +16529,7 @@
         "volatility": 63.8,
         "maxDrawdown": -54.2,
         "volume": 94705628,
-        "volumeAverage": 72119034,
+        "volumeAverage": 72495477,
         "yearHigh": 84.7,
         "yearLow": 35,
         "spark": [
@@ -16651,9 +16612,9 @@
         "evEbitda": 12.6,
         "evSales": 2.3,
         "pb": 2.87,
-        "dividendYield": 0.22,
+        "dividendYield": 0.2,
         "beta": 1.15,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 14.7,
@@ -16678,7 +16639,7 @@
         "recommendationMean": 1.8,
         "analysts": 3,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -16758,8 +16719,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/002185.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 13.89,
@@ -16777,7 +16737,7 @@
         "volatility": 60,
         "maxDrawdown": -59.4,
         "volume": 252013221,
-        "volumeAverage": 197498709,
+        "volumeAverage": 198407284,
         "yearHigh": 26.81,
         "yearLow": 10.46,
         "spark": [
@@ -16860,9 +16820,9 @@
         "evEbitda": 14.6,
         "evSales": 2.8,
         "pb": 2.37,
-        "dividendYield": 0.17,
+        "dividendYield": 0.16,
         "beta": 1.17,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 15.7,
@@ -16887,7 +16847,7 @@
         "recommendationMean": null,
         "analysts": 2,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -16967,8 +16927,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688008.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 144.5,
@@ -16986,7 +16945,7 @@
         "volatility": 78.1,
         "maxDrawdown": -60.3,
         "volume": 51646482,
-        "volumeAverage": 33227892,
+        "volumeAverage": 33534868,
         "yearHigh": 332.9,
         "yearLow": 112.62,
         "spark": [
@@ -17069,9 +17028,9 @@
         "evEbitda": -2.5,
         "evSales": -1.1,
         "pb": 0.49,
-        "dividendYield": 0.47,
+        "dividendYield": 0.41,
         "beta": 1.76,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 66.2,
@@ -17096,7 +17055,7 @@
         "recommendationMean": null,
         "analysts": 11,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -17176,8 +17135,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688521.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 89.81,
@@ -17195,7 +17153,7 @@
         "volatility": 94.6,
         "maxDrawdown": -79.8,
         "volume": 30422586,
-        "volumeAverage": 20871333,
+        "volumeAverage": 21030520,
         "yearHigh": 375.67,
         "yearLow": 72.75,
         "spark": [
@@ -17280,7 +17238,7 @@
         "pb": 17.13,
         "dividendYield": 0,
         "beta": 1.43,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 30.6,
@@ -17305,7 +17263,7 @@
         "recommendationMean": null,
         "analysts": 3,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -17385,8 +17343,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/301269.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 101.59,
@@ -17404,7 +17361,7 @@
         "volatility": 63.9,
         "maxDrawdown": -49.1,
         "volume": 16071101,
-        "volumeAverage": 7829195,
+        "volumeAverage": 7966561,
         "yearHigh": 137.56,
         "yearLow": 80.2,
         "spark": [
@@ -17487,9 +17444,9 @@
         "evEbitda": 3931,
         "evSales": 37,
         "pb": 10.34,
-        "dividendYield": 0.17,
+        "dividendYield": 0.15,
         "beta": 0.42,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 88.2,
@@ -17514,7 +17471,7 @@
         "recommendationMean": null,
         "analysts": 6,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -17594,8 +17551,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688206.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 28.43,
@@ -17613,7 +17569,7 @@
         "volatility": 76.4,
         "maxDrawdown": -73.5,
         "volume": 12580067,
-        "volumeAverage": 6512936,
+        "volumeAverage": 6614055,
         "yearHigh": 54.83,
         "yearLow": 23.9,
         "spark": [
@@ -17696,9 +17652,9 @@
         "evEbitda": -983.6,
         "evSales": 49.9,
         "pb": 7.57,
-        "dividendYield": 0.12,
+        "dividendYield": 0.11,
         "beta": 0.85,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 79.9,
@@ -17723,7 +17679,7 @@
         "recommendationMean": null,
         "analysts": 1,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -17798,8 +17754,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/603501.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 86.5,
@@ -17817,7 +17772,7 @@
         "volatility": 35.8,
         "maxDrawdown": -69.7,
         "volume": 16522695,
-        "volumeAverage": 13035123,
+        "volumeAverage": 13093249,
         "yearHigh": 135.33,
         "yearLow": 70.78,
         "spark": [
@@ -17892,7 +17847,7 @@
       "valuation": {
         "marketCap": 108858286080,
         "marketCapKrw": null,
-        "pe": 32.3,
+        "pe": 34.9,
         "forwardPe": 24.7,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -17902,7 +17857,7 @@
         "pb": 3.21,
         "dividendYield": 0.12,
         "beta": 0.86,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 29,
@@ -17927,7 +17882,7 @@
         "recommendationMean": 1.67,
         "analysts": 17,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -18007,8 +17962,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/603893.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 211.72,
@@ -18026,7 +17980,7 @@
         "volatility": 79.1,
         "maxDrawdown": -75.2,
         "volume": 21864464,
-        "volumeAverage": 14579911,
+        "volumeAverage": 14701320,
         "yearHigh": 237.37,
         "yearLow": 145.45,
         "spark": [
@@ -18111,7 +18065,7 @@
         "pb": 16.36,
         "dividendYield": 0.78,
         "beta": 0.8,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 45.4,
@@ -18125,18 +18079,18 @@
         "epsForward": null
       },
       "consensus": {
-        "targetMedian": 232.16,
+        "targetMedian": 235.08,
         "targetHigh": 270,
         "targetLow": 219,
-        "upside": 9.65,
-        "rawUpside": 9.65,
+        "upside": 11.03,
+        "rawUpside": 11.03,
         "quality": "ok",
         "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
-        "analysts": 3,
+        "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -18216,8 +18170,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688047.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 96.9,
@@ -18235,7 +18188,7 @@
         "volatility": 49.4,
         "maxDrawdown": -59.2,
         "volume": 6590078,
-        "volumeAverage": 3465172,
+        "volumeAverage": 3517253,
         "yearHigh": 203.05,
         "yearLow": 82,
         "spark": [
@@ -18320,7 +18273,7 @@
         "pb": 18.36,
         "dividendYield": 0,
         "beta": 0.76,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 35.9,
@@ -18420,8 +18373,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688256.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 1118.99,
@@ -18439,7 +18391,7 @@
         "volatility": 72.7,
         "maxDrawdown": -61.4,
         "volume": 17934419,
-        "volumeAverage": 10374671,
+        "volumeAverage": 10500667,
         "yearHigh": 1620,
         "yearLow": 649.6644,
         "spark": [
@@ -18522,9 +18474,9 @@
         "evEbitda": 156.1,
         "evSales": 61.3,
         "pb": 46.53,
-        "dividendYield": 0.16,
+        "dividendYield": 0.13,
         "beta": 1.05,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 55.1,
@@ -18549,7 +18501,7 @@
         "recommendationMean": 1.33,
         "analysts": 8,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -18634,8 +18586,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688019.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 228.85,
@@ -18653,7 +18604,7 @@
         "volatility": 74.6,
         "maxDrawdown": -54.1,
         "volume": 10523319,
-        "volumeAverage": 5650313,
+        "volumeAverage": 5731529,
         "yearHigh": 366,
         "yearLow": 145.23077,
         "spark": [
@@ -18736,9 +18687,9 @@
         "evEbitda": 45.7,
         "evSales": 16.2,
         "pb": 9.06,
-        "dividendYield": 0.26,
+        "dividendYield": 0.22,
         "beta": 0.43,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 55.1,
@@ -18763,7 +18714,7 @@
         "recommendationMean": 1.25,
         "analysts": 3,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -18843,8 +18794,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688126.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 22.04,
@@ -18862,7 +18812,7 @@
         "volatility": 62.9,
         "maxDrawdown": -67.2,
         "volume": 94813357,
-        "volumeAverage": 51249484,
+        "volumeAverage": 51975548,
         "yearHigh": 43.87,
         "yearLow": 16.22,
         "spark": [
@@ -18947,7 +18897,7 @@
         "pb": 3.64,
         "dividendYield": 0,
         "beta": 1.18,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": -16,
@@ -18972,7 +18922,7 @@
         "recommendationMean": null,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -19057,8 +19007,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/300666.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 209.03,
@@ -19076,7 +19025,7 @@
         "volatility": 84,
         "maxDrawdown": -67.5,
         "volume": 14960599,
-        "volumeAverage": 11519308,
+        "volumeAverage": 11576663,
         "yearHigh": 418.99,
         "yearLow": 83.39,
         "spark": [
@@ -19159,9 +19108,9 @@
         "evEbitda": 63.3,
         "evSales": 10.3,
         "pb": 7.58,
-        "dividendYield": 0.22,
+        "dividendYield": 0.18,
         "beta": 0.89,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 27.3,
@@ -19186,7 +19135,7 @@
         "recommendationMean": 1,
         "analysts": 1,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -19271,8 +19220,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/002916.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 224.92,
@@ -19290,7 +19238,7 @@
         "volatility": 79.4,
         "maxDrawdown": -60.1,
         "volume": 13887524,
-        "volumeAverage": 10727220,
+        "volumeAverage": 10779892,
         "yearHigh": 484.57,
         "yearLow": 179.9,
         "spark": [
@@ -19375,7 +19323,7 @@
         "pb": 7.64,
         "dividendYield": 1.17,
         "beta": 1.73,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 30.8,
@@ -19400,7 +19348,7 @@
         "recommendationMean": null,
         "analysts": 14,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -19475,8 +19423,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ARM/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 171.55,
@@ -19579,7 +19526,7 @@
         "pb": 20.2,
         "dividendYield": 0,
         "beta": 3.94,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 97.4,
@@ -19611,7 +19558,7 @@
           "strongSell": 0,
           "total": 43
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -19627,7 +19574,7 @@
           "down": 4,
           "net": 13
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-03",
@@ -20116,8 +20063,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/SNPS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 420.07,
@@ -20220,7 +20166,7 @@
         "pb": 2.58,
         "dividendYield": 0,
         "beta": 1.18,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 82.9,
@@ -20252,7 +20198,7 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -20268,7 +20214,7 @@
           "down": 1,
           "net": 0
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2026-12-08",
@@ -20741,8 +20687,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/CDNS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 303.91,
@@ -20845,7 +20790,7 @@
         "pb": 12.13,
         "dividendYield": 0,
         "beta": 1.1,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 85.7,
@@ -20877,7 +20822,7 @@
           "strongSell": 0,
           "total": 25
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -20893,7 +20838,7 @@
           "down": 1,
           "net": 8
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-18",
@@ -21366,8 +21311,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/6525.T/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 5143,
@@ -21385,7 +21329,7 @@
         "volatility": 98.3,
         "maxDrawdown": -69.9,
         "volume": 15330100,
-        "volumeAverage": 8708955,
+        "volumeAverage": 8819308,
         "yearHigh": 12220,
         "yearLow": 4251,
         "spark": [
@@ -21460,7 +21404,7 @@
       "valuation": {
         "marketCap": 1200293543936,
         "marketCapKrw": null,
-        "pe": 27.7,
+        "pe": 29.8,
         "forwardPe": 26.9,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -21468,9 +21412,9 @@
         "evEbitda": 16.5,
         "evSales": 4.2,
         "pb": 5.06,
-        "dividendYield": 1.38,
+        "dividendYield": 1.28,
         "beta": 2.17,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 41.1,
@@ -21502,7 +21446,7 @@
           "strongSell": 0,
           "total": 13
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -21518,7 +21462,7 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-12",
@@ -21656,8 +21600,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ASM.AS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 618.6,
@@ -21758,9 +21701,9 @@
         "evEbitda": 22.4,
         "evSales": 7.8,
         "pb": 6.46,
-        "dividendYield": 0.54,
+        "dividendYield": 0.53,
         "beta": 1.53,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 51.9,
@@ -21792,7 +21735,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -21808,7 +21751,7 @@
           "down": 3,
           "net": 5
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-23",
@@ -21935,8 +21878,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ACLS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 103,
@@ -22034,12 +21976,12 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 3.59,
-        "evEbitda": 27.4,
+        "evEbitda": 27.3,
         "evSales": 3.1,
         "pb": 2.86,
         "dividendYield": 0,
         "beta": 1.89,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 42.8,
@@ -22071,7 +22013,7 @@
           "strongSell": 1,
           "total": 5
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -22087,7 +22029,7 @@
           "down": 0,
           "net": 5
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-16",
@@ -22566,8 +22508,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ONTO/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 178.42,
@@ -22670,7 +22611,7 @@
         "pb": 4.42,
         "dividendYield": 0,
         "beta": 1.68,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 56.4,
@@ -22702,7 +22643,7 @@
           "strongSell": 0,
           "total": 12
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -22718,7 +22659,7 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-18",
@@ -23191,8 +23132,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ENTG/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 135.99,
@@ -23283,19 +23223,19 @@
         "tone": "caution"
       },
       "valuation": {
-        "marketCap": 20711278592,
+        "marketCap": 20779272192,
         "marketCapKrw": null,
         "pe": 52.9,
         "forwardPe": 24,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 18.17,
-        "evEbitda": 23.9,
-        "evSales": 6.8,
+        "evEbitda": 23.8,
+        "evSales": 6.7,
         "pb": 4.8,
         "dividendYield": 0.31,
         "beta": 1.4,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 47,
@@ -23327,7 +23267,7 @@
           "strongSell": 0,
           "total": 15
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -23343,7 +23283,7 @@
           "down": 0,
           "net": 10
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-04",
@@ -23822,8 +23762,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/4063.T/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 5640,
@@ -23841,7 +23780,7 @@
         "volatility": 30,
         "maxDrawdown": -47.1,
         "volume": 4532700,
-        "volumeAverage": 6474816,
+        "volumeAverage": 6442448,
         "yearHigh": 7930,
         "yearLow": 4610,
         "spark": [
@@ -23924,9 +23863,9 @@
         "evEbitda": 9.8,
         "evSales": 3.3,
         "pb": 2.27,
-        "dividendYield": 2.1,
+        "dividendYield": 2.06,
         "beta": 1.07,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 34.5,
@@ -23958,7 +23897,7 @@
           "strongSell": 0,
           "total": 16
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -23974,7 +23913,7 @@
           "down": 2,
           "net": 5
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-26",
@@ -24101,8 +24040,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/3436.T/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 2054,
@@ -24120,7 +24058,7 @@
         "volatility": 89.6,
         "maxDrawdown": -71.8,
         "volume": 10890700,
-        "volumeAverage": 12332286,
+        "volumeAverage": 12308260,
         "yearHigh": 5939,
         "yearLow": 1227,
         "spark": [
@@ -24203,9 +24141,9 @@
         "evEbitda": 6.7,
         "evSales": 1.9,
         "pb": 1.27,
-        "dividendYield": 1.07,
+        "dividendYield": 0.97,
         "beta": 1.26,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 10,
@@ -24237,7 +24175,7 @@
           "strongSell": 1,
           "total": 15
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -24253,7 +24191,7 @@
           "down": 2,
           "net": -2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-10",
@@ -24386,8 +24324,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/6488.TWO/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 511,
@@ -24405,7 +24342,7 @@
         "volatility": 88.2,
         "maxDrawdown": -70.7,
         "volume": 5174656,
-        "volumeAverage": 11105798,
+        "volumeAverage": 11007932,
         "yearHigh": 1600,
         "yearLow": 360,
         "spark": [
@@ -24480,7 +24417,7 @@
       "valuation": {
         "marketCap": 269866106880,
         "marketCapKrw": null,
-        "pe": 26.4,
+        "pe": 26.1,
         "forwardPe": 16.7,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -24488,9 +24425,9 @@
         "evEbitda": 20.4,
         "evSales": 5.3,
         "pb": 1.85,
-        "dividendYield": 1.49,
+        "dividendYield": 1.51,
         "beta": 2.16,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 21.8,
@@ -24522,7 +24459,7 @@
           "strongSell": 1,
           "total": 14
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -24538,7 +24475,7 @@
           "down": 7,
           "net": -6
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -24658,8 +24595,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/TER/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 222.96,
@@ -24753,7 +24689,7 @@
         "marketCap": 34809577472,
         "marketCapKrw": null,
         "pe": 25.6,
-        "forwardPe": 18.5,
+        "forwardPe": 18.3,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 2.59,
@@ -24762,7 +24698,7 @@
         "pb": 9.44,
         "dividendYield": 0.25,
         "beta": 1.75,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 59.3,
@@ -24794,7 +24730,7 @@
           "strongSell": 0,
           "total": 18
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -24810,7 +24746,7 @@
           "down": 0,
           "net": 13
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -25294,8 +25230,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/6857.T/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 26585,
@@ -25313,7 +25248,7 @@
         "volatility": 87.8,
         "maxDrawdown": -51.4,
         "volume": 23955900,
-        "volumeAverage": 16190013,
+        "volumeAverage": 16319445,
         "yearHigh": 41990,
         "yearLow": 18460,
         "spark": [
@@ -25396,9 +25331,9 @@
         "evEbitda": 25.4,
         "evSales": 13.1,
         "pb": 16.76,
-        "dividendYield": 0.39,
+        "dividendYield": 0.37,
         "beta": 1.25,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 68.2,
@@ -25430,15 +25365,15 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 1045.6487,
-          "rev30": 11.28,
-          "rev90": 14.09,
-          "nextYear": 1407.9366
+          "current": 1051.2582,
+          "rev30": 11.88,
+          "rev90": 14.7,
+          "nextYear": 1419.9458
         },
         "breadth": {
           "period": "0y",
@@ -25446,7 +25381,7 @@
           "down": 0,
           "net": 13
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -25579,8 +25514,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/6146.T/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 44280,
@@ -25598,7 +25532,7 @@
         "volatility": 65.8,
         "maxDrawdown": -65.2,
         "volume": 2081500,
-        "volumeAverage": 1922177,
+        "volumeAverage": 1924833,
         "yearHigh": 91680,
         "yearLow": 37210,
         "spark": [
@@ -25681,9 +25615,9 @@
         "evEbitda": 18.8,
         "evSales": 8.9,
         "pb": 7.64,
-        "dividendYield": 1.33,
+        "dividendYield": 1.27,
         "beta": 1.04,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 71.4,
@@ -25715,7 +25649,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -25731,7 +25665,7 @@
           "down": 4,
           "net": 2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-28",
@@ -25858,8 +25792,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/BESI.AS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 140.4,
@@ -25952,7 +25885,7 @@
       "valuation": {
         "marketCap": 11098675200,
         "marketCapKrw": null,
-        "pe": 38.7,
+        "pe": 39.2,
         "forwardPe": 21.5,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -25962,7 +25895,7 @@
         "pb": 17.13,
         "dividendYield": 1.14,
         "beta": 1.36,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 64.7,
@@ -25994,7 +25927,7 @@
           "strongSell": 0,
           "total": 20
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -26010,7 +25943,7 @@
           "down": 7,
           "net": 4
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -26130,8 +26063,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/COHR/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 223.79,
@@ -26234,7 +26166,7 @@
         "pb": 3.89,
         "dividendYield": 0,
         "beta": 2.23,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 38.2,
@@ -26266,7 +26198,7 @@
           "strongSell": 0,
           "total": 27
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -26282,7 +26214,7 @@
           "down": 0,
           "net": 15
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-03",
@@ -26766,8 +26698,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/LITE/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 514.63,
@@ -26861,7 +26792,7 @@
         "marketCap": 46669176832,
         "marketCapKrw": null,
         "pe": null,
-        "forwardPe": 12.9,
+        "forwardPe": 12.8,
         "peQuality": null,
         "forwardPeQuality": "ok",
         "peg": null,
@@ -26870,7 +26801,7 @@
         "pb": 10.2,
         "dividendYield": 0,
         "beta": 1.65,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 48,
@@ -26902,7 +26833,7 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -26918,7 +26849,7 @@
           "down": 0,
           "net": 16
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-02",
@@ -27402,8 +27333,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ALAB/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 206.84,
@@ -27506,7 +27436,7 @@
         "pb": 18.08,
         "dividendYield": 0,
         "beta": 3.86,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 73.9,
@@ -27538,7 +27468,7 @@
           "strongSell": 0,
           "total": 25
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -27554,7 +27484,7 @@
           "down": 0,
           "net": 18
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-09",
@@ -28038,8 +27968,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/CRDO/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 115.57,
@@ -28137,12 +28066,12 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 0.14,
-        "evEbitda": 38.9,
-        "evSales": 13.3,
+        "evEbitda": 38.6,
+        "evSales": 13.2,
         "pb": 7.95,
         "dividendYield": 0,
         "beta": 3.29,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 67.1,
@@ -28174,7 +28103,7 @@
           "strongSell": 0,
           "total": 20
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -28190,7 +28119,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2026-12-01",
@@ -28669,8 +28598,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/ETN/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 325.92,
@@ -28771,9 +28699,9 @@
         "evEbitda": 20.8,
         "evSales": 4.6,
         "pb": 6.04,
-        "dividendYield": 1.38,
+        "dividendYield": 1.35,
         "beta": 1.14,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 35.2,
@@ -28805,7 +28733,7 @@
           "strongSell": 0,
           "total": 28
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -28821,7 +28749,7 @@
           "down": 1,
           "net": 15
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-02",
@@ -29305,8 +29233,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/SMCI/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 23.76,
@@ -29409,7 +29336,7 @@
         "pb": 1.32,
         "dividendYield": 0,
         "beta": 2.18,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 11.4,
@@ -29441,7 +29368,7 @@
           "strongSell": 1,
           "total": 18
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -29457,7 +29384,7 @@
           "down": 0,
           "net": 10
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-02",
@@ -29930,8 +29857,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/DELL/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 316.96,
@@ -30025,7 +29951,7 @@
         "marketCap": 201527197696,
         "marketCapKrw": null,
         "pe": 18.4,
-        "forwardPe": 10.4,
+        "forwardPe": 10.3,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 0.53,
@@ -30034,7 +29960,7 @@
         "pb": -142.13,
         "dividendYield": 0.85,
         "beta": 1.44,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 20.1,
@@ -30066,7 +29992,7 @@
           "strongSell": 0,
           "total": 29
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -30082,7 +30008,7 @@
           "down": 0,
           "net": 0
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-25",
@@ -30561,8 +30487,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/CLS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 203.24,
@@ -30665,7 +30590,7 @@
         "pb": 4.12,
         "dividendYield": 0,
         "beta": 1.34,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 11.5,
@@ -30697,7 +30622,7 @@
           "strongSell": 0,
           "total": 23
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -30713,7 +30638,7 @@
           "down": 1,
           "net": 19
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-27",
@@ -31192,8 +31117,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/2317.TW/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 219,
@@ -31211,7 +31135,7 @@
         "volatility": 44.9,
         "maxDrawdown": -50.3,
         "volume": 29033613,
-        "volumeAverage": 39666905,
+        "volumeAverage": 39488213,
         "yearHigh": 314,
         "yearLow": 187.5,
         "spark": [
@@ -31294,9 +31218,9 @@
         "evEbitda": 7.3,
         "evSales": 0.3,
         "pb": 1.56,
-        "dividendYield": 3.31,
+        "dividendYield": 3.27,
         "beta": 0.84,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 6,
@@ -31328,7 +31252,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -31344,7 +31268,7 @@
           "down": 2,
           "net": -1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -31464,8 +31388,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/2382.TW/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 278,
@@ -31483,7 +31406,7 @@
         "volatility": 43,
         "maxDrawdown": -47.7,
         "volume": 9286488,
-        "volumeAverage": 14132649,
+        "volumeAverage": 14053144,
         "yearHigh": 438,
         "yearLow": 247.5,
         "spark": [
@@ -31566,9 +31489,9 @@
         "evEbitda": 9.6,
         "evSales": 0.3,
         "pb": 3.31,
-        "dividendYield": 5.55,
+        "dividendYield": 5.61,
         "beta": 0.73,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 5.1,
@@ -31600,7 +31523,7 @@
           "strongSell": 1,
           "total": 20
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -31616,7 +31539,7 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -31747,8 +31670,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/2356.TW/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 41.9,
@@ -31766,7 +31688,7 @@
         "volatility": 47.9,
         "maxDrawdown": -53.2,
         "volume": 24058344,
-        "volumeAverage": 17537893,
+        "volumeAverage": 17642377,
         "yearHigh": 88.6,
         "yearLow": 37.7,
         "spark": [
@@ -31851,7 +31773,7 @@
         "pb": 1.86,
         "dividendYield": 4.77,
         "beta": 0.93,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 4.6,
@@ -31883,7 +31805,7 @@
           "strongSell": 0,
           "total": 10
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -31899,7 +31821,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -32025,8 +31947,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/MPWR/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 1265.02,
@@ -32119,17 +32040,17 @@
       "valuation": {
         "marketCap": 61692497920,
         "marketCapKrw": null,
-        "pe": 69.1,
+        "pe": 69.4,
         "forwardPe": 27.1,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 2.25,
-        "evEbitda": 52.6,
-        "evSales": 16.4,
+        "evEbitda": 51.9,
+        "evSales": 16.2,
         "pb": 16.53,
-        "dividendYield": 0.67,
+        "dividendYield": 0.63,
         "beta": 1.73,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 55.3,
@@ -32161,7 +32082,7 @@
           "strongSell": 0,
           "total": 16
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -32177,7 +32098,7 @@
           "down": 0,
           "net": 10
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-04",
@@ -32661,8 +32582,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/RMBS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 73.41,
@@ -32760,12 +32680,12 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 3.62,
-        "evEbitda": 21.2,
-        "evSales": 9,
+        "evEbitda": 21.1,
+        "evSales": 8.9,
         "pb": 5.55,
         "dividendYield": 0,
         "beta": 1.95,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 79.9,
@@ -32797,7 +32717,7 @@
           "strongSell": 0,
           "total": 8
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -32813,7 +32733,7 @@
           "down": 1,
           "net": 5
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-01",
@@ -33297,8 +33217,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/STX/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 509.66,
@@ -33392,7 +33311,7 @@
         "marketCap": 116998111232,
         "marketCapKrw": null,
         "pe": 26.7,
-        "forwardPe": 7.8,
+        "forwardPe": 7.9,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 1.19,
@@ -33401,7 +33320,7 @@
         "pb": 33.91,
         "dividendYield": 0.64,
         "beta": 2.2,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 50.4,
@@ -33433,7 +33352,7 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -33449,7 +33368,7 @@
           "down": 1,
           "net": 17
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-26",
@@ -33938,8 +33857,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/SIMO/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 150.04,
@@ -34042,7 +33960,7 @@
         "pb": 4.5,
         "dividendYield": 1.67,
         "beta": 1.77,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 50.5,
@@ -34074,7 +33992,7 @@
           "strongSell": 0,
           "total": 13
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -34090,7 +34008,7 @@
           "down": 0,
           "net": 9
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-02",
@@ -34493,8 +34411,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/301308.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 203.15,
@@ -34512,7 +34429,7 @@
         "volatility": 61.7,
         "maxDrawdown": -75,
         "volume": 19730115,
-        "volumeAverage": 10480033,
+        "volumeAverage": 10634201,
         "yearHigh": 749.88,
         "yearLow": 175.02,
         "spark": [
@@ -34587,7 +34504,7 @@
       "valuation": {
         "marketCap": 93379436544,
         "marketCapKrw": null,
-        "pe": 5.7,
+        "pe": 5,
         "forwardPe": 6.3,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -34595,9 +34512,9 @@
         "evEbitda": 4.7,
         "evSales": 2,
         "pb": 2.77,
-        "dividendYield": 1.77,
+        "dividendYield": 1.56,
         "beta": 1.96,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 49.8,
@@ -34622,7 +34539,7 @@
         "recommendationMean": null,
         "analysts": 2,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -34702,8 +34619,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/688041.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 186.37,
@@ -34721,7 +34637,7 @@
         "volatility": 63.8,
         "maxDrawdown": -57.4,
         "volume": 43062280,
-        "volumeAverage": 21346815,
+        "volumeAverage": 21708740,
         "yearHigh": 395.17,
         "yearLow": 153.33,
         "spark": [
@@ -34796,7 +34712,7 @@
       "valuation": {
         "marketCap": 433089937408,
         "marketCapKrw": null,
-        "pe": 125.9,
+        "pe": 106.5,
         "forwardPe": 63.9,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -34804,9 +34720,9 @@
         "evEbitda": 73.9,
         "evSales": 22,
         "pb": 16.36,
-        "dividendYield": 0.15,
+        "dividendYield": 0.13,
         "beta": 0.72,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 55.2,
@@ -34831,7 +34747,7 @@
         "recommendationMean": 1.89,
         "analysts": 7,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -34906,8 +34822,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/600745.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 10.32,
@@ -34925,7 +34840,7 @@
         "volatility": 67.6,
         "maxDrawdown": -93.5,
         "volume": 46196500,
-        "volumeAverage": 36809045,
+        "volumeAverage": 36965502,
         "yearHigh": 42.4,
         "yearLow": 8.55,
         "spark": [
@@ -35010,7 +34925,7 @@
         "pb": 0.53,
         "dividendYield": 0,
         "beta": 0.48,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 31.3,
@@ -35035,7 +34950,7 @@
         "recommendationMean": null,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -35110,8 +35025,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/600460.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 22.29,
@@ -35129,7 +35043,7 @@
         "volatility": 50.4,
         "maxDrawdown": -76.5,
         "volume": 67747256,
-        "volumeAverage": 57334047,
+        "volumeAverage": 57507600,
         "yearHigh": 57.1,
         "yearLow": 20.07,
         "spark": [
@@ -35204,7 +35118,7 @@
       "valuation": {
         "marketCap": 37092163584,
         "marketCapKrw": null,
-        "pe": 65.6,
+        "pe": 63.7,
         "forwardPe": 27.5,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -35212,9 +35126,9 @@
         "evEbitda": 23.9,
         "evSales": 3.1,
         "pb": 3,
-        "dividendYield": 0.39,
+        "dividendYield": 0.36,
         "beta": 1.18,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 15.6,
@@ -35239,7 +35153,7 @@
         "recommendationMean": null,
         "analysts": 8,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -35319,8 +35233,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/300476.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 142.36,
@@ -35338,7 +35251,7 @@
         "volatility": 88.3,
         "maxDrawdown": -72.8,
         "volume": 76401387,
-        "volumeAverage": 33367106,
+        "volumeAverage": 34084344,
         "yearHigh": 402.6,
         "yearLow": 105,
         "spark": [
@@ -35421,9 +35334,9 @@
         "evEbitda": 17.9,
         "evSales": 5.4,
         "pb": 7.45,
-        "dividendYield": 1.61,
+        "dividendYield": 1.4,
         "beta": 1.47,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 33.4,
@@ -35448,7 +35361,7 @@
         "recommendationMean": 1.22,
         "analysts": 8,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -35523,8 +35436,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/600183.SS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 68.04,
@@ -35542,7 +35454,7 @@
         "volatility": 78.6,
         "maxDrawdown": -68.8,
         "volume": 133021338,
-        "volumeAverage": 75386956,
+        "volumeAverage": 76347529,
         "yearHigh": 191.88,
         "yearLow": 51.2,
         "spark": [
@@ -35627,7 +35539,7 @@
         "pb": 6.87,
         "dividendYield": 1.29,
         "beta": 1.88,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 33.2,
@@ -35652,7 +35564,7 @@
         "recommendationMean": 1.47,
         "analysts": 12,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -35732,8 +35644,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/300502.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 226.84,
@@ -35751,7 +35662,7 @@
         "volatility": 98.9,
         "maxDrawdown": -74.1,
         "volume": 130416099,
-        "volumeAverage": 59571313,
+        "volumeAverage": 60752059,
         "yearHigh": 618.87,
         "yearLow": 152,
         "spark": [
@@ -35826,7 +35737,7 @@
       "valuation": {
         "marketCap": 316382183424,
         "marketCapKrw": null,
-        "pe": 21.9,
+        "pe": 21.7,
         "forwardPe": 6.5,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
@@ -35834,9 +35745,9 @@
         "evEbitda": 17,
         "evSales": 7.7,
         "pb": 11.32,
-        "dividendYield": 0.38,
+        "dividendYield": 0.31,
         "beta": 1.43,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 47.5,
@@ -35861,7 +35772,7 @@
         "recommendationMean": 1.4,
         "analysts": 7,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -35941,8 +35852,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/300308.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 516.15,
@@ -35960,7 +35870,7 @@
         "volatility": 92.8,
         "maxDrawdown": -71.5,
         "volume": 70822017,
-        "volumeAverage": 34336638,
+        "volumeAverage": 34944728,
         "yearHigh": 1416.88,
         "yearLow": 377.96,
         "spark": [
@@ -36033,7 +35943,7 @@
         "tone": "negative"
       },
       "valuation": {
-        "marketCap": 607978061824,
+        "marketCap": 603758592000,
         "marketCapKrw": null,
         "pe": 18.7,
         "forwardPe": 7.8,
@@ -36043,9 +35953,9 @@
         "evEbitda": 16.2,
         "evSales": 6.8,
         "pb": 6.44,
-        "dividendYield": 0.51,
+        "dividendYield": 0.43,
         "beta": 1.7,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 45.9,
@@ -36070,7 +35980,7 @@
         "recommendationMean": 1.26,
         "analysts": 18,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -36150,8 +36060,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/002281.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 87.05,
@@ -36169,7 +36078,7 @@
         "volatility": 76.4,
         "maxDrawdown": -71.6,
         "volume": 37129247,
-        "volumeAverage": 31131714,
+        "volumeAverage": 31231673,
         "yearHigh": 279,
         "yearLow": 59.06,
         "spark": [
@@ -36254,7 +36163,7 @@
         "pb": 4.72,
         "dividendYield": 0.47,
         "beta": 1.37,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 23.1,
@@ -36279,7 +36188,7 @@
         "recommendationMean": 1.71,
         "analysts": 6,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -36354,8 +36263,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/000977.SZ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 46.81,
@@ -36373,7 +36281,7 @@
         "volatility": 57.3,
         "maxDrawdown": -57.6,
         "volume": 72904432,
-        "volumeAverage": 55740113,
+        "volumeAverage": 56026185,
         "yearHigh": 96.37,
         "yearLow": 41.66,
         "spark": [
@@ -36458,7 +36366,7 @@
         "pb": 2.7,
         "dividendYield": 0.09,
         "beta": 0.63,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 7.4,
@@ -36483,7 +36391,7 @@
         "recommendationMean": null,
         "analysts": 9,
         "mix": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -36558,8 +36466,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/042700.KS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 161200,
@@ -36577,7 +36484,7 @@
         "volatility": 82.2,
         "maxDrawdown": -64,
         "volume": 696671,
-        "volumeAverage": 665232,
+        "volumeAverage": 665183,
         "yearHigh": 426000,
         "yearLow": 114700,
         "spark": [
@@ -36660,9 +36567,9 @@
         "evEbitda": 56.4,
         "evSales": 26.8,
         "pb": null,
-        "dividendYield": 0.54,
+        "dividendYield": 0.5,
         "beta": 2.21,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 60.1,
@@ -36694,7 +36601,7 @@
           "strongSell": 1,
           "total": 7
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -36710,7 +36617,7 @@
           "down": 3,
           "net": -1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-02-05",
@@ -36798,18 +36705,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -18.3,
-          "cagr": -51.6,
-          "sharpe": -1.78,
+          "totalReturn": -19.7,
+          "cagr": -55.2,
+          "sharpe": -2.01,
           "maxDrawdown": -22.3,
-          "trades": 4,
-          "winRate": 50,
-          "exposure": 21
+          "trades": 3,
+          "winRate": 33,
+          "exposure": 20
         },
         "buyHold": {
           "totalReturn": -29.6,
-          "cagr": -71.7,
-          "sharpe": -1.21,
+          "cagr": -72.3,
+          "sharpe": -1.22,
           "maxDrawdown": -47
         },
         "position": "현금",
@@ -36843,8 +36750,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/403870.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 40900,
@@ -36861,8 +36767,8 @@
         "vsMa200": -13.8,
         "volatility": 86.9,
         "maxDrawdown": -65.8,
-        "volume": 2277390,
-        "volumeAverage": 1966449,
+        "volume": 2315288,
+        "volumeAverage": 1971464,
         "yearHigh": 92000,
         "yearLow": 27450,
         "spark": [
@@ -36945,9 +36851,9 @@
         "evEbitda": 34,
         "evSales": 19.1,
         "pb": null,
-        "dividendYield": 1.33,
+        "dividendYield": 1.22,
         "beta": 1.69,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 73.6,
@@ -36979,7 +36885,7 @@
           "strongSell": 0,
           "total": 8
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -36995,7 +36901,7 @@
           "down": 0,
           "net": 3
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37058,18 +36964,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -6.2,
-          "cagr": -20.7,
-          "sharpe": -0.06,
+          "totalReturn": -10.7,
+          "cagr": -33.9,
+          "sharpe": -0.36,
           "maxDrawdown": -37.8,
           "trades": 2,
-          "winRate": 50,
-          "exposure": 63
+          "winRate": 0,
+          "exposure": 62
         },
         "buyHold": {
-          "totalReturn": 1.2,
-          "cagr": 4.5,
-          "sharpe": 0.48,
+          "totalReturn": -4.1,
+          "cagr": -14.2,
+          "sharpe": 0.26,
           "maxDrawdown": -51.7
         },
         "position": "현금",
@@ -37103,8 +37009,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/095340.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 126500,
@@ -37122,7 +37027,7 @@
         "volatility": 99.3,
         "maxDrawdown": -60.7,
         "volume": 207212,
-        "volumeAverage": 172890,
+        "volumeAverage": 173374,
         "yearHigh": 292500,
         "yearLow": 96400,
         "spark": [
@@ -37221,32 +37126,32 @@
         "epsForward": null
       },
       "consensus": {
-        "targetMedian": 215000,
+        "targetMedian": 212500,
         "targetHigh": 360000,
         "targetLow": 200000,
         "upside": null,
-        "rawUpside": 69.96,
+        "rawUpside": 67.98,
         "quality": "stale",
         "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
-        "recommendationMean": 1.33,
-        "analysts": 9,
+        "recommendationMean": 1.4,
+        "analysts": 10,
         "mix": {
-          "strongBuy": 3,
+          "strongBuy": 4,
           "buy": 6,
           "hold": 0,
           "sell": 0,
           "strongSell": 0,
-          "total": 9
+          "total": 10
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 3934.4985,
-          "rev30": -8.78,
-          "rev90": -9.12,
+          "current": 3921.3113,
+          "rev30": -2.59,
+          "rev90": -10.04,
           "nextYear": 5845.0405
         },
         "breadth": {
@@ -37255,7 +37160,7 @@
           "down": 4,
           "net": -4
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37324,18 +37229,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -24.3,
-          "cagr": -63.3,
-          "sharpe": -1.45,
+          "totalReturn": -20.4,
+          "cagr": -56.6,
+          "sharpe": -1.16,
           "maxDrawdown": -34.4,
           "trades": 4,
           "winRate": 25,
-          "exposure": 46
+          "exposure": 45
         },
         "buyHold": {
-          "totalReturn": -21.6,
-          "cagr": -58.3,
-          "sharpe": -0.42,
+          "totalReturn": -24.3,
+          "cagr": -63.8,
+          "sharpe": -0.56,
           "maxDrawdown": -48.6
         },
         "position": "현금",
@@ -37361,8 +37266,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/058470.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 52400,
@@ -37380,7 +37284,7 @@
         "volatility": 84.7,
         "maxDrawdown": -64.8,
         "volume": 807096,
-        "volumeAverage": 779868,
+        "volumeAverage": 779674,
         "yearHigh": 129000,
         "yearLow": 43150,
         "spark": [
@@ -37456,16 +37360,16 @@
         "marketCap": 3976929476608,
         "marketCapKrw": 3978258570000,
         "pe": null,
-        "forwardPe": 19.3,
+        "forwardPe": 19.4,
         "peQuality": null,
         "forwardPeQuality": "ok",
         "peg": 1.63,
         "evEbitda": 11,
         "evSales": 4.3,
         "pb": null,
-        "dividendYield": 1.71,
+        "dividendYield": 1.53,
         "beta": 0.32,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 40.1,
@@ -37479,11 +37383,11 @@
         "epsForward": null
       },
       "consensus": {
-        "targetMedian": 80000,
-        "targetHigh": 140000,
+        "targetMedian": 78000,
+        "targetHigh": 115000,
         "targetLow": 57000,
-        "upside": 52.67,
-        "rawUpside": 52.67,
+        "upside": 48.85,
+        "rawUpside": 48.85,
         "quality": "ok",
         "qualityNote": null,
         "rating": "buy",
@@ -37497,15 +37401,15 @@
           "strongSell": 0,
           "total": 13
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 2192.705,
-          "rev30": -9.94,
-          "rev90": -11.17,
-          "nextYear": 2733.4036
+          "current": 2199.367,
+          "rev30": -9.67,
+          "rev90": -10.9,
+          "nextYear": 2707.2036
         },
         "breadth": {
           "period": "0y",
@@ -37513,7 +37417,7 @@
           "down": 2,
           "net": -1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37595,17 +37499,17 @@
         "years": 0.3,
         "strategy": {
           "totalReturn": 4.7,
-          "cagr": 18.1,
-          "sharpe": 2.62,
+          "cagr": 18.4,
+          "sharpe": 2.64,
           "maxDrawdown": -0.1,
           "trades": 2,
           "winRate": 100,
           "exposure": 3
         },
         "buyHold": {
-          "totalReturn": -26,
-          "cagr": -66.2,
-          "sharpe": -0.93,
+          "totalReturn": -22.7,
+          "cagr": -61,
+          "sharpe": -0.75,
           "maxDrawdown": -49.1
         },
         "position": "현금",
@@ -37639,8 +37543,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/240810.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 69700,
@@ -37657,8 +37560,8 @@
         "vsMa200": -39.5,
         "volatility": 102.5,
         "maxDrawdown": -65.2,
-        "volume": 684560,
-        "volumeAverage": 915653,
+        "volume": 701462,
+        "volumeAverage": 911926,
         "yearHigh": 187800,
         "yearLow": 55400,
         "spark": [
@@ -37741,9 +37644,9 @@
         "evEbitda": 21.4,
         "evSales": 3.3,
         "pb": null,
-        "dividendYield": 0.31,
+        "dividendYield": 0.29,
         "beta": null,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 0,
@@ -37775,7 +37678,7 @@
           "strongSell": 1,
           "total": 14
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -37791,7 +37694,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37872,18 +37775,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -2.1,
-          "cagr": -7.3,
-          "sharpe": 0.22,
+          "totalReturn": -6,
+          "cagr": -20.3,
+          "sharpe": -0.03,
           "maxDrawdown": -28.4,
           "trades": 3,
           "winRate": 67,
           "exposure": 51
         },
         "buyHold": {
-          "totalReturn": -40.2,
-          "cagr": -84.3,
-          "sharpe": -1.4,
+          "totalReturn": -38,
+          "cagr": -82.5,
+          "sharpe": -1.28,
           "maxDrawdown": -55.5
         },
         "position": "현금",
@@ -37917,8 +37820,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/084370.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 76100,
@@ -37936,7 +37838,7 @@
         "volatility": 106.1,
         "maxDrawdown": -67.2,
         "volume": 235670,
-        "volumeAverage": 204848,
+        "volumeAverage": 205218,
         "yearHigh": 231500,
         "yearLow": 65900,
         "spark": [
@@ -38053,7 +37955,7 @@
           "strongSell": 0,
           "total": 7
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -38069,7 +37971,7 @@
           "down": 0,
           "net": 5
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -38150,18 +38052,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -7.9,
-          "cagr": -25.7,
-          "sharpe": -0.11,
+          "totalReturn": -11,
+          "cagr": -34.7,
+          "sharpe": -0.3,
           "maxDrawdown": -35.5,
           "trades": 2,
           "winRate": 0,
-          "exposure": 56
+          "exposure": 55
         },
         "buyHold": {
-          "totalReturn": -42,
-          "cagr": -85.9,
-          "sharpe": -1.45,
+          "totalReturn": -42.7,
+          "cagr": -86.9,
+          "sharpe": -1.51,
           "maxDrawdown": -63.6
         },
         "position": "현금",
@@ -38187,8 +38089,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/036930.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 156900,
@@ -38206,7 +38107,7 @@
         "volatility": 109.7,
         "maxDrawdown": -60.8,
         "volume": 2255806,
-        "volumeAverage": 1502502,
+        "volumeAverage": 1514284,
         "yearHigh": 284000,
         "yearLow": 26650,
         "spark": [
@@ -38323,7 +38224,7 @@
           "strongSell": 0,
           "total": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": null,
@@ -38409,18 +38310,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -21,
-          "cagr": -57.3,
-          "sharpe": -0.36,
+          "totalReturn": -23.6,
+          "cagr": -62.5,
+          "sharpe": -0.49,
           "maxDrawdown": -52.9,
           "trades": 3,
           "winRate": 33,
           "exposure": 90
         },
         "buyHold": {
-          "totalReturn": -11.8,
-          "cagr": -36.2,
-          "sharpe": 0.1,
+          "totalReturn": -12.5,
+          "cagr": -38.6,
+          "sharpe": 0.07,
           "maxDrawdown": -52.4
         },
         "position": "현금",
@@ -38446,8 +38347,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/319660.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 81800,
@@ -38464,8 +38364,8 @@
         "vsMa200": -27.7,
         "volatility": 111.8,
         "maxDrawdown": -64.3,
-        "volume": 288249,
-        "volumeAverage": 323649,
+        "volume": 297481,
+        "volumeAverage": 323078,
         "yearHigh": 219500,
         "yearLow": 28900,
         "spark": [
@@ -38548,9 +38448,9 @@
         "evEbitda": 10.6,
         "evSales": 3.1,
         "pb": null,
-        "dividendYield": 0.9,
+        "dividendYield": 0.83,
         "beta": 1.34,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 50.8,
@@ -38582,7 +38482,7 @@
           "strongSell": 0,
           "total": 7
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -38598,7 +38498,7 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -38637,18 +38537,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -15.8,
-          "cagr": -46.2,
-          "sharpe": -0.46,
+          "totalReturn": -16.5,
+          "cagr": -48.2,
+          "sharpe": -0.5,
           "maxDrawdown": -34.8,
           "trades": 1,
           "winRate": 0,
-          "exposure": 73
+          "exposure": 72
         },
         "buyHold": {
-          "totalReturn": -39,
-          "cagr": -83.1,
-          "sharpe": -1.16,
+          "totalReturn": -38,
+          "cagr": -82.6,
+          "sharpe": -1.12,
           "maxDrawdown": -53.4
         },
         "position": "현금",
@@ -38682,8 +38582,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/000990.KS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 70600,
@@ -38701,7 +38600,7 @@
         "volatility": 93,
         "maxDrawdown": -70.2,
         "volume": 346937,
-        "volumeAverage": 553507,
+        "volumeAverage": 549873,
         "yearHigh": 230500,
         "yearLow": 61900,
         "spark": [
@@ -38784,9 +38683,9 @@
         "evEbitda": 4.9,
         "evSales": 1.5,
         "pb": null,
-        "dividendYield": 1.22,
+        "dividendYield": 1.15,
         "beta": 2.4,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 36.4,
@@ -38807,8 +38706,8 @@
         "rawUpside": 126.63,
         "quality": "stale",
         "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
-        "rating": "strong_buy",
-        "recommendationMean": 1.33,
+        "rating": "none",
+        "recommendationMean": null,
         "analysts": 3,
         "mix": {
           "strongBuy": 1,
@@ -38818,7 +38717,7 @@
           "strongSell": 0,
           "total": 3
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -38834,7 +38733,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -38916,7 +38815,7 @@
         "years": 0.3,
         "strategy": {
           "totalReturn": -10.9,
-          "cagr": -34.1,
+          "cagr": -34.5,
           "sharpe": -0.62,
           "maxDrawdown": -27.9,
           "trades": 2,
@@ -38924,9 +38823,9 @@
           "exposure": 30
         },
         "buyHold": {
-          "totalReturn": -31.3,
-          "cagr": -74.1,
-          "sharpe": -1.05,
+          "totalReturn": -27.7,
+          "cagr": -69.4,
+          "sharpe": -0.86,
           "maxDrawdown": -53.9
         },
         "position": "현금",
@@ -38960,8 +38859,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/222800.KQ/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 106900,
@@ -38978,8 +38876,8 @@
         "vsMa200": 5.8,
         "volatility": 103.8,
         "maxDrawdown": -59.4,
-        "volume": 1330720,
-        "volumeAverage": 884232,
+        "volume": 1352492,
+        "volumeAverage": 891433,
         "yearHigh": 182600,
         "yearLow": 42500,
         "spark": [
@@ -39062,9 +38960,9 @@
         "evEbitda": 17.1,
         "evSales": 2.5,
         "pb": null,
-        "dividendYield": 0.1,
+        "dividendYield": 0.09,
         "beta": 2.28,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 16.9,
@@ -39096,7 +38994,7 @@
           "strongSell": 0,
           "total": 7
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -39112,7 +39010,7 @@
           "down": 2,
           "net": -1
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -39187,18 +39085,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -15.7,
-          "cagr": -45.8,
-          "sharpe": -0.07,
+          "totalReturn": -18.7,
+          "cagr": -53.1,
+          "sharpe": -0.21,
           "maxDrawdown": -49.1,
           "trades": 2,
           "winRate": 0,
           "exposure": 94
         },
         "buyHold": {
-          "totalReturn": -1.7,
-          "cagr": -5.8,
-          "sharpe": 0.46,
+          "totalReturn": -3.6,
+          "cagr": -12.6,
+          "sharpe": 0.39,
           "maxDrawdown": -46.6
         },
         "position": "보유",
@@ -39232,8 +39130,7 @@
       "sourceUrl": "https://finance.yahoo.com/quote/009150.KS/",
       "hasBars": true,
       "priceCheck": {
-        "status": "ok",
-        "gapPct": 0
+        "status": "unchecked"
       },
       "price": {
         "last": 821000,
@@ -39251,7 +39148,7 @@
         "volatility": 90.6,
         "maxDrawdown": -66.8,
         "volume": 948278,
-        "volumeAverage": 746335,
+        "volumeAverage": 749150,
         "yearHigh": 2417000,
         "yearLow": 243500,
         "spark": [
@@ -39334,9 +39231,9 @@
         "evEbitda": 23.6,
         "evSales": 4.6,
         "pb": null,
-        "dividendYield": 0.3,
+        "dividendYield": 0.29,
         "beta": 2.97,
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "fundamentals": {
         "grossMargin": 23.8,
@@ -39368,7 +39265,7 @@
           "strongSell": 0,
           "total": 27
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "estimates": {
         "trend": {
@@ -39384,7 +39281,7 @@
           "down": 0,
           "net": 11
         },
-        "asOf": "2026-11-27T23:23:45Z"
+        "asOf": "2026-11-28T05:11:28Z"
       },
       "earnings": {
         "date": "2027-01-21",
@@ -39466,18 +39363,18 @@
         "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -37.4,
-          "cagr": -81.5,
-          "sharpe": -2.17,
+          "totalReturn": -37.8,
+          "cagr": -82.3,
+          "sharpe": -2.22,
           "maxDrawdown": -48.1,
           "trades": 1,
           "winRate": 0,
           "exposure": 74
         },
         "buyHold": {
-          "totalReturn": -47.3,
-          "cagr": -90,
-          "sharpe": -2.24,
+          "totalReturn": -43,
+          "cagr": -87.2,
+          "sharpe": -1.96,
           "maxDrawdown": -55
         },
         "position": "현금",
@@ -39634,7 +39531,7 @@
       "epsAverage": 16616.555,
       "epsLow": 15008.783,
       "epsHigh": 18498.37,
-      "revenueAverage": 223743501420000
+      "revenueAverage": 224881596660000
     },
     {
       "id": "umc-stock",
@@ -41330,10 +41227,10 @@
       "id": "USDKRW",
       "label": "USD/KRW",
       "unit": "KRW",
-      "last": 1333,
-      "asOf": "2026-11-27",
-      "chg1m": 0.47,
-      "chg1y": -9.36,
+      "last": 1333.9,
+      "asOf": "2026-11-28",
+      "chg1m": -0.48,
+      "chg1y": -8.72,
       "changeKind": "pct",
       "spark": [],
       "source": "환율 일별 (크롤러)",
@@ -41343,10 +41240,10 @@
       "id": "USDTWD",
       "label": "USD/TWD",
       "unit": "TWD",
-      "last": 32.98,
+      "last": 32.92,
       "asOf": "2026-11-27",
-      "chg1m": 1.7,
-      "chg1y": 5.54,
+      "chg1m": 1.51,
+      "chg1y": 5.34,
       "changeKind": "pct",
       "spark": [],
       "source": "환율 일별 (크롤러)",
@@ -41460,7 +41357,7 @@
   "industries": [
     {
       "slug": "semiconductors",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "overview": {
         "name": "Semiconductors",
         "marketCap": 8039529185280,
@@ -41539,10 +41436,10 @@
     },
     {
       "slug": "semiconductor-equipment-materials",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "overview": {
         "name": "Semiconductor Equipment & Materials",
-        "marketCap": 823154900992,
+        "marketCap": 823149461504,
         "marketWeight": 3.1,
         "companies": 29
       },
@@ -42864,7 +42761,7 @@
   "etfs": [
     {
       "symbol": "SMH",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "name": "VanEck Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -42933,7 +42830,7 @@
     },
     {
       "symbol": "SOXX",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "name": "iShares Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -43002,7 +42899,7 @@
     },
     {
       "symbol": "SOXQ",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "name": "Invesco PHLX Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -43071,7 +42968,7 @@
     },
     {
       "symbol": "XSD",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "name": "State Street SPDR S&P Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -43140,7 +43037,7 @@
     },
     {
       "symbol": "PSI",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "name": "Invesco Semiconductors ETF",
       "issuer": null,
       "currency": "USD",
@@ -43209,7 +43106,7 @@
     },
     {
       "symbol": "DRAM",
-      "asOf": "2026-11-27T23:23:45Z",
+      "asOf": "2026-11-28T05:11:28Z",
       "name": "Roundhill Memory ETF",
       "issuer": null,
       "currency": "USD",
@@ -45500,7 +45397,7 @@
     "institutions": 3
   },
   "screener": {
-    "asOf": "2026-11-27T23:25:10Z",
+    "asOf": "2026-11-28T05:12:39Z",
     "total": 259,
     "source": "TradingView public scanner via TradingView-Screener (delayed)",
     "rows": [
@@ -45953,9 +45850,9 @@
         "industry": "Semiconductors",
         "close": 140.54,
         "change": 7.34,
-        "marketCap": 123239522537.21803,
+        "marketCap": 123392406098.9747,
         "pe": 46.3,
-        "evEbitda": 43.8,
+        "evEbitda": 43.9,
         "pb": 6.65,
         "grossMargin": 51.4,
         "rsi": 39.5,
@@ -46030,6 +45927,27 @@
         "perf1y": 173.4
       },
       {
+        "ticker": "OTC:KXIAY",
+        "name": "KIOXIA HLDGS CORP",
+        "country": "Japan",
+        "currency": "USD",
+        "industry": "Semiconductors",
+        "close": 5.21,
+        "change": 18.95,
+        "marketCap": 80224659620.40192,
+        "pe": 7.5,
+        "evEbitda": 2.8,
+        "pb": 4.47,
+        "grossMargin": 73.3,
+        "rsi": 42.4,
+        "rating": "Sell",
+        "ratingScore": -0.18,
+        "perf1m": -42.8,
+        "perf3m": -48.1,
+        "perfYtd": 133.2,
+        "perf1y": 184.2
+      },
+      {
         "ticker": "TSE:285A",
         "name": "Kioxia Holdings Corporation",
         "country": "Japan",
@@ -46049,27 +45967,6 @@
         "perf3m": -51,
         "perfYtd": 123.3,
         "perf1y": 196.5
-      },
-      {
-        "ticker": "OTC:KXIAY",
-        "name": "KIOXIA HLDGS CORP",
-        "country": "Japan",
-        "currency": "USD",
-        "industry": "Semiconductors",
-        "close": 5.21,
-        "change": 18.95,
-        "marketCap": 80224659620.4019,
-        "pe": 7.5,
-        "evEbitda": 2.8,
-        "pb": 4.47,
-        "grossMargin": 73.3,
-        "rsi": 42.4,
-        "rating": "Sell",
-        "ratingScore": -0.18,
-        "perf1m": -42.8,
-        "perf3m": -48.1,
-        "perfYtd": 133.2,
-        "perf1y": 184.2
       },
       {
         "ticker": "SSE:688981",
@@ -46205,7 +46102,7 @@
         "industry": "Semiconductors",
         "close": 31.34,
         "change": 6.27,
-        "marketCap": 68451305866.22733,
+        "marketCap": 68451305866.22734,
         "pe": 29.7,
         "evEbitda": 14.8,
         "pb": 5.19,
@@ -46373,7 +46270,7 @@
         "industry": "Electronic Production Equipment",
         "close": 15.98,
         "change": 6.96,
-        "marketCap": 55836466569.8494,
+        "marketCap": 55836466569.849396,
         "pe": 32,
         "evEbitda": 14.1,
         "pb": 3.29,
@@ -46429,27 +46326,6 @@
         "perf1y": 50.7
       },
       {
-        "ticker": "KRX:009155",
-        "name": "Samsung Electro-Mechanics Co Ltd Pfd Registered Shs Non-Voti",
-        "country": "South Korea",
-        "currency": "KRW",
-        "industry": "Semiconductors",
-        "close": 288000,
-        "change": 5.11,
-        "marketCap": 42752560742.00634,
-        "pe": 17.3,
-        "evEbitda": 21.8,
-        "pb": 2.13,
-        "grossMargin": 29.3,
-        "rsi": 39.8,
-        "rating": "Sell",
-        "ratingScore": -0.24,
-        "perf1m": -30.8,
-        "perf3m": -42,
-        "perfYtd": 147.8,
-        "perf1y": 137
-      },
-      {
         "ticker": "KRX:009150",
         "name": "Samsung Electro-Mechanics Co., Ltd",
         "country": "South Korea",
@@ -46469,6 +46345,27 @@
         "perf3m": -41.3,
         "perfYtd": 220.1,
         "perf1y": 225.1
+      },
+      {
+        "ticker": "KRX:009155",
+        "name": "Samsung Electro-Mechanics Co Ltd Pfd Registered Shs Non-Voti",
+        "country": "South Korea",
+        "currency": "KRW",
+        "industry": "Semiconductors",
+        "close": 288000,
+        "change": 5.11,
+        "marketCap": 42752560742.00634,
+        "pe": 17.3,
+        "evEbitda": 21.8,
+        "pb": 2.13,
+        "grossMargin": 29.3,
+        "rsi": 39.8,
+        "rating": "Sell",
+        "ratingScore": -0.24,
+        "perf1m": -30.8,
+        "perf3m": -42,
+        "perfYtd": 147.8,
+        "perf1y": 137
       },
       {
         "ticker": "NASDAQ:ALAB",
@@ -48756,14 +48653,6 @@
       },
       {
         "date": "2026-11-27",
-        "title": "한국은 중국 창신메모리의 4F² 아키텍처 D램 칩 크기가 장점이 없고 양산도 쉽지 않다고 지적함",
-        "source": "technews.tw",
-        "url": "https://technews.tw/2026/11/27/south-korea-believes-changxin-memory-technologies-4f%c2%b2-dram-architecture-lacks-a-size-advantage/",
-        "category": "dram",
-        "lang": "ko"
-      },
-      {
-        "date": "2026-11-27",
         "title": "미국 반도체주가 대량 학살을 겪었고, 국내 개인투자자들은 바닥을 틈타 서둘러 SOXL을 매수함",
         "source": "finance.technews.tw",
         "url": "https://finance.technews.tw/2026/11/27/us-semiconductor-stocks-bloodbath-korean-retail-investors-buy-dip-soxl/",
@@ -48859,11 +48748,19 @@
         "lang": "ko"
       },
       {
+        "date": "2026-11-27",
+        "title": "Kioxia와 Huida는 SSD를 사용하여 GPU 메모리 용량을 확장하여 1PB를 초과하고 2조 벡터 처리를 지원함",
+        "source": "finance.technews.tw",
+        "url": "https://finance.technews.tw/2026/11/27/kioxia-and-nvidia-collaborate-to-expand-gpu-memory-capacity-via-ssds/",
+        "category": "aidemand",
+        "lang": "ko"
+      },
+      {
         "date": "2026-11-26",
-        "title": "News archive | Solidigm Newsroom",
-        "source": "news.solidigm.com",
-        "url": "https://news.solidigm.com/en-WW/releases/",
-        "category": "nand",
+        "title": "CXMT DDR5 RAM: Price, Full Lineup, History & Where to Buy",
+        "source": "originalpricing.com",
+        "url": "https://originalpricing.com/cxmt-ddr5-ram-price/",
+        "category": "dram",
         "lang": "ko"
       },
       {
@@ -48875,11 +48772,19 @@
         "lang": "ko"
       },
       {
-        "date": "2026-11-26",
-        "title": "HBM4: Next-Generation High Bandwidth Memory for PCs | Tom's Hardware",
-        "source": "tomshardware.com",
-        "url": "https://www.tomshardware.com/tag/hbm4",
+        "date": "2026-11-25",
+        "title": "Scaling the Memory Wall: The Rise and Roadmap of HBM",
+        "source": "newsletter.semianalysis.com",
+        "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
         "category": "hbm",
+        "lang": "ko"
+      },
+      {
+        "date": "2026-11-25",
+        "title": "The state of China's memory industry in 2026 — CXMT and YMTC are ...",
+        "source": "tomshardware.com",
+        "url": "https://www.tomshardware.com/tech-industry/semiconductors/the-state-of-chinas-memory-industry-in-2026-cxmt-and-ymtc-are-booming-but-hbm-remains-a-headache",
+        "category": "nand",
         "lang": "ko"
       },
       {
@@ -48925,18 +48830,34 @@
     ],
     "company": [
       {
-        "date": "2026-11-27",
-        "title": "Stocks snap from a $6 trillion washout to a $3.5 trillion surge as Nvidia, Micron, and SpaceX bounce back",
-        "source": "Yahoo Finance",
-        "url": "https://finance.yahoo.com/markets/article/stocks-snap-from-a-6-trillion-washout-to-a-3-trillion-surge-as-nvidia-micron-and-spacex-bounce-back-151218930.html",
+        "date": "2026-11-28",
+        "title": "Jim Cramer's says another chip stock down 56% is \"comically cheap\"",
+        "source": "TheStreet",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramers-says-another-chip-033300118.html",
         "symbols": "MU",
         "lang": "en"
       },
       {
+        "date": "2026-11-28",
+        "title": "A 60-Year-Old Who Bought 1,000 Micron Shares at $192 Just Watched Jim Cramer’s Investing Club Call It ‘Comically Cheap.’ Here’s What’s Left of His $1 Million Gain",
+        "source": "24/7 Wall St.",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/60-old-bought-1-000-004100723.html",
+        "symbols": "MU",
+        "lang": "en"
+      },
+      {
+        "date": "2026-11-28",
+        "title": "3 AI Infrastructure Stocks to Watch As Apple OpenAI Fight Tests Chip Demand",
+        "source": "Simply Wall St.",
+        "url": "https://finance.yahoo.com/technology/ai/articles/3-ai-infrastructure-stocks-watch-001426825.html",
+        "symbols": "KLAC",
+        "lang": "en"
+      },
+      {
         "date": "2026-11-27",
-        "title": "He was right about AI and still lost $35 billion",
-        "source": "Yahoo Finance Video",
-        "url": "https://finance.yahoo.com/video/ai-still-lost-35-billion-120000023.html",
+        "title": "Stocks snap from a $6 trillion washout to a $3.5 trillion surge as Nvidia, Micron, and SpaceX bounce back",
+        "source": "Yahoo Finance",
+        "url": "https://finance.yahoo.com/markets/article/stocks-snap-from-a-6-trillion-washout-to-a-3-trillion-surge-as-nvidia-micron-and-spacex-bounce-back-151218930.html",
         "symbols": "MU",
         "lang": "en"
       },
@@ -48998,14 +48919,6 @@
       },
       {
         "date": "2026-11-27",
-        "title": "AI Chip Stocks Roar Back -- Sandisk and Micron Lead the Rally",
-        "source": "GuruFocus.com",
-        "url": "https://finance.yahoo.com/technology/ai/articles/ai-chip-stocks-roar-back-180304210.html",
-        "symbols": "MU",
-        "lang": "en"
-      },
-      {
-        "date": "2026-11-27",
         "title": "SK hynix Stocks Jump 5.41% as 100 Trillion Won Payout Plan Sinks In",
         "source": "GuruFocus.com",
         "url": "https://finance.yahoo.com/markets/stocks/articles/sk-hynix-stocks-jump-5-194459285.html",
@@ -49025,6 +48938,14 @@
         "title": "Micron Faces New AI Memory Threat as Huawei Develops HBM Chip",
         "source": "GuruFocus.com",
         "url": "https://finance.yahoo.com/technology/ai/articles/micron-faces-ai-memory-threat-171328560.html",
+        "symbols": "000660.KS",
+        "lang": "en"
+      },
+      {
+        "date": "2026-11-27",
+        "title": "This Beaten-Down AI Stock Looks Dirt Cheap at 4 Times Earnings With 130% Upside",
+        "source": "Barchart",
+        "url": "https://finance.yahoo.com/technology/ai/articles/beaten-down-ai-stock-looks-163004730.html",
         "symbols": "000660.KS",
         "lang": "en"
       },
@@ -49081,7 +49002,7 @@
         "title": "Asian Markets Rise as AI Sentiment Stabilizes",
         "source": "The Wall Street Journal",
         "url": "https://www.wsj.com/finance/asian-markets-mostly-higher-as-sentiment-stabilizes-8f998c4d?siteid=yhoof2&yptr=yahoo",
-        "symbols": "000660.KS",
+        "symbols": "005930.KS",
         "lang": "en"
       },
       {
@@ -49121,6 +49042,14 @@
         "title": "Stock Market Today: Indexes Log Best Thanksgiving Week In 18 Years",
         "source": "Investor's Business Daily",
         "url": "https://www.investors.com/market-trend/stock-market-today/dow-jones-sp500-nasdaq-nvidia-stock-anthropic-spacex-tesla/?src=A00220&yptr=yahoo",
+        "symbols": "SNDK",
+        "lang": "en"
+      },
+      {
+        "date": "2026-11-27",
+        "title": "AI Chip Stocks Roar Back -- Sandisk and Micron Lead the Rally",
+        "source": "GuruFocus.com",
+        "url": "https://finance.yahoo.com/technology/ai/articles/ai-chip-stocks-roar-back-180304210.html",
         "symbols": "SNDK",
         "lang": "en"
       },
@@ -49218,30 +49147,6 @@
         "source": "Simply Wall St.",
         "url": "https://finance.yahoo.com/technology/ai/articles/3-ai-stocks-revenue-growth-141014567.html",
         "symbols": "STX",
-        "lang": "en"
-      },
-      {
-        "date": "2026-11-27",
-        "title": "Kioxia Stocks Jump 8.86% as Nvidia SSD Test and Index Buying Lift Shares",
-        "source": "GuruFocus.com",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/kioxia-stocks-jump-8-86-181157042.html",
-        "symbols": "285A.T",
-        "lang": "en"
-      },
-      {
-        "date": "2026-11-27",
-        "title": "Kioxia Stock Has Soared 21% in Two Days After an Nvidia SSD Test",
-        "source": "24/7 Wall St.",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/kioxia-stock-soared-21-two-142828797.html",
-        "symbols": "285A.T",
-        "lang": "en"
-      },
-      {
-        "date": "2026-11-27",
-        "title": "Why this portfolio manager says investors should 'avoid the neoclouds'",
-        "source": "Yahoo Finance Video",
-        "url": "https://finance.yahoo.com/video/why-this-portfolio-manager-says-investors-should-avoid-the-neoclouds-160003179.html",
-        "symbols": "NVDA",
         "lang": "en"
       }
     ]
