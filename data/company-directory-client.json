@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "46110816639",
-  "generatedAt": "2026-11-28T05:27:13.489Z",
+  "runId": "46137636875",
+  "generatedAt": "2026-11-28T11:16:22.828Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2696,7 +2696,17 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2726,7 +2736,9 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [],
+        "painSignals": [
+          "로직 경계"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2822,13 +2834,24 @@
           {
             "key": "tech:TPU",
             "label": "TPU",
-            "headline": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
-            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
-            "source": "digitimes.com",
-            "asOf": "2026-11-20",
+            "headline": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/",
+            "source": "finance.technews.tw",
+            "asOf": "2026-11-28",
             "firstSeen": "2026-10-20",
-            "lastSeen": "2026-11-20",
-            "seenCount": 2
+            "lastSeen": "2026-11-28",
+            "seenCount": 3
+          },
+          {
+            "key": "tech:HBM5",
+            "label": "HBM5",
+            "headline": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/",
+            "source": "finance.technews.tw",
+            "asOf": "2026-11-28",
+            "firstSeen": "2026-11-28",
+            "lastSeen": "2026-11-28",
+            "seenCount": 1
           },
           {
             "key": "tech:CoWoS",
@@ -2878,15 +2901,34 @@
           "gate": "세대별 물량 동기화율",
           "hold": "반복",
           "firstSeen": "2026-10-20",
-          "lastSeen": "2026-11-20",
-          "evidenceCount": 2,
+          "lastSeen": "2026-11-28",
+          "evidenceCount": 3,
           "evidenceIds": [
             "1ukcxli",
-            "0hbrljh"
+            "0hbrljh",
+            "14d5tdv"
           ],
-          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+          "evidence": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/"
+        },
+        {
+          "technology": "HBM5",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "stage": "EXPLORE",
+          "gate": "Architecture Freeze 전 공동 정의",
+          "hold": "관측",
+          "firstSeen": "2026-11-28",
+          "lastSeen": "2026-11-28",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "14d5tdv"
+          ],
+          "evidence": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/"
         },
         {
           "technology": "CoWoS",
@@ -2954,11 +2996,39 @@
           "executionGate": "세대별 물량 동기화율",
           "stage": "SCALE",
           "evidence": {
-            "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
-            "asOf": "2026-11-20",
-            "count": 2
+            "title": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "source": "finance.technews.tw",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/",
+            "asOf": "2026-11-28",
+            "count": 3
+          }
+        },
+        {
+          "id": "mediatek:hbm5:asic-partner",
+          "accountId": "mediatek",
+          "account": "MediaTek",
+          "layer": "asic-partner",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "HBM5 · 관측",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "painPoint": "차차세대 논의가 시작되며 구조 선택지가 다시 열림에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
+          "memoryRequirement": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "solution": "HBM 공동설계 · 인터페이스·전력·열 Requirement Lock",
+          "products": [
+            "HBM"
+          ],
+          "newBiz": "Custom Silicon·Memory 공동설계 Design Win",
+          "economics": "NRE 회수 · Qualification Lead Time · Design Win",
+          "executionGate": "Architecture Freeze 전 공동 정의",
+          "stage": "EXPLORE",
+          "evidence": {
+            "title": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "source": "finance.technews.tw",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/",
+            "asOf": "2026-11-28",
+            "count": 1
           }
         },
         {
@@ -3068,7 +3138,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die",
+          "date": "2026-11-28"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -5315,7 +5393,17 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5465,9 +5553,13 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [],
+        "painSignals": [
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5746,13 +5838,24 @@
           {
             "key": "tech:TPU",
             "label": "TPU",
-            "headline": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
-            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
-            "source": "digitimes.com",
-            "asOf": "2026-11-20",
+            "headline": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/",
+            "source": "finance.technews.tw",
+            "asOf": "2026-11-28",
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-11-20",
-            "seenCount": 4
+            "lastSeen": "2026-11-28",
+            "seenCount": 5
+          },
+          {
+            "key": "tech:HBM5",
+            "label": "HBM5",
+            "headline": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/",
+            "source": "finance.technews.tw",
+            "asOf": "2026-11-28",
+            "firstSeen": "2026-11-28",
+            "lastSeen": "2026-11-28",
+            "seenCount": 1
           },
           {
             "key": "tech:CoWoS",
@@ -5787,19 +5890,38 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "세대별 물량 동기화율",
-          "hold": "반복",
+          "hold": "지속",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-11-20",
-          "evidenceCount": 4,
+          "lastSeen": "2026-11-28",
+          "evidenceCount": 5,
           "evidenceIds": [
             "0oaaau5",
             "1ukcxli",
             "174ftfs",
-            "0hbrljh"
+            "0hbrljh",
+            "14d5tdv"
           ],
-          "evidence": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+          "evidence": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/"
+        },
+        {
+          "technology": "HBM5",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "stage": "EXPLORE",
+          "gate": "Architecture Freeze 전 공동 정의",
+          "hold": "관측",
+          "firstSeen": "2026-11-28",
+          "lastSeen": "2026-11-28",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "14d5tdv"
+          ],
+          "evidence": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/"
         },
         {
           "technology": "CoWoS",
@@ -5848,11 +5970,11 @@
             "family": "Google TPU",
             "memoryProfile": "세대 Ramp가 HBM 물량의 선행 지표",
             "relation": "자체 설계",
-            "seenCount": 4,
+            "seenCount": 5,
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-11-20",
-            "headline": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
-            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html"
+            "lastSeen": "2026-11-28",
+            "headline": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/"
           }
         ],
         "coversTraining": true,
@@ -5914,7 +6036,7 @@
           "layer": "end-customer",
           "status": "validated",
           "statusLabel": "반복 근거",
-          "signal": "TPU · 반복",
+          "signal": "TPU · 지속",
           "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
           "painPoint": "Google · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
           "memoryRequirement": "세대 일정에 동기화된 Capacity와 Package",
@@ -5930,11 +6052,11 @@
           "executionGate": "세대별 물량 동기화율",
           "stage": "SCALE",
           "evidence": {
-            "title": "Google의 TPU가 Nvidia에 도전하여 MediaTek이 ASIC 공급을 장악할 수 있는 길을 열었습니다.",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261120PD230/google-tpu-mediatek-asic-nvidia.html",
-            "asOf": "2026-11-20",
-            "count": 4
+            "title": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+            "source": "finance.technews.tw",
+            "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die/",
+            "asOf": "2026-11-28",
+            "count": 5
           }
         },
         {
@@ -6108,7 +6230,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Google, MediaTek과 손잡고 새로운 TPU 맞춤형 HBM5 기본 칩 홍보, 한국 지배력 약화 우려",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/28/google-partners-with-mediatek-to-advance-new-tpu-custom-hbm5-base-die",
+          "date": "2026-11-28"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -7426,6 +7556,16 @@
         ],
         "painAxes": [
           {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
             "id": "power-thermal",
             "label": "전력·열",
             "mentions": 1,
@@ -7535,10 +7675,13 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
+          "용량",
           "전력·열"
         ],
         "riskSignals": [],
         "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d",
           "ai-d-o"
         ],
         "actions": [
@@ -8143,7 +8286,14 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "Phison CEO says AI giants won't slow despite Nvidia turmoil, scraps Taoyuan plans over Micron labor dispute",
+          "url": "https://www.digitimes.com/news/a20261120PD201/phison-ceo-nvidia-micron-investment.html",
+          "date": "2026-11-20",
+          "source": "digitimes",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -8885,6 +9035,15 @@
             "source": "digitimes.com"
           },
           {
+            "key": "s:pua said nvidia founder jensen huang's sudden departure and concerns o",
+            "text": "Pua said Nvidia founder Jensen Huang's sudden departure and concerns over excessive AI investment should not deter major cloud service providers (CSPs) from expanding.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-20",
+            "url": "https://www.digitimes.com/news/a20261120PD201/phison-ceo-nvidia-micron-investment.html",
+            "source": "digitimes"
+          },
+          {
             "key": "s:nvidia의 리더십 개편으로 ai 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
             "text": "Nvidia의 리더십 개편으로 AI 칩 냉각 수요가 둔화될 가능성은 낮다고 대만 공급업체가 밝혔습니다.",
             "kind": "보도",
@@ -8905,15 +9064,6 @@
           {
             "key": "s:cnbc에 따르면, 뉴욕타임스와 파이낸셜타임스의 보도를 인용해 거대 반도체 엔비디아 창업자이자 ceo인 젠슨 황이 지난 일요일",
             "text": "CNBC에 따르면, 뉴욕타임스와 파이낸셜타임스의 보도를 인용해 거대 반도체 엔비디아 창업자이자 CEO인 젠슨 황이 지난 일요일 전 직원에게 보낸 내부 이메일에서 혼외정사를 인정했다고 밝혔습니다.",
-            "kind": "보도",
-            "attributionVersion": 1,
-            "date": "2026-11-08",
-            "url": "https://finance.technews.tw/2026/11/09/jensen-huang-admits-to-extramarital-affair/",
-            "source": "finance.technews.tw"
-          },
-          {
-            "key": "s:cnbc에 따르면, 뉴욕타임스와 파이낸셜타임스의 보도를 인용해 거대 반도체 엔비디아 창업자이자 ceo인 젠슨 황은 지난 일요일",
-            "text": "CNBC에 따르면, 뉴욕타임스와 파이낸셜타임스의 보도를 인용해 거대 반도체 엔비디아 창업자이자 CEO인 젠슨 황은 지난 일요일 모든 직원들에게 보낸 서한에서 혼외정사를 인정했다고 밝혔습니다.",
             "kind": "보도",
             "attributionVersion": 1,
             "date": "2026-11-08",
@@ -9008,11 +9158,11 @@
           "date": "2026-11-27"
         },
         {
-          "title": "Kioxia와 Huida는 SSD를 사용하여 GPU 메모리 용량을 확장하여 1PB를 초과하고 2조 벡터 처리를 지원",
-          "source": "finance.technews.tw",
+          "title": "Phison CEO says AI giants won't slow despite Nvidia turmoil, scraps Taoyuan plans over Micron labor dispute",
+          "source": "digitimes",
           "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/11/27/kioxia-and-nvidia-collaborate-to-expand-gpu-memory-capacity-via-ssds",
-          "date": "2026-11-27"
+          "url": "https://www.digitimes.com/news/a20261120pd201/phison-ceo-nvidia-micron-investment.html",
+          "date": "2026-11-20"
         },
         {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
@@ -11371,7 +11521,17 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -11410,7 +11570,9 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11607,13 +11769,13 @@
           {
             "key": "tech:3nm",
             "label": "3nm",
-            "headline": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
-            "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html",
-            "source": "digitimes.com",
-            "asOf": "2026-11-26",
+            "headline": "TSMC의 3nm와 CoWoS는 모두 빡빡하고 AI 생산 능력을 위한 경쟁이 가열되고 있습니다.",
+            "url": "https://finance.technews.tw/2026/11/28/the-battle-for-ai-production-capacity-intensifies/",
+            "source": "finance.technews.tw",
+            "asOf": "2026-11-28",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-11-26",
-            "seenCount": 11
+            "lastSeen": "2026-11-28",
+            "seenCount": 12
           },
           {
             "key": "tech:2nm",
@@ -11629,13 +11791,13 @@
           {
             "key": "tech:CoWoS",
             "label": "CoWoS",
-            "headline": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
-            "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html",
-            "source": "digitimes.com",
-            "asOf": "2026-11-23",
+            "headline": "TSMC의 3nm와 CoWoS는 모두 빡빡하고 AI 생산 능력을 위한 경쟁이 가열되고 있습니다.",
+            "url": "https://finance.technews.tw/2026/11/28/the-battle-for-ai-production-capacity-intensifies/",
+            "source": "finance.technews.tw",
+            "asOf": "2026-11-28",
             "firstSeen": "2026-11-18",
-            "lastSeen": "2026-11-23",
-            "seenCount": 5
+            "lastSeen": "2026-11-28",
+            "seenCount": 6
           },
           {
             "key": "tech:Custom HBM",
@@ -11733,8 +11895,8 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "지속",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-11-26",
-          "evidenceCount": 11,
+          "lastSeen": "2026-11-28",
+          "evidenceCount": 12,
           "evidenceIds": [
             "0wd2d4f",
             "0o0ayvo",
@@ -11746,11 +11908,35 @@
             "0roiupr",
             "01jl2rz",
             "0r8jdnc",
-            "1312ti8"
+            "1312ti8",
+            "0i10fbo"
           ],
-          "evidence": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html"
+          "evidence": "TSMC의 3nm와 CoWoS는 모두 빡빡하고 AI 생산 능력을 위한 경쟁이 가열되고 있습니다.",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/11/28/the-battle-for-ai-production-capacity-intensifies/"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "지속",
+          "firstSeen": "2026-11-18",
+          "lastSeen": "2026-11-28",
+          "evidenceCount": 6,
+          "evidenceIds": [
+            "14nkqu2",
+            "1tz1p8c",
+            "17kbgdy",
+            "14jhoo6",
+            "1c9msl5",
+            "0i10fbo"
+          ],
+          "evidence": "TSMC의 3nm와 CoWoS는 모두 빡빡하고 AI 생산 능력을 위한 경쟁이 가열되고 있습니다.",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/11/28/the-battle-for-ai-production-capacity-intensifies/"
         },
         {
           "technology": "2nm",
@@ -11775,28 +11961,6 @@
           "evidence": "TSMC는 2nm 칩을 위해 226억 달러 규모의 텍사스 캠퍼스를 주목하고 있습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "지속",
-          "firstSeen": "2026-11-18",
-          "lastSeen": "2026-11-23",
-          "evidenceCount": 5,
-          "evidenceIds": [
-            "14nkqu2",
-            "1tz1p8c",
-            "17kbgdy",
-            "14jhoo6",
-            "1c9msl5"
-          ],
-          "evidence": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html"
         },
         {
           "technology": "Custom HBM",
@@ -11868,11 +12032,39 @@
           "executionGate": "공급 확실성 · 물량 약정",
           "stage": "SCALE",
           "evidence": {
-            "title": "SKHY, 마이크론 채용 확대로 TSMC 3nm 전문지식 확보",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261126VL224/sk-hynix-tsmc-micron-3nm-hbm.html",
-            "asOf": "2026-11-26",
-            "count": 11
+            "title": "TSMC의 3nm와 CoWoS는 모두 빡빡하고 AI 생산 능력을 위한 경쟁이 가열되고 있습니다.",
+            "source": "finance.technews.tw",
+            "url": "https://finance.technews.tw/2026/11/28/the-battle-for-ai-production-capacity-intensifies/",
+            "asOf": "2026-11-28",
+            "count": 12
+          }
+        },
+        {
+          "id": "tsmc:cowos:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "CoWoS · 지속",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "solution": "HBM · Package와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "HBM · Package"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Package Capacity · Ramp 일정",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "TSMC의 3nm와 CoWoS는 모두 빡빡하고 AI 생산 능력을 위한 경쟁이 가열되고 있습니다.",
+            "source": "finance.technews.tw",
+            "url": "https://finance.technews.tw/2026/11/28/the-battle-for-ai-production-capacity-intensifies/",
+            "asOf": "2026-11-28",
+            "count": 6
           }
         },
         {
@@ -11901,34 +12093,6 @@
             "url": "https://www.digitimes.com/news/a20261124VL226/tsmc-texas-arizona-investment-manufacturing.html",
             "asOf": "2026-11-24",
             "count": 7
-          }
-        },
-        {
-          "id": "tsmc:cowos:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "CoWoS · 지속",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "solution": "HBM · Package와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "HBM · Package"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "Package Capacity · Ramp 일정",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "서버 CPU가 TSMC CoWoS를 넘어서면서 ASE, SPIL은 2027년에 Amkor를 추월할 것입니다.",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261123PD215/packaging-spil-amkor-tsmc-ase.html",
-            "asOf": "2026-11-23",
-            "count": 5
           }
         },
         {
@@ -12056,6 +12220,13 @@
         "basis": "기준선"
       },
       "evidence": [
+        {
+          "title": "TSMC의 3nm와 CoWoS는 모두 빡빡하고 AI 생산 능력을 위한 경쟁이 가열되고 있음",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/11/28/the-battle-for-ai-production-capacity-intensifies",
+          "date": "2026-11-28"
+        },
         {
           "title": "\"DRAM 대부\" Kau, TSMC DRAM 소문을 거부하고 2년 내 CXMT의 10Fab 램프로 인한 과잉 위험 경고",
           "source": "TrendForce",
